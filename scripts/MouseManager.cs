@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MouseManager : Node3D
+public partial class MouseManager : Control
 {
 	private Camera3D _camera;
 	private bool _dragActive = false;
@@ -10,11 +10,14 @@ public partial class MouseManager : Node3D
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("../Camera/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D");
+
+		// Size = GetViewportRect().Size;
+		// SetAnchorsPreset(LayoutPreset.FullRect);
 	}
 
 	public override void _Process(double delta)
 	{
-
+		SetDragActive();
 	}
 
 	public override void _UnhandledInput(InputEvent inputEvent)
@@ -25,37 +28,39 @@ public partial class MouseManager : Node3D
 		if (Input.IsActionJustPressed("mb_primary"))
 		{
 			_dragStart = GetMouseWorldPosition(_camera);
-			if (_dragStart != Vector3.Zero)
-			{
-				_dragActive = true;
-				// GD.Print("Drag start: ", _dragStart);
-			}
+			_dragActive = true;
 		}
 
 		if (Input.IsActionJustReleased("mb_primary"))
 		{
-			_dragEnd = GetMouseWorldPosition(_camera);
-			if (_dragEnd != Vector3.Zero)
-			{
-				_dragActive = false;
-				// GD.Print("Drag end: ", _dragEnd);
-			}
+			_dragActive = false;
+			QueueRedraw(); // Triggers redraw to erase the rectangle
 		}
 	}
 
-	private void DrawDragSelectBox()
+	public override void _Draw()
 	{
-		// Vector2 viewportDragStart = _camera.UnprojectPosition(_dragStart);
-		// Vector2 viewportDragEnd = _camera.UnprojectPosition(_dragEnd);
+		if (!_dragActive)
+			return;
 
-		// if (_dragActive)
-		// {
-		// 	var rect = new Rect2(viewportDragStart, viewportDragEnd - viewportDragStart);
-		// 	// public override void _Draw() {
-		// 	// 	base._Draw();
-		// 	// }
+		Vector2 viewportDragStart = _camera.UnprojectPosition(_dragStart);
+		Vector2 viewportDragEnd = _camera.UnprojectPosition(_dragEnd);
 
-		// }
+		if (_dragActive)
+		{
+			var rect = new Rect2(viewportDragStart, viewportDragEnd - viewportDragStart).Abs();
+			DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: false);
+			DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
+		}
+	}
+
+	private void SetDragActive()
+	{
+		if (_dragActive && Input.IsActionPressed("mb_primary"))
+		{
+			_dragEnd = GetMouseWorldPosition(_camera);
+			QueueRedraw();
+		}
 	}
 
 	private Vector3 GetMouseWorldPosition(Camera3D cam)
