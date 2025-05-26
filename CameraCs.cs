@@ -68,22 +68,14 @@ public partial class CameraCs : Node3D
 		var scrollDirection = Vector3.Zero;
 
 		if (mousePos.X < EdgeSize)
-		{
 			scrollDirection.X = -1;
-		}
 		else if (mousePos.X > viewportSize.X - EdgeSize)
-		{
 			scrollDirection.X = 1;
-		}
 
 		if (mousePos.Y < EdgeSize)
-		{
 			scrollDirection.Z = -1;
-		}
 		else if (mousePos.Y > viewportSize.Y - EdgeSize)
-		{
 			scrollDirection.Z = 1;
-		}
 
 		_moveTarget += this.Transform.Basis * scrollDirection * PanSpeed;
 
