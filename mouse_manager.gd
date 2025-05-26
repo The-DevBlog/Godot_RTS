@@ -1,10 +1,10 @@
 extends Node3D
 
-@onready var cam = $"../Camera/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D"
+@onready var camera = $"../Camera/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D"
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		var ground_hit = get_mouse_ground_position(cam)
+		var ground_hit = get_mouse_ground_position(camera)
 		if ground_hit != Vector3.ZERO:
 			print("Hit ground at:", ground_hit)
 
