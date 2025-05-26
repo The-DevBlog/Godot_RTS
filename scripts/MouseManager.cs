@@ -14,6 +14,7 @@ public partial class MouseManager : Control
 
 	public override void _Process(double delta)
 	{
+		CountSelectedUnits();
 		SetDragActive();
 	}
 
@@ -33,6 +34,22 @@ public partial class MouseManager : Control
 		{
 			_dragActive = false;
 			QueueRedraw(); // Triggers redraw to erase the rectangle
+
+			// Selection logic
+			var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
+
+			foreach (Unit unit in GetTree().GetNodesInGroup("units"))
+			{
+				Vector3 unitWorldPos = unit.GlobalTransform.Origin;
+				Vector2 unitScreenPos = _camera.UnprojectPosition(unitWorldPos);
+
+				// The unit is within the selection box
+				if (rect.HasPoint(unitScreenPos))
+					unit.Selected = true;
+				else
+				{
+				}
+			}
 		}
 	}
 
@@ -49,6 +66,18 @@ public partial class MouseManager : Control
 		}
 	}
 
+	private void CountSelectedUnits()
+	{
+		int count = 0;
+		foreach (Unit unit in GetTree().GetNodesInGroup("units"))
+		{
+			if (unit.Selected)
+				count++;
+		}
+
+		GD.Print($"Selected units count: {count}");
+	}
+
 	private void SetDragActive()
 	{
 		if (_dragActive && Input.IsActionPressed("mb_primary"))
@@ -57,22 +86,4 @@ public partial class MouseManager : Control
 			QueueRedraw();
 		}
 	}
-
-	// private Vector3 GetMouseWorldPosition(Camera3D cam)
-	// {
-	// 	var mousePos = GetViewport().GetMousePosition();
-	// 	var from = cam.ProjectRayOrigin(mousePos);
-	// 	var to = from + cam.ProjectRayNormal(mousePos) * 1000;
-
-	// 	var spaceState = cam.GetWorld3D().DirectSpaceState;
-	// 	var query = PhysicsRayQueryParameters3D.Create(from, to);
-	// 	query.CollideWithAreas = false;
-	// 	query.CollideWithBodies = true;
-
-	// 	var result = spaceState.IntersectRay(query);
-	// 	if (result.Count > 0)
-	// 		return (Vector3)result["position"];
-
-	// 	return Vector3.Zero;
-	// }
 }
