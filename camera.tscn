@@ -1,17 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4t8pujatv061"]
 
-[ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Camera.cs" id="1_npc2i"]
+[ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://scripts/Camera.cs" id="1_npc2i"]
 
 [node name="Camera" type="Node3D"]
 script = ExtResource("1_npc2i")
-PanSpeed = null
-RotateSpeed = null
-ZoomSpeed = null
-Smoothness = null
-MinZoom = null
-MaxZoom = null
-MouseSensitivity = null
-EdgeSize = null
 metadata/_edit_group_ = true
 
 [node name="CameraPosition" type="Node3D" parent="."]

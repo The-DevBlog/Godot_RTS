@@ -26,7 +26,6 @@ public partial class Camera : Node3D
 	private float _rotateKeysTarget = 0.0f;
 	private float _zoomTarget = 0.0f;
 
-
 	public override void _Ready()
 	{
 		_rotationX = GetNode<Node3D>("CameraPosition/CameraRotationX");
