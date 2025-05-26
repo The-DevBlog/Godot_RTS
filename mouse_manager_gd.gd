@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var camera = $"../Camera/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D"
+@onready var camera = $"../CameraCs/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D"
 
 var drag_active: bool = false
 

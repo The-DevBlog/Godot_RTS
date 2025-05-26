@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://hk5oalaudnha" path="res://cube.tscn" id="2_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://dptldc23injty" path="res://camera.tscn" id="2_tlwt5"]
 [ext_resource type="Script" uid="uid://br4r3xcofpaty" path="res://MouseManagerCs.cs" id="3_aqk2v"]
 [ext_resource type="Script" uid="uid://bhylqjnd6v2hl" path="res://mouse_manager_gd.gd" id="3_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://camera_cs.tscn" id="4_aqk2v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
 size = Vector3(20, 0.5, 20)
@@ -32,10 +32,10 @@ transform = Transform3D(0.975741, 0, -0.218927, 0, 1, 0, 0.218927, 0, 0.975741, 
 [node name="Cube2" parent="." instance=ExtResource("2_fj7yv")]
 transform = Transform3D(0.913801, 0, 0.406163, 0, 1, 0, -0.406163, 0, 0.913801, 1.55592, 0.937304, 0)
 
-[node name="Camera" parent="." instance=ExtResource("2_tlwt5")]
-
 [node name="MouseManagerCs" type="Node3D" parent="."]
 script = ExtResource("3_aqk2v")
 
 [node name="MouseManagerGd" type="Node3D" parent="."]
 script = ExtResource("3_tlwt5")
+
+[node name="CameraCs" parent="." instance=ExtResource("4_aqk2v")]
