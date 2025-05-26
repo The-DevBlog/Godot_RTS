@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class CameraCs : Node3D
+public partial class Camera : Node3D
 {
 	[Export]
 	public float PanSpeed = 0.2f;

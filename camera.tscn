@@ -1,12 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://dptldc23injty"]
+[gd_scene load_steps=2 format=3 uid="uid://b4t8pujatv061"]
 
-[ext_resource type="Script" uid="uid://c7m7upf5qldmj" path="res://camera.gd" id="1_u5kg4"]
+[ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Camera.cs" id="1_npc2i"]
 
 [node name="Camera" type="Node3D"]
-script = ExtResource("1_u5kg4")
+script = ExtResource("1_npc2i")
+PanSpeed = null
+RotateSpeed = null
+ZoomSpeed = null
+Smoothness = null
+MinZoom = null
+MaxZoom = null
+MouseSensitivity = null
+EdgeSize = null
+metadata/_edit_group_ = true
 
 [node name="CameraPosition" type="Node3D" parent="."]
-metadata/_edit_group_ = true
 
 [node name="CameraRotationX" type="Node3D" parent="CameraPosition"]
 

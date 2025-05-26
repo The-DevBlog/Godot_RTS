@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MouseManagerCs : Node3D
+public partial class MouseManager : Node3D
 {
 	private Camera3D camera;
 
@@ -8,7 +8,7 @@ public partial class MouseManagerCs : Node3D
 
 	public override void _Ready()
 	{
-		camera = GetNode<Camera3D>("../CameraCs/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D");
+		camera = GetNode<Camera3D>("../Camera/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D");
 	}
 
 	public override void _UnhandledInput(InputEvent inputEvent)
@@ -22,7 +22,7 @@ public partial class MouseManagerCs : Node3D
 			if (dragStart != Vector3.Zero)
 			{
 				_dragActive = true;
-				GD.Print("CS Drag start: ", dragStart);
+				GD.Print("Drag start: ", dragStart);
 			}
 		}
 
@@ -32,7 +32,7 @@ public partial class MouseManagerCs : Node3D
 			if (dragEnd != Vector3.Zero)
 			{
 				_dragActive = false;
-				GD.Print("CS Drag end: ", dragEnd);
+				GD.Print("Drag end: ", dragEnd);
 			}
 		}
 	}
