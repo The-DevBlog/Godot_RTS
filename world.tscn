@@ -34,4 +34,3 @@ transform = Transform3D(0.975741, 0, -0.218927, 0, 1, 0, 0.218927, 0, 0.975741, 
 transform = Transform3D(0.913801, 0, 0.406163, 0, 1, 0, -0.406163, 0, 0.913801, 1.55592, 0.937304, 0)
 
 [node name="Camera" parent="." instance=ExtResource("2_tlwt5")]
-pan_speed = 0.2
