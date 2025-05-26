@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://c7m7upf5qldmj" path="res://camera.gd" id="1_u5kg4"]
 
 [node name="Camera" type="Node3D"]
+script = ExtResource("1_u5kg4")
 
 [node name="CameraPosition" type="Node3D" parent="."]
-script = ExtResource("1_u5kg4")
 metadata/_edit_group_ = true
 
 [node name="CameraRotationX" type="Node3D" parent="CameraPosition"]

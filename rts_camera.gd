@@ -1,12 +1,12 @@
 extends Node3D
 
 #onready
-@onready var rotation_x = $CameraPosition/CameraRotationX
-@onready var zoom_pivot = $CameraPosition/CameraRotationX/CameraZoomPivot
-@onready var camera = $CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D
+@onready var rotation_x = $CameraRotationX
+@onready var zoom_pivot = $CameraRotationX/CameraZoomPivot
+@onready var camera = $CameraRotationX/CameraZoomPivot/Camera3D
 
 # properties
-@export var pan_speed = 0.4
+@export var pan_speed = 0.2
 @export var rotate_speed = 1.2
 @export var zoom_speed = 2.0
 @export_range(0.01, 0.4) var smoothness: float = 0.1
