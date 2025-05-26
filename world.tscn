@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=7 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://hk5oalaudnha" path="res://cube.tscn" id="2_fj7yv"]
 [ext_resource type="Script" uid="uid://br4r3xcofpaty" path="res://scripts/MouseManager.cs" id="3_aqk2v"]
+[ext_resource type="Script" uid="uid://4mdxbsvgtcfb" path="res://MouseManager2.cs" id="4_036b0"]
 [ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://camera.tscn" id="4_aqk2v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
@@ -35,3 +36,10 @@ transform = Transform3D(0.913801, 0, 0.406163, 0, 1, 0, -0.406163, 0, 0.913801, 
 script = ExtResource("3_aqk2v")
 
 [node name="Camera" parent="." instance=ExtResource("4_aqk2v")]
+
+[node name="MouseManager2" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_036b0")
