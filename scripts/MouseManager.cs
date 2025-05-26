@@ -4,15 +4,12 @@ public partial class MouseManager : Control
 {
 	private Camera3D _camera;
 	private bool _dragActive = false;
-	private Vector3 _dragStart = Vector3.Zero;
-	private Vector3 _dragEnd = Vector3.Zero;
+	private Vector2 _dragStart = Vector2.Zero;
+	private Vector2 _dragEnd = Vector2.Zero;
 
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("../Camera/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D");
-
-		// Size = GetViewportRect().Size;
-		// SetAnchorsPreset(LayoutPreset.FullRect);
 	}
 
 	public override void _Process(double delta)
@@ -27,7 +24,8 @@ public partial class MouseManager : Control
 
 		if (Input.IsActionJustPressed("mb_primary"))
 		{
-			_dragStart = GetMouseWorldPosition(_camera);
+			_dragStart = GetViewport().GetMousePosition();
+			_dragEnd = _dragStart; // Initialize end point to start point
 			_dragActive = true;
 		}
 
@@ -43,12 +41,9 @@ public partial class MouseManager : Control
 		if (!_dragActive)
 			return;
 
-		Vector2 viewportDragStart = _camera.UnprojectPosition(_dragStart);
-		Vector2 viewportDragEnd = _camera.UnprojectPosition(_dragEnd);
-
 		if (_dragActive)
 		{
-			var rect = new Rect2(viewportDragStart, viewportDragEnd - viewportDragStart).Abs();
+			var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
 			DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: false);
 			DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
 		}
@@ -58,26 +53,26 @@ public partial class MouseManager : Control
 	{
 		if (_dragActive && Input.IsActionPressed("mb_primary"))
 		{
-			_dragEnd = GetMouseWorldPosition(_camera);
+			_dragEnd = GetViewport().GetMousePosition();
 			QueueRedraw();
 		}
 	}
 
-	private Vector3 GetMouseWorldPosition(Camera3D cam)
-	{
-		var mousePos = GetViewport().GetMousePosition();
-		var from = cam.ProjectRayOrigin(mousePos);
-		var to = from + cam.ProjectRayNormal(mousePos) * 1000;
+	// private Vector3 GetMouseWorldPosition(Camera3D cam)
+	// {
+	// 	var mousePos = GetViewport().GetMousePosition();
+	// 	var from = cam.ProjectRayOrigin(mousePos);
+	// 	var to = from + cam.ProjectRayNormal(mousePos) * 1000;
 
-		var spaceState = cam.GetWorld3D().DirectSpaceState;
-		var query = PhysicsRayQueryParameters3D.Create(from, to);
-		query.CollideWithAreas = false;
-		query.CollideWithBodies = true;
+	// 	var spaceState = cam.GetWorld3D().DirectSpaceState;
+	// 	var query = PhysicsRayQueryParameters3D.Create(from, to);
+	// 	query.CollideWithAreas = false;
+	// 	query.CollideWithBodies = true;
 
-		var result = spaceState.IntersectRay(query);
-		if (result.Count > 0)
-			return (Vector3)result["position"];
+	// 	var result = spaceState.IntersectRay(query);
+	// 	if (result.Count > 0)
+	// 		return (Vector3)result["position"];
 
-		return Vector3.Zero;
-	}
+	// 	return Vector3.Zero;
+	// }
 }
