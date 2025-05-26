@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=5 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://c7m7upf5qldmj" path="res://rts_camera.gd" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://hk5oalaudnha" path="res://cube.tscn" id="2_fj7yv"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
-size = Vector3(10, 0.5, 10)
+size = Vector3(20, 0.5, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tlwt5"]
-size = Vector3(10, 0.5, 10)
+size = Vector3(20, 0.5, 20)
 
 [node name="World" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -33,3 +35,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, -1.92
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
+
+[node name="Cube" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(0.975741, 0, -0.218927, 0, 1, 0, 0.218927, 0, 0.975741, 0, 0.937304, 0)
+
+[node name="Cube2" parent="." instance=ExtResource("2_fj7yv")]
+transform = Transform3D(0.913801, 0, 0.406163, 0, 1, 0, -0.406163, 0, 0.913801, 1.55592, 0.937304, 0)

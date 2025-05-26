@@ -5,18 +5,20 @@ extends Node3D
 @onready var zoom_pivot = $CameraRotationX/CameraZoomPivot
 @onready var camera = $CameraRotationX/CameraZoomPivot/Camera3D
 
-#variables
-var move_speed = 0.6
+# properties
+@export var pan_speed = 0.4
+@export var rotate_speed = 1.2
+@export var zoom_speed = 2.0
+@export_range(0.01, 0.4) var smoothness: float = 0.1
+@export var min_zoom = -5.0
+@export var max_zoom = 20.0
+@export var mouse_sensitivity = 0.2
+@export var edge_size = 3.0
+
+# variables
 var move_target: Vector3
-var rotate_keys_speed = 1.5
 var rotate_keys_target: float
-var zoom_speed = 3.0
 var zoom_target: float
-var min_zoom = -20.0
-var max_zoom = 20.0
-var mouse_sensitivity = 0.2
-var edge_size = 5.0
-var edge_scroll_speed = 0.6
 
 func _ready() -> void:
 	move_target = position
@@ -53,7 +55,7 @@ func _process(_delta: float) -> void:
 	elif mouse_pos.y > viewport_size.y - edge_size:
 		scroll_direction.z = 1
 
-	move_target += transform.basis * scroll_direction * edge_scroll_speed
+	move_target += transform.basis * scroll_direction * pan_speed
 
 	# get input direction
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -62,12 +64,15 @@ func _process(_delta: float) -> void:
 	var zoom_direction = (int(Input.is_action_just_released("camera_zoom_out")) -
 						  int(Input.is_action_just_released("camera_zoom_in")))
 
+	# clamp zoom
+	zoom_target = clamp(zoom_target + zoom_direction * zoom_speed, min_zoom, max_zoom)
+
 	# set movement target
-	move_target += movement_direction * move_speed;
-	rotate_keys_target += rotate_keys * rotate_keys_speed
-	zoom_target += zoom_direction * zoom_speed;
+	move_target += movement_direction * pan_speed;
+	rotate_keys_target += rotate_keys * rotate_speed
+	# zoom_target += zoom_direction * zoom_speed;
 	
 	# lerp to new position 
-	position = lerp(position, move_target, 0.05)
-	rotation_degrees.y = lerp(rotation_degrees.y, rotate_keys_target, 0.05)
+	position = lerp(position, move_target, smoothness)
+	rotation_degrees.y = lerp(rotation_degrees.y, rotate_keys_target, smoothness)
 	camera.position.z = lerp(camera.position.z, zoom_target, 0.1)
