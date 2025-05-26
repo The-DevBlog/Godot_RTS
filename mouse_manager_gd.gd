@@ -11,12 +11,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("mb_primary"):
 		var drag_start = get_mouse_world_position(camera)
 		if drag_start != Vector3.ZERO:
-			print("Drag start: ", drag_start)
+			print("GD Drag start: ", drag_start)
 
 	if Input.is_action_just_released("mb_primary"):
 		var drag_end = get_mouse_world_position(camera)
 		if drag_end != Vector3.ZERO:
-			print("Drag end: ", drag_end)
+			print("GD Drag end: ", drag_end)
 
 func get_mouse_world_position(cam: Camera3D) -> Vector3:
 	var mouse_pos = get_viewport().get_mouse_position()
