@@ -64,13 +64,10 @@ func _process(_delta: float) -> void:
 	var zoom_direction = (int(Input.is_action_just_released("camera_zoom_out")) -
 						  int(Input.is_action_just_released("camera_zoom_in")))
 
-	# clamp zoom
-	zoom_target = clamp(zoom_target + zoom_direction * zoom_speed, min_zoom, max_zoom)
-
 	# set movement target
 	move_target += movement_direction * pan_speed;
 	rotate_keys_target += rotate_keys * rotate_speed
-	# zoom_target += zoom_direction * zoom_speed;
+	zoom_target = clamp(zoom_target + zoom_direction * zoom_speed, min_zoom, max_zoom)
 	
 	# lerp to new position 
 	position = lerp(position, move_target, smoothness)
