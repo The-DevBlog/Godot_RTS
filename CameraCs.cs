@@ -91,8 +91,7 @@ public partial class CameraCs : Node3D
 		var inputDirection = Input.GetVector("left", "right", "up", "down");
 		var movementDirection = _rotationX.GlobalTransform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
 		var rotateKeys = Input.GetAxis("rotate_left", "rotate_right");
-		int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0) -
-					(Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
+		int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0) - (Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
 
 		// Set movement target
 		_moveTarget += movementDirection * PanSpeed;
