@@ -2,13 +2,23 @@ extends Node3D
 
 @onready var camera = $"../Camera/CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D"
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-		var ground_hit = get_mouse_ground_position(camera)
-		if ground_hit != Vector3.ZERO:
-			print("Hit ground at:", ground_hit)
+var drag_active: bool = false
 
-func get_mouse_ground_position(cam: Camera3D) -> Vector3:
+func _unhandled_input(event: InputEvent) -> void:
+	if event is not InputEventMouseButton:
+		return
+
+	if Input.is_action_just_pressed("mb_primary"):
+		var drag_start = get_mouse_world_position(camera)
+		if drag_start != Vector3.ZERO:
+			print("Drag start: ", drag_start)
+
+	if Input.is_action_just_released("mb_primary"):
+		var drag_end = get_mouse_world_position(camera)
+		if drag_end != Vector3.ZERO:
+			print("Drag end: ", drag_end)
+
+func get_mouse_world_position(cam: Camera3D) -> Vector3:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var from = cam.project_ray_origin(mouse_pos)
 	var to = from + cam.project_ray_normal(mouse_pos) * 1000.0
