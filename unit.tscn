@@ -1,16 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://hk5oalaudnha"]
+[gd_scene load_steps=6 format=3 uid="uid://hk5oalaudnha"]
 
 [ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://scripts/Unit.cs" id="1_jbd7x"]
+[ext_resource type="Material" uid="uid://bi3o0ty7futm1" path="res://materials/Unit.tres" id="2_ctwoc"]
+[ext_resource type="Material" uid="uid://by6u3ci5mt1g8" path="res://materials/SelectedUnit.tres" id="3_davkp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xc3wn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_btf8p"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctwoc"]
-albedo_color = Color(0, 0.551895, 0.955534, 1)
-
 [node name="Unit" type="Node3D" groups=["units"]]
 script = ExtResource("1_jbd7x")
+UnselectedMaterial = ExtResource("2_ctwoc")
+SelectedMaterial = ExtResource("3_davkp")
 metadata/selected = false
 metadata/_edit_group_ = true
 
@@ -21,4 +22,4 @@ shape = SubResource("BoxShape3D_xc3wn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 mesh = SubResource("BoxMesh_btf8p")
-surface_material_override/0 = SubResource("StandardMaterial3D_ctwoc")
+surface_material_override/0 = ExtResource("2_ctwoc")
