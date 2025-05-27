@@ -22,7 +22,7 @@ public partial class Mouse : Control
 		if (inputEvent is not InputEventMouseButton mouseEvent)
 			return;
 
-		if (mouseEvent.IssPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
+		if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
 		{
 			_dragStart = GetViewport().GetMousePosition();
 			_dragEnd = _dragStart;
