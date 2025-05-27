@@ -78,11 +78,7 @@ public partial class Mouse : Control
 		var picked = new List<Unit>();
 		foreach (Unit unit in GetTree().GetNodesInGroup("units"))
 		{
-			var worldPos = unit.GlobalTransform.Origin;
-			if (_camera.IsPositionBehind(worldPos))
-				continue;
-
-			var screenPoint = _camera.UnprojectPosition(worldPos);
+			var screenPoint = _camera.UnprojectPosition(unit.GlobalPosition);
 
 			if (selRect.HasPoint(screenPoint))
 				picked.Add(unit);
