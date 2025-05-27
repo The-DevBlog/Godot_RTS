@@ -40,6 +40,8 @@ public partial class Mouse : Control
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
 	}
 
+	// Updates the drag state based on mouse input.
+	// Updates the start and end positions of the drag rectangle while dragging.
 	private void UpdateDragState(InputEvent inputEvent)
 	{
 		if (inputEvent is not InputEventMouseButton mouseEvent)
