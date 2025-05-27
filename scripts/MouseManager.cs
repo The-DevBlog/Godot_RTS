@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 
 public partial class MouseManager : Control
@@ -44,11 +45,7 @@ public partial class MouseManager : Control
 				Vector2 unitScreenPos = _camera.UnprojectPosition(unitWorldPos);
 
 				// The unit is within the selection box
-				if (rect.HasPoint(unitScreenPos))
-					unit.Selected = true;
-				else
-				{
-				}
+				unit.Selected = rect.HasPoint(unitScreenPos);
 			}
 		}
 	}
@@ -58,12 +55,9 @@ public partial class MouseManager : Control
 		if (!_dragActive)
 			return;
 
-		if (_dragActive)
-		{
-			var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
-			DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: false);
-			DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
-		}
+		var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
+		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: false);
+		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
 	}
 
 	private void CountSelectedUnits()

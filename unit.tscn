@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://hk5oalaudnha"]
+[gd_scene load_steps=5 format=3 uid="uid://hk5oalaudnha"]
 
 [ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://scripts/Unit.cs" id="1_jbd7x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xc3wn"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_jbd7x"]
+[sub_resource type="BoxMesh" id="BoxMesh_btf8p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ctwoc"]
+albedo_color = Color(0, 0.551895, 0.955534, 1)
 
 [node name="Unit" type="Node3D" groups=["units"]]
 script = ExtResource("1_jbd7x")
@@ -17,4 +20,5 @@ metadata/_edit_group_ = true
 shape = SubResource("BoxShape3D_xc3wn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
-mesh = SubResource("BoxMesh_jbd7x")
+mesh = SubResource("BoxMesh_btf8p")
+surface_material_override/0 = SubResource("StandardMaterial3D_ctwoc")
