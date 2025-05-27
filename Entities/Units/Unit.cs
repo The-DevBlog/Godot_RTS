@@ -4,8 +4,6 @@ public partial class Unit : Node3D
 {
 	private MeshInstance3D _meshInstance3D;
 	private bool _selected = false;
-	[Export] public Material UnselectedMaterial;
-	[Export] public Material SelectedMaterial;
 	public bool Selected
 	{
 		get => _selected;
@@ -24,12 +22,11 @@ public partial class Unit : Node3D
 		_meshInstance3D = GetNode<MeshInstance3D>("RigidBody3D/MeshInstance3D");
 	}
 
-
 	private void OnSelectionChanged()
 	{
 		if (_selected)
-			_meshInstance3D.SetSurfaceOverrideMaterial(0, SelectedMaterial);
+			_meshInstance3D.MaterialOverride = Materials.Instance.Selected;
 		else
-			_meshInstance3D.SetSurfaceOverrideMaterial(0, UnselectedMaterial);
+			_meshInstance3D.MaterialOverride = Materials.Instance.Unselected;
 	}
 }

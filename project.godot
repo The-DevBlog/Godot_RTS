@@ -12,7 +12,10 @@ config_version=5
 
 config/name="Godot_RTS"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+
+[autoload]
+
+MaterialsManager="*res://Assets/Materials.cs"
 
 [dotnet]
 

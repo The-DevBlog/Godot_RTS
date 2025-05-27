@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class MouseManager : Control
+public partial class Mouse : Control
 {
 	private Camera3D _camera;
 	private bool _dragActive = false;
@@ -22,7 +22,7 @@ public partial class MouseManager : Control
 		if (inputEvent is not InputEventMouseButton mouseEvent)
 			return;
 
-		if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
+		if (mouseEvent.IssPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
 		{
 			_dragStart = GetViewport().GetMousePosition();
 			_dragEnd = _dragStart;
