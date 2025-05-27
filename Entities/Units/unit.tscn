@@ -19,6 +19,6 @@ metadata/_edit_group_ = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("BoxShape3D_xc3wn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" groups=["units"]]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
 mesh = SubResource("BoxMesh_btf8p")
 surface_material_override/0 = SubResource("StandardMaterial3D_davkp")

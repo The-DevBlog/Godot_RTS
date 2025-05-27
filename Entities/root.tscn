@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=6 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://hk5oalaudnha" path="res://Entities/Units/unit.tscn" id="1_b2dbv"]
 [ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://Entities/Camera/camera.tscn" id="2_q101i"]
@@ -9,23 +9,6 @@ size = Vector3(20, 0.5, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tlwt5"]
 size = Vector3(100, 0.5, 100)
-
-[sub_resource type="CSharpScript" id="CSharpScript_tlwt5"]
-script/source = "using Godot;
-
-public partial class MaterialManager : Node3D
-{
-
-	public StandardMaterial3D Selected { get; set; }
-	public StandardMaterial3D Unselected { get; set; }
-
-	public override void _Ready()
-	{
-		Selected = GD.Load<StandardMaterial3D>(\"res://materials/Selected.tres\");
-		Unselected = GD.Load<StandardMaterial3D>(\"res://materials/Unselected.tres\");
-	}
-}
-"
 
 [node name="World" type="Node3D"]
 
@@ -59,6 +42,3 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("3_or46v")
-
-[node name="MaterialManager" type="Node3D" parent="."]
-script = SubResource("CSharpScript_tlwt5")
