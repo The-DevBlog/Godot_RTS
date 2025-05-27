@@ -16,16 +16,31 @@ public partial class Mouse : Control
 
 	public override void _Process(double delta)
 	{
-		SetDragActive();
-
 		if (_dragActive)
 		{
+			SetDragEndPosition();
+
 			var selectedUnits = GetUnitsInSelection();
 			MarkSelectedUnits(selectedUnits);
 		}
 	}
 
 	public override void _UnhandledInput(InputEvent inputEvent)
+	{
+		UpdateDragState(inputEvent);
+	}
+
+	public override void _Draw()
+	{
+		if (!_dragActive)
+			return;
+
+		var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
+		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: true);
+		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
+	}
+
+	private void UpdateDragState(InputEvent inputEvent)
 	{
 		if (inputEvent is not InputEventMouseButton mouseEvent)
 			return;
@@ -44,16 +59,16 @@ public partial class Mouse : Control
 		}
 	}
 
-	public override void _Draw()
+	private void SetDragEndPosition()
 	{
-		if (!_dragActive)
-			return;
-
-		var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
-		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: true);
-		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
+		if (Input.IsActionPressed("mb_primary"))
+		{
+			_dragEnd = GetViewport().GetMousePosition();
+			QueueRedraw();
+		}
 	}
 
+	// Returns a list of units that are within the selection rectangle.
 	private List<Unit> GetUnitsInSelection()
 	{
 		var selRect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
@@ -74,6 +89,8 @@ public partial class Mouse : Control
 		return picked;
 	}
 
+	// Marks units as selected or unselected.
+	// The _prevSelectedUnits set is used to track the previous state of selection. (more efficient than looping through all units)
 	private void MarkSelectedUnits(List<Unit> units)
 	{
 		var selectedUnits = new HashSet<Unit>(units);
@@ -91,14 +108,5 @@ public partial class Mouse : Control
 		}
 
 		_prevSelectedUnits = selectedUnits;
-	}
-
-	private void SetDragActive()
-	{
-		if (_dragActive && Input.IsActionPressed("mb_primary"))
-		{
-			_dragEnd = GetViewport().GetMousePosition();
-			QueueRedraw();
-		}
 	}
 }
