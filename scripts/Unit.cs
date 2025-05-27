@@ -29,8 +29,6 @@ public partial class Unit : Node3D
 
 	private void OnSelectionChanged()
 	{
-		GD.Print("Changing color");
-
 		if (_selected)
 			_meshInstance3D.SetSurfaceOverrideMaterial(0, SelectedMaterial);
 		else
