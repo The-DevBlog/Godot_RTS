@@ -61,6 +61,7 @@ public partial class Camera : Node3D
 		{
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
+
 		// Edge scroll
 		var mousePos = GetViewport().GetMousePosition();
 		var viewportSize = GetViewport().GetVisibleRect().Size;
