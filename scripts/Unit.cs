@@ -3,8 +3,6 @@ using Godot;
 public partial class Unit : Node3D
 {
 	private MeshInstance3D _meshInstance3D;
-	private Color _normalColor = new Color(0.0f, 0.65f, 0.2f, 1.0f);
-	private Color _selectedColor = new Color(0.0f, 0.55f, 0.6f, 1.0f);
 	private bool _selected = false;
 	[Export] public Material UnselectedMaterial;
 	[Export] public Material SelectedMaterial;
