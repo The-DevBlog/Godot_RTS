@@ -12,7 +12,7 @@ size = Vector3(100, 0.5, 100)
 [node name="World" type="Node3D"]
 
 [node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+transform = Transform3D(1.00056, 0, 0, 0, 1.00056, 0, 0, 0, 1.00056, 0, 0.2, 0)
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
@@ -24,13 +24,15 @@ shape = SubResource("BoxShape3D_tlwt5")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
 
-[node name="Unit" parent="." instance=ExtResource("1_b2dbv")]
+[node name="Camera" parent="." instance=ExtResource("2_q101i")]
+
+[node name="Units" type="Node3D" parent="."]
+
+[node name="Unit" parent="Units" instance=ExtResource("1_b2dbv")]
 transform = Transform3D(0.975741, 0, -0.218927, 0, 1, 0, 0.218927, 0, 0.975741, 0, 0.937304, 0)
 
-[node name="Unit3" parent="." instance=ExtResource("1_b2dbv")]
+[node name="Unit3" parent="Units" instance=ExtResource("1_b2dbv")]
 transform = Transform3D(0.806202, 0.56331, -0.180888, -0.549644, 0.826246, 0.123324, 0.218927, 0, 0.975741, 0, 14.0439, 0)
 
-[node name="Unit2" parent="." instance=ExtResource("1_b2dbv")]
+[node name="Unit2" parent="Units" instance=ExtResource("1_b2dbv")]
 transform = Transform3D(0.913801, 0, 0.406163, 0, 1, 0, -0.406163, 0, 0.913801, 1.55592, 0.937304, 0)
-
-[node name="Camera" parent="." instance=ExtResource("2_q101i")]
