@@ -22,5 +22,8 @@ mesh = SubResource("BoxMesh_btf8p")
 surface_material_override/0 = SubResource("StandardMaterial3D_davkp")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
+transform = Transform3D(0.759, 0, 0, 0, 0.759, 0, 0, 0, 0.759, 0, 0, 0)
+visible = false
 billboard = 1
+no_depth_test = true
 texture = ExtResource("2_bl5ya")
