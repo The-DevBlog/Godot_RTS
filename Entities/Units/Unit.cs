@@ -25,8 +25,8 @@ public partial class Unit : Node3D
 	private void OnSelectionChanged()
 	{
 		if (_selected)
-			_meshInstance3D.MaterialOverride = Materials.Instance.Selected;
+			_meshInstance3D.MaterialOverride = AssetServer.Instance.Materials.Selected;
 		else
-			_meshInstance3D.MaterialOverride = Materials.Instance.Unselected;
+			_meshInstance3D.MaterialOverride = AssetServer.Instance.Materials.Unselected;
 	}
 }
