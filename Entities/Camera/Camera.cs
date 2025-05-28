@@ -42,11 +42,6 @@ public partial class Camera : Node3D
 		if (@event is InputEventMouseMotion motionEvent && Input.IsActionPressed("rotate"))
 		{
 			_rotateKeysTarget -= (float)(motionEvent.Relative.X * MouseSensitivity);
-
-			Vector3 rot = _rotationX.RotationDegrees;
-			rot.X -= (float)(motionEvent.Relative.Y * MouseSensitivity);
-			rot.X = Mathf.Clamp(rot.X, -10f, 30f);
-			_rotationX.RotationDegrees = rot;
 		}
 	}
 
