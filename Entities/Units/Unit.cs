@@ -22,6 +22,7 @@ public partial class Unit : Node3D
 	{
 		_meshInstance3D = GetNode<MeshInstance3D>("MeshInstance3D");
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
+		_selectBorder.Visible = false;
 	}
 
 	// Updates the materials based on the selection state.
