@@ -2,7 +2,6 @@ using Godot;
 
 public partial class Unit : Node3D
 {
-	private MeshInstance3D _meshInstance3D;
 	private Sprite3D _selectBorder;
 	private bool _selected = false;
 	public bool Selected
@@ -20,7 +19,6 @@ public partial class Unit : Node3D
 
 	public override void _Ready()
 	{
-		_meshInstance3D = GetNode<MeshInstance3D>("MeshInstance3D");
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 	}
