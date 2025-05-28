@@ -30,20 +30,28 @@ public partial class Camera : Node3D
 	public override void _UnhandledInput(InputEvent @event)
 	{
 		if (@event is InputEventMouseMotion motionEvent && Input.IsActionPressed("rotate"))
-		{
 			_rotateKeysTarget -= (float)(motionEvent.Relative.X * MouseSensitivity);
-		}
 	}
 
 	public override void _Process(double delta)
+	{
+		HideMouseIfRotating();
+		MouseEdgeScroll();
+		KeyboardScroll();
+		UpdateCameraPosition();
+	}
+
+	private void HideMouseIfRotating()
 	{
 		if (Input.IsActionJustPressed("rotate"))
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 
 		if (Input.IsActionJustReleased("rotate"))
 			Input.MouseMode = Input.MouseModeEnum.Visible;
+	}
 
-		// Edge scroll
+	private void MouseEdgeScroll()
+	{
 		Vector2 mousePos = GetViewport().GetMousePosition();
 		Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
 		Vector3 scrollDirection = Vector3.Zero;
@@ -59,8 +67,10 @@ public partial class Camera : Node3D
 			scrollDirection.Z = 1;
 
 		_moveTarget += Transform.Basis * scrollDirection * PanSpeed;
+	}
 
-		// Keyboard movement and rotation
+	private void KeyboardScroll()
+	{
 		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
 		Vector3 movementDirection = Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
 
@@ -70,7 +80,10 @@ public partial class Camera : Node3D
 		_moveTarget += movementDirection * PanSpeed;
 		_rotateKeysTarget += rotateKeys * RotateSpeed;
 		_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
+	}
 
+	private void UpdateCameraPosition()
+	{
 		// Smoothly move, rotate, and zoom
 		Position = Position.Lerp(_moveTarget, Smoothness);
 
