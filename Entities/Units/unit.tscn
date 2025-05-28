@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://hk5oalaudnha"]
+[gd_scene load_steps=6 format=3 uid="uid://hk5oalaudnha"]
 
 [ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Entities/Units/Unit.cs" id="1_jbd7x"]
+[ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_bl5ya"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xc3wn"]
 
@@ -19,3 +20,8 @@ shape = SubResource("BoxShape3D_xc3wn")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_btf8p")
 surface_material_override/0 = SubResource("StandardMaterial3D_davkp")
+
+[node name="SelectBorder" type="Sprite3D" parent="."]
+visible = false
+billboard = 1
+texture = ExtResource("2_bl5ya")

@@ -3,6 +3,7 @@ using Godot;
 public partial class Unit : Node3D
 {
 	private MeshInstance3D _meshInstance3D;
+	private Sprite3D _selectBorder;
 	private bool _selected = false;
 	public bool Selected
 	{
@@ -13,20 +14,19 @@ public partial class Unit : Node3D
 				return;
 
 			_selected = value;
-			OnSelectionChanged();
+			UpdateMaterial();
 		}
 	}
 
 	public override void _Ready()
 	{
 		_meshInstance3D = GetNode<MeshInstance3D>("MeshInstance3D");
+		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 	}
 
-	private void OnSelectionChanged()
+	// Updates the materials based on the selection state.
+	private void UpdateMaterial()
 	{
-		if (_selected)
-			_meshInstance3D.MaterialOverride = AssetServer.Instance.Materials.Selected;
-		else
-			_meshInstance3D.MaterialOverride = AssetServer.Instance.Materials.Unselected;
+		_selectBorder.Visible = _selected;
 	}
 }
