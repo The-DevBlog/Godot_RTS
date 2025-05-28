@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnk0x7l6d7sjt"]
+
+[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Entities/Units/Unit.cs" id="1_ebj34"]
+[ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_a2hf6"]
+[ext_resource type="PackedScene" uid="uid://buxx3yidow5ae" path="res://Assets/Models/Units/Artillery/Artillery.gltf" id="3_ebj34"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_46sye"]
+size = Vector3(1.365, 1.13, 3.195)
+
+[node name="Artillery" type="RigidBody3D" groups=["units"]]
+script = ExtResource("1_ebj34")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0274105, 0.565131, -0.10488)
+shape = SubResource("BoxShape3D_46sye")
+
+[node name="Artillery" parent="." instance=ExtResource("3_ebj34")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.17817, 0)
+
+[node name="SelectBorder" type="Sprite3D" parent="."]
+transform = Transform3D(1.07393, 0, 0, 0, 0.922693, 0, 0, 0, 1.94258, 0, 0.77931, 0)
+billboard = 1
+no_depth_test = true
+texture = ExtResource("3_a2hf6")

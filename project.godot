@@ -15,7 +15,6 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
 [autoload]
 
-MaterialsManager="*res://Assets/Materials.cs"
 MouseManager="*res://Utils/MouseManager.cs"
 AssetServer="*res://Assets/AssetServer.cs"
 

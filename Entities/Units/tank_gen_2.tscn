@@ -1,26 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnk0x7l6d7sjt"]
+[gd_scene load_steps=5 format=3 uid="uid://bsqwqnw4t18r4"]
 
-[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Entities/Units/Unit.cs" id="1_ebj34"]
-[ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_a2hf6"]
-[ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="3_ebj34"]
+[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Entities/Units/Unit.cs" id="1_wc2c5"]
+[ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
+[ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_r3h8b"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_46sye"]
 size = Vector3(1.63, 0.795, 2.58)
 
 [node name="TankGen1" type="RigidBody3D" groups=["units"]]
-script = ExtResource("1_ebj34")
+script = ExtResource("1_wc2c5")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.386961, 0.107553)
 shape = SubResource("BoxShape3D_46sye")
 
-[node name="TankGen2" parent="." instance=ExtResource("3_ebj34")]
+[node name="TankGen2" parent="." instance=ExtResource("2_mkm1s")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.311906, 0)
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
-transform = Transform3D(0.759, 0, 0, 0, 0.759, 0, 0, 0, 0.759, 0, 0.402411, 0)
-visible = false
+transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
 billboard = 1
 no_depth_test = true
-texture = ExtResource("3_a2hf6")
+texture = ExtResource("3_r3h8b")
