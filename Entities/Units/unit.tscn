@@ -9,16 +9,13 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_davkp"]
 albedo_color = Color(0, 0.905882, 0.541176, 1)
 
-[node name="Unit" type="Node3D" groups=["units"]]
+[node name="Unit" type="RigidBody3D" groups=["units"]]
 script = ExtResource("1_jbd7x")
-metadata/selected = false
 metadata/_edit_group_ = true
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_xc3wn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_btf8p")
 surface_material_override/0 = SubResource("StandardMaterial3D_davkp")

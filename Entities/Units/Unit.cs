@@ -19,7 +19,7 @@ public partial class Unit : Node3D
 
 	public override void _Ready()
 	{
-		_meshInstance3D = GetNode<MeshInstance3D>("RigidBody3D/MeshInstance3D");
+		_meshInstance3D = GetNode<MeshInstance3D>("MeshInstance3D");
 	}
 
 	private void OnSelectionChanged()
