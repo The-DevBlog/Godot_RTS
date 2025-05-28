@@ -20,6 +20,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.17817, 0)
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(1.07393, 0, 0, 0, 0.922693, 0, 0, 0, 1.94258, 0, 0.77931, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 texture = ExtResource("3_a2hf6")
