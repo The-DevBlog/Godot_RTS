@@ -2,24 +2,15 @@ using Godot;
 
 public partial class Camera : Node3D
 {
-	[Export]
-	public float PanSpeed = 0.2f;
-	[Export]
-	public float RotateSpeed = 1.2f;
-	[Export]
-	public float ZoomSpeed = 2.0f;
-	[Export(PropertyHint.Range, "0.01,0.4")]
-	public float Smoothness = 0.1f;
-	[Export]
-	public float MinZoom = -5.0f;
-	[Export]
-	public float MaxZoom = 20.0f;
-	[Export]
-	public float MouseSensitivity = 0.2f;
-	[Export]
-	public float EdgeSize = 3.0f;
+	[Export] public float PanSpeed = 0.2f;
+	[Export] public float RotateSpeed = 1.2f;
+	[Export] public float ZoomSpeed = 2.0f;
+	[Export(PropertyHint.Range, "0.01,0.4")] public float Smoothness = 0.1f;
+	[Export] public float MinZoom = -5.0f;
+	[Export] public float MaxZoom = 20.0f;
+	[Export] public float MouseSensitivity = 0.2f;
+	[Export] public float EdgeSize = 3.0f;
 
-	private Node3D _rotationX;
 	private Node3D _zoomPivot;
 	private Camera3D _camera;
 	private Vector3 _moveTarget;
@@ -28,13 +19,12 @@ public partial class Camera : Node3D
 
 	public override void _Ready()
 	{
-		_rotationX = GetNode<Node3D>("CameraPosition/CameraRotationX");
-		_zoomPivot = GetNode<Node3D>("CameraPosition/CameraRotationX/CameraZoomPivot");
-		_camera = GetNode<Camera3D>("CameraPosition/CameraRotationX/CameraZoomPivot/Camera3D");
+		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
+		_camera = GetNode<Camera3D>("CameraZoomPivot/Camera3D");
 
-		_moveTarget = this.Position;
-		_rotateKeysTarget = this.RotationDegrees.Y;
-		_zoomTarget = _zoomPivot.Position.Z;
+		_moveTarget = Position;
+		_rotateKeysTarget = RotationDegrees.Y;
+		_zoomTarget = _camera.Position.Z;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -48,19 +38,15 @@ public partial class Camera : Node3D
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("rotate"))
-		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
-		}
 
 		if (Input.IsActionJustReleased("rotate"))
-		{
 			Input.MouseMode = Input.MouseModeEnum.Visible;
-		}
 
 		// Edge scroll
-		var mousePos = GetViewport().GetMousePosition();
-		var viewportSize = GetViewport().GetVisibleRect().Size;
-		var scrollDirection = Vector3.Zero;
+		Vector2 mousePos = GetViewport().GetMousePosition();
+		Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
+		Vector3 scrollDirection = Vector3.Zero;
 
 		if (mousePos.X < EdgeSize)
 			scrollDirection.X = -1;
@@ -72,25 +58,25 @@ public partial class Camera : Node3D
 		else if (mousePos.Y > viewportSize.Y - EdgeSize)
 			scrollDirection.Z = 1;
 
-		_moveTarget += this.Transform.Basis * scrollDirection * PanSpeed;
+		_moveTarget += Transform.Basis * scrollDirection * PanSpeed;
 
-		// Get input direction
-		var inputDirection = Input.GetVector("left", "right", "up", "down");
-		var movementDirection = _rotationX.GlobalTransform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
-		var rotateKeys = Input.GetAxis("rotate_left", "rotate_right");
+		// Keyboard movement and rotation
+		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
+		Vector3 movementDirection = Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
+
+		float rotateKeys = Input.GetAxis("rotate_left", "rotate_right");
 		int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0) - (Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
 
-		// Set movement target
 		_moveTarget += movementDirection * PanSpeed;
 		_rotateKeysTarget += rotateKeys * RotateSpeed;
 		_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
 
-		// Lerp to new position
-		this.Position = Position.Lerp(_moveTarget, Smoothness);
+		// Smoothly move, rotate, and zoom
+		Position = Position.Lerp(_moveTarget, Smoothness);
 
 		Vector3 rotation = RotationDegrees;
 		rotation.Y = Mathf.Lerp(rotation.Y, _rotateKeysTarget, Smoothness);
-		this.RotationDegrees = rotation;
+		RotationDegrees = rotation;
 
 		Vector3 camPos = _camera.Position;
 		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, 0.1f);
