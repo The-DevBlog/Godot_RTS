@@ -11,3 +11,4 @@ transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 
 
 [node name="Camera3D" type="Camera3D" parent="CameraZoomPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, -1.92836, 2.29813)
+current = true

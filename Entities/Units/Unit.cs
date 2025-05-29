@@ -2,8 +2,10 @@ using Godot;
 
 public partial class Unit : Node3D
 {
-	[Export] public int Speed { get; set; }
+	[Export]
+	public int Speed { get; set; }
 	[Export] public int Acceleration { get; set; }
+
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;
 	private Sprite3D _selectBorder;
@@ -27,16 +29,12 @@ public partial class Unit : Node3D
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 		_targetPosition = Vector3.Zero;
+		Signals.Instance.SetTargetPosition += HandleSetTargetPosition;
 	}
 
-	public override void _Process(double delta)
+	private void HandleSetTargetPosition(Vector3 targetPosition)
 	{
-		SetTargetPosition();
-	}
-
-	private void SetTargetPosition()
-	{
-		if (!_selected || !MouseManager.Instance.DragActive || !Input.IsActionJustReleased("mb_primary"))
+		if (!_selected)
 			return;
 
 		// grab camera and mouse pos
@@ -62,7 +60,6 @@ public partial class Unit : Node3D
 		{
 			Vector3 hitPos = hitPosVar.AsVector3();
 			_targetPosition = hitPos;
-			GD.Print("Assign new pos: ", _targetPosition);
 		}
 	}
 

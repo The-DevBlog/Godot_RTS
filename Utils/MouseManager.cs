@@ -4,8 +4,10 @@ using Godot;
 public partial class MouseManager : Control
 {
 	public static MouseManager Instance { get; private set; }
-	public bool DragActive { get; set; } = false;
+	private const float MIN_DRAG_DIST = 10f;
+	private bool _mouseDown;
 	private Camera3D _camera;
+	private bool _dragActive = false;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
 	private HashSet<Unit> _prevSelectedUnits = new HashSet<Unit>();
@@ -18,28 +20,81 @@ public partial class MouseManager : Control
 
 	public override void _Process(double delta)
 	{
-		if (DragActive)
-		{
-			SetDragEndPosition();
+		if (_mouseDown)
+			// SetDragEndPosition();
 
-			var selectedUnits = GetUnitsInSelection();
-			MarkSelectedUnits(selectedUnits);
-		}
+			// only if we have a “real” drag do we update selection:
+			if (_dragActive && (_dragEnd - _dragStart).Length() > MIN_DRAG_DIST)
+			{
+				var selected = GetUnitsInSelection();
+				MarkSelectedUnits(selected);
+			}
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		UpdateDragState(@event);
-	}
+		if (@event is InputEventMouseButton mb && mb.ButtonIndex == MouseButton.Left)
+		{
+			if (mb.Pressed)
+			{
+				_dragStart = mb.Position;
+				_dragEnd = mb.Position;
+				_mouseDown = true;
+				_dragActive = false;           // not a drag… yet
+			}
+			else
+			{
+				if (!_dragActive)
+				{
+					SetTargetPosition(mb.Position);
+				}
 
+				_mouseDown = false;
+				_dragActive = false;
+				QueueRedraw();
+			}
+		}
+		else if (_mouseDown && @event is InputEventMouseMotion mm)
+		{
+			// once we pass the threshold, flip on real-drag mode:
+			if (!_dragActive && (mm.Position - _dragStart).Length() > MIN_DRAG_DIST)
+				_dragActive = true;
+
+			_dragEnd = mm.Position;
+			QueueRedraw();
+		}
+	}
 	public override void _Draw()
 	{
-		if (!DragActive)
+		if (!_dragActive)
 			return;
 
 		var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: true);
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
+	}
+
+	private void SetTargetPosition(Vector2 position)
+	{
+		var cam = GetViewport().GetCamera3D();
+		Vector2 mousePos = position; // or GetViewport().GetMousePosition()
+
+		// build a ray
+		Vector3 from = cam.ProjectRayOrigin(mousePos);
+		Vector3 to = from + cam.ProjectRayNormal(mousePos) * 1000f;
+
+		// get the world directly from the camera
+		var spaceState = cam.GetWorld3D().DirectSpaceState;
+
+		var rayParams = new PhysicsRayQueryParameters3D
+		{
+			From = from,
+			To = to,
+		};
+
+		var result = spaceState.IntersectRay(rayParams);
+		if (result.TryGetValue("position", out var hitPosition))
+			Signals.Instance.EmitSignal(nameof(Signals.Instance.SetTargetPosition), hitPosition.AsVector3());
 	}
 
 	// Updates the drag state based on mouse input.
@@ -53,22 +108,12 @@ public partial class MouseManager : Control
 		{
 			_dragStart = GetViewport().GetMousePosition();
 			_dragEnd = _dragStart;
-			DragActive = true;
+			_dragActive = true;
 		}
 
 		if (!mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
 		{
-			DragActive = false;
-			QueueRedraw();
-		}
-	}
-
-	// Updates the drag end position if the primary mouse button is pressed, then queues redraw
-	private void SetDragEndPosition()
-	{
-		if (Input.IsActionPressed("mb_primary"))
-		{
-			_dragEnd = GetViewport().GetMousePosition();
+			_dragActive = false;
 			QueueRedraw();
 		}
 	}

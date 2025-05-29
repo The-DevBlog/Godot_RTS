@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
 MouseManager="*res://Utils/MouseManager.cs"
 AssetServer="*res://Assets/AssetServer.cs"
+Signals="*res://Shared/Signals.cs"
 
 [dotnet]
 
