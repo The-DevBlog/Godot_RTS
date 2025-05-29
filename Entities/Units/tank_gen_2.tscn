@@ -24,3 +24,5 @@ visible = false
 billboard = 1
 no_depth_test = true
 texture = ExtResource("3_r3h8b")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

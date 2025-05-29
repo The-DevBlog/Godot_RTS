@@ -1,27 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=10 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://Entities/Camera/camera.tscn" id="2_q101i"]
 [ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Entities/Units/tank_gen_1.tscn" id="3_b2dbv"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Entities/Units/artillery.tscn" id="3_q101i"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Entities/Units/tank_gen_2.tscn" id="4_q101i"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
-size = Vector3(20, 0.5, 20)
+[sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
+vertices = PackedVector3Array(-99.556, 0.502761, 0.193993, -24.306, 0.502761, 0.193993, -23.056, 0.502761, -2.80601, -22.306, 0.502761, -3.05601, -22.306, 0.502761, -99.556, -99.556, 0.502761, -99.556, -17.806, 0.502761, -1.30601, -17.306, 0.502761, -0.0560074, 99.444, 0.502761, -0.0560074, 99.444, 0.502761, -99.556, -19.806, 2.50276, 1.69399, -19.056, 2.50276, 1.69399, -18.306, 2.50276, -0.0560074, -22.306, 2.50276, -1.80601, -23.056, 2.50276, -0.0560074, -21.556, 0.502761, -1.30601, -22.556, 0.502761, -0.556007, -22.556, 0.502761, 0.193993, -19.556, 0.502761, 1.44399, -18.806, 0.502761, 0.443993, -19.056, 0.502761, -0.306007, -18.056, 0.502761, 2.44399, -19.056, 0.502761, 2.94399, -19.056, 0.502761, 99.444, 99.444, 0.502761, 99.444, -23.806, 0.502761, 1.19399, -99.556, 0.502761, 99.444)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(6, 3, 4), PackedInt32Array(6, 4, 7), PackedInt32Array(7, 4, 8), PackedInt32Array(8, 4, 9), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 14), PackedInt32Array(12, 14, 13), PackedInt32Array(16, 15, 17), PackedInt32Array(17, 15, 20), PackedInt32Array(17, 20, 19), PackedInt32Array(17, 19, 18), PackedInt32Array(23, 22, 21), PackedInt32Array(21, 7, 23), PackedInt32Array(23, 7, 8), PackedInt32Array(23, 8, 24), PackedInt32Array(0, 1, 25), PackedInt32Array(25, 22, 0), PackedInt32Array(0, 22, 23), PackedInt32Array(0, 23, 26)]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_tlwt5"]
+[sub_resource type="BoxMesh" id="BoxMesh_fj7yv"]
 size = Vector3(100, 0.5, 100)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_tlwt5"]
+size = Vector3(200, 0.5, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q101i"]
+size = Vector3(3, 2, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_or46v"]
+size = Vector3(3, 2, 5)
+
 [node name="World" type="Node3D"]
-
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(1.00056, 0, 0, 0, 1.00056, 0, 0, 0, 1.00056, 0, -0.247099, 0)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("BoxMesh_fj7yv")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-shape = SubResource("BoxShape3D_tlwt5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
@@ -44,3 +44,28 @@ transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602
 
 [node name="TankGen2_1" parent="Units" instance=ExtResource("4_q101i")]
 transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.74681, 0, 4.10759)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_q101i")
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1.00056, 0, 0, 0, 1.00056, 0, 0, 0, 1.00056, 0, -0.247099, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
+mesh = SubResource("BoxMesh_fj7yv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
+shape = SubResource("BoxShape3D_tlwt5")
+
+[node name="Building" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(0.381038, 0, 0.924559, 0, 1, 0, -0.924559, 0, 0.381038, -20.6912, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02004, 0)
+mesh = SubResource("BoxMesh_q101i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
+shape = SubResource("BoxShape3D_or46v")

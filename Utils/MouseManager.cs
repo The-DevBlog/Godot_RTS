@@ -25,9 +25,9 @@ public partial class MouseManager : Control
 		}
 	}
 
-	public override void _UnhandledInput(InputEvent inputEvent)
+	public override void _UnhandledInput(InputEvent @event)
 	{
-		UpdateDragState(inputEvent);
+		UpdateDragState(@event);
 	}
 
 	public override void _Draw()
@@ -42,9 +42,9 @@ public partial class MouseManager : Control
 
 	// Updates the drag state based on mouse input.
 	// Updates the start and end positions of the drag rectangle while dragging.
-	private void UpdateDragState(InputEvent inputEvent)
+	private void UpdateDragState(InputEvent @event)
 	{
-		if (inputEvent is not InputEventMouseButton mouseEvent)
+		if (@event is not InputEventMouseButton mouseEvent)
 			return;
 
 		if (mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
