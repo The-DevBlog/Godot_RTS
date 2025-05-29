@@ -77,7 +77,7 @@ public partial class MouseManager : Control
 	private void SetTargetPosition(Vector2 position)
 	{
 		var cam = GetViewport().GetCamera3D();
-		Vector2 mousePos = position; // or GetViewport().GetMousePosition()
+		Vector2 mousePos = position;
 
 		// build a ray
 		Vector3 from = cam.ProjectRayOrigin(mousePos);
