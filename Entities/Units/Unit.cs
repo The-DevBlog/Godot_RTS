@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Unit : RigidBody3D
+public partial class Unit : CharacterBody3D
 {
 	[Export]
 	public int Speed { get; set; } = 10;
@@ -24,33 +24,49 @@ public partial class Unit : RigidBody3D
 		}
 	}
 
+	public override void _Ready()
+	{
+		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
+		_navigationAgent.AvoidanceEnabled = true;
+
+		_selectBorder = GetNode<Sprite3D>("SelectBorder");
+		_selectBorder.Visible = false;
+
+		_targetPosition = Vector3.Zero;
+
+		Signals.Instance.SetTargetPosition += HandleSetTargetPosition;
+	}
+
 	public override void _PhysicsProcess(double delta)
 	{
 		MoveUnit(delta);
 	}
 
-	public override void _Ready()
-	{
-		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
-		_selectBorder = GetNode<Sprite3D>("SelectBorder");
-		_selectBorder.Visible = false;
-		_targetPosition = Vector3.Zero;
-		Signals.Instance.SetTargetPosition += HandleSetTargetPosition;
-	}
-
 	private void MoveUnit(double delta)
 	{
-		if (_navigationAgent == null || !_selected)
+		// if (_navigationAgent == null || !_selected)
+		// 	return;
+
+		// Do not query when the map has never synchronized and is empty.
+		if (NavigationServer3D.MapGetIterationId(_navigationAgent.GetNavigationMap()) == 0)
 			return;
 
+		if (_navigationAgent.IsNavigationFinished())
+		{
+			GD.Print("Navigation finished for unit at position: ", GlobalPosition);
+			return;
+		}
+
+
 		Vector3 nextPoint = _navigationAgent.GetNextPathPosition();
-		Vector3 direction = (nextPoint - GlobalPosition).Normalized();
+		Vector3 newVelocity = GlobalPosition.DirectionTo(nextPoint) * Speed;
 
-		LinearVelocity = LinearVelocity.Lerp(direction * Speed, Acceleration * (float)delta);
+		if (_navigationAgent.AvoidanceEnabled)
+		{
+			_navigationAgent.Velocity = newVelocity;
+		}
 
-		// If the target is reached, stop the unit.
-		if (_navigationAgent.IsTargetReached())
-			LinearVelocity = Vector3.Zero;
+		MoveAndSlide();
 	}
 
 	private void HandleSetTargetPosition(Vector3 targetPosition)

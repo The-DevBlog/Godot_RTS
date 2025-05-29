@@ -7,8 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_46sye"]
 size = Vector3(1.63, 0.795, 2.58)
 
-[node name="TankGen1" type="RigidBody3D" groups=["units"]]
-linear_damp = 2.0
+[node name="TankGen2" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_wc2c5")
 metadata/_edit_group_ = true
 
@@ -16,7 +15,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.386961, 0.107553)
 shape = SubResource("BoxShape3D_46sye")
 
-[node name="TankGen2" parent="." instance=ExtResource("2_mkm1s")]
+[node name="Model" parent="." instance=ExtResource("2_mkm1s")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.311906, 0)
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
@@ -27,3 +26,4 @@ no_depth_test = true
 texture = ExtResource("3_r3h8b")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true

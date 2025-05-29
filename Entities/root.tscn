@@ -33,21 +33,46 @@ transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 
 [node name="Units" type="Node3D" parent="."]
 
 [node name="TankGen1_1" parent="Units" instance=ExtResource("3_b2dbv")]
-transform = Transform3D(-0.876538, -0.00114152, 0.481331, -0.00078995, 0.999999, 0.000933035, -0.481331, 0.000437605, -0.876539, -5.72853, 0.033062, 2.71791)
+transform = Transform3D(-0.876538, -0.00114152, 0.481331, -0.00078995, 0.999999, 0.000933035, -0.481331, 0.000437605, -0.876539, 14.1814, 0.0572224, -0.552988)
 
 [node name="TankGen1_2" parent="Units" instance=ExtResource("3_b2dbv")]
 transform = Transform3D(-0.99995, -0.000799174, 0.00991943, -0.00078995, 0.999999, 0.000933035, -0.00992015, 0.000925146, -0.99995, -2.21172, 0.033062, -0.0329399)
 
+[node name="TankGen1_6" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.99995, -0.000799174, 0.00991943, -0.00078995, 0.999999, 0.000933035, -0.00992015, 0.000925146, -0.99995, 0.40606, 0.0317745, 3.61965)
+
 [node name="TankGen1_3" parent="Units" instance=ExtResource("3_b2dbv")]
 transform = Transform3D(-0.942603, -0.000433063, -0.333916, -0.00078995, 0.999999, 0.000933035, 0.333915, 0.00114325, -0.942602, 0.41884, 0.033062, -0.0329399)
 
+[node name="TankGen1_5" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.942603, -0.000433063, -0.333916, -0.00078995, 0.999999, 0.000933035, 0.333915, 0.00114325, -0.942602, -2.56874, 0.0271464, 4.01033)
+
+[node name="TankGen1_4" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.942603, -0.000433063, -0.333916, -0.00078995, 0.999999, 0.000933035, 0.333915, 0.00114325, -0.942602, -5.32476, 0.0301867, 0.306532)
+
+[node name="TankGen1_7" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.99995, -0.000799174, 0.00991943, -0.00078995, 0.999999, 0.000933035, -0.00992015, 0.000925146, -0.99995, -10.5988, 0.0263984, -0.0751348)
+
+[node name="TankGen1_8" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.99995, -0.000799174, 0.00991943, -0.00078995, 0.999999, 0.000933035, -0.00992015, 0.000925146, -0.99995, -7.98098, 0.0251109, 3.57746)
+
+[node name="TankGen1_9" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.942603, -0.000433063, -0.333916, -0.00078995, 0.999999, 0.000933035, 0.333915, 0.00114325, -0.942602, -4.70656, 0.0241973, 5.77918)
+
+[node name="TankGen1_10" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.942603, -0.000433063, -0.333916, -0.00078995, 0.999999, 0.000933035, 0.333915, 0.00114325, -0.942602, -10.4607, 0.0204827, 6.84955)
+
+[node name="TankGen1_11" parent="Units" instance=ExtResource("3_b2dbv")]
+transform = Transform3D(-0.942603, -0.000433063, -0.333916, -0.00078995, 0.999999, 0.000933035, 0.333915, 0.00114325, -0.942602, -13.2167, 0.0235231, 3.14575)
+
 [node name="Artillery" parent="Units" instance=ExtResource("3_q101i")]
-transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 3.43071, 0, 0)
+transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 19.1532, 0, -7.67288)
 
 [node name="TankGen2_1" parent="Units" instance=ExtResource("4_q101i")]
-transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.74681, 0, 4.10759)
+transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, 13.8044, 0, -7.58137)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(0.999914, 0.0114452, -0.00640424, -0.011436, 0.999934, 0.00147955, 0.00642075, -0.00140618, 0.999978, -0.00223494, 0.0302219, -5.72205e-05)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 
 [node name="Ground" type="StaticBody3D" parent="NavigationRegion3D"]

@@ -7,8 +7,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_46sye"]
 size = Vector3(1.365, 1.13, 3.195)
 
-[node name="Artillery" type="RigidBody3D" groups=["units"]]
-linear_damp = 2.0
+[node name="Artillery" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_ebj34")
 metadata/_edit_group_ = true
 
@@ -16,7 +15,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0274105, 0.565131, -0.10488)
 shape = SubResource("BoxShape3D_46sye")
 
-[node name="Artillery" parent="." instance=ExtResource("3_ebj34")]
+[node name="Model" parent="." instance=ExtResource("3_ebj34")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.17817, 0)
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
@@ -27,3 +26,4 @@ no_depth_test = true
 texture = ExtResource("3_a2hf6")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
