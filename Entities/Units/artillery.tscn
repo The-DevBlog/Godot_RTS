@@ -8,6 +8,7 @@
 size = Vector3(1.365, 1.13, 3.195)
 
 [node name="Artillery" type="RigidBody3D" groups=["units"]]
+linear_damp = 2.0
 script = ExtResource("1_ebj34")
 metadata/_edit_group_ = true
 

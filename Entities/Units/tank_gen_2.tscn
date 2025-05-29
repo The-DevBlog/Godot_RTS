@@ -8,6 +8,7 @@
 size = Vector3(1.63, 0.795, 2.58)
 
 [node name="TankGen1" type="RigidBody3D" groups=["units"]]
+linear_damp = 2.0
 script = ExtResource("1_wc2c5")
 metadata/_edit_group_ = true
 

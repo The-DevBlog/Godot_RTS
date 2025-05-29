@@ -8,6 +8,10 @@
 size = Vector3(1.275, 0.74, 2.13)
 
 [node name="TankGen1" type="RigidBody3D" groups=["units"]]
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+linear_damp = 2.0
 script = ExtResource("1_46sye")
 metadata/_edit_group_ = true
 
@@ -26,3 +30,4 @@ no_depth_test = true
 texture = ExtResource("3_ppujx")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true

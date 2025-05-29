@@ -47,6 +47,10 @@ public partial class Unit : RigidBody3D
 		Vector3 direction = (nextPoint - GlobalPosition).Normalized();
 
 		LinearVelocity = LinearVelocity.Lerp(direction * Speed, Acceleration * (float)delta);
+
+		// If the target is reached, stop the unit.
+		if (_navigationAgent.IsTargetReached())
+			LinearVelocity = Vector3.Zero;
 	}
 
 	private void HandleSetTargetPosition(Vector3 targetPosition)
