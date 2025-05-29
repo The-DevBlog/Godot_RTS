@@ -60,6 +60,7 @@ public partial class Unit : Node3D
 		{
 			Vector3 hitPos = hitPosVar.AsVector3();
 			_targetPosition = hitPos;
+			GD.Print($"Target position set to: {hitPos}");
 		}
 	}
 

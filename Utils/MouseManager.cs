@@ -20,50 +20,9 @@ public partial class MouseManager : Control
 
 	public override void _Process(double delta)
 	{
-		if (_mouseDown)
-			// SetDragEndPosition();
-
-			// only if we have a “real” drag do we update selection:
-			if (_dragActive && (_dragEnd - _dragStart).Length() > MIN_DRAG_DIST)
-			{
-				var selected = GetUnitsInSelection();
-				MarkSelectedUnits(selected);
-			}
+		HandleMouseInput();
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton mb && mb.ButtonIndex == MouseButton.Left)
-		{
-			if (mb.Pressed)
-			{
-				_dragStart = mb.Position;
-				_dragEnd = mb.Position;
-				_mouseDown = true;
-				_dragActive = false;           // not a drag… yet
-			}
-			else
-			{
-				if (!_dragActive)
-				{
-					SetTargetPosition(mb.Position);
-				}
-
-				_mouseDown = false;
-				_dragActive = false;
-				QueueRedraw();
-			}
-		}
-		else if (_mouseDown && @event is InputEventMouseMotion mm)
-		{
-			// once we pass the threshold, flip on real-drag mode:
-			if (!_dragActive && (mm.Position - _dragStart).Length() > MIN_DRAG_DIST)
-				_dragActive = true;
-
-			_dragEnd = mm.Position;
-			QueueRedraw();
-		}
-	}
 	public override void _Draw()
 	{
 		if (!_dragActive)
@@ -72,6 +31,51 @@ public partial class MouseManager : Control
 		var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: true);
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
+	}
+
+	private void HandleMouseInput()
+	{
+		// 1) Pressed right now? begin potential drag:
+		if (Input.IsActionJustPressed("mb_primary"))
+		{
+			_dragStart = GetViewport().GetMousePosition();
+			_dragEnd = _dragStart;
+			_mouseDown = true;
+			_dragActive = false;   // we haven’t moved far enough yet
+			QueueRedraw();
+		}
+		// 2) Released right now? end drag or treat as click:
+		else if (Input.IsActionJustReleased("mb_primary"))
+		{
+			if (!_dragActive)
+			{
+				// it never moved beyond the threshold → a click!
+				SetTargetPosition(GetViewport().GetMousePosition());
+			}
+
+			_mouseDown = false;
+			_dragActive = false;
+			QueueRedraw();
+		}
+		// 3) Still holding? update drag distance & maybe select:
+		else if (_mouseDown && Input.IsActionPressed("mb_primary"))
+		{
+			Vector2 mousePos = GetViewport().GetMousePosition();
+
+			// If we move past the threshold, flip into real drag mode:
+			if (!_dragActive && (mousePos - _dragStart).Length() > MIN_DRAG_DIST)
+				_dragActive = true;
+
+			_dragEnd = mousePos;
+			QueueRedraw();
+
+			// If it’s a real drag, update the marquee‐select:
+			if (_dragActive)
+			{
+				var selectedUnits = GetUnitsInSelection();
+				MarkSelectedUnits(selectedUnits);
+			}
+		}
 	}
 
 	private void SetTargetPosition(Vector2 position)
