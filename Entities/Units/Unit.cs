@@ -54,6 +54,8 @@ public partial class Unit : CharacterBody3D
 		Vector3 newVelocity = GlobalPosition.DirectionTo(nextPathPosition) * Speed;
 
 		Velocity = newVelocity;
+
+		LookAt(nextPathPosition, Vector3.Up);
 		MoveAndSlide();
 
 	}
