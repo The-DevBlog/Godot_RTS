@@ -39,34 +39,23 @@ public partial class Unit : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		MoveUnit(delta);
+		MoveUnit();
 	}
 
-	private void MoveUnit(double delta)
+	private void MoveUnit()
 	{
-		// if (_navigationAgent == null || !_selected)
-		// 	return;
-
-		// Do not query when the map has never synchronized and is empty.
 		if (NavigationServer3D.MapGetIterationId(_navigationAgent.GetNavigationMap()) == 0)
 			return;
 
 		if (_navigationAgent.IsNavigationFinished())
-		{
-			GD.Print("Navigation finished for unit at position: ", GlobalPosition);
 			return;
-		}
 
+		Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
+		Vector3 newVelocity = GlobalPosition.DirectionTo(nextPathPosition) * Speed;
 
-		Vector3 nextPoint = _navigationAgent.GetNextPathPosition();
-		Vector3 newVelocity = GlobalPosition.DirectionTo(nextPoint) * Speed;
-
-		if (_navigationAgent.AvoidanceEnabled)
-		{
-			_navigationAgent.Velocity = newVelocity;
-		}
-
+		Velocity = newVelocity;
 		MoveAndSlide();
+
 	}
 
 	private void HandleSetTargetPosition(Vector3 targetPosition)
