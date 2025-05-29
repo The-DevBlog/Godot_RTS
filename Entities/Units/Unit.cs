@@ -3,9 +3,9 @@ using Godot;
 public partial class Unit : RigidBody3D
 {
 	[Export]
-	public int Speed { get; set; }
+	public int Speed { get; set; } = 10;
 	[Export]
-	public int Acceleration { get; set; }
+	public int Acceleration { get; set; } = 3;
 
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;
@@ -31,7 +31,7 @@ public partial class Unit : RigidBody3D
 
 	public override void _Ready()
 	{
-		_navigationAgent = new NavigationAgent3D();
+		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 		_targetPosition = Vector3.Zero;
@@ -43,8 +43,8 @@ public partial class Unit : RigidBody3D
 		if (_navigationAgent == null || !_selected)
 			return;
 
-		Vector3 direction = _navigationAgent.GetNextPathPosition() - this.GlobalPosition;
-		direction = direction.Normalized();
+		Vector3 nextPoint = _navigationAgent.GetNextPathPosition();
+		Vector3 direction = (nextPoint - GlobalPosition).Normalized();
 
 		LinearVelocity = LinearVelocity.Lerp(direction * Speed, Acceleration * (float)delta);
 	}
@@ -55,11 +55,6 @@ public partial class Unit : RigidBody3D
 			return;
 
 		_navigationAgent.TargetPosition = targetPosition;
-
-		// direction = _navigationAgent.GetNextPathPosition() - this.GlobalPosition;
-		// direction = direction.Normalized();
-
-		// LinearVelocity = LinearVelocity.Lerp()
 	}
 
 	// Updates the materials based on the selection state.
