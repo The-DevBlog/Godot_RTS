@@ -3,20 +3,22 @@ using Godot;
 
 public partial class MouseManager : Control
 {
+	public static MouseManager Instance { get; private set; }
+	public bool DragActive { get; set; } = false;
 	private Camera3D _camera;
-	private bool _dragActive = false;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
 	private HashSet<Unit> _prevSelectedUnits = new HashSet<Unit>();
 
 	public override void _Ready()
 	{
+		Instance = this;
 		_camera = GetViewport().GetCamera3D();
 	}
 
 	public override void _Process(double delta)
 	{
-		if (_dragActive)
+		if (DragActive)
 		{
 			SetDragEndPosition();
 
@@ -32,7 +34,7 @@ public partial class MouseManager : Control
 
 	public override void _Draw()
 	{
-		if (!_dragActive)
+		if (!DragActive)
 			return;
 
 		var rect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
@@ -51,12 +53,12 @@ public partial class MouseManager : Control
 		{
 			_dragStart = GetViewport().GetMousePosition();
 			_dragEnd = _dragStart;
-			_dragActive = true;
+			DragActive = true;
 		}
 
 		if (!mouseEvent.IsPressed() && mouseEvent.ButtonIndex == MouseButton.Left)
 		{
-			_dragActive = false;
+			DragActive = false;
 			QueueRedraw();
 		}
 	}
@@ -74,14 +76,14 @@ public partial class MouseManager : Control
 	// Returns a list of units that are within the selection rectangle.
 	private List<Unit> GetUnitsInSelection()
 	{
-		var selRect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
+		var selectRect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
 
 		var picked = new List<Unit>();
 		foreach (Unit unit in GetTree().GetNodesInGroup("units"))
 		{
 			var screenPoint = _camera.UnprojectPosition(unit.GlobalPosition);
 
-			if (selRect.HasPoint(screenPoint))
+			if (selectRect.HasPoint(screenPoint))
 				picked.Add(unit);
 		}
 

@@ -36,7 +36,7 @@ public partial class Unit : Node3D
 
 	private void SetTargetPosition()
 	{
-		if (!_selected || !Input.IsActionJustReleased("mb_primary"))
+		if (!_selected || !MouseManager.Instance.DragActive || !Input.IsActionJustReleased("mb_primary"))
 			return;
 
 		// grab camera and mouse pos
