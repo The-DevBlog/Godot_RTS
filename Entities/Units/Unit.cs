@@ -57,7 +57,6 @@ public partial class Unit : CharacterBody3D
 
 		LookAt(nextPathPosition, Vector3.Up);
 		MoveAndSlide();
-
 	}
 
 	private void HandleSetTargetPosition(Vector3 targetPosition)
