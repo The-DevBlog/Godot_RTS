@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 public partial class MouseManager : Control
@@ -78,27 +79,49 @@ public partial class MouseManager : Control
 		}
 	}
 
-	private void SetTargetPosition(Vector2 position)
+	private void SetTargetPosition(Vector2 mousePos)
 	{
-		var cam = GetViewport().GetCamera3D();
-		Vector2 mousePos = position;
-
-		// build a ray
+		var cam = _camera;
 		Vector3 from = cam.ProjectRayOrigin(mousePos);
 		Vector3 to = from + cam.ProjectRayNormal(mousePos) * 1000f;
-
-		// get the world directly from the camera
-		var spaceState = cam.GetWorld3D().DirectSpaceState;
 
 		var rayParams = new PhysicsRayQueryParameters3D
 		{
 			From = from,
-			To = to,
+			To = to
 		};
+		var result = cam.GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
+		if (!result.TryGetValue("position", out var hitVar))
+			return;
 
-		var result = spaceState.IntersectRay(rayParams);
-		if (result.TryGetValue("position", out var hitPosition))
-			Signals.Instance.EmitSignal(nameof(Signals.Instance.SetTargetPosition), hitPosition.AsVector3());
+		Vector3 center = hitVar.AsVector3();
+
+		// Gather only the units that are selected
+		var selectedUnits = GetTree()
+			.GetNodesInGroup("units")
+			.OfType<Unit>()
+			.Where(u => u.Selected)
+			.ToArray();
+
+		if (selectedUnits.Length == 0)
+			return;
+
+		// Compute a circle formation around the clicked point
+		float formationRadius = 2.0f;
+		int n = selectedUnits.Length;
+
+		for (int i = 0; i < n; i++)
+		{
+			float angle = Mathf.Tau * i / n;
+			Vector3 offset = new Vector3(
+				Mathf.Cos(angle),
+				0,
+				Mathf.Sin(angle)
+			) * formationRadius;
+
+			// Tell each unit its own target
+			selectedUnits[i].SetMoveTarget(center + offset);
+		}
 	}
 
 	// Updates the drag state based on mouse input.

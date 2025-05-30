@@ -34,7 +34,7 @@ public partial class Unit : CharacterBody3D
 
 		_targetPosition = Vector3.Zero;
 
-		Signals.Instance.SetTargetPosition += HandleSetTargetPosition;
+		// Signals.Instance.SetTargetPosition += HandleSetTargetPosition;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -64,11 +64,17 @@ public partial class Unit : CharacterBody3D
 		if (!_selected)
 			return;
 
-		_navigationAgent.TargetPosition = targetPosition;
+		SetMoveTarget(targetPosition);
 	}
 
 	private void ToggleSelectBorder()
 	{
 		_selectBorder.Visible = _selected;
+	}
+
+	public void SetMoveTarget(Vector3 worldPos)
+	{
+		_targetPosition = worldPos;
+		_navigationAgent.TargetPosition = worldPos;
 	}
 }
