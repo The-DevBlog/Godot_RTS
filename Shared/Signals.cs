@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Signals : Node3D
+public partial class Signals : Node
 {
     public static Signals Instance { get; private set; }
 

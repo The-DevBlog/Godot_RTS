@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Godot;
+using Name;
 
 public partial class MouseManager : Control
 {
@@ -95,7 +96,7 @@ public partial class MouseManager : Control
 
 		// collect selected units
 		var selectedUnits = GetTree()
-			.GetNodesInGroup("units")
+			.GetNodesInGroup(Groups.Units.ToString())
 			.OfType<Unit>()
 			.Where(u => u.Selected)
 			.ToArray();

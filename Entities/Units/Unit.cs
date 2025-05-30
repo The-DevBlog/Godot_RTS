@@ -1,4 +1,5 @@
 using Godot;
+using Name;
 
 public partial class Unit : CharacterBody3D
 {
@@ -6,6 +7,8 @@ public partial class Unit : CharacterBody3D
 	public int Speed { get; set; } = 10;
 	[Export]
 	public int Acceleration { get; set; } = 3;
+	[Export]
+	public bool DebugEnabled { get; set; }
 
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;
@@ -26,15 +29,16 @@ public partial class Unit : CharacterBody3D
 
 	public override void _Ready()
 	{
+		AddToGroup(Groups.Units.ToString());
+
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		_navigationAgent.AvoidanceEnabled = true;
+		_navigationAgent.DebugEnabled = DebugEnabled;
 
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 
 		_targetPosition = Vector3.Zero;
-
-		// Signals.Instance.SetTargetPosition += HandleSetTargetPosition;
 	}
 
 	public override void _PhysicsProcess(double delta)
