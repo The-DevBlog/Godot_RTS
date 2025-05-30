@@ -85,42 +85,77 @@ public partial class MouseManager : Control
 		Vector3 from = cam.ProjectRayOrigin(mousePos);
 		Vector3 to = from + cam.ProjectRayNormal(mousePos) * 1000f;
 
-		var rayParams = new PhysicsRayQueryParameters3D
-		{
-			From = from,
-			To = to
-		};
+		var rayParams = new PhysicsRayQueryParameters3D { From = from, To = to };
 		var result = cam.GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
 		if (!result.TryGetValue("position", out var hitVar))
 			return;
 
 		Vector3 center = hitVar.AsVector3();
 
-		// Gather only the units that are selected
+		// collect selected units
 		var selectedUnits = GetTree()
 			.GetNodesInGroup("units")
 			.OfType<Unit>()
 			.Where(u => u.Selected)
 			.ToArray();
 
-		if (selectedUnits.Length == 0)
-			return;
+		int count = selectedUnits.Length;
+		if (count == 0) return;
 
-		// Compute a circle formation around the clicked point
-		float formationRadius = 2.0f;
-		int n = selectedUnits.Length;
+		// define the square “formation” size
+		float sideLength = 4.0f;   // total width/depth of the area
+		float half = sideLength / 2f;
 
-		for (int i = 0; i < n; i++)
+		// compute a grid of rows × cols that fits all units
+		int cols = Mathf.CeilToInt(Mathf.Sqrt(count));
+		int rows = Mathf.CeilToInt((float)count / cols);
+
+		// compute cell size so they’re evenly spaced (with half-cell margin)
+		float cellW = sideLength / cols;
+		float cellH = sideLength / rows;
+
+		// loop and offset each unit into its cell’s center
+		for (int i = 0; i < count; i++)
 		{
-			float angle = Mathf.Tau * i / n;
-			Vector3 offset = new Vector3(
-				Mathf.Cos(angle),
-				0,
-				Mathf.Sin(angle)
-			) * formationRadius;
+			var unit = selectedUnits[i];
+			var colShapeNode = unit.GetNode<CollisionShape3D>("CollisionShape3D");
+			if (colShapeNode == null)
+			{
+				GD.PrintErr("Could not get CollisionShape3D!");
+				continue;
+			}
+			if (!(colShapeNode.Shape is CylinderShape3D cyl))
+			{
+				GD.PrintErr("Units shape is not a cylinder!");
+				continue;
+			}
 
-			// Tell each unit its own target
-			selectedUnits[i].SetMoveTarget(center + offset);
+			// 1) Compute per-unit spacing: diameter + extra padding
+			float diameter = cyl.Radius * 2f;
+			float padding = 0.5f;        // tweak this if you want more gap
+			float unitSpacing = diameter + padding;
+
+			// Build a “base” offset so the grid is centered on (0,0)
+			Vector3 baseOffset = new Vector3(
+				-((cols - 1) * unitSpacing) / 2f,
+				 0f,
+				-((rows - 1) * unitSpacing) / 2f
+			);
+
+			// Cell indices
+			int r = i / cols;
+			int c = i % cols;
+
+			// Final offset for this unit’s cell
+			Vector3 offset = baseOffset + new Vector3(
+				c * unitSpacing,
+				0f,
+				r * unitSpacing
+			);
+
+			// Send it its own target
+			Vector3 worldTarget = center + offset;
+			unit.SetMoveTarget(worldTarget);
 		}
 	}
 
