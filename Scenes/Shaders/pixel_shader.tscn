@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1sjwylhlnqhl"]
+
+[ext_resource type="Shader" uid="uid://ceflpku6r8tvt" path="res://Shaders/pixelated.gdshader" id="1_ch076"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4g5cr"]
+shader = ExtResource("1_ch076")
+shader_parameter/size = Vector2(32, 28)
+
+[node name="PixelatedShader" type="CanvasLayer"]
+layer = 101
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4g5cr")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

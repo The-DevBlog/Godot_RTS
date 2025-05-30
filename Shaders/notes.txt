@@ -1,0 +1,6 @@
+moebius: 
+	- https://godotshaders.com/shader/moebius-shader/
+	- Add a MeshInstance3D as child of Camera
+	- Increase size to 2
+	- Enable 'Flip Faces'
+	- Add new shader material and attach shader file
