@@ -20,7 +20,7 @@ public partial class Unit : CharacterBody3D
 				return;
 
 			_selected = value;
-			UpdateMaterial();
+			ToggleSelectBorder();
 		}
 	}
 
@@ -67,8 +67,7 @@ public partial class Unit : CharacterBody3D
 		_navigationAgent.TargetPosition = targetPosition;
 	}
 
-	// Updates the materials based on the selection state.
-	private void UpdateMaterial()
+	private void ToggleSelectBorder()
 	{
 		_selectBorder.Visible = _selected;
 	}
