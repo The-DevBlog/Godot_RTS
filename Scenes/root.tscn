@@ -28,9 +28,6 @@ size = Vector3(3, 2, 5)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
 
-[node name="Camera" parent="." instance=ExtResource("1_c3mwy")]
-visible = false
-
 [node name="Units" type="Node3D" parent="."]
 
 [node name="TankGen1_1" parent="Units" instance=ExtResource("2_4g5cr")]
@@ -280,3 +277,5 @@ mesh = SubResource("BoxMesh_q101i")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
 shape = SubResource("BoxShape3D_or46v")
+
+[node name="Camera" parent="." instance=ExtResource("1_c3mwy")]
