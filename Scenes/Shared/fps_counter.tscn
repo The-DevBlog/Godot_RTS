@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://ykvfrda04tnt"]
+
+[ext_resource type="Script" uid="uid://ia6adkgbuyuo" path="res://Scripts/Shared/FpsCounter.cs" id="1_jx0sa"]
+
+[node name="FPSCounter" type="CanvasLayer"]
+script = ExtResource("1_jx0sa")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 49.0
+size_flags_horizontal = 4
+text = "FPS
+"

@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://pedc6qghmo6r"]
+
+[ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://Scenes/Shared/camera.tscn" id="1_cqm0b"]
+[ext_resource type="Script" uid="uid://tr3x3di7w5j" path="res://Scenes/Test/StressTest.cs" id="1_lj0pd"]
+[ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="2_pbbcn"]
+[ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="4_cqm0b"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
+vertices = PackedVector3Array(-98.25, 0.5, -98.25, -98.25, 0.75, 98.25, 98.25, 0.75, 98.25, 98.25, 0.75, -98.25)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_height = 1.0
+agent_radius = 1.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_or46v"]
+size = Vector3(200, 0.5, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
+size = Vector3(200, 0.5, 200)
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_lj0pd")
+UnitScene = ExtResource("2_pbbcn")
+Spacing = 3
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 48.1368, -27.2336)
+
+[node name="Camera" parent="." instance=ExtResource("1_cqm0b")]
+visible = false
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(0.999996, 0.00228352, -0.0017652, -0.00228893, 0.999993, -0.00307221, 0.00175818, 0.00307623, 0.999994, 0, -0.25, 0)
+navigation_mesh = SubResource("NavigationMesh_q101i")
+metadata/_edit_group_ = true
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D"]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
+mesh = SubResource("BoxMesh_or46v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
+shape = SubResource("BoxShape3D_ns7qj")
+
+[node name="FPSCounter" parent="." instance=ExtResource("4_cqm0b")]

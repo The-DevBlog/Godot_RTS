@@ -1,9 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://b4t8pujatv061"]
 
-[ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Entities/Camera/Camera.cs" id="1_npc2i"]
+[ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/Camera.cs" id="1_npc2i"]
 
 [node name="Camera" type="Node3D"]
 script = ExtResource("1_npc2i")
+MaxZoom = 100.0
 metadata/_edit_group_ = true
 
 [node name="CameraZoomPivot" type="Node3D" parent="."]
