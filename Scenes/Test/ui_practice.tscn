@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d3h8okp8aq5gx"]
+[gd_scene load_steps=17 format=3 uid="uid://dgu8rdjx2g6y0"]
 
 [ext_resource type="Script" uid="uid://cqvd2ip3slgjk" path="res://Scenes/Test/PopMenuBtnManager.cs" id="1_djmpd"]
 [ext_resource type="Texture2D" uid="uid://b1yrcirm73x4r" path="res://Scenes/Test/Sprite sheet for Basic Pack.png" id="1_e6275"]
