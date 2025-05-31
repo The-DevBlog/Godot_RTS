@@ -83,6 +83,13 @@ public partial class MouseManager : Control
 
 	private void SetTargetPosition(Vector2 mousePos)
 	{
+
+		if (_camera == null)
+		{
+			Utils.PrintErr("Camera3D not found.");
+			return;
+		}
+
 		var cam = _camera;
 		Vector3 from = cam.ProjectRayOrigin(mousePos);
 		Vector3 to = from + cam.ProjectRayNormal(mousePos) * 1000f;
