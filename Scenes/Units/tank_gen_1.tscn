@@ -10,7 +10,8 @@ radius = 0.9
 
 [node name="TankGen1" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_46sye")
-DebugEnabled = true
+Speed = 3
+Acceleration = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -29,4 +30,9 @@ texture = ExtResource("3_ppujx")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
+radius = 1.1
+neighbor_distance = 5.0
+time_horizon_agents = 2.0
 debug_enabled = true
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnVelocityComputed"]

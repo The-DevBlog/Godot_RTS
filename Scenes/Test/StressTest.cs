@@ -18,7 +18,7 @@ public partial class StressTest : Node3D
 	{
 		if (UnitScene == null)
 		{
-			GD.PrintErr("StressTest: No SceneToSpawn assigned!");
+			Utils.PrintErr("StressTest: No SceneToSpawn assigned!");
 			return;
 		}
 
