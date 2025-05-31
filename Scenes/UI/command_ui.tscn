@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbo8dfsqdorde"]
+
+[ext_resource type="Texture2D" uid="uid://b555ebeudyrj5" path="res://Scenes/UI/UITextureAtlas.png" id="1_cv561"]
+
+[node name="CommandUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RootContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(1.00416, 1)
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer"]
+layout_mode = 2
+
+[node name="MinimapContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -5
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/MinimapContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = ExtResource("1_cv561")
+region_rect = Rect2(620, 5, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 6
+
+[node name="InfoContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = -5
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="RootContainer/VBoxContainer/InfoContainer"]
+layout_mode = 2
+texture = ExtResource("1_cv561")
+region_rect = Rect2(620, 5, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 6
+
+[node name="BuildContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer"]
+layout_mode = 2
+texture = ExtResource("1_cv561")
+region_rect = Rect2(620, 5, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 6

@@ -77,7 +77,6 @@ OpenMenuScreen = NodePath("BaseMenuOpenBtnContainer")
 HelpMenuScreen = NodePath("HelpMenuContainer")
 
 [node name="BaseMenuScreenContainer" type="VBoxContainer" parent="PopMenu"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
