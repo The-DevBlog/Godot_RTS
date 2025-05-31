@@ -130,12 +130,13 @@ public partial class MouseManager : Control
 			var colShapeNode = unit.GetNode<CollisionShape3D>("CollisionShape3D");
 			if (colShapeNode == null)
 			{
-				GD.PrintErr("Could not get CollisionShape3D!");
+				Utils.PrintErr("Could not get CollisionShape3D!");
 				continue;
 			}
+
 			if (!(colShapeNode.Shape is CylinderShape3D cyl))
 			{
-				GD.PrintErr("Units shape is not a cylinder!");
+				Utils.PrintErr("Units shape is not a cylinder!");
 				continue;
 			}
 
