@@ -10,7 +10,7 @@ radius = 0.9
 
 [node name="TankGen1" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_46sye")
-Speed = 7
+Speed = 3
 Acceleration = 2
 metadata/_edit_group_ = true
 
@@ -35,4 +35,4 @@ neighbor_distance = 5.0
 time_horizon_agents = 2.0
 debug_enabled = true
 
-[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnNavigationAgentVelocityComputed"]
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="OnVelocityComputed"]
