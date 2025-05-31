@@ -57,11 +57,26 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 6
 
-[node name="BuildContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
+[node name="ActionsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = -5
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="RootContainer/VBoxContainer/ActionsContainer"]
+layout_mode = 2
+texture = ExtResource("1_cv561")
+region_rect = Rect2(620, 5, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 6
+
+[node name="StructuresUnitsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NinePatchRect3" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer"]
+[node name="NinePatchRect3" type="NinePatchRect" parent="RootContainer/VBoxContainer/StructuresUnitsContainer"]
 layout_mode = 2
 texture = ExtResource("1_cv561")
 region_rect = Rect2(620, 5, 20, 21)
