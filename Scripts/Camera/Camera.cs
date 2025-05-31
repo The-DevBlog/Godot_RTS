@@ -27,7 +27,7 @@ public partial class Camera : Node3D
 		_zoomTarget = _camera.Position.Z;
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseMotion motionEvent && Input.IsActionPressed("rotate"))
 			_rotateKeysTarget -= (float)(motionEvent.Relative.X * MouseSensitivity);

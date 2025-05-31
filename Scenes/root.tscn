@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=11 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://Scenes/Shared/camera.tscn" id="1_c3mwy"]
 [ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="2_4g5cr"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
+[ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
 vertices = PackedVector3Array(-98.25, 0.5, 0.25, -25.5, 0.5, 0.25, -24.25, 0.5, -3, -22.25, 0.5, -4.25, -22.25, 0.5, -98.25, -98.25, 0.5, -98.25, -17, 0.5, -2.25, -16.25, 0.5, -1.5, -16, 0.5, -0.25, 98.25, 0.75, -0.25, 98.25, 0.75, -98.25, -17.25, 0.5, 3.25, -19, 0.5, 4.25, -19, 0.75, 98.25, 98.25, 0.75, 98.25, -24.25, 0.5, 2.25, -98.25, 0.75, 98.25)
@@ -279,3 +280,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
 shape = SubResource("BoxShape3D_or46v")
 
 [node name="Camera" parent="." instance=ExtResource("1_c3mwy")]
+
+[node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
