@@ -33,6 +33,7 @@ avoidance_enabled = true
 radius = 1.0
 neighbor_distance = 5.0
 time_horizon_agents = 2.0
+max_speed = 1.0
 debug_enabled = true
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
