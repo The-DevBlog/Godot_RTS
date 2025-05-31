@@ -31,7 +31,6 @@ public partial class Unit : CharacterBody3D
 	public override void _Ready()
 	{
 		AddToGroup(Groups.Units.ToString());
-
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		_navigationAgent.AvoidanceEnabled = true;
 		_navigationAgent.DebugEnabled = DebugEnabled;
@@ -56,9 +55,20 @@ public partial class Unit : CharacterBody3D
 		if (_navigationAgent.IsNavigationFinished())
 			return;
 
-		_movementDelta = Speed * (float)delta;
+		// _movementDelta = Speed * (float)delta;
+		// Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
+		// Vector3 newVelocity = GlobalPosition.DirectionTo(nextPathPosition) * _movementDelta;
+		// if (_navigationAgent.AvoidanceEnabled)
+		// {
+		// 	_navigationAgent.Velocity = newVelocity;
+		// }
+		// else
+		// {
+		// 	OnVelocityComputed(newVelocity);
+		// }
+
 		Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-		Vector3 newVelocity = GlobalPosition.DirectionTo(nextPathPosition) * _movementDelta;
+		Vector3 newVelocity = GlobalPosition.DirectionTo(nextPathPosition) * Speed;
 		if (_navigationAgent.AvoidanceEnabled)
 		{
 			_navigationAgent.Velocity = newVelocity;
@@ -73,7 +83,9 @@ public partial class Unit : CharacterBody3D
 
 	private void OnVelocityComputed(Vector3 safeVelocity)
 	{
-		GlobalPosition = GlobalPosition.MoveToward(GlobalPosition + safeVelocity, _movementDelta);
+		// GlobalPosition = GlobalPosition.MoveToward(GlobalPosition + safeVelocity, _movementDelta);
+		Velocity = safeVelocity;
+		MoveAndSlide();
 	}
 
 	private void ToggleSelectBorder()
