@@ -1,17 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=10 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Texture2D" uid="uid://c7kpeqmi32o4m" path="res://Assets/Textures/UITextureAtlas.png" id="1_cv561"]
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scenes/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
 [ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/Energy.png" id="3_848d2"]
 [ext_resource type="Texture2D" uid="uid://io1dvd884t8f" path="res://Assets/Textures/UITextureAtlas2.png" id="5_g7vhi"]
-[ext_resource type="Texture2D" uid="uid://ci5l8emphylve" path="res://Assets/Textures/Hammer2.png" id="6_k4jei"]
+[ext_resource type="Texture2D" uid="uid://ci5l8emphylve" path="res://Assets/Textures/Hammer.png" id="6_k4jei"]
+[ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/Rifle.png" id="7_f6022"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_swqy1"]
 load_path = "res://.godot/imported/UITextureAtlas.png-9ab445fe6f7f3b58c4dd32ac5688c7db.ctex"
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f6022"]
-load_path = "res://.godot/imported/MyRifle (Custom) (Custom).png-765d8ac596120ad91f629d9bd6ad96aa.ctex"
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k4jei"]
 
 [node name="CommandUI" type="Control"]
 layout_mode = 3
@@ -166,16 +166,16 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="TextureButton" type="TextureButton" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect"]
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch_mode = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/TextureButton"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -200,16 +200,16 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="TextureButton" type="TextureButton" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect2"]
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch_mode = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect2/TextureButton"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect2/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -222,7 +222,41 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CompressedTexture2D_f6022")
+texture = ExtResource("7_f6022")
+
+[node name="NinePatchRect3" type="NinePatchRect" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_g7vhi")
+region_rect = Rect2(770, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/HBoxContainer/NinePatchRect3/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_848d2")
 
 [node name="StructuresUnitsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
 layout_mode = 2
