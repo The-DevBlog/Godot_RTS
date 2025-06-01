@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=5 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Texture2D" uid="uid://c7kpeqmi32o4m" path="res://Assets/Textures/UITextureAtlas.png" id="1_cv561"]
+[ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
+[ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/Energy.png" id="3_848d2"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_swqy1"]
 load_path = "res://.godot/imported/UITextureAtlas.png-9ab445fe6f7f3b58c4dd32ac5688c7db.ctex"
@@ -81,13 +83,40 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect"]
+[node name="MarginContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="FundsLabel" type="Label" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 13
+text = "$10000"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_848d2")
+
+[node name="EnergyLabel" type="Label" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 13
+text = "100/100"
 
 [node name="ActionsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
