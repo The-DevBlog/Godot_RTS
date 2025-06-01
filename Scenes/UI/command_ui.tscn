@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=3 format=3 uid="uid://cbo8dfsqdorde"]
 
-[ext_resource type="Texture2D" uid="uid://b555ebeudyrj5" path="res://Scenes/UI/UITextureAtlas.png" id="1_cv561"]
+[ext_resource type="Texture2D" uid="uid://c7kpeqmi32o4m" path="res://Assets/Textures/UITextureAtlas.png" id="1_cv561"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_swqy1"]
+load_path = "res://.godot/imported/UITextureAtlas.png-9ab445fe6f7f3b58c4dd32ac5688c7db.ctex"
 
 [node name="CommandUI" type="Control"]
 layout_mode = 3
@@ -35,7 +38,7 @@ theme_override_constants/margin_bottom = -5
 [node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/MinimapContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-texture = ExtResource("1_cv561")
+texture = SubResource("CompressedTexture2D_swqy1")
 region_rect = Rect2(620, 5, 20, 21)
 patch_margin_left = 5
 patch_margin_top = 5
@@ -50,12 +53,41 @@ theme_override_constants/margin_bottom = -5
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="RootContainer/VBoxContainer/InfoContainer"]
 layout_mode = 2
-texture = ExtResource("1_cv561")
+texture = SubResource("CompressedTexture2D_swqy1")
 region_rect = Rect2(620, 5, 20, 21)
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_cv561")
+region_rect = Rect2(674, 5, 20, 21)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect2/MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ActionsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
@@ -65,7 +97,7 @@ theme_override_constants/margin_bottom = -5
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="RootContainer/VBoxContainer/ActionsContainer"]
 layout_mode = 2
-texture = ExtResource("1_cv561")
+texture = SubResource("CompressedTexture2D_swqy1")
 region_rect = Rect2(620, 5, 20, 21)
 patch_margin_left = 5
 patch_margin_top = 5
@@ -78,7 +110,7 @@ size_flags_vertical = 3
 
 [node name="NinePatchRect3" type="NinePatchRect" parent="RootContainer/VBoxContainer/StructuresUnitsContainer"]
 layout_mode = 2
-texture = ExtResource("1_cv561")
+texture = SubResource("CompressedTexture2D_swqy1")
 region_rect = Rect2(620, 5, 20, 21)
 patch_margin_left = 5
 patch_margin_top = 5
