@@ -27,7 +27,7 @@ grow_vertical = 2
 [node name="RootContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.819
+anchor_left = 0.815
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
@@ -42,13 +42,13 @@ script = ExtResource("1_k4jei")
 [node name="VBoxContainer" type="VBoxContainer" parent="RootContainer"]
 layout_mode = 2
 
-[node name="MinimapContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
+[node name="MiniMapContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.53
 theme_override_constants/margin_bottom = -5
 
-[node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/MinimapContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/MiniMapContainer"]
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_swqy1")
 region_rect = Rect2(620, 5, 20, 21)
@@ -79,15 +79,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("1_cv561")
-region_rect = Rect2(674, 5, 20, 21)
+region_rect = Rect2(729, 55, 20, 21)
 patch_margin_left = 3
 patch_margin_top = 3
 patch_margin_right = 3
@@ -108,14 +108,14 @@ layout_mode = 2
 
 [node name="FundsLabel" type="Label" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 6
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 25
 text = "$10000"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 6
 size_flags_vertical = 4
 
 [node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer/HBoxContainer"]
@@ -125,7 +125,7 @@ texture = ExtResource("3_848d2")
 [node name="EnergyLabel" type="Label" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 25
 text = "100/100"
 
 [node name="ActionsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
