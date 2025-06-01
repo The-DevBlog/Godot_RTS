@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=10 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Texture2D" uid="uid://c7kpeqmi32o4m" path="res://Assets/Textures/UITextureAtlas.png" id="1_cv561"]
+[ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scenes/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
 [ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/Energy.png" id="3_848d2"]
 [ext_resource type="Texture2D" uid="uid://dr76m0rcxm5d2" path="res://Assets/Textures/Hammer.png" id="4_848d2"]
@@ -24,10 +25,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RootContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(200, 200)
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = -1
+anchor_left = 0.819
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
@@ -37,16 +37,18 @@ theme_override_constants/margin_left = 3
 theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
+script = ExtResource("1_k4jei")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RootContainer"]
 layout_mode = 2
 
 [node name="MinimapContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.53
 theme_override_constants/margin_bottom = -5
 
 [node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/MinimapContainer"]
-custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 texture = SubResource("CompressedTexture2D_swqy1")
 region_rect = Rect2(620, 5, 20, 21)
