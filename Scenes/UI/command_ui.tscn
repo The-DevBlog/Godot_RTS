@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=9 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Texture2D" uid="uid://c7kpeqmi32o4m" path="res://Assets/Textures/UITextureAtlas.png" id="1_cv561"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
 [ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/Energy.png" id="3_848d2"]
+[ext_resource type="Texture2D" uid="uid://dr76m0rcxm5d2" path="res://Assets/Textures/Hammer.png" id="4_848d2"]
+[ext_resource type="Texture2D" uid="uid://dvs15mboqgxwc" path="res://Assets/Textures/Rifle.png" id="5_g7vhi"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_swqy1"]
 load_path = "res://.godot/imported/UITextureAtlas.png-9ab445fe6f7f3b58c4dd32ac5688c7db.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g7vhi"]
+texture = ExtResource("4_848d2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k4jei"]
+texture = ExtResource("5_g7vhi")
 
 [node name="CommandUI" type="Control"]
 layout_mode = 3
@@ -133,6 +141,54 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 6
 
+[node name="MarginContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 8
+
+[node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_cv561")
+region_rect = Rect2(674, 5, 20, 21)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_g7vhi")
+
+[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/ActionsContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_k4jei")
+
 [node name="StructuresUnitsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -158,78 +214,80 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 9
 
-[node name="NinePatchRect" type="NinePatchRect" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("1_cv561")
-region_rect = Rect2(674, 5, 20, 21)
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "Energy
 Plant"
 
-[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "Barracks"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer2"]
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "Garage"
 
-[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer2"]
+[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "Cannon"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer3"]
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "Sattelite"
 
-[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer3"]
+[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "Research
 Center"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer4"]
+[node name="Button" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "Oil
 Refinery"
 
-[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/NinePatchRect/VBoxContainer/HBoxContainer4"]
+[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 12
 text = "??"
