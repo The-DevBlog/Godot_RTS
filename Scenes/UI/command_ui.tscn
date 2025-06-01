@@ -294,7 +294,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Energy
 Plant"
 
@@ -302,7 +302,7 @@ Plant"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Barracks"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer"]
@@ -313,14 +313,14 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Garage"
 
 [node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Cannon"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer"]
@@ -331,14 +331,14 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Sattelite"
 
 [node name="Button2" type="Button" parent="RootContainer/VBoxContainer/StructuresUnitsContainer/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Research
 Center"
 
@@ -350,7 +350,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Oil
 Refinery"
 
@@ -358,5 +358,5 @@ Refinery"
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "??"
