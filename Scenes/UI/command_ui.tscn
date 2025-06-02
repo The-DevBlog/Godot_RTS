@@ -356,7 +356,6 @@ grow_vertical = 2
 texture = ExtResource("7_an80e")
 
 [node name="StructuresContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -796,6 +795,7 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 text = "??"
 
 [node name="VehiclesContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
