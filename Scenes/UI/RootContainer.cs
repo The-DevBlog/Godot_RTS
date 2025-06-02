@@ -1,0 +1,32 @@
+using Godot;
+
+public partial class RootContainer : Container
+{
+	private MarginContainer _miniMapContainer;
+	public override void _Ready()
+	{
+		_miniMapContainer = GetNode<MarginContainer>("VBoxContainer/MiniMapContainer");
+
+		if (_miniMapContainer == null)
+			Utils.PrintErr("MiniMapContainer node not found.");
+
+		GetTree().Root.SizeChanged += OnWindowResize;
+		CallDeferred(nameof(OnWindowResize));
+	}
+
+	private void OnWindowResize()
+	{
+		if (_miniMapContainer == null)
+			return;
+
+		float miniMapHeight = _miniMapContainer.Size.Y;
+		float windowWidth = GetViewport().GetVisibleRect().Size.X;
+		float clampedWidth = Mathf.Min(miniMapHeight, windowWidth);
+		float newAnchorLeft = 1.0f - (clampedWidth / windowWidth);
+
+		AnchorLeft = newAnchorLeft;
+		AnchorRight = 1.0f;
+
+		Size = new Vector2(miniMapHeight, Size.Y);
+	}
+}
