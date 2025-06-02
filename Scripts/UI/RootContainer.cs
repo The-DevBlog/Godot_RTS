@@ -1,15 +1,15 @@
+using System;
 using Godot;
+using MyEnums;
 
 public partial class RootContainer : Container
 {
-
 	[Export] public Container StructuresContainer { get; set; }
 	[Export] public Container UnitsContainer { get; set; }
+	[Export] public Container VehiclesContainer { get; set; }
 	[Export] public Container UpgradesContainer { get; set; }
-	[Export] public Button[] StructuresBtns { get; set; }
-	[Export] public Button[] UnitsBtns { get; set; }
-	[Export] public Button[] UpgradesBtns { get; set; }
-
+	private Color normalColor = new Color("#c8c8c8");
+	private Color hoverColor = new Color("#ffffff");
 	private MarginContainer _miniMapContainer;
 	public override void _Ready()
 	{
@@ -18,28 +18,26 @@ public partial class RootContainer : Container
 		if (_miniMapContainer == null)
 			Utils.PrintErr("MiniMapContainer node not found.");
 
-		foreach (var btn in StructuresBtns)
-		{
-			btn.SelfModulate = new Color("#c8c8c8");
-			btn.MouseEntered += () => btn.SelfModulate = new Color("#ffffff");
-			btn.MouseExited += () => btn.SelfModulate = new Color("#c8c8c8");
-		}
-
-		foreach (var btn in UnitsBtns)
-		{
-			btn.SelfModulate = new Color("#c8c8c8");
-			btn.MouseEntered += () => btn.SelfModulate = new Color("#ffffff");
-			btn.MouseExited += () => btn.SelfModulate = new Color("#c8c8c8");
-		}
-
-		// foreach (var btn in UpgradesBtns)
-		// {
-		// 	btn.MouseEntered += () => btn.SelfModulate = new Color("#ffffff");
-		// 	btn.MouseExited += () => btn.SelfModulate = new Color("#c8c8c8");
-		// }
+		SetupButtons(Groups.StructureBtns);
+		SetupButtons(Groups.UnitBtns);
+		SetupButtons(Groups.VehicleBtns);
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));
+	}
+
+	private void SetupButtons(Enum group)
+	{
+		var rawBtnList = GetTree().GetNodesInGroup(group.ToString());
+		foreach (var node in rawBtnList)
+		{
+			if (node is Button btn)
+			{
+				btn.SelfModulate = normalColor;
+				btn.MouseEntered += () => btn.SelfModulate = hoverColor;
+				btn.MouseExited += () => btn.SelfModulate = normalColor;
+			}
+		}
 	}
 
 	private void OnWindowResize()
@@ -67,12 +65,15 @@ public partial class RootContainer : Container
 	{
 		StructuresContainer.Visible = toShow == StructuresContainer;
 		UnitsContainer.Visible = toShow == UnitsContainer;
+		VehiclesContainer.Visible = toShow == VehiclesContainer;
 		UpgradesContainer.Visible = toShow == UpgradesContainer;
 	}
 
 	private void OnStructuresBtnPressed() => ShowOnly(StructuresContainer);
 
 	private void OnUnitsBtnPressed() => ShowOnly(UnitsContainer);
+
+	private void OnVehiclesBtnPressed() => ShowOnly(VehiclesContainer);
 
 	private void OnUpgradesBtnPressed() => ShowOnly(UpgradesContainer);
 }

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfsmu7c6uhl3q"
-path="res://.godot/imported/Rifle.png-9172cd29f2fa3ef2b51552953367ec69.ctex"
+path="res://.godot/imported/Rifle.png-f9ae56f27d4877ecf46f4ee4071203e7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Rifle.png"
-dest_files=["res://.godot/imported/Rifle.png-9172cd29f2fa3ef2b51552953367ec69.ctex"]
+source_file="res://Assets/Textures/UI/Icons/Rifle.png"
+dest_files=["res://.godot/imported/Rifle.png-f9ae56f27d4877ecf46f4ee4071203e7.ctex"]
 
 [params]
 

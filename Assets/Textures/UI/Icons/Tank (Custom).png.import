@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qxmrs5fv3wb6"
-path="res://.godot/imported/Energy.png-b0562b1e142fee51a2f3db271e0d10b2.ctex"
+uid="uid://daexh3giq74at"
+path="res://.godot/imported/Tank (Custom).png-355ede168f8b58d8f758cd32bfc3cfc5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Energy.png"
-dest_files=["res://.godot/imported/Energy.png-b0562b1e142fee51a2f3db271e0d10b2.ctex"]
+source_file="res://Assets/Textures/UI/Icons/Tank (Custom).png"
+dest_files=["res://.godot/imported/Tank (Custom).png-355ede168f8b58d8f758cd32bfc3cfc5.ctex"]
 
 [params]
 
