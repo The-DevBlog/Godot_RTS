@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci5l8emphylve"
-path="res://.godot/imported/Hammer.png-866d4fb667a0508b3975dd4c215c39d8.ctex"
+uid="uid://dniuodhac8jni"
+path="res://.godot/imported/Barracks.png-8b51bcce7aa6642f5254efe7056b4aad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Hammer.png"
-dest_files=["res://.godot/imported/Hammer.png-866d4fb667a0508b3975dd4c215c39d8.ctex"]
+source_file="res://Assets/Textures/UI/Structures/Barracks.png"
+dest_files=["res://.godot/imported/Barracks.png-8b51bcce7aa6642f5254efe7056b4aad.ctex"]
 
 [params]
 

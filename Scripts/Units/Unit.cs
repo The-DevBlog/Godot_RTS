@@ -1,5 +1,5 @@
 using Godot;
-using Name;
+using MyEnums;
 
 public partial class Unit : CharacterBody3D
 {

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blcuxf1bawkjk"
-path="res://.godot/imported/Bullets3.png-78f73482877b274941a55485a81ca6ae.ctex"
+uid="uid://bq4jjptvimvfi"
+path="res://.godot/imported/Satellite.png-6bcfaab4c2dab56e37177a67362cc759.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Bullets3.png"
-dest_files=["res://.godot/imported/Bullets3.png-78f73482877b274941a55485a81ca6ae.ctex"]
+source_file="res://Assets/Textures/UI/Structures/Satellite.png"
+dest_files=["res://.godot/imported/Satellite.png-6bcfaab4c2dab56e37177a67362cc759.ctex"]
 
 [params]
 

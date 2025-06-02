@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b14uv1yds6bo5"
-path="res://.godot/imported/UIAtlas.png-c06ba3ebe71d06f6a6ebe9d1c4e6f284.ctex"
+uid="uid://b7jxwwtbgc30"
+path="res://.godot/imported/Armor.png-875b22f7f79dfd34d5c04b20210ce7df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UIAtlas.png"
-dest_files=["res://.godot/imported/UIAtlas.png-c06ba3ebe71d06f6a6ebe9d1c4e6f284.ctex"]
+source_file="res://Assets/Textures/UI/Icons/Armor.png"
+dest_files=["res://.godot/imported/Armor.png-875b22f7f79dfd34d5c04b20210ce7df.ctex"]
 
 [params]
 

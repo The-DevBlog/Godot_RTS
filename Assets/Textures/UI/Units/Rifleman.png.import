@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfsmu7c6uhl3q"
-path="res://.godot/imported/Rifle.png-18f5c8107105ae900e1c99a474aabc1a.ctex"
+uid="uid://doej4y573d76i"
+path="res://.godot/imported/Rifleman.png-02090c02336ee614f63acee4db87e9ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Rifle.png"
-dest_files=["res://.godot/imported/Rifle.png-18f5c8107105ae900e1c99a474aabc1a.ctex"]
+source_file="res://Assets/Textures/UI/Units/Rifleman.png"
+dest_files=["res://.godot/imported/Rifleman.png-02090c02336ee614f63acee4db87e9ff.ctex"]
 
 [params]
 

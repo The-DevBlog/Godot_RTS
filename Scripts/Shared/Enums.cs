@@ -1,7 +1,10 @@
-namespace Name
+namespace MyEnums
 {
     public enum Groups
     {
-        Units
+        Units,
+        StructureBtns,
+        UnitBtns,
+        VehicleBtns,
     }
 }
