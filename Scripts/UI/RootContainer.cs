@@ -2,12 +2,14 @@ using Godot;
 
 public partial class RootContainer : Container
 {
-	[Export]
-	public Container StructuresContainer { get; set; }
-	[Export]
-	public Container UnitsContainer { get; set; }
-	[Export]
-	public Container UpgradesContainer { get; set; }
+
+	[Export] public Container StructuresContainer { get; set; }
+	[Export] public Container UnitsContainer { get; set; }
+	[Export] public Container UpgradesContainer { get; set; }
+	[Export] public Button[] StructuresBtns { get; set; }
+	[Export] public Button[] UnitsBtns { get; set; }
+	[Export] public Button[] UpgradesBtns { get; set; }
+
 	private MarginContainer _miniMapContainer;
 	public override void _Ready()
 	{
@@ -15,6 +17,26 @@ public partial class RootContainer : Container
 
 		if (_miniMapContainer == null)
 			Utils.PrintErr("MiniMapContainer node not found.");
+
+		foreach (var btn in StructuresBtns)
+		{
+			btn.SelfModulate = new Color("#c8c8c8");
+			btn.MouseEntered += () => btn.SelfModulate = new Color("#ffffff");
+			btn.MouseExited += () => btn.SelfModulate = new Color("#c8c8c8");
+		}
+
+		foreach (var btn in UnitsBtns)
+		{
+			btn.SelfModulate = new Color("#c8c8c8");
+			btn.MouseEntered += () => btn.SelfModulate = new Color("#ffffff");
+			btn.MouseExited += () => btn.SelfModulate = new Color("#c8c8c8");
+		}
+
+		// foreach (var btn in UpgradesBtns)
+		// {
+		// 	btn.MouseEntered += () => btn.SelfModulate = new Color("#ffffff");
+		// 	btn.MouseExited += () => btn.SelfModulate = new Color("#c8c8c8");
+		// }
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));
@@ -48,18 +70,9 @@ public partial class RootContainer : Container
 		UpgradesContainer.Visible = toShow == UpgradesContainer;
 	}
 
-	private void OnStructuresBtnPressed()
-	{
-		ShowOnly(StructuresContainer);
-	}
+	private void OnStructuresBtnPressed() => ShowOnly(StructuresContainer);
 
-	private void OnUnitsBtnPressed()
-	{
-		ShowOnly(UnitsContainer);
-	}
+	private void OnUnitsBtnPressed() => ShowOnly(UnitsContainer);
 
-	private void OnUpgradesBtnPressed()
-	{
-		ShowOnly(UpgradesContainer);
-	}
+	private void OnUpgradesBtnPressed() => ShowOnly(UpgradesContainer);
 }
