@@ -2,6 +2,12 @@ using Godot;
 
 public partial class RootContainer : Container
 {
+	[Export]
+	public Container StructuresContainer { get; set; }
+	[Export]
+	public Container UnitsContainer { get; set; }
+	[Export]
+	public Container UpgradesContainer { get; set; }
 	private MarginContainer _miniMapContainer;
 	public override void _Ready()
 	{
@@ -28,5 +34,32 @@ public partial class RootContainer : Container
 		AnchorRight = 1.0f;
 
 		Size = new Vector2(miniMapHeight, Size.Y);
+	}
+
+	private void ToggleVisibility(Container menu)
+	{
+		menu.Visible = !menu.Visible;
+	}
+
+	private void ShowOnly(Container toShow)
+	{
+		StructuresContainer.Visible = toShow == StructuresContainer;
+		UnitsContainer.Visible = toShow == UnitsContainer;
+		UpgradesContainer.Visible = toShow == UpgradesContainer;
+	}
+
+	private void OnStructuresBtnPressed()
+	{
+		ShowOnly(StructuresContainer);
+	}
+
+	private void OnUnitsBtnPressed()
+	{
+		ShowOnly(UnitsContainer);
+	}
+
+	private void OnUpgradesBtnPressed()
+	{
+		ShowOnly(UpgradesContainer);
 	}
 }
