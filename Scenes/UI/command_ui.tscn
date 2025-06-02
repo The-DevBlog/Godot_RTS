@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
-[ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/Energy.png" id="3_848d2"]
-[ext_resource type="Texture2D" uid="uid://ci5l8emphylve" path="res://Assets/Textures/Hammer.png" id="6_k4jei"]
-[ext_resource type="Texture2D" uid="uid://b7jxwwtbgc30" path="res://Assets/Textures/Armor.png" id="7_an80e"]
-[ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/Rifle.png" id="7_f6022"]
-[ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UIAtlas.png" id="7_w801c"]
+[ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/UI/Energy.png" id="3_848d2"]
+[ext_resource type="Texture2D" uid="uid://ci5l8emphylve" path="res://Assets/Textures/UI/Hammer.png" id="6_k4jei"]
+[ext_resource type="Texture2D" uid="uid://b7jxwwtbgc30" path="res://Assets/Textures/UI/Armor.png" id="7_an80e"]
+[ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/UI/Rifle.png" id="7_f6022"]
+[ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k4jei"]
 

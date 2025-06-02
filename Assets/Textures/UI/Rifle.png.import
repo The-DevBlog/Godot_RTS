@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ci5l8emphylve"
-path="res://.godot/imported/Hammer.png-866d4fb667a0508b3975dd4c215c39d8.ctex"
+uid="uid://bfsmu7c6uhl3q"
+path="res://.godot/imported/Rifle.png-9172cd29f2fa3ef2b51552953367ec69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Hammer.png"
-dest_files=["res://.godot/imported/Hammer.png-866d4fb667a0508b3975dd4c215c39d8.ctex"]
+source_file="res://Assets/Textures/UI/Rifle.png"
+dest_files=["res://.godot/imported/Rifle.png-9172cd29f2fa3ef2b51552953367ec69.ctex"]
 
 [params]
 

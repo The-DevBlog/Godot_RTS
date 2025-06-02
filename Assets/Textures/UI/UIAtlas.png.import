@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfsmu7c6uhl3q"
-path="res://.godot/imported/Rifle.png-18f5c8107105ae900e1c99a474aabc1a.ctex"
+uid="uid://b14uv1yds6bo5"
+path="res://.godot/imported/UIAtlas.png-644af5b4829d737f3d916a801ec00318.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Rifle.png"
-dest_files=["res://.godot/imported/Rifle.png-18f5c8107105ae900e1c99a474aabc1a.ctex"]
+source_file="res://Assets/Textures/UI/UIAtlas.png"
+dest_files=["res://.godot/imported/UIAtlas.png-644af5b4829d737f3d916a801ec00318.ctex"]
 
 [params]
 

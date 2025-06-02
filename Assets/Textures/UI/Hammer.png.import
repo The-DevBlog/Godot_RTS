@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blcuxf1bawkjk"
-path="res://.godot/imported/Bullets3.png-78f73482877b274941a55485a81ca6ae.ctex"
+uid="uid://ci5l8emphylve"
+path="res://.godot/imported/Hammer.png-b5ebd4ea69376338dba479c33ccc15be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Bullets3.png"
-dest_files=["res://.godot/imported/Bullets3.png-78f73482877b274941a55485a81ca6ae.ctex"]
+source_file="res://Assets/Textures/UI/Hammer.png"
+dest_files=["res://.godot/imported/Hammer.png-b5ebd4ea69376338dba479c33ccc15be.ctex"]
 
 [params]
 

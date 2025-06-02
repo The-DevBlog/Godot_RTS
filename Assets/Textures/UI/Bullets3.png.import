@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qxmrs5fv3wb6"
-path="res://.godot/imported/Energy.png-ea773f9d6d4ea6139b9fab2d9b03b279.ctex"
+uid="uid://blcuxf1bawkjk"
+path="res://.godot/imported/Bullets3.png-40e2fcab2c5c65025a686f3fcd326dc8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/Energy.png"
-dest_files=["res://.godot/imported/Energy.png-ea773f9d6d4ea6139b9fab2d9b03b279.ctex"]
+source_file="res://Assets/Textures/UI/Bullets3.png"
+dest_files=["res://.godot/imported/Bullets3.png-40e2fcab2c5c65025a686f3fcd326dc8.ctex"]
 
 [params]
 
