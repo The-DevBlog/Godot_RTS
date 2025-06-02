@@ -33,9 +33,9 @@ public partial class RootContainer : Container
 		{
 			if (node is Button btn)
 			{
-				btn.SelfModulate = normalColor;
-				btn.MouseEntered += () => btn.SelfModulate = hoverColor;
-				btn.MouseExited += () => btn.SelfModulate = normalColor;
+				btn.Modulate = normalColor;
+				btn.MouseEntered += () => btn.Modulate = hoverColor;
+				btn.MouseExited += () => btn.Modulate = normalColor;
 			}
 		}
 	}
