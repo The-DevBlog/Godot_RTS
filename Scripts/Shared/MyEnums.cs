@@ -10,6 +10,7 @@ namespace MyEnums
 
     public enum Structure
     {
+        None,
         Barracks,
         Garage,
         OilWell,
@@ -17,14 +18,14 @@ namespace MyEnums
         Satellite,
         Cannon,
         ResearchLab,
-        None,
+        Pending,
     }
 
     public enum Unit
     {
+        None,
         TankGen1,
         TankGen2,
         Artillery,
-        None
     }
 }
