@@ -282,3 +282,5 @@ shape = SubResource("BoxShape3D_or46v")
 [node name="Camera" parent="." instance=ExtResource("1_c3mwy")]
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
+
+[node name="Shaders" type="Node3D" parent="."]
