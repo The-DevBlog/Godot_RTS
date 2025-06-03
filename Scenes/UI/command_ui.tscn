@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=32 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
@@ -20,11 +20,8 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k4jei"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c22w8"]
-load_path = "res://.godot/imported/research_center.png-6f14c125512f73eae352e0e3b0c4eacf.ctex"
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ly8nf"]
-texture = SubResource("CompressedTexture2D_c22w8")
+texture = ExtResource("9_4e0cq")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5aby"]
 texture = ExtResource("8_ww22p")
