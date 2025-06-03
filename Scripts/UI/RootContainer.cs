@@ -24,6 +24,26 @@ public partial class RootContainer : Container
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));
+
+		NullCheck();
+	}
+
+	private void NullCheck()
+	{
+		if (StructuresContainer == null)
+			Utils.PrintErr("StructuresContainer is not set.");
+
+		if (UnitsContainer == null)
+			Utils.PrintErr("UnitsContainer is not set.");
+
+		if (VehiclesContainer == null)
+			Utils.PrintErr("VehiclesContainer is not set.");
+
+		if (UpgradesContainer == null)
+			Utils.PrintErr("UpgradesContainer is not set.");
+
+		if (_miniMapContainer == null)
+			Utils.PrintErr("MiniMapContainer is not set.");
 	}
 
 	private void SetupButtons(Enum group)
