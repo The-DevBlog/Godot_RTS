@@ -34,7 +34,7 @@ transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 
 [node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
 transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 19.1532, 0, -7.67288)
 
-[node name="TankGen2_1" parent="Units" instance=ExtResource("4_dun2r")]
+[node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, 13.8044, 0, -7.58137)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
