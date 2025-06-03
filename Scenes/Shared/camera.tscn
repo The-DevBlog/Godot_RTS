@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4t8pujatv061"]
+[gd_scene load_steps=5 format=3 uid="uid://b4t8pujatv061"]
 
 [ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/Camera.cs" id="1_npc2i"]
+[ext_resource type="Shader" uid="uid://bsbdr7uqyox1v" path="res://Shaders/outline_shader.gdshader" id="2_ac6r2"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ogslg"]
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kr66b"]
+render_priority = 0
+shader = ExtResource("2_ac6r2")
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/shadow_thickness = 2.0
 
 [node name="Camera" type="Node3D"]
 script = ExtResource("1_npc2i")
@@ -13,3 +23,8 @@ transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 
 [node name="Camera3D" type="Camera3D" parent="CameraZoomPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, -1.92836, 2.29813)
 current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraZoomPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.26)
+mesh = SubResource("QuadMesh_ogslg")
+surface_material_override/0 = SubResource("ShaderMaterial_kr66b")

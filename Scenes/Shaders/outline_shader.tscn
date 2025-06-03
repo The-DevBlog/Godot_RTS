@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://k8hyf3g3w1xi"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_2uehn"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Shader" id="Shader_usrx5"]
+code = "shader_type spatial;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the material.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nbw0m"]
+render_priority = 0
+shader = SubResource("Shader_usrx5")
+
+[node name="OutlineShader" type="MeshInstance3D"]
+mesh = SubResource("QuadMesh_2uehn")
+surface_material_override/0 = SubResource("ShaderMaterial_nbw0m")
