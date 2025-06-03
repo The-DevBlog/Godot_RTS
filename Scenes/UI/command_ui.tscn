@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/UI/Icons/Rifle.png" id="7_f6022"]
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 [ext_resource type="Texture2D" uid="uid://dniuodhac8jni" path="res://Assets/Textures/UI/Structures/Barracks.png" id="8_ww22p"]
-[ext_resource type="Texture2D" uid="uid://4avpgs334yis" path="res://Assets/Textures/UI/Structures/ResearchCenter.png" id="9_4e0cq"]
+[ext_resource type="Texture2D" uid="uid://4avpgs334yis" path="res://Assets/Textures/UI/Structures/ResearchLab.png" id="9_4e0cq"]
 [ext_resource type="Texture2D" uid="uid://dypbkgy26tn3f" path="res://Assets/Textures/UI/Structures/Garage.png" id="10_o42af"]
 [ext_resource type="Texture2D" uid="uid://bq4jjptvimvfi" path="res://Assets/Textures/UI/Structures/Satellite.png" id="11_c5tkt"]
 [ext_resource type="Texture2D" uid="uid://cpuibkheybmgy" path="res://Assets/Textures/UI/Structures/Cannon.png" id="12_uy737"]
@@ -523,7 +523,7 @@ text = "Cannon"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ResearchCenterBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
+[node name="ResearchLabBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -532,7 +532,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_7aoqs")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_7aoqs")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4/ResearchCenterBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4/ResearchLabBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -545,7 +545,7 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
-text = "Research Center"
+text = "Research Lab"
 
 [node name="Button2" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
 layout_mode = 2

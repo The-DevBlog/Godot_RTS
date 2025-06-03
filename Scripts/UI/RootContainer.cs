@@ -18,9 +18,9 @@ public partial class RootContainer : Container
 		if (_miniMapContainer == null)
 			Utils.PrintErr("MiniMapContainer node not found.");
 
-		SetupButtons(Groups.StructureBtns);
-		SetupButtons(Groups.UnitBtns);
-		SetupButtons(Groups.VehicleBtns);
+		SetupButtons(Group.StructureBtns);
+		SetupButtons(Group.UnitBtns);
+		SetupButtons(Group.VehicleBtns);
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));
