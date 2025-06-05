@@ -23,15 +23,15 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		var structureModel = _models.Structures[Structure];
-		var structure = structureModel.Instantiate() as Node3D;
+		PackedScene structureModel = _models.Structures[Structure];
+		Node3D structure = structureModel.Instantiate() as Node3D;
 		if (structure == null)
 		{
 			Utils.PrintErr("Failed to instantiate structure for " + Structure);
 			return;
 		}
 
-		var currentScene = GetTree().CurrentScene as Node3D;
+		Node3D currentScene = GetTree().CurrentScene as Node3D;
 		if (currentScene == null)
 		{
 			Utils.PrintErr("Current scene is not a Node3D.");
