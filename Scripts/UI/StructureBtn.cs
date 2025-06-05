@@ -91,10 +91,12 @@ public partial class StructureBtn : Button
 			return;
 		}
 
+		_scene.AddChild(structure);
+
+		// Update position to match current mouse position
 		Vector3 position = GetWorldPosition();
 		structure.GlobalPosition = position;
 
-		_scene.AddChild(structure);
 		_scene.RemoveChild(_structurePlaceholder);
 		_structurePlaceholder = null;
 	}
