@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://2a4v4mc43uay"]
+
+[ext_resource type="PackedScene" uid="uid://bwl453h332lwy" path="res://Assets/Models/Structures/ResearchLab/ResearchLab.glb" id="1_udmyl"]
+
+[node name="ResearchLab" type="StaticBody3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_udmyl")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.10457, 0)

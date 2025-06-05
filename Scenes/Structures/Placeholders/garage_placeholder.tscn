@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cquq6ty2k8cbm"]
+
+[ext_resource type="PackedScene" uid="uid://by3j44aquklsd" path="res://Assets/Models/Structures/Garage/Garage.glb" id="1_0owdl"]
+
+[node name="Garage" type="StaticBody3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_0owdl")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

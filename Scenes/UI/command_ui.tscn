@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=33 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
@@ -9,7 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/UI/Icons/Rifle.png" id="7_f6022"]
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 [ext_resource type="Texture2D" uid="uid://dniuodhac8jni" path="res://Assets/Textures/UI/Structures/Barracks.png" id="8_ww22p"]
-[ext_resource type="Texture2D" uid="uid://4avpgs334yis" path="res://Assets/Textures/UI/Structures/ResearchCenter.png" id="9_4e0cq"]
+[ext_resource type="Texture2D" uid="uid://4avpgs334yis" path="res://Assets/Textures/UI/Structures/ResearchLab.png" id="9_4e0cq"]
+[ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://dypbkgy26tn3f" path="res://Assets/Textures/UI/Structures/Garage.png" id="10_o42af"]
 [ext_resource type="Texture2D" uid="uid://bq4jjptvimvfi" path="res://Assets/Textures/UI/Structures/Satellite.png" id="11_c5tkt"]
 [ext_resource type="Texture2D" uid="uid://cpuibkheybmgy" path="res://Assets/Textures/UI/Structures/Cannon.png" id="12_uy737"]
@@ -367,7 +368,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EnergyPlantBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
+[node name="GeneratorBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -375,8 +376,10 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_ly8nf")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ly8nf")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ly8nf")
+script = ExtResource("10_ly8nf")
+Structure = 4
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer/EnergyPlantBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer/GeneratorBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -399,6 +402,8 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_g5aby")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_g5aby")
 theme_override_styles/normal = SubResource("StyleBoxTexture_g5aby")
+script = ExtResource("10_ly8nf")
+Structure = 1
 
 [node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer/BarracksBtn"]
 layout_mode = 1
@@ -427,6 +432,8 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_esy4f")
+script = ExtResource("10_ly8nf")
+Structure = 3
 
 [node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer2/OilWellBtn"]
 layout_mode = 1
@@ -451,6 +458,8 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_v0w7p")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_v0w7p")
 theme_override_styles/normal = SubResource("StyleBoxTexture_v0w7p")
+script = ExtResource("10_ly8nf")
+Structure = 2
 
 [node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer2/GarageBtn"]
 layout_mode = 1
@@ -479,6 +488,8 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_cg0vo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_cg0vo")
 theme_override_styles/normal = SubResource("StyleBoxTexture_cg0vo")
+script = ExtResource("10_ly8nf")
+Structure = 5
 
 [node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer3/SatelliteBtn"]
 layout_mode = 1
@@ -503,6 +514,8 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_tlv7r")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_tlv7r")
 theme_override_styles/normal = SubResource("StyleBoxTexture_tlv7r")
+script = ExtResource("10_ly8nf")
+Structure = 6
 
 [node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer3/CannonBtn"]
 layout_mode = 1
@@ -523,7 +536,7 @@ text = "Cannon"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ResearchCenterBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
+[node name="ResearchLabBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -531,8 +544,10 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_7aoqs")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_7aoqs")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
+script = ExtResource("10_ly8nf")
+Structure = 7
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4/ResearchCenterBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4/ResearchLabBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -545,7 +560,7 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
-text = "Research Center"
+text = "Research Lab"
 
 [node name="Button2" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
 layout_mode = 2
@@ -555,6 +570,8 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/hover = SubResource("StyleBoxTexture_7aoqs")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_7aoqs")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
+script = ExtResource("10_ly8nf")
+Structure = 8
 
 [node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructuresContainer/VBoxContainer/HBoxContainer4/Button2"]
 layout_mode = 1

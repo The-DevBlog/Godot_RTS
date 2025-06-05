@@ -30,7 +30,7 @@ public partial class Unit : CharacterBody3D
 
 	public override void _Ready()
 	{
-		AddToGroup(Groups.Units.ToString());
+		AddToGroup(Group.Units.ToString());
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		_navigationAgent.AvoidanceEnabled = true;
 		_navigationAgent.DebugEnabled = DebugEnabled;

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://de2ymqiuive8u"]
+
+[ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_m031c"]
+
+[node name="OilWell" type="StaticBody3D"]
+
+[node name="Model" parent="." instance=ExtResource("1_m031c")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

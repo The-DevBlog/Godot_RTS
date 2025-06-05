@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1vko3tdkmeis"]
+
+[ext_resource type="PackedScene" uid="uid://bjc4ospt4uuhk" path="res://Assets/Models/Structures/Satellite/Satellite.glb" id="1_1yqpk"]
+
+[node name="Satellite" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36202, 0)
+
+[node name="Satellite" parent="." instance=ExtResource("1_1yqpk")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

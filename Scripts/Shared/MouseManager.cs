@@ -103,7 +103,7 @@ public partial class MouseManager : Control
 
 		// collect selected units
 		var selectedUnits = GetTree()
-			.GetNodesInGroup(Groups.Units.ToString())
+			.GetNodesInGroup(Group.Units.ToString())
 			.OfType<Unit>()
 			.Where(u => u.Selected)
 			.ToArray();
