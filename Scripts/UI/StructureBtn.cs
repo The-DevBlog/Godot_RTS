@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Godot;
 using MyEnums;
 
@@ -17,10 +18,14 @@ public partial class StructureBtn : Button
 
 	private void OnButtonPressed()
 	{
-		GD.Print("Button pressed for structure: " + Structure);
+		if (Structure == Structure.None)
+		{
+			Utils.PrintErr("Structure is set to  none!");
+			return;
+		}
 
-		var structure = _models.Garage.Instantiate() as Node3D;
-
+		var structureModel = _models.GetModel(Structure);
+		var structure = structureModel.Instantiate() as Node3D;
 		if (structure == null)
 		{
 			Utils.PrintErr("Failed to instantiate structure for " + Structure);
@@ -28,7 +33,6 @@ public partial class StructureBtn : Button
 		}
 
 		var currentScene = GetTree().CurrentScene as Node3D;
-
 		if (currentScene == null)
 		{
 			Utils.PrintErr("Current scene is not a Node3D.");

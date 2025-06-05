@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://by3j44aquklsd" path="res://Assets/Models/Structures/Garage/Garage.glb" id="1_s1wbf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
-size = Vector3(6.075, 2.51, 4.465)
+size = Vector3(7.06, 2.51, 5.46)
 
 [node name="Garage" type="StaticBody3D"]
 

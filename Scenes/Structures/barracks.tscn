@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://p6omv7jvueob"]
+
+[ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_c4alm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
+size = Vector3(3.155, 1.535, 3.655)
+
+[node name="Barracks" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623, 0)
+shape = SubResource("BoxShape3D_s1wbf")
+
+[node name="Model" parent="." instance=ExtResource("1_c4alm")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

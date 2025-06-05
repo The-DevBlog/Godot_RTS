@@ -18,7 +18,6 @@ namespace MyEnums
         Satellite,
         Cannon,
         ResearchLab,
-        Pending,
     }
 
     public enum Unit
