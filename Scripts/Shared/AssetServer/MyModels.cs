@@ -4,11 +4,12 @@ using MyEnums;
 
 public class MyModels
 {
-    public Dictionary<Structure, PackedScene> Models { get; set; }
+    public Dictionary<Structure, PackedScene> Structures { get; set; }
+    public Dictionary<Structure, PackedScene> StructurePlaceholders { get; set; }
 
     public MyModels()
     {
-        Models = new Dictionary<Structure, PackedScene>
+        Structures = new Dictionary<Structure, PackedScene>
         {
             { Structure.Barracks,    GD.Load<PackedScene>("res://Scenes/Structures/barracks.tscn") },
             { Structure.Garage,      GD.Load<PackedScene>("res://Scenes/Structures/garage.tscn")   },
@@ -17,6 +18,17 @@ public class MyModels
             { Structure.ResearchLab, GD.Load<PackedScene>("res://Scenes/Structures/research_lab.tscn") },
             { Structure.OilWell,     GD.Load<PackedScene>("res://Scenes/Structures/oil_well.tscn")  },
             { Structure.Satellite,   GD.Load<PackedScene>("res://Scenes/Structures/satellite.tscn") },
+        };
+
+        Structures = new Dictionary<Structure, PackedScene>
+        {
+            { Structure.Barracks,    GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/barracks.tscn") },
+            { Structure.Garage,      GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/garage.tscn")   },
+            { Structure.Cannon,      GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/cannon.tscn")   },
+            { Structure.Generator,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/generator.tscn")},
+            { Structure.ResearchLab, GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/research_lab.tscn") },
+            { Structure.OilWell,     GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/oil_well.tscn")  },
+            { Structure.Satellite,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/satellite.tscn") },
         };
     }
 }
