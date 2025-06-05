@@ -79,7 +79,9 @@ public partial class Camera : Node3D
 
 		_moveTarget += movementDirection * PanSpeed;
 		_rotateKeysTarget += rotateKeys * RotateSpeed;
-		_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
+
+		if (!Resources.Instance.IsPlacingStructure)
+			_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
 	}
 
 	private void UpdateCameraPosition()
