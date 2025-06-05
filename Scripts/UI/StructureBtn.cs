@@ -53,7 +53,7 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		PackedScene structureModel = _models.Structures[Structure];
+		PackedScene structureModel = _models.StructurePlaceholders[Structure];
 		// PackedScene structureModel = _models.Structures[Structure];
 		Node3D structure = structureModel.Instantiate() as Node3D;
 		if (structure == null)
