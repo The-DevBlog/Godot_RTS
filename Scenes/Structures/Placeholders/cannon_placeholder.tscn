@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dp1ukndro3non"]
 
-[ext_resource type="PackedScene" uid="uid://cv7iu3e2xje8o" path="res://Assets/Models/Structures/Cannon/Cannon.glb" id="1_8ekr8"]
+[ext_resource type="PackedScene" uid="uid://cv7iu3e2xje8o" path="res://Assets/Models/Structures/Cannon/Cannon.glb" id="1_0iar0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(1.645, 0.85, 1.69)
@@ -11,5 +11,5 @@ size = Vector3(1.645, 0.85, 1.69)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.283, 0)
 shape = SubResource("BoxShape3D_s1wbf")
 
-[node name="Model" parent="." instance=ExtResource("1_8ekr8")]
+[node name="Model" parent="." instance=ExtResource("1_0iar0")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

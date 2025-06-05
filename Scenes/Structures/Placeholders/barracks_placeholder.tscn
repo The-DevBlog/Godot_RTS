@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b4gy8gjkq87cb"]
 
-[ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_konfl"]
+[ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_72kei"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(3.155, 1.535, 3.655)
@@ -11,5 +11,5 @@ size = Vector3(3.155, 1.535, 3.655)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623, 0)
 shape = SubResource("BoxShape3D_s1wbf")
 
-[node name="Model" parent="." instance=ExtResource("1_konfl")]
+[node name="Model" parent="." instance=ExtResource("1_72kei")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
