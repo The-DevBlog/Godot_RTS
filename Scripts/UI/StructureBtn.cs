@@ -6,14 +6,18 @@ public partial class StructureBtn : Button
 	[Export]
 	public Structure Structure { get; set; }
 	private Node3D _structurePlaceholder;
-	private MyModels _models => AssetServer.Instance.Models;
+	private MyModels _models;
+	private Camera3D _camera;
 
 	public override void _Ready()
 	{
-		if (Structure == Structure.None)
-			Utils.PrintErr("Structure Enum is not set for " + Name);
+		_models = AssetServer.Instance.Models;
+		_camera = GetViewport().GetCamera3D();
 
 		Pressed += OnButtonPressed;
+
+		if (Structure == Structure.None)
+			Utils.PrintErr("Structure Enum is not set for " + Name);
 	}
 
 	public override void _Process(double delta)
@@ -29,9 +33,8 @@ public partial class StructureBtn : Button
 		Vector2 mousePos = GetViewport().GetMousePosition();
 
 		// 2) From the camera, compute a ray (origin + direction) at that screen point
-		Camera3D camera = GetViewport().GetCamera3D();
-		Vector3 rayOrigin = camera.ProjectRayOrigin(mousePos);
-		Vector3 rayDirection = camera.ProjectRayNormal(mousePos);
+		Vector3 rayOrigin = _camera.ProjectRayOrigin(mousePos);
+		Vector3 rayDirection = _camera.ProjectRayNormal(mousePos);
 
 		// 3) Intersect the ray against a horizontal plane (y = 0)
 		Plane groundPlane = new Plane(Vector3.Up, 0.0f);
