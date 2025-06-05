@@ -49,12 +49,11 @@ public partial class StructureBtn : Button
 	{
 		if (Structure == Structure.None)
 		{
-			Utils.PrintErr("Structure is set to  none!");
+			Utils.PrintErr("Structure is set to none!");
 			return;
 		}
 
 		PackedScene structureModel = _models.StructurePlaceholders[Structure];
-		// PackedScene structureModel = _models.Structures[Structure];
 		Node3D structure = structureModel.Instantiate() as Node3D;
 		if (structure == null)
 		{
