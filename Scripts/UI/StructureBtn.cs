@@ -29,14 +29,13 @@ public partial class StructureBtn : Button
 
 	private void UpdatePlaceholderPosition()
 	{
-		// 1) Get the mouse position in viewport coordinates (Vector2)
 		Vector2 mousePos = GetViewport().GetMousePosition();
 
-		// 2) From the camera, compute a ray (origin + direction) at that screen point
+		// From the camera, compute a ray (origin + direction) at that screen point
 		Vector3 rayOrigin = _camera.ProjectRayOrigin(mousePos);
 		Vector3 rayDirection = _camera.ProjectRayNormal(mousePos);
 
-		// 3) Intersect the ray against a horizontal plane (y = 0)
+		// Intersect the ray against a horizontal plane (y = 0)
 		Plane groundPlane = new Plane(Vector3.Up, 0.0f);
 		var intersection = groundPlane.IntersectsSegment(
 			rayOrigin,
@@ -72,5 +71,7 @@ public partial class StructureBtn : Button
 
 		_structurePlaceholder = structure;
 		currentScene.AddChild(_structurePlaceholder);
+
+		this.ReleaseFocus();
 	}
 }
