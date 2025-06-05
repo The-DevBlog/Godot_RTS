@@ -74,6 +74,7 @@ public partial class StructureBtn : Button
 
 		_structurePlaceholder = structure;
 		Resources.Instance.IsPlacingStructure = true;
+		Input.MouseMode = Input.MouseModeEnum.Hidden;
 		_scene.AddChild(_structurePlaceholder);
 
 		this.ReleaseFocus();
@@ -102,6 +103,7 @@ public partial class StructureBtn : Button
 		_scene.RemoveChild(_structurePlaceholder);
 		_structurePlaceholder = null;
 		Resources.Instance.IsPlacingStructure = false;
+		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
 	private Vector3 GetWorldPosition()
