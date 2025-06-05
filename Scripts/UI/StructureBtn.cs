@@ -73,6 +73,7 @@ public partial class StructureBtn : Button
 		}
 
 		_structurePlaceholder = structure;
+		Resources.Instance.IsPlacingStructure = true;
 		_scene.AddChild(_structurePlaceholder);
 
 		this.ReleaseFocus();
@@ -100,6 +101,7 @@ public partial class StructureBtn : Button
 
 		_scene.RemoveChild(_structurePlaceholder);
 		_structurePlaceholder = null;
+		Resources.Instance.IsPlacingStructure = false;
 	}
 
 	private Vector3 GetWorldPosition()
