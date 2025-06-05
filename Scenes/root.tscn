@@ -12,7 +12,6 @@ agent_height = 1.0
 agent_radius = 1.6
 
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]
-flip_faces = true
 size = Vector3(200, 0.5, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
