@@ -34,20 +34,7 @@ public partial class StructureBtn : Button
 	public override void _Input(InputEvent @event)
 	{
 		if (Input.IsActionJustPressed("mb_primary"))
-		{
 			PlaceStructure();
-		}
-
-		// If we are in placement‐mode and the user presses left mouse → place.
-		// if (_structurePlaceholder != null &&
-		// 	@event is InputEventMouseButton mb &&
-		// 	mb.Pressed &&
-		// 	mb.ButtonIndex == MouseButton.Left)
-		// {
-		// 	// Prevent the click from also “pressing” this button again
-		// 	@event.Handled = true;
-		// 	PlaceStructure();
-		// }
 	}
 
 
