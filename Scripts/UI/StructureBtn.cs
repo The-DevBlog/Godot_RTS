@@ -33,8 +33,19 @@ public partial class StructureBtn : Button
 
 	public override void _Input(InputEvent @event)
 	{
+		if (_structurePlaceholder == null)
+			return;
+
 		if (Input.IsActionJustPressed("mb_primary"))
 			PlaceStructure();
+
+		if (@event is InputEventMouseButton mb && mb.Pressed)
+		{
+			if (mb.ButtonIndex == MouseButton.WheelUp)
+				RotatePlaceholder(45.0f);
+			else if (mb.ButtonIndex == MouseButton.WheelDown)
+				RotatePlaceholder(-45.0f);
+		}
 	}
 
 
@@ -43,14 +54,16 @@ public partial class StructureBtn : Button
 		_structurePlaceholder.GlobalPosition = GetWorldPosition();
 	}
 
+	private void RotatePlaceholder(float degrees)
+	{
+		var newRotation = _structurePlaceholder.RotationDegrees;
+		newRotation.Y += degrees;
+
+		_structurePlaceholder.RotationDegrees = newRotation;
+	}
+
 	private void OnStructureSelect()
 	{
-		if (Structure == Structure.None)
-		{
-			Utils.PrintErr("Structure is set to none!");
-			return;
-		}
-
 		PackedScene structureModel = _models.StructurePlaceholders[Structure];
 		Node3D structure = structureModel.Instantiate() as Node3D;
 		if (structure == null)
