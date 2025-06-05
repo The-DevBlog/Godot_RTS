@@ -96,6 +96,7 @@ public partial class StructureBtn : Button
 		// Update position to match current mouse position
 		Vector3 position = GetWorldPosition();
 		structure.GlobalPosition = position;
+		structure.Rotation = _structurePlaceholder.Rotation;
 
 		_scene.RemoveChild(_structurePlaceholder);
 		_structurePlaceholder = null;
