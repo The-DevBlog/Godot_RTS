@@ -24,7 +24,7 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		var structureModel = _models.GetModel(Structure);
+		var structureModel = _models.Models[Structure];
 		var structure = structureModel.Instantiate() as Node3D;
 		if (structure == null)
 		{
