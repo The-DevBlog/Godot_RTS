@@ -27,5 +27,6 @@ current = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CameraZoomPivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.26)
+visible = false
 mesh = SubResource("QuadMesh_ogslg")
 surface_material_override/0 = SubResource("ShaderMaterial_kr66b")

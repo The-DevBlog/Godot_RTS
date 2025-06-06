@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://pbotln2rpsjp"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_b75tf"]
+vertices = PackedVector3Array(-98.25, 0.75, 0.25, -25.5, 0.75, 0.25, -24.25, 0.75, -3, -22.25, 0.75, -4.25, -22.25, 0.75, -98.25, -98.25, 0.75, -98.25, -17, 0.75, -2.25, -16.25, 0.75, -1.5, -16, 0.75, -0.25, 98.25, 0.75, -0.25, 98.25, 0.75, -98.25, -17.25, 0.75, 3.25, -19, 0.75, 4.25, -19, 0.75, 98.25, 98.25, 0.75, 98.25, -24.25, 0.75, 2.25, -98.25, 0.75, 98.25)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(6, 3, 4), PackedInt32Array(4, 7, 6), PackedInt32Array(7, 4, 8), PackedInt32Array(8, 4, 9), PackedInt32Array(9, 4, 10), PackedInt32Array(13, 12, 11), PackedInt32Array(11, 8, 13), PackedInt32Array(13, 8, 9), PackedInt32Array(13, 9, 14), PackedInt32Array(0, 1, 15), PackedInt32Array(15, 12, 0), PackedInt32Array(0, 12, 13), PackedInt32Array(0, 13, 16)]
+agent_height = 1.0
+agent_radius = 1.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_nt6v7"]
+size = Vector3(200, 0.5, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gqvr5"]
+size = Vector3(200, 0.5, 200)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t5qv2"]
+size = Vector3(3, 2, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i0wm8"]
+size = Vector3(3, 2, 5)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D"]
+navigation_mesh = SubResource("NavigationMesh_b75tf")
+metadata/_edit_group_ = true
+
+[node name="Ground" type="StaticBody3D" parent="." groups=["MapBase"]]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_nt6v7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_gqvr5")
+
+[node name="Building" type="StaticBody3D" parent="."]
+transform = Transform3D(0.381038, 0, 0.924559, 0, 1, 0, -0.924559, 0, 0.381038, -20.6912, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02004, 0)
+mesh = SubResource("BoxMesh_t5qv2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
+shape = SubResource("BoxShape3D_i0wm8")
