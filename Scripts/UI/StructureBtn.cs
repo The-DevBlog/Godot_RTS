@@ -126,10 +126,17 @@ public partial class StructureBtn : Button
 		if (result.Count > 0)
 		{
 			StaticBody3D bodyHit = (StaticBody3D)result["collider"];
-			if (bodyHit != null && bodyHit.IsInGroup(Group.MapBase.ToString()))
+			if (bodyHit != null)
 			{
-				Vector3 position = (Vector3)result["position"];
-				return position;
+				if (bodyHit.IsInGroup(Group.MapBase.ToString()))
+				{
+					Vector3 position = (Vector3)result["position"];
+					return position;
+				}
+				else
+				{
+
+				}
 			}
 		}
 
