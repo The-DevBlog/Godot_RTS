@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
+vertices = PackedVector3Array(-98.25, 0.75, -98.25, -98.25, 0.75, 98.25, 98.25, 0.75, 98.25, 98.25, 0.75, -98.25)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_height = 1.0
 agent_radius = 1.6
 

@@ -83,7 +83,6 @@ public partial class MouseManager : Control
 
 	private void SetTargetPosition(Vector2 mousePos)
 	{
-
 		if (_camera == null)
 		{
 			Utils.PrintErr("Camera3D not found.");
@@ -97,7 +96,10 @@ public partial class MouseManager : Control
 		var rayParams = new PhysicsRayQueryParameters3D { From = from, To = to };
 		var result = cam.GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
 		if (!result.TryGetValue("position", out var hitVar))
+		{
+			GD.Print("Invalid target location");
 			return;
+		}
 
 		Vector3 center = hitVar.AsVector3();
 
@@ -109,7 +111,11 @@ public partial class MouseManager : Control
 			.ToArray();
 
 		int count = selectedUnits.Length;
-		if (count == 0) return;
+		if (count == 0)
+		{
+			GD.Print("No selected units");
+			return;
+		}
 
 		// define the square “formation” size
 		float sideLength = 4.0f;   // total width/depth of the area
