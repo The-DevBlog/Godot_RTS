@@ -9,12 +9,12 @@ public partial class MouseManager : Control
 	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
 	private Signals _signals;
-	private bool _mouseDown;
 	private Camera3D _camera;
-	private bool _dragActive = false;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
 	private HashSet<Unit> _prevSelectedUnits;
+	private bool _mouseDown;
+	private bool _dragActive;
 	private bool _isAnySelected;
 
 	public override void _Ready()
@@ -24,7 +24,6 @@ public partial class MouseManager : Control
 		_signals = Signals.Instance;
 		_signals.DeselectAllUnits += OnDeselectAllUnits;
 		_prevSelectedUnits = new HashSet<Unit>();
-		_isAnySelected = false;
 	}
 
 	public override void _Process(double delta)
