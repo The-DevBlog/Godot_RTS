@@ -74,9 +74,6 @@ public partial class MouseManager : Control
 			if (!_dragActive && _isAnySelected && !isHit)
 				SetTargetPosition(mousePosition);
 
-			// else if (!_dragActive)
-			// 	SelectSingleUnit(mousePosition);
-
 			_mouseDown = false;
 			_dragActive = false;
 
