@@ -6,6 +6,7 @@ namespace MyEnums
         StructureBtns,
         UnitBtns,
         VehicleBtns,
+        MapBase,
     }
 
     public enum Structure

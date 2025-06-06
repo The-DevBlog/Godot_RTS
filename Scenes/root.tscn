@@ -41,7 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 metadata/_edit_group_ = true
 
-[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D"]
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["MapBase"]]
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
@@ -67,7 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151.855, 34.0909, -184.25)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 metadata/_edit_group_ = true
 
-[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D2"]
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D2" groups=["MapBase"]]
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Ground"]
