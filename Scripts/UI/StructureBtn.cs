@@ -4,8 +4,7 @@ using MyEnums;
 
 public partial class StructureBtn : Button
 {
-	[Export]
-	public Structure Structure { get; set; }
+	[Export] public Structure Structure { get; set; }
 	private Signals _signals;
 	private Node3D _structurePlaceholder;
 	private MyModels _models;
@@ -142,10 +141,7 @@ public partial class StructureBtn : Button
 		GD.Print("Structure placed: " + Structure);
 	}
 
-	/// <summary>
-	/// Casts a ray under the mouse, returns the first StaticBody3D in "MapBase" and the hit position.
-	/// If nothing is hit, returns null and hitPosition = Vector3.Zero.
-	/// </summary>
+	// Casts a ray under the mouse, returns the first StaticBody3D in "MapBase" and the hit position.
 	private StaticBody3D GetHoveredMapBase(out Vector3 hitPosition)
 	{
 		hitPosition = Vector3.Zero;
