@@ -61,6 +61,8 @@ script = ExtResource("3_dun2r")
 metadata/_edit_group_ = true
 
 [node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["MapBase"]]
+collision_layer = 2
+collision_mask = 2
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
