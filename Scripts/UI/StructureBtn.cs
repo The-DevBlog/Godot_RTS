@@ -6,6 +6,7 @@ public partial class StructureBtn : Button
 {
 	[Export]
 	public Structure Structure { get; set; }
+	private Signals _signals;
 	private Node3D _structurePlaceholder;
 	private MyModels _models;
 	private Camera3D _camera;
@@ -13,6 +14,7 @@ public partial class StructureBtn : Button
 
 	public override void _Ready()
 	{
+		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
 		_scene = GetTree().CurrentScene as Node3D;
@@ -29,7 +31,10 @@ public partial class StructureBtn : Button
 	public override void _Process(double delta)
 	{
 		if (_structurePlaceholder != null)
-			UpdatePlaceholderPosition();
+		{
+			GetHoveredMapBase(out Vector3 hitPos);
+			_structurePlaceholder.GlobalPosition = hitPos;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -47,11 +52,6 @@ public partial class StructureBtn : Button
 			else if (mb.ButtonIndex == MouseButton.WheelDown)
 				RotatePlaceholder(-45.0f);
 		}
-	}
-
-	private void UpdatePlaceholderPosition()
-	{
-		_structurePlaceholder.GlobalPosition = GetWorldPosition();
 	}
 
 	private void RotatePlaceholder(float degrees)
@@ -85,61 +85,99 @@ public partial class StructureBtn : Button
 		if (_structurePlaceholder == null)
 			return;
 
-		PackedScene structureModel = _models.Structures[Structure];
-		Node3D structure = structureModel.Instantiate() as Node3D;
+		// 1) Ray‐cast under the mouse and get (groundBody, hitPos)
+		StaticBody3D groundBody = GetHoveredMapBase(out Vector3 hitPos);
+		if (groundBody == null)
+		{
+			GD.PrintErr("PlaceStructure: Mouse not over MapBase. Cancelling placement.");
+			return;
+		}
+
+		// 2) Find the parent NavigationRegion3D of that StaticBody3D
+		NavigationRegion3D navRegion = null;
+		Node current = groundBody;
+		while (current != null)
+		{
+			if (current is NavigationRegion3D nr)
+			{
+				navRegion = nr;
+				break;
+			}
+			current = current.GetParent();
+		}
+
+		if (navRegion == null)
+		{
+			GD.PrintErr($"PlaceStructure: '{groundBody.Name}' has no parent NavigationRegion3D. Cancelling.");
+			return;
+		}
+
+		// 3) Cache placeholder’s final world‐transform, then free it
+		Vector3 finalPos = _structurePlaceholder.GlobalPosition;
+		Basis finalBasis = _structurePlaceholder.GlobalTransform.Basis;
+		_scene.RemoveChild(_structurePlaceholder);
+		_structurePlaceholder.QueueFree();
+		_structurePlaceholder = null;
+		Resources.Instance.IsPlacingStructure = false;
+		Input.MouseMode = Input.MouseModeEnum.Visible;
+
+		// 4) Instantiate the real structure under navRegion
+		PackedScene realScene = _models.Structures[Structure];
+		Node3D structure = realScene.Instantiate() as Node3D;
 		if (structure == null)
 		{
 			Utils.PrintErr("Failed to instantiate structure for " + Structure);
 			return;
 		}
 
-		_scene.AddChild(structure);
+		navRegion.AddChild(structure);
 
-		// Update position to match current mouse position
-		Vector3 position = GetWorldPosition();
-		structure.GlobalPosition = position;
-		structure.Rotation = _structurePlaceholder.Rotation;
+		// 5) Apply the placeholder’s world transform (GlobalPosition + rotation)
+		structure.GlobalPosition = finalPos;
+		structure.GlobalTransform = new Transform3D(finalBasis, finalPos);
 
-		_scene.RemoveChild(_structurePlaceholder);
-		_structurePlaceholder = null;
-		Resources.Instance.IsPlacingStructure = false;
-		Input.MouseMode = Input.MouseModeEnum.Visible;
+		// 6) Tell listeners to rebuild navmesh for only that one region
+		_signals.EmitUpdateNavigationMap(navRegion);
+
+		GD.Print("Structure placed: " + Structure);
 	}
 
-	private Vector3 GetWorldPosition()
+	/// <summary>
+	/// Casts a ray under the mouse, returns the first StaticBody3D in "MapBase" and the hit position.
+	/// If nothing is hit, returns null and hitPosition = Vector3.Zero.
+	/// </summary>
+	private StaticBody3D GetHoveredMapBase(out Vector3 hitPosition)
 	{
+		hitPosition = Vector3.Zero;
+
+		// Build the ray under the mouse
 		Vector2 mousePos = GetViewport().GetMousePosition();
 		Vector3 rayOrigin = _camera.ProjectRayOrigin(mousePos);
 		Vector3 rayDirection = _camera.ProjectRayNormal(mousePos);
 		Vector3 rayEnd = rayOrigin + rayDirection * 1000.0f;
 
 		var spaceState = _camera.GetWorld3D().DirectSpaceState;
-
 		var query = new PhysicsRayQueryParameters3D
 		{
 			From = rayOrigin,
 			To = rayEnd,
-			CollisionMask = UInt32.MaxValue // hit any layer
+			CollisionMask = UInt32.MaxValue // we’ll filter by group instead
 		};
 
 		var result = spaceState.IntersectRay(query);
-		if (result.Count > 0)
-		{
-			StaticBody3D bodyHit = (StaticBody3D)result["collider"];
-			if (bodyHit != null)
-			{
-				if (bodyHit.IsInGroup(Group.MapBase.ToString()))
-				{
-					Vector3 position = (Vector3)result["position"];
-					return position;
-				}
-				else
-				{
+		if (result.Count == 0)
+			return null;
 
-				}
-			}
-		}
+		// Extract the collider and check if it’s a StaticBody3D in MapBase
+		CollisionObject3D colObj = (CollisionObject3D)result["collider"];
+		if (colObj == null)
+			return null;
 
-		return Vector3.Zero;
+		StaticBody3D bodyHit = colObj as StaticBody3D;
+		if (bodyHit == null || !bodyHit.IsInGroup(Group.MapBase.ToString()))
+			return null;
+
+		hitPosition = (Vector3)result["position"];
+		return bodyHit;
 	}
 }
