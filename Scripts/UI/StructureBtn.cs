@@ -158,7 +158,6 @@ public partial class StructureBtn : Button
 			From = rayOrigin,
 			To = rayEnd,
 			CollisionMask = 2,
-			// CollisionMask = UInt32.MaxValue // we’ll filter by group instead
 		};
 
 		var result = spaceState.IntersectRay(query);
