@@ -62,6 +62,32 @@ mesh = SubResource("BoxMesh_q101i")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
 shape = SubResource("BoxShape3D_or46v")
 
+[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151.855, 34.0909, -184.25)
+navigation_mesh = SubResource("NavigationMesh_q101i")
+metadata/_edit_group_ = true
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D2"]
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Ground"]
+mesh = SubResource("BoxMesh_or46v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D2/Ground"]
+shape = SubResource("BoxShape3D_ns7qj")
+
+[node name="Building" type="StaticBody3D" parent="NavigationRegion3D2"]
+transform = Transform3D(0.381038, 0, 0.924559, 0, 1, 0, -0.924559, 0, 0.381038, -20.6912, 0, 0)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02004, 0)
+mesh = SubResource("BoxMesh_q101i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D2/Building"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
+shape = SubResource("BoxShape3D_or46v")
+
 [node name="Camera" parent="." instance=ExtResource("1_c3mwy")]
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]

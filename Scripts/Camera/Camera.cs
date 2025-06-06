@@ -3,6 +3,7 @@ using Godot;
 public partial class Camera : Node3D
 {
 	[Export] public float PanSpeed = 0.2f;
+	[Export] public float PanSpeedBoost = 2.0f;
 	[Export] public float RotateSpeed = 1.2f;
 	[Export] public float ZoomSpeed = 2.0f;
 	[Export(PropertyHint.Range, "0.01,0.4")] public float Smoothness = 0.1f;
@@ -77,7 +78,9 @@ public partial class Camera : Node3D
 		float rotateKeys = Input.GetAxis("rotate_left", "rotate_right");
 		int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0) - (Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
 
-		_moveTarget += movementDirection * PanSpeed;
+		var panSpeedBoost = Input.IsActionPressed("pan_speed_boost") ? PanSpeedBoost : 1.0f;
+
+		_moveTarget += movementDirection * PanSpeed * panSpeedBoost;
 		_rotateKeysTarget += rotateKeys * RotateSpeed;
 
 		if (!Resources.Instance.IsPlacingStructure)
