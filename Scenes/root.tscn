@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=14 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://Scenes/Shared/camera.tscn" id="1_c3mwy"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
@@ -13,7 +13,11 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Arr
 agent_height = 1.0
 agent_radius = 1.6
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckhy6"]
+albedo_color = Color(0.329412, 0.486275, 0.32549, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]
+material = SubResource("StandardMaterial3D_ckhy6")
 size = Vector3(200, 0.5, 200)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
@@ -24,6 +28,11 @@ size = Vector3(3, 2, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_or46v"]
 size = Vector3(3, 2, 5)
+
+[sub_resource type="Environment" id="Environment_ckhy6"]
+ambient_light_color = Color(0.796996, 0.664143, 0.396956, 1)
+fog_density = 0.0245
+adjustment_enabled = true
 
 [node name="World" type="Node3D"]
 
@@ -74,3 +83,6 @@ PanSpeedBoost = 2.0
 
 [node name="PixelatedShader" parent="Shaders" instance=ExtResource("6_ckhy6")]
 visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ckhy6")
