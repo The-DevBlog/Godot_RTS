@@ -8,21 +8,32 @@ public partial class MouseManager : Control
 {
 	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
-	private bool _mouseDown;
+	private Resources _resources;
+	private Signals _signals;
 	private Camera3D _camera;
-	private bool _dragActive = false;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
-	private HashSet<Unit> _prevSelectedUnits = new HashSet<Unit>();
+	private HashSet<Unit> _prevSelectedUnits;
+	private bool _mouseDown;
+	private bool _dragActive;
+	private bool _isAnySelected;
 
 	public override void _Ready()
 	{
 		Instance = this;
 		_camera = GetViewport().GetCamera3D();
+		_resources = Resources.Instance;
+		_signals = Signals.Instance;
+		_signals.DeselectAllUnits += OnDeselectAllUnits;
+		_prevSelectedUnits = new HashSet<Unit>();
+
+		if (_camera == null)
+			Utils.PrintErr("Camera3D not found.");
 	}
 
 	public override void _Process(double delta)
 	{
+		_isAnySelected = _prevSelectedUnits.Count > 0;
 		HandleMouseInput();
 	}
 
@@ -38,6 +49,12 @@ public partial class MouseManager : Control
 
 	private void HandleMouseInput()
 	{
+		if (_resources.IsPlacingStructure)
+			return;
+
+		if (Input.IsActionJustReleased("mb_secondary"))
+			_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
+
 		// 1) Pressed right now? begin potential drag:
 		if (Input.IsActionJustPressed("mb_primary"))
 		{
@@ -50,14 +67,16 @@ public partial class MouseManager : Control
 		// 2) Released right now? end drag or treat as click:
 		else if (Input.IsActionJustReleased("mb_primary"))
 		{
-			if (!_dragActive)
-			{
-				// it never moved beyond the threshold → a click!
-				SetTargetPosition(GetViewport().GetMousePosition());
-			}
+			Vector2 mousePosition = GetViewport().GetMousePosition();
+
+			bool isHit = SelectSingleUnit(mousePosition);
+
+			if (!_dragActive && _isAnySelected && !isHit)
+				SetTargetPosition(mousePosition);
 
 			_mouseDown = false;
 			_dragActive = false;
+
 			QueueRedraw();
 		}
 		// 3) Still holding? update drag distance & maybe select:
@@ -81,20 +100,64 @@ public partial class MouseManager : Control
 		}
 	}
 
-	private void SetTargetPosition(Vector2 mousePos)
+	private bool SelectSingleUnit(Vector2 mousePosition)
 	{
-		if (_camera == null)
+		if (_resources.IsHoveringUI)
+			return false;
+
+		Vector3 from = _camera.ProjectRayOrigin(mousePosition);
+		Vector3 to = from + _camera.ProjectRayNormal(mousePosition) * 1000f;
+
+		var query = new PhysicsRayQueryParameters3D { From = from, To = to };
+		var spaceState = _camera.GetWorld3D().DirectSpaceState;
+		var result = spaceState.IntersectRay(query);
+
+		if (result.Count == 0)
+			return false;
+
+		CollisionObject3D collider = (CollisionObject3D)result["collider"];
+
+		if (collider != null && collider.IsInGroup(Group.Units.ToString()))
 		{
-			Utils.PrintErr("Camera3D not found.");
-			return;
+			foreach (Unit u in _prevSelectedUnits)
+				u.Selected = false;
+
+			Unit unit = FindAncestor<Unit>(collider);
+			unit.Selected = true;
+			_prevSelectedUnits = new HashSet<Unit>() { unit };
+
+			return true;
 		}
 
-		var cam = _camera;
-		Vector3 from = cam.ProjectRayOrigin(mousePos);
-		Vector3 to = from + cam.ProjectRayNormal(mousePos) * 1000f;
+		return false;
+	}
 
-		var rayParams = new PhysicsRayQueryParameters3D { From = from, To = to };
-		var result = cam.GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
+	private static T FindAncestor<T>(Node node) where T : Node
+	{
+		while (node != null)
+		{
+			if (node is T t)
+				return t;
+			node = node.GetParent();
+		}
+		return null;
+	}
+
+	private void SetTargetPosition(Vector2 mousePos)
+	{
+		if (_resources.IsHoveringUI)
+			return;
+
+		Vector3 from = _camera.ProjectRayOrigin(mousePos);
+		Vector3 to = from + _camera.ProjectRayNormal(mousePos) * 1000f;
+
+		var rayParams = new PhysicsRayQueryParameters3D
+		{
+			From = from,
+			To = to
+		};
+
+		var result = _camera.GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
 		if (!result.TryGetValue("position", out var hitVar))
 		{
 			GD.Print("Invalid target location");
@@ -200,8 +263,8 @@ public partial class MouseManager : Control
 	private List<Unit> GetUnitsInSelection()
 	{
 		var selectRect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
-
 		var picked = new List<Unit>();
+
 		foreach (Unit unit in GetTree().GetNodesInGroup("units"))
 		{
 			var screenPoint = _camera.UnprojectPosition(unit.GlobalPosition);
@@ -211,6 +274,17 @@ public partial class MouseManager : Control
 		}
 
 		return picked;
+	}
+
+	private void OnDeselectAllUnits()
+	{
+		GD.Print("Deselect all units");
+
+		foreach (Unit unit in _prevSelectedUnits)
+			unit.Selected = false;
+
+		_prevSelectedUnits = new HashSet<Unit>();
+		_dragActive = false;
 	}
 
 	// Marks units as selected or unselected.

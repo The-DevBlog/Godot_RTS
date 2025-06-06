@@ -8,12 +8,14 @@ public partial class RootContainer : Container
 	[Export] public Container UnitsContainer { get; set; }
 	[Export] public Container VehiclesContainer { get; set; }
 	[Export] public Container UpgradesContainer { get; set; }
+	private Resources _resources;
 	private Color normalColor = new Color("#c8c8c8");
 	private Color hoverColor = new Color("#ffffff");
 	private MarginContainer _miniMapContainer;
 	public override void _Ready()
 	{
 		_miniMapContainer = GetNode<MarginContainer>("VBoxContainer/MiniMapContainer");
+		_resources = Resources.Instance;
 
 		if (_miniMapContainer == null)
 			Utils.PrintErr("MiniMapContainer node not found.");
@@ -26,6 +28,17 @@ public partial class RootContainer : Container
 		CallDeferred(nameof(OnWindowResize));
 
 		NullCheck();
+	}
+
+	public override void _Process(double delta)
+	{
+		SetIsHoveringUI();
+	}
+
+	private void SetIsHoveringUI()
+	{
+		var mousePosition = GetViewport().GetMousePosition();
+		_resources.IsHoveringUI = mousePosition.X >= GlobalPosition.X;
 	}
 
 	private void NullCheck()

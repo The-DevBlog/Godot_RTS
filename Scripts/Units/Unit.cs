@@ -3,12 +3,9 @@ using MyEnums;
 
 public partial class Unit : CharacterBody3D
 {
-	[Export]
-	public int Speed { get; set; } = 2;
-	[Export]
-	public int Acceleration { get; set; } = 3;
-	[Export]
-	public bool DebugEnabled { get; set; }
+	[Export] public int Speed { get; set; } = 2;
+	[Export] public int Acceleration { get; set; } = 3;
+	[Export] public bool DebugEnabled { get; set; }
 
 	private float _movementDelta;
 	private Vector3 _targetPosition;
@@ -78,25 +75,6 @@ public partial class Unit : CharacterBody3D
 		// 5) Make the unit face the horizontal direction:
 		LookAt(GlobalPosition + horizontalDir, Vector3.Up);
 	}
-
-	// private void MoveUnit()
-	// {
-	// 	if (NavigationServer3D.MapGetIterationId(_navigationAgent.GetNavigationMap()) == 0)
-	// 		return;
-
-	// 	if (_navigationAgent.IsNavigationFinished())
-	// 		return;
-
-	// 	Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-	// 	Vector3 newVelocity = GlobalPosition.DirectionTo(nextPathPosition) * Speed;
-
-	// 	if (_navigationAgent.AvoidanceEnabled)
-	// 		_navigationAgent.Velocity = newVelocity;
-	// 	else
-	// 		OnVelocityComputed(newVelocity);
-
-	// 	LookAt(nextPathPosition, Vector3.Up);
-	// }
 
 	private void OnVelocityComputed(Vector3 safeVelocity)
 	{

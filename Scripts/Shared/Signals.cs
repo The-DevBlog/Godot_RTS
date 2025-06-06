@@ -6,6 +6,8 @@ public partial class Signals : Node
 
     [Signal]
     public delegate void UpdateNavigationMapEventHandler(NavigationRegion3D region);
+    [Signal]
+    public delegate void DeselectAllUnitsEventHandler();
 
     public override void _Ready()
     {
