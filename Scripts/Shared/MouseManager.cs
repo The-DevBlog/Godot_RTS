@@ -26,6 +26,9 @@ public partial class MouseManager : Control
 		_signals = Signals.Instance;
 		_signals.DeselectAllUnits += OnDeselectAllUnits;
 		_prevSelectedUnits = new HashSet<Unit>();
+
+		if (_camera == null)
+			Utils.PrintErr("Camera3D not found.");
 	}
 
 	public override void _Process(double delta)
@@ -46,6 +49,9 @@ public partial class MouseManager : Control
 
 	private void HandleMouseInput()
 	{
+		if (_resources.IsPlacingStructure)
+			return;
+
 		if (Input.IsActionJustReleased("mb_secondary"))
 			_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
 
@@ -61,14 +67,19 @@ public partial class MouseManager : Control
 		// 2) Released right now? end drag or treat as click:
 		else if (Input.IsActionJustReleased("mb_primary"))
 		{
-			if (!_dragActive)
-			{
-				// it never moved beyond the threshold → a click!
-				SetTargetPosition(GetViewport().GetMousePosition());
-			}
+			Vector2 mousePosition = GetViewport().GetMousePosition();
+
+			bool isHit = SelectSingleUnit(mousePosition);
+
+			if (!_dragActive && _isAnySelected && !isHit)
+				SetTargetPosition(mousePosition);
+
+			// else if (!_dragActive)
+			// 	SelectSingleUnit(mousePosition);
 
 			_mouseDown = false;
 			_dragActive = false;
+
 			QueueRedraw();
 		}
 		// 3) Still holding? update drag distance & maybe select:
@@ -92,23 +103,64 @@ public partial class MouseManager : Control
 		}
 	}
 
+	private bool SelectSingleUnit(Vector2 mousePosition)
+	{
+		if (_resources.IsHoveringUI)
+			return false;
+
+		Vector3 from = _camera.ProjectRayOrigin(mousePosition);
+		Vector3 to = from + _camera.ProjectRayNormal(mousePosition) * 1000f;
+
+		var query = new PhysicsRayQueryParameters3D { From = from, To = to };
+		var spaceState = _camera.GetWorld3D().DirectSpaceState;
+		var result = spaceState.IntersectRay(query);
+
+		if (result.Count == 0)
+			return false;
+
+		CollisionObject3D collider = (CollisionObject3D)result["collider"];
+
+		if (collider != null && collider.IsInGroup(Group.Units.ToString()))
+		{
+			foreach (Unit u in _prevSelectedUnits)
+				u.Selected = false;
+
+			Unit unit = FindAncestor<Unit>(collider);
+			unit.Selected = true;
+			_prevSelectedUnits = new HashSet<Unit>() { unit };
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private static T FindAncestor<T>(Node node) where T : Node
+	{
+		while (node != null)
+		{
+			if (node is T t)
+				return t;
+			node = node.GetParent();
+		}
+		return null;
+	}
+
 	private void SetTargetPosition(Vector2 mousePos)
 	{
 		if (_resources.IsHoveringUI)
 			return;
 
-		if (_camera == null)
+		Vector3 from = _camera.ProjectRayOrigin(mousePos);
+		Vector3 to = from + _camera.ProjectRayNormal(mousePos) * 1000f;
+
+		var rayParams = new PhysicsRayQueryParameters3D
 		{
-			Utils.PrintErr("Camera3D not found.");
-			return;
-		}
+			From = from,
+			To = to
+		};
 
-		var cam = _camera;
-		Vector3 from = cam.ProjectRayOrigin(mousePos);
-		Vector3 to = from + cam.ProjectRayNormal(mousePos) * 1000f;
-
-		var rayParams = new PhysicsRayQueryParameters3D { From = from, To = to };
-		var result = cam.GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
+		var result = _camera.GetWorld3D().DirectSpaceState.IntersectRay(rayParams);
 		if (!result.TryGetValue("position", out var hitVar))
 		{
 			GD.Print("Invalid target location");
