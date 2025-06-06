@@ -38,9 +38,6 @@ transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, 13.8044, 0, -7.58137)
 
-[node name="TankGen3" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -123.634, 53.9821, -84.1602)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 navigation_mesh = SubResource("NavigationMesh_q101i")
@@ -65,33 +62,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02004, 0)
 mesh = SubResource("BoxMesh_q101i")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
-shape = SubResource("BoxShape3D_or46v")
-
-[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -185.108, 53.6896, -154.173)
-navigation_mesh = SubResource("NavigationMesh_q101i")
-script = ExtResource("3_dun2r")
-metadata/_edit_group_ = true
-
-[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D2" groups=["MapBase"]]
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Ground"]
-mesh = SubResource("BoxMesh_or46v")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D2/Ground"]
-shape = SubResource("BoxShape3D_ns7qj")
-
-[node name="Building" type="StaticBody3D" parent="NavigationRegion3D2"]
-transform = Transform3D(0.381038, 0, 0.924559, 0, 1, 0, -0.924559, 0, 0.381038, -20.6912, 0, 0)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02004, 0)
-mesh = SubResource("BoxMesh_q101i")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D2/Building"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
 shape = SubResource("BoxShape3D_or46v")
 
