@@ -6,7 +6,7 @@
 shader = ExtResource("1_ch076")
 shader_parameter/size = Vector2(3, 3)
 
-[node name="PixelatedShader" type="CanvasLayer"]
+[node name="PixelShader" type="CanvasLayer"]
 layer = 101
 
 [node name="ColorRect" type="ColorRect" parent="."]
