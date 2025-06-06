@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using MyEnums;
 
@@ -63,6 +62,9 @@ public partial class StructureBtn : Button
 
 	private void OnStructureSelect()
 	{
+		// deselect all units
+		_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
+
 		PackedScene structureModel = _models.StructurePlaceholders[Structure];
 		Node3D structure = structureModel.Instantiate() as Node3D;
 		if (structure == null)

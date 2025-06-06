@@ -8,21 +8,28 @@ public partial class MouseManager : Control
 {
 	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
+	private Signals _signals;
 	private bool _mouseDown;
 	private Camera3D _camera;
 	private bool _dragActive = false;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
-	private HashSet<Unit> _prevSelectedUnits = new HashSet<Unit>();
+	private HashSet<Unit> _prevSelectedUnits;
+	private bool _isAnySelected;
 
 	public override void _Ready()
 	{
 		Instance = this;
 		_camera = GetViewport().GetCamera3D();
+		_signals = Signals.Instance;
+		_signals.DeselectAllUnits += OnDeselectAllUnits;
+		_prevSelectedUnits = new HashSet<Unit>();
+		_isAnySelected = false;
 	}
 
 	public override void _Process(double delta)
 	{
+		_isAnySelected = _prevSelectedUnits.Count > 0;
 		HandleMouseInput();
 	}
 
@@ -38,6 +45,9 @@ public partial class MouseManager : Control
 
 	private void HandleMouseInput()
 	{
+		if (Input.IsActionJustReleased("mb_secondary"))
+			_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
+
 		// 1) Pressed right now? begin potential drag:
 		if (Input.IsActionJustPressed("mb_primary"))
 		{
@@ -200,8 +210,8 @@ public partial class MouseManager : Control
 	private List<Unit> GetUnitsInSelection()
 	{
 		var selectRect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
-
 		var picked = new List<Unit>();
+
 		foreach (Unit unit in GetTree().GetNodesInGroup("units"))
 		{
 			var screenPoint = _camera.UnprojectPosition(unit.GlobalPosition);
@@ -211,6 +221,17 @@ public partial class MouseManager : Control
 		}
 
 		return picked;
+	}
+
+	private void OnDeselectAllUnits()
+	{
+		GD.Print("Deselect all units");
+
+		foreach (Unit unit in _prevSelectedUnits)
+			unit.Selected = false;
+
+		_prevSelectedUnits = new HashSet<Unit>();
+		_dragActive = false;
 	}
 
 	// Marks units as selected or unselected.
