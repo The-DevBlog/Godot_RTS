@@ -48,7 +48,6 @@ public partial class StructureBtn : Button
 		}
 	}
 
-
 	private void UpdatePlaceholderPosition()
 	{
 		_structurePlaceholder.GlobalPosition = GetWorldPosition();
