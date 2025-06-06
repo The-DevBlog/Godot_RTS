@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using MyEnums;
 
@@ -47,7 +48,6 @@ public partial class StructureBtn : Button
 				RotatePlaceholder(-45.0f);
 		}
 	}
-
 
 	private void UpdatePlaceholderPosition()
 	{
@@ -109,18 +109,30 @@ public partial class StructureBtn : Button
 	private Vector3 GetWorldPosition()
 	{
 		Vector2 mousePos = GetViewport().GetMousePosition();
-
-		// From the camera, compute a ray (origin + direction) at that screen point
 		Vector3 rayOrigin = _camera.ProjectRayOrigin(mousePos);
 		Vector3 rayDirection = _camera.ProjectRayNormal(mousePos);
+		Vector3 rayEnd = rayOrigin + rayDirection * 1000.0f;
 
-		// Intersect the ray against a horizontal plane (y = 0)
-		Plane groundPlane = new Plane(Vector3.Up, 0.0f);
-		Vector3? intersection = groundPlane.IntersectsSegment(
-			rayOrigin,
-			rayOrigin + rayDirection * 1000.0f
-		);
+		var spaceState = _camera.GetWorld3D().DirectSpaceState;
 
-		return intersection.Value;
+		var query = new PhysicsRayQueryParameters3D
+		{
+			From = rayOrigin,
+			To = rayEnd,
+			CollisionMask = UInt32.MaxValue // hit any layer
+		};
+
+		var result = spaceState.IntersectRay(query);
+		if (result.Count > 0)
+		{
+			StaticBody3D bodyHit = (StaticBody3D)result["collider"];
+			if (bodyHit != null && bodyHit.IsInGroup(Group.MapBase.ToString()))
+			{
+				Vector3 position = (Vector3)result["position"];
+				return position;
+			}
+		}
+
+		return Vector3.Zero;
 	}
 }
