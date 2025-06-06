@@ -4,7 +4,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4g5cr"]
 shader = ExtResource("1_ch076")
-shader_parameter/size = Vector2(32, 28)
+shader_parameter/size = Vector2(3, 3)
 
 [node name="PixelatedShader" type="CanvasLayer"]
 layer = 101

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=11 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://b4t8pujatv061" path="res://Scenes/Shared/camera.tscn" id="1_c3mwy"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
+[ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
 vertices = PackedVector3Array(-98.25, 0.75, 0.25, -25.5, 0.75, 0.25, -24.25, 0.75, -3, -22.25, 0.75, -4.25, -22.25, 0.75, -98.25, -98.25, 0.75, -98.25, -17, 0.75, -2.25, -16.25, 0.75, -1.5, -16, 0.75, -0.25, 98.25, 0.75, -0.25, 98.25, 0.75, -98.25, -17.25, 0.75, 3.25, -19, 0.75, 4.25, -19, 0.75, 98.25, 98.25, 0.75, 98.25, -24.25, 0.75, 2.25, -98.25, 0.75, 98.25)
@@ -62,34 +63,11 @@ mesh = SubResource("BoxMesh_q101i")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
 shape = SubResource("BoxShape3D_or46v")
 
-[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -151.855, 34.0909, -184.25)
-navigation_mesh = SubResource("NavigationMesh_q101i")
-metadata/_edit_group_ = true
-
-[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D2" groups=["MapBase"]]
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Ground"]
-mesh = SubResource("BoxMesh_or46v")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D2/Ground"]
-shape = SubResource("BoxShape3D_ns7qj")
-
-[node name="Building" type="StaticBody3D" parent="NavigationRegion3D2"]
-transform = Transform3D(0.381038, 0, 0.924559, 0, 1, 0, -0.924559, 0, 0.381038, -20.6912, 0, 0)
-metadata/_edit_group_ = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02004, 0)
-mesh = SubResource("BoxMesh_q101i")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D2/Building"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03878, 0)
-shape = SubResource("BoxShape3D_or46v")
-
 [node name="Camera" parent="." instance=ExtResource("1_c3mwy")]
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
 [node name="Shaders" type="Node3D" parent="."]
+
+[node name="PixelatedShader" parent="Shaders" instance=ExtResource("6_ckhy6")]
+visible = false
