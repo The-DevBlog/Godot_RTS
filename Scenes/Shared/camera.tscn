@@ -25,7 +25,7 @@ transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 
 transform = Transform3D(1, 0, 0, 0, 1, 5.96046e-08, 0, -5.96046e-08, 1, 0, -1.92836, 2.29813)
 current = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraZoomPivot/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.26)
+[node name="OutlineShader" type="MeshInstance3D" parent="CameraZoomPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.055)
 mesh = SubResource("QuadMesh_ogslg")
 surface_material_override/0 = SubResource("ShaderMaterial_kr66b")
