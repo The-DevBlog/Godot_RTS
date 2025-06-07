@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwr4fadivbj2y"]
+[gd_scene load_steps=3 format=3 uid="uid://chuymqv4f0t6a"]
 
-[ext_resource type="PackedScene" uid="uid://bwl453h332lwy" path="res://Assets/Models/Structures/ResearchLab/ResearchLab.glb" id="1_banut"]
+[ext_resource type="PackedScene" uid="uid://bwl453h332lwy" path="res://Assets/Models/Structures/ResearchLab/ResearchLab.glb" id="1_8skj5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
-size = Vector3(4.36, 2.57, 4.26)
+size = Vector3(4.815, 5.26, 5.185)
 
 [node name="ResearchLab" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0703, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.64757, -0.298066)
 shape = SubResource("BoxShape3D_s1wbf")
 
-[node name="Model" parent="." instance=ExtResource("1_banut")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.10457, 0)
+[node name="Model" parent="." instance=ExtResource("1_8skj5")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.645051, 0)
