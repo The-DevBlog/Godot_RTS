@@ -17,8 +17,10 @@ public partial class InfoContainerLabels : HBoxContainer
 		_signals.UpdateEnergy += OnUpdateEnergy;
 	}
 
-	private void OnUpdateEnergy(int energy)
+	private void OnUpdateEnergy()
 	{
-		EnergyLabel.Text = $"{_energyConsumed}/{_resources.Energy}";
+		GD.Print("Energy: ", _resources.Energy);
+		GD.Print("Energy Consumed: ", _resources.EnergyConsumed);
+		EnergyLabel.Text = $"{_resources.EnergyConsumed}/{_resources.Energy}";
 	}
 }
