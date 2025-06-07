@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwrl08weddosv"]
+[gd_scene load_steps=2 format=3 uid="uid://ta4w7x4fh0ui"]
 
-[ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_ilqmp"]
+[ext_resource type="PackedScene" uid="uid://bx0u07b11vjrt" path="res://Assets/Models/Structures/Generator/Generator.glb" id="1_lnclb"]
 
 [node name="Generator" type="StaticBody3D"]
 
-[node name="Model" parent="." instance=ExtResource("1_ilqmp")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+[node name="Generator" parent="." instance=ExtResource("1_lnclb")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 1.21024, 0)

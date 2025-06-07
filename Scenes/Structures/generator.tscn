@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://dvl08y0orormx"]
 
-[ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_bhpv5"]
+[ext_resource type="PackedScene" uid="uid://bx0u07b11vjrt" path="res://Assets/Models/Structures/Generator/Generator.glb" id="1_bhpv5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
-size = Vector3(3.155, 1.535, 3.655)
+size = Vector3(4.875, 3.185, 6.38)
 
 [node name="Generator" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.187832, 1.55625, 0.219984)
 shape = SubResource("BoxShape3D_s1wbf")
 
-[node name="Model" parent="." instance=ExtResource("1_bhpv5")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+[node name="Generator" parent="." instance=ExtResource("1_bhpv5")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 1.21024, 0)

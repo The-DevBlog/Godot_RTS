@@ -17,8 +17,8 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
 Signals="*res://Scripts/Shared/Signals.cs"
 AssetServer="*res://Scripts/Shared/AssetServer/AssetServer.cs"
-Resources="*res://Scripts/Shared/Resources.cs"
 MouseManager="*res://Scripts/Shared/MouseManager.cs"
+Resources="*res://Scripts/Shared/Resources.cs"
 
 [display]
 

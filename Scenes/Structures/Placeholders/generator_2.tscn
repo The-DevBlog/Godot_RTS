@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b550l7j5i8b6u"]
+
+[ext_resource type="PackedScene" uid="uid://bx0u07b11vjrt" path="res://Assets/Models/Structures/Generator/Generator.glb" id="1_ilqmp"]
+
+[node name="Generator" type="StaticBody3D"]
+
+[node name="Generator" parent="." instance=ExtResource("1_ilqmp")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 1.21024, 0)
