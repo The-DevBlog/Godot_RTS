@@ -86,7 +86,7 @@ public partial class RootContainer : Container
 		AnchorLeft = newAnchorLeft;
 		AnchorRight = 1.0f;
 
-		Size = new Vector2(miniMapHeight, Size.Y);
+		SetDeferred("size", new Vector2(miniMapHeight, Size.Y));
 	}
 
 	private void ToggleVisibility(Container menu)

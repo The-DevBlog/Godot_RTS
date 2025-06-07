@@ -278,6 +278,9 @@ public partial class MouseManager : Control
 
 	private void OnDeselectAllUnits()
 	{
+		if (!_isAnySelected)
+			return;
+
 		GD.Print("Deselect all units");
 
 		foreach (Unit unit in _prevSelectedUnits)
