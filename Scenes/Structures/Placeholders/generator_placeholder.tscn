@@ -9,5 +9,5 @@ Energy = 25
 Cost = 500
 BuildTime = 3
 
-[node name="Generator" parent="." instance=ExtResource("1_lnclb")]
+[node name="Model" parent="." instance=ExtResource("1_lnclb")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 1.25221, 0)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://de2ymqiuive8u"]
+[gd_scene load_steps=3 format=3 uid="uid://de2ymqiuive8u"]
 
+[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_hyuaw"]
 [ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_m031c"]
 
 [node name="OilWell" type="StaticBody3D"]
+script = ExtResource("1_hyuaw")
 
 [node name="Model" parent="." instance=ExtResource("1_m031c")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

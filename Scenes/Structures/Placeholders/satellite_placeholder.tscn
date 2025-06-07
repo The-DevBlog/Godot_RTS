@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1vko3tdkmeis"]
+[gd_scene load_steps=3 format=3 uid="uid://c1vko3tdkmeis"]
 
 [ext_resource type="PackedScene" uid="uid://bjc4ospt4uuhk" path="res://Assets/Models/Structures/Satellite/Satellite.glb" id="1_1yqpk"]
+[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_emcuc"]
 
 [node name="Satellite" type="StaticBody3D"]
+script = ExtResource("1_emcuc")
 
-[node name="Satellite" parent="." instance=ExtResource("1_1yqpk")]
+[node name="Model" parent="." instance=ExtResource("1_1yqpk")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.524366, 0)

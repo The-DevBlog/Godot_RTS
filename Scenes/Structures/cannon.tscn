@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqv2e15yap837"]
+[gd_scene load_steps=4 format=3 uid="uid://bqv2e15yap837"]
 
 [ext_resource type="PackedScene" uid="uid://cv7iu3e2xje8o" path="res://Assets/Models/Structures/Cannon/Cannon.glb" id="1_su02c"]
+[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_y17lj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(1.645, 0.85, 1.69)
 
 [node name="Cannon" type="StaticBody3D"]
+script = ExtResource("1_y17lj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.283, 0)

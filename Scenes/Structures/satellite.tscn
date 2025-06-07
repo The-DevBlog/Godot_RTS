@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bosj7xd5kkexo"]
+[gd_scene load_steps=4 format=3 uid="uid://bosj7xd5kkexo"]
 
 [ext_resource type="PackedScene" uid="uid://bjc4ospt4uuhk" path="res://Assets/Models/Structures/Satellite/Satellite.glb" id="1_7wbf8"]
+[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_sfmbn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(3.565, 2.84, 3.7)
 
 [node name="Satellite" type="StaticBody3D"]
+script = ExtResource("1_sfmbn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38908, 0)
 shape = SubResource("BoxShape3D_s1wbf")
 
-[node name="Satellite" parent="." instance=ExtResource("1_7wbf8")]
+[node name="Model" parent="." instance=ExtResource("1_7wbf8")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.521189, 0)
