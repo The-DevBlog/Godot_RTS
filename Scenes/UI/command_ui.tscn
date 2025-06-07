@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=34 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
 [ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/UI/Icons/Energy.png" id="3_848d2"]
+[ext_resource type="Script" uid="uid://0sljbdu2hi6b" path="res://Scripts/UI/InfoContainerLabels.cs" id="3_g5aby"]
 [ext_resource type="Texture2D" uid="uid://ci5l8emphylve" path="res://Assets/Textures/UI/Icons/Hammer.png" id="6_k4jei"]
 [ext_resource type="Texture2D" uid="uid://b7jxwwtbgc30" path="res://Assets/Textures/UI/Icons/Armor.png" id="7_an80e"]
 [ext_resource type="Texture2D" uid="uid://daexh3giq74at" path="res://Assets/Textures/UI/Icons/Tank.png" id="7_c22w8"]
@@ -151,8 +152,10 @@ grow_vertical = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_right = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer" node_paths=PackedStringArray("EnergyLabel")]
 layout_mode = 2
+script = ExtResource("3_g5aby")
+EnergyLabel = NodePath("HBoxContainer/EnergyLabel")
 
 [node name="FundsLabel" type="Label" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2

@@ -104,6 +104,7 @@ public partial class StructureBtn : Button
 				navRegion = nr;
 				break;
 			}
+
 			current = current.GetParent();
 		}
 
@@ -139,6 +140,12 @@ public partial class StructureBtn : Button
 
 		// 6) Tell listeners to rebuild navmesh for only that one region
 		_signals.EmitUpdateNavigationMap(navRegion);
+
+		var structureBase = structure as StructureBase;
+		if (structureBase == null)
+			Utils.PrintErr("StructureBase class is not assigned to structure: " + Structure);
+
+		_signals.EmitUpdateEnergy(structureBase.Energy);
 
 		GD.Print("Structure placed: " + Structure);
 	}
