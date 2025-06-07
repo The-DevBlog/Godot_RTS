@@ -25,7 +25,7 @@ public class MyModels
             { Structure.Barracks,    GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/barracks_placeholder.tscn") },
             { Structure.Garage,      GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/garage_placeholder.tscn")   },
             { Structure.Cannon,      GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/cannon_placeholder.tscn")   },
-            { Structure.Generator,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/generator_2.tscn")},
+            { Structure.Generator,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/generator_placeholder.tscn")},
             { Structure.ResearchLab, GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/research_lab_placeholder.tscn") },
             { Structure.OilWell,     GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/oil_well_placeholder.tscn")  },
             { Structure.Satellite,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/satellite_placeholder.tscn") },
