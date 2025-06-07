@@ -6,7 +6,8 @@ public partial class StructureBtn : Button
 	[Export] public Structure Structure { get; set; }
 	private Resources _resources;
 	private Signals _signals;
-	private Node3D _structurePlaceholder;
+	// private Node3D _structurePlaceholder;
+	private StructureBase _structurePlaceholder;
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
@@ -68,10 +69,17 @@ public partial class StructureBtn : Button
 		_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
 
 		PackedScene structureModel = _models.StructurePlaceholders[Structure];
-		Node3D structure = structureModel.Instantiate() as Node3D;
+		StructureBase structure = structureModel.Instantiate() as StructureBase;
 		if (structure == null)
 		{
 			Utils.PrintErr("Failed to instantiate structure for " + Structure);
+			return;
+		}
+
+		bool enoughFunds = _resources.Funds >= structure.Cost;
+		if (!enoughFunds)
+		{
+			GD.Print("Not enough funds!");
 			return;
 		}
 
@@ -85,7 +93,6 @@ public partial class StructureBtn : Button
 
 	private void PlaceStructure()
 	{
-		// bool enoughFunds = _resources.Funds >= 
 		if (_structurePlaceholder == null)
 			return;
 
