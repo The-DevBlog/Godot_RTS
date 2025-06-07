@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cquq6ty2k8cbm"]
+[gd_scene load_steps=3 format=3 uid="uid://cquq6ty2k8cbm"]
 
+[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_0dtdr"]
 [ext_resource type="PackedScene" uid="uid://by3j44aquklsd" path="res://Assets/Models/Structures/Garage/Garage.glb" id="1_0owdl"]
 
 [node name="Garage" type="StaticBody3D"]
+script = ExtResource("1_0dtdr")
+Energy = -50
+Cost = 1250
+BuildTime = 3
 
 [node name="Model" parent="." instance=ExtResource("1_0owdl")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

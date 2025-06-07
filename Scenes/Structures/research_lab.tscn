@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://chuymqv4f0t6a"]
+[gd_scene load_steps=4 format=3 uid="uid://chuymqv4f0t6a"]
 
 [ext_resource type="PackedScene" uid="uid://bwl453h332lwy" path="res://Assets/Models/Structures/ResearchLab/ResearchLab.glb" id="1_8skj5"]
+[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_og2p8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(4.815, 5.26, 5.185)
 
 [node name="ResearchLab" type="StaticBody3D"]
+script = ExtResource("1_og2p8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.64757, -0.298066)

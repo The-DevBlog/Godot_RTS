@@ -7,6 +7,7 @@ public partial class Signals : Node
     [Signal] public delegate void UpdateNavigationMapEventHandler(NavigationRegion3D region);
     [Signal] public delegate void DeselectAllUnitsEventHandler();
     [Signal] public delegate void UpdateEnergyEventHandler();
+    [Signal] public delegate void UpdateFundsEventHandler();
     private Resources _resources;
 
     public override void _Ready()
@@ -27,5 +28,13 @@ public partial class Signals : Node
             _resources.EnergyConsumed += Math.Abs(energy);
 
         EmitSignal(SignalName.UpdateEnergy);
+    }
+
+    public void EmitUpdateFunds(int funds)
+    {
+        GD.Print("Update Funds: " + funds);
+
+        _resources.Funds += funds;
+        EmitSignal(SignalName.UpdateFunds);
     }
 }
