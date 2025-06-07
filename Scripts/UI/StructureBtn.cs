@@ -6,7 +6,6 @@ public partial class StructureBtn : Button
 	[Export] public Structure Structure { get; set; }
 	private Resources _resources;
 	private Signals _signals;
-	// private Node3D _structurePlaceholder;
 	private StructureBase _structurePlaceholder;
 	private MyModels _models;
 	private Camera3D _camera;
