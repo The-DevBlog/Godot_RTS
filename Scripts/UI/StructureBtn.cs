@@ -4,6 +4,7 @@ using MyEnums;
 public partial class StructureBtn : Button
 {
 	[Export] public Structure Structure { get; set; }
+	private Resources _resources;
 	private Signals _signals;
 	private Node3D _structurePlaceholder;
 	private MyModels _models;
@@ -12,6 +13,7 @@ public partial class StructureBtn : Button
 
 	public override void _Ready()
 	{
+		_resources = Resources.Instance;
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
@@ -83,6 +85,7 @@ public partial class StructureBtn : Button
 
 	private void PlaceStructure()
 	{
+		// bool enoughFunds = _resources.Funds >= 
 		if (_structurePlaceholder == null)
 			return;
 
@@ -146,6 +149,7 @@ public partial class StructureBtn : Button
 			Utils.PrintErr("StructureBase class is not assigned to structure: " + Structure);
 
 		_signals.EmitUpdateEnergy(structureBase.Energy);
+		_signals.EmitUpdateFunds(-structureBase.Cost);
 
 		GD.Print("Structure placed: " + Structure);
 	}

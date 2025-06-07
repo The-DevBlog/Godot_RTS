@@ -7,5 +7,10 @@ public partial class Resources : Node
     public bool IsHoveringUI { get; set; }
     public int Energy { get; set; }
     public int EnergyConsumed { get; set; }
-    public Resources() => Instance = this;
+    public int Funds { get; set; }
+    public Resources()
+    {
+        Instance = this;
+        Funds = 10000;
+    }
 }

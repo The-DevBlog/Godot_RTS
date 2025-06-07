@@ -152,10 +152,11 @@ grow_vertical = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_right = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer" node_paths=PackedStringArray("EnergyLabel")]
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer" node_paths=PackedStringArray("EnergyLabel", "FundsLabel")]
 layout_mode = 2
 script = ExtResource("3_g5aby")
 EnergyLabel = NodePath("HBoxContainer/EnergyLabel")
+FundsLabel = NodePath("FundsLabel")
 
 [node name="FundsLabel" type="Label" parent="RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
