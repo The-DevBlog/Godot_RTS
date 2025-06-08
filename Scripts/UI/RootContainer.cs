@@ -134,17 +134,19 @@ public partial class RootContainer : Container
 
 	private void OnUnitsBtnPressed()
 	{
-		_structureCountContainer.Visible = true;
-		UnitStructureCountContainer.Visible = true;
+		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
+		_structureCountContainer.Visible = isVisible;
+		UnitStructureCountContainer.Visible = isVisible;
 		VehicleStructureCountContainer.Visible = false;
 		ShowOnly(UnitsContainer);
 	}
 
 	private void OnVehiclesBtnPressed()
 	{
-		_structureCountContainer.Visible = true;
+		bool isVisible = _resources.StructureCount[StructureType.Garage] > 1;
+		_structureCountContainer.Visible = isVisible;
+		VehicleStructureCountContainer.Visible = isVisible;
 		UnitStructureCountContainer.Visible = false;
-		VehicleStructureCountContainer.Visible = true;
 		ShowOnly(VehiclesContainer);
 	}
 
