@@ -12,6 +12,7 @@ public partial class RootContainer : Container
 	[Export] public Container UnitStructureCountContainer { get; set; }
 	[Export] public Container VehicleStructureCountContainer { get; set; }
 	[Export] public NinePatchRect StructureCountBtn { get; set; }
+	private Container _structureCountContainer;
 	private Resources _resources;
 	private Signals _signals;
 	private Color normalColor = new Color("#c8c8c8");
@@ -30,6 +31,8 @@ public partial class RootContainer : Container
 		Utils.NullCheck(VehiclesContainer);
 		Utils.NullCheck(UpgradesContainer);
 		Utils.NullCheck(StructureCountBtn);
+
+		_structureCountContainer = UnitStructureCountContainer.GetParent<Container>();
 
 		SetupButtons(Group.StructureBtns);
 		SetupButtons(Group.UnitBtns);
@@ -123,6 +126,7 @@ public partial class RootContainer : Container
 
 	private void OnStructuresBtnPressed()
 	{
+		_structureCountContainer.Visible = false;
 		UnitStructureCountContainer.Visible = false;
 		VehicleStructureCountContainer.Visible = false;
 		ShowOnly(StructuresContainer);
@@ -130,6 +134,7 @@ public partial class RootContainer : Container
 
 	private void OnUnitsBtnPressed()
 	{
+		_structureCountContainer.Visible = true;
 		UnitStructureCountContainer.Visible = true;
 		VehicleStructureCountContainer.Visible = false;
 		ShowOnly(UnitsContainer);
@@ -137,6 +142,7 @@ public partial class RootContainer : Container
 
 	private void OnVehiclesBtnPressed()
 	{
+		_structureCountContainer.Visible = true;
 		UnitStructureCountContainer.Visible = false;
 		VehicleStructureCountContainer.Visible = true;
 		ShowOnly(VehiclesContainer);
@@ -144,6 +150,7 @@ public partial class RootContainer : Container
 
 	private void OnUpgradesBtnPressed()
 	{
+		_structureCountContainer.Visible = false;
 		UnitStructureCountContainer.Visible = false;
 		VehicleStructureCountContainer.Visible = false;
 		ShowOnly(UpgradesContainer);

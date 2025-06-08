@@ -362,6 +362,7 @@ grow_vertical = 2
 texture = ExtResource("7_an80e")
 
 [node name="StructureCountContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -407,6 +408,7 @@ theme_override_constants/separation = 11
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 9
 
