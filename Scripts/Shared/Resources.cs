@@ -11,10 +11,12 @@ public partial class Resources : Node
     public int Energy { get; set; }
     public int EnergyConsumed { get; set; }
     public int Funds { get; set; }
+    public int MaxStructureCount;
     public Resources()
     {
         Instance = this;
-        Funds = 10000;
+        Funds = 1000000;
+        MaxStructureCount = 8;
 
         StructureCount = new Dictionary<Structure, int>();
         foreach (Structure s in Structure.GetValues(typeof(Structure)))
@@ -35,5 +37,19 @@ public partial class Resources : Node
         }
 
         StructureCount[structure]--;
+    }
+
+    public bool MaxStructureCountReached(Structure structure)
+    {
+        bool reached;
+        if (structure != Structure.Garage && structure != Structure.Barracks)
+            return false;
+        else
+            reached = StructureCount[structure] >= MaxStructureCount;
+
+        if (reached)
+            GD.Print("Max structure count reached for: " + structure);
+
+        return reached;
     }
 }

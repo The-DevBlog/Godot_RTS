@@ -89,6 +89,11 @@ public partial class StructureBtn : Button
 			return;
 		}
 
+		// check if max structure count reached
+		bool maxStructureCount = _resources.MaxStructureCountReached(Structure);
+		if (maxStructureCount)
+			return;
+
 		// check if you have enough funds
 		bool enoughFunds = _resources.Funds >= structure.Cost;
 		if (!enoughFunds)
