@@ -42,6 +42,12 @@ public partial class StructureBtn : Button
 		if (_structurePlaceholder == null)
 			return;
 
+		if (Input.IsActionJustPressed("mb_secondary"))
+		{
+			CancelStructure();
+			return;
+		}
+
 		if (Input.IsActionJustPressed("mb_primary"))
 			PlaceStructure();
 
@@ -60,6 +66,14 @@ public partial class StructureBtn : Button
 		newRotation.Y += degrees;
 
 		_structurePlaceholder.RotationDegrees = newRotation;
+	}
+
+	private void CancelStructure()
+	{
+		_resources.IsPlacingStructure = false;
+		_scene.RemoveChild(_structurePlaceholder);
+		_structurePlaceholder = null;
+		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
 	private void OnStructureSelect()
@@ -130,7 +144,7 @@ public partial class StructureBtn : Button
 		_scene.RemoveChild(_structurePlaceholder);
 		_structurePlaceholder.QueueFree();
 		_structurePlaceholder = null;
-		Resources.Instance.IsPlacingStructure = false;
+		_resources.IsPlacingStructure = false;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 
 		// 4) Instantiate the real structure under navRegion
