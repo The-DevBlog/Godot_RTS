@@ -6,10 +6,11 @@ public partial class RootContainer : Container
 {
 	[Export] public Container MiniMapContainer { get; set; }
 	[Export] public Container StructuresContainer { get; set; }
-	[Export] public Container StructureCountContainer { get; set; }
 	[Export] public Container UnitsContainer { get; set; }
 	[Export] public Container VehiclesContainer { get; set; }
 	[Export] public Container UpgradesContainer { get; set; }
+	[Export] public Container UnitStructureCountContainer { get; set; }
+	[Export] public Container VehicleStructureCountContainer { get; set; }
 	[Export] public NinePatchRect StructureCountBtn { get; set; }
 	private Resources _resources;
 	private Signals _signals;
@@ -23,7 +24,8 @@ public partial class RootContainer : Container
 
 		Utils.NullCheck(MiniMapContainer);
 		Utils.NullCheck(StructuresContainer);
-		Utils.NullCheck(StructureCountContainer);
+		Utils.NullCheck(UnitStructureCountContainer);
+		Utils.NullCheck(VehicleStructureCountContainer);
 		Utils.NullCheck(UnitsContainer);
 		Utils.NullCheck(VehiclesContainer);
 		Utils.NullCheck(UpgradesContainer);
@@ -96,7 +98,10 @@ public partial class RootContainer : Container
 		StructureType structureType = (StructureType)structureId;
 
 		if (structureType != StructureType.Garage && structureType != StructureType.Barracks)
+		{
+			GD.Print("Returning");
 			return;
+		}
 
 		int structureCount = _resources.StructureCount[structureType];
 
@@ -112,15 +117,35 @@ public partial class RootContainer : Container
 
 		btn.Text = structureCount.ToString();
 
-		Control parent = StructureCountBtn.GetParent() as Control;
+		Control parent = structureType == StructureType.Garage ? VehicleStructureCountContainer : UnitStructureCountContainer;
 		parent.AddChild(btnContainer);
 	}
 
-	private void OnStructuresBtnPressed() => ShowOnly(StructuresContainer);
+	private void OnStructuresBtnPressed()
+	{
+		UnitStructureCountContainer.Visible = false;
+		VehicleStructureCountContainer.Visible = false;
+		ShowOnly(StructuresContainer);
+	}
 
-	private void OnUnitsBtnPressed() => ShowOnly(UnitsContainer);
+	private void OnUnitsBtnPressed()
+	{
+		UnitStructureCountContainer.Visible = true;
+		VehicleStructureCountContainer.Visible = false;
+		ShowOnly(UnitsContainer);
+	}
 
-	private void OnVehiclesBtnPressed() => ShowOnly(VehiclesContainer);
+	private void OnVehiclesBtnPressed()
+	{
+		UnitStructureCountContainer.Visible = false;
+		VehicleStructureCountContainer.Visible = true;
+		ShowOnly(VehiclesContainer);
+	}
 
-	private void OnUpgradesBtnPressed() => ShowOnly(UpgradesContainer);
+	private void OnUpgradesBtnPressed()
+	{
+		UnitStructureCountContainer.Visible = false;
+		VehicleStructureCountContainer.Visible = false;
+		ShowOnly(UpgradesContainer);
+	}
 }
