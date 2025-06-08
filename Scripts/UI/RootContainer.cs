@@ -5,13 +5,12 @@ using MyEnums;
 public partial class RootContainer : Container
 {
 	[Export] public Container MiniMapContainer { get; set; }
-	[Export] public Container StructuresContainer { get; set; }
-	[Export] public Container UnitsContainer { get; set; }
-	[Export] public Container VehiclesContainer { get; set; }
-	[Export] public Container UpgradesContainer { get; set; }
-	[Export] public Container UnitStructureCountContainer { get; set; }
-	[Export] public Container VehicleStructureCountContainer { get; set; }
-	[Export] public NinePatchRect StructureCountBtn { get; set; }
+	[Export] public Container ConstructionOptionsContainer { get; set; }
+	[Export] public Container UnitOptionsContainer { get; set; }
+	[Export] public Container VehicleOptionsContainer { get; set; }
+	[Export] public Container UpgradeOptionsContainer { get; set; }
+	[Export] public Container BarracksCountContainer { get; set; }
+	[Export] public Container GarageCountContainer { get; set; }
 	private Container _structureCountContainer;
 	private Resources _resources;
 	private Signals _signals;
@@ -24,15 +23,14 @@ public partial class RootContainer : Container
 		_signals.AddStructure += OnStructureAdd;
 
 		Utils.NullCheck(MiniMapContainer);
-		Utils.NullCheck(StructuresContainer);
-		Utils.NullCheck(UnitStructureCountContainer);
-		Utils.NullCheck(VehicleStructureCountContainer);
-		Utils.NullCheck(UnitsContainer);
-		Utils.NullCheck(VehiclesContainer);
-		Utils.NullCheck(UpgradesContainer);
-		Utils.NullCheck(StructureCountBtn);
+		Utils.NullCheck(ConstructionOptionsContainer);
+		Utils.NullCheck(BarracksCountContainer);
+		Utils.NullCheck(GarageCountContainer);
+		Utils.NullCheck(UnitOptionsContainer);
+		Utils.NullCheck(VehicleOptionsContainer);
+		Utils.NullCheck(UpgradeOptionsContainer);
 
-		_structureCountContainer = UnitStructureCountContainer.GetParent<Container>();
+		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
 
 		SetupButtons(Group.StructureBtns);
 		SetupButtons(Group.UnitBtns);
@@ -88,14 +86,6 @@ public partial class RootContainer : Container
 		menu.Visible = !menu.Visible;
 	}
 
-	private void ShowOnly(Container toShow)
-	{
-		StructuresContainer.Visible = toShow == StructuresContainer;
-		UnitsContainer.Visible = toShow == UnitsContainer;
-		VehiclesContainer.Visible = toShow == VehiclesContainer;
-		UpgradesContainer.Visible = toShow == UpgradesContainer;
-	}
-
 	private void OnStructureAdd(int structureId)
 	{
 		StructureType structureType = (StructureType)structureId;
@@ -108,53 +98,63 @@ public partial class RootContainer : Container
 
 		int structureCount = _resources.StructureCount[structureType];
 
-		NinePatchRect btnContainer = StructureCountBtn.Duplicate() as NinePatchRect;
-		btnContainer.Visible = true;
-		Button btn = btnContainer.GetNode<Button>("Btn");
+		Container structureCountContainer = _structureCountContainer.Duplicate() as Container;
+		structureCountContainer.Visible = true;
 
-		if (btn == null)
+		NinePatchRect btnContainer = BarracksCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
+		btnContainer.Visible = true;
+		if (btnContainer == null)
 		{
-			Utils.PrintErr("Button not found in StructureCountBtn. Is the name correct?");
+			Utils.PrintErr($"BtnContainer not found in {structureCountContainer.Name}. Is the name correct?");
 			return;
 		}
 
+		Button btn = btnContainer.GetNode<Button>("Btn");
 		btn.Text = structureCount.ToString();
 
-		Control parent = structureType == StructureType.Garage ? VehicleStructureCountContainer : UnitStructureCountContainer;
+		Control parent = structureType == StructureType.Garage ? GarageCountContainer : BarracksCountContainer;
 		parent.AddChild(btnContainer);
+	}
+
+	private void ShowOnly(Container toShow)
+	{
+		ConstructionOptionsContainer.Visible = toShow == ConstructionOptionsContainer;
+		UnitOptionsContainer.Visible = toShow == UnitOptionsContainer;
+		VehicleOptionsContainer.Visible = toShow == VehicleOptionsContainer;
+		UpgradeOptionsContainer.Visible = toShow == UpgradeOptionsContainer;
 	}
 
 	private void OnStructuresBtnPressed()
 	{
 		_structureCountContainer.Visible = false;
-		UnitStructureCountContainer.Visible = false;
-		VehicleStructureCountContainer.Visible = false;
-		ShowOnly(StructuresContainer);
+		BarracksCountContainer.Visible = false;
+		GarageCountContainer.Visible = false;
+		ShowOnly(ConstructionOptionsContainer);
 	}
 
 	private void OnUnitsBtnPressed()
 	{
 		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
 		_structureCountContainer.Visible = isVisible;
-		UnitStructureCountContainer.Visible = isVisible;
-		VehicleStructureCountContainer.Visible = false;
-		ShowOnly(UnitsContainer);
+		BarracksCountContainer.Visible = isVisible;
+		GarageCountContainer.Visible = false;
+		ShowOnly(UnitOptionsContainer);
 	}
 
 	private void OnVehiclesBtnPressed()
 	{
 		bool isVisible = _resources.StructureCount[StructureType.Garage] > 1;
 		_structureCountContainer.Visible = isVisible;
-		VehicleStructureCountContainer.Visible = isVisible;
-		UnitStructureCountContainer.Visible = false;
-		ShowOnly(VehiclesContainer);
+		GarageCountContainer.Visible = isVisible;
+		BarracksCountContainer.Visible = false;
+		ShowOnly(VehicleOptionsContainer);
 	}
 
 	private void OnUpgradesBtnPressed()
 	{
 		_structureCountContainer.Visible = false;
-		UnitStructureCountContainer.Visible = false;
-		VehicleStructureCountContainer.Visible = false;
-		ShowOnly(UpgradesContainer);
+		BarracksCountContainer.Visible = false;
+		GarageCountContainer.Visible = false;
+		ShowOnly(UpgradeOptionsContainer);
 	}
 }

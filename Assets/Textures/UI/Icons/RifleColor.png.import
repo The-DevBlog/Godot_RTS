@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blcuxf1bawkjk"
-path="res://.godot/imported/Bullets3.png-72f35241ec319ed0dc58fde0da8a852e.ctex"
+uid="uid://b7q0d1tbaepkh"
+path="res://.godot/imported/RifleColor.png-f48e2873b4c77d687ab6425e0f9b3530.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Icons/Bullets3.png"
-dest_files=["res://.godot/imported/Bullets3.png-72f35241ec319ed0dc58fde0da8a852e.ctex"]
+source_file="res://Assets/Textures/UI/Icons/RifleColor.png"
+dest_files=["res://.godot/imported/RifleColor.png-f48e2873b4c77d687ab6425e0f9b3530.ctex"]
 
 [params]
 
