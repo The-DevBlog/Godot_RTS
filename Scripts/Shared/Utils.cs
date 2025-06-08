@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Godot;
 
 public static class Utils
@@ -14,5 +15,11 @@ public static class Utils
         string method = frame.GetMethod().Name;
 
         GD.PrintErr($"{message} [{fileName}:{line}->{method}()]");
+    }
+
+    public static void NullCheck(object obj, [CallerArgumentExpression("obj")] string paramName = null)
+    {
+        if (obj == null)
+            PrintErr($"'{paramName}' is not set!");
     }
 }

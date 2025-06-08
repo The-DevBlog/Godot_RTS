@@ -4,21 +4,30 @@ using MyEnums;
 
 public partial class RootContainer : Container
 {
+	[Export] public Container MiniMapContainer { get; set; }
 	[Export] public Container StructuresContainer { get; set; }
+	[Export] public Container StructureCountContainer { get; set; }
 	[Export] public Container UnitsContainer { get; set; }
 	[Export] public Container VehiclesContainer { get; set; }
 	[Export] public Container UpgradesContainer { get; set; }
+	[Export] public NinePatchRect StructureCountBtn { get; set; }
 	private Resources _resources;
+	private Signals _signals;
 	private Color normalColor = new Color("#c8c8c8");
 	private Color hoverColor = new Color("#ffffff");
-	private MarginContainer _miniMapContainer;
 	public override void _Ready()
 	{
-		_miniMapContainer = GetNode<MarginContainer>("VBoxContainer/MiniMapContainer");
 		_resources = Resources.Instance;
+		_signals = Signals.Instance;
+		_signals.AddStructure += OnStructureAdd;
 
-		if (_miniMapContainer == null)
-			Utils.PrintErr("MiniMapContainer node not found.");
+		Utils.NullCheck(MiniMapContainer);
+		Utils.NullCheck(StructuresContainer);
+		Utils.NullCheck(StructureCountContainer);
+		Utils.NullCheck(UnitsContainer);
+		Utils.NullCheck(VehiclesContainer);
+		Utils.NullCheck(UpgradesContainer);
+		Utils.NullCheck(StructureCountBtn);
 
 		SetupButtons(Group.StructureBtns);
 		SetupButtons(Group.UnitBtns);
@@ -26,8 +35,6 @@ public partial class RootContainer : Container
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));
-
-		NullCheck();
 	}
 
 	public override void _Process(double delta)
@@ -39,24 +46,6 @@ public partial class RootContainer : Container
 	{
 		var mousePosition = GetViewport().GetMousePosition();
 		_resources.IsHoveringUI = mousePosition.X >= GlobalPosition.X;
-	}
-
-	private void NullCheck()
-	{
-		if (StructuresContainer == null)
-			Utils.PrintErr("StructuresContainer is not set.");
-
-		if (UnitsContainer == null)
-			Utils.PrintErr("UnitsContainer is not set.");
-
-		if (VehiclesContainer == null)
-			Utils.PrintErr("VehiclesContainer is not set.");
-
-		if (UpgradesContainer == null)
-			Utils.PrintErr("UpgradesContainer is not set.");
-
-		if (_miniMapContainer == null)
-			Utils.PrintErr("MiniMapContainer is not set.");
 	}
 
 	private void SetupButtons(Enum group)
@@ -75,10 +64,10 @@ public partial class RootContainer : Container
 
 	private void OnWindowResize()
 	{
-		if (_miniMapContainer == null)
+		if (MiniMapContainer == null)
 			return;
 
-		float miniMapHeight = _miniMapContainer.Size.Y;
+		float miniMapHeight = MiniMapContainer.Size.Y;
 		float windowWidth = GetViewport().GetVisibleRect().Size.X;
 		float clampedWidth = Mathf.Min(miniMapHeight, windowWidth);
 		float newAnchorLeft = 1.0f - (clampedWidth / windowWidth);
@@ -100,6 +89,14 @@ public partial class RootContainer : Container
 		UnitsContainer.Visible = toShow == UnitsContainer;
 		VehiclesContainer.Visible = toShow == VehiclesContainer;
 		UpgradesContainer.Visible = toShow == UpgradesContainer;
+	}
+
+	private void OnStructureAdd(int structureId)
+	{
+		NinePatchRect newBtn = StructureCountBtn.Duplicate() as NinePatchRect;
+		newBtn.Visible = true;
+		var parent = StructureCountBtn.GetParent() as Control;
+		parent.AddChild(newBtn);
 	}
 
 	private void OnStructuresBtnPressed() => ShowOnly(StructuresContainer);

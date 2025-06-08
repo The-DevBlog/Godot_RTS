@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using MyEnums;
 
 public partial class Signals : Node
 {
@@ -8,6 +9,7 @@ public partial class Signals : Node
     [Signal] public delegate void DeselectAllUnitsEventHandler();
     [Signal] public delegate void UpdateEnergyEventHandler();
     [Signal] public delegate void UpdateFundsEventHandler();
+    [Signal] public delegate void AddStructureEventHandler(int structureId);
     private Resources _resources;
 
     public override void _Ready()
@@ -36,5 +38,13 @@ public partial class Signals : Node
 
         _resources.Funds += funds;
         EmitSignal(SignalName.UpdateFunds);
+    }
+
+    public void EmitAddStructure(Structure structure)
+    {
+        GD.Print("Add Structure: " + structure);
+
+        _resources.AddStructure(structure);
+        EmitSignal(SignalName.AddStructure, (int)structure);
     }
 }

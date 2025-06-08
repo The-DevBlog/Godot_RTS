@@ -12,12 +12,10 @@ public partial class InfoContainerLabels : HBoxContainer
 	{
 		_resources = Resources.Instance;
 
-		if (EnergyLabel == null)
-			Utils.PrintErr("EneryLabel is not set!");
+		Utils.NullCheck(EnergyLabel);
+		Utils.NullCheck(FundsLabel);
 
-		if (FundsLabel == null)
-			Utils.PrintErr("FundsLabel is not set!");
-		else
+		if (FundsLabel != null)
 			OnUpdateFunds();
 
 		_signals = Signals.Instance;

@@ -171,8 +171,7 @@ public partial class StructureBtn : Button
 
 		_signals.EmitUpdateEnergy(structureBase.Energy);
 		_signals.EmitUpdateFunds(-structureBase.Cost);
-
-		GD.Print("Structure placed: " + Structure);
+		_signals.EmitAddStructure(Structure);
 	}
 
 	// Casts a ray under the mouse, returns the first StaticBody3D in "MapBase" and the hit position.
