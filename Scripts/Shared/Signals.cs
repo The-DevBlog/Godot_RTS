@@ -40,7 +40,7 @@ public partial class Signals : Node
         EmitSignal(SignalName.UpdateFunds);
     }
 
-    public void EmitAddStructure(Structure structure)
+    public void EmitAddStructure(StructureType structure)
     {
         GD.Print("Add Structure: " + structure);
 

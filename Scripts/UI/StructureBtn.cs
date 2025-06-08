@@ -3,7 +3,7 @@ using MyEnums;
 
 public partial class StructureBtn : Button
 {
-	[Export] public Structure Structure { get; set; }
+	[Export] public StructureType Structure { get; set; }
 	private Resources _resources;
 	private Signals _signals;
 	private StructureBase _structurePlaceholder;
@@ -21,7 +21,7 @@ public partial class StructureBtn : Button
 
 		Pressed += OnStructureSelect;
 
-		if (Structure == Structure.None)
+		if (Structure == StructureType.None)
 			Utils.PrintErr("Structure Enum is not set for " + Name);
 
 		if (_scene == null)

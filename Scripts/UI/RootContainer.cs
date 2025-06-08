@@ -93,10 +93,27 @@ public partial class RootContainer : Container
 
 	private void OnStructureAdd(int structureId)
 	{
-		NinePatchRect newBtn = StructureCountBtn.Duplicate() as NinePatchRect;
-		newBtn.Visible = true;
-		var parent = StructureCountBtn.GetParent() as Control;
-		parent.AddChild(newBtn);
+		StructureType structureType = (StructureType)structureId;
+
+		if (structureType != StructureType.Garage && structureType != StructureType.Barracks)
+			return;
+
+		int structureCount = _resources.StructureCount[structureType];
+
+		NinePatchRect btnContainer = StructureCountBtn.Duplicate() as NinePatchRect;
+		btnContainer.Visible = true;
+		Button btn = btnContainer.GetNode<Button>("Btn");
+
+		if (btn == null)
+		{
+			Utils.PrintErr("Button not found in StructureCountBtn. Is the name correct?");
+			return;
+		}
+
+		btn.Text = structureCount.ToString();
+
+		Control parent = StructureCountBtn.GetParent() as Control;
+		parent.AddChild(btnContainer);
 	}
 
 	private void OnStructuresBtnPressed() => ShowOnly(StructuresContainer);

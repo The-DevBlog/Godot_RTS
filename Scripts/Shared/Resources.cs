@@ -5,7 +5,7 @@ using MyEnums;
 public partial class Resources : Node
 {
     public static Resources Instance { get; set; }
-    public Dictionary<Structure, int> StructureCount { get; }
+    public Dictionary<StructureType, int> StructureCount { get; }
     public bool IsPlacingStructure { get; set; }
     public bool IsHoveringUI { get; set; }
     public int Energy { get; set; }
@@ -18,17 +18,17 @@ public partial class Resources : Node
         Funds = 1000000;
         MaxStructureCount = 8;
 
-        StructureCount = new Dictionary<Structure, int>();
-        foreach (Structure s in Structure.GetValues(typeof(Structure)))
+        StructureCount = new Dictionary<StructureType, int>();
+        foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))
             StructureCount[s] = 0;
     }
 
-    public void AddStructure(Structure structure)
+    public void AddStructure(StructureType structure)
     {
         StructureCount[structure]++;
     }
 
-    public void RemoveStructure(Structure structure)
+    public void RemoveStructure(StructureType structure)
     {
         if (StructureCount[structure] <= 0)
         {
@@ -39,10 +39,10 @@ public partial class Resources : Node
         StructureCount[structure]--;
     }
 
-    public bool MaxStructureCountReached(Structure structure)
+    public bool MaxStructureCountReached(StructureType structure)
     {
         bool reached;
-        if (structure != Structure.Garage && structure != Structure.Barracks)
+        if (structure != StructureType.Garage && structure != StructureType.Barracks)
             return false;
         else
             reached = StructureCount[structure] >= MaxStructureCount;
