@@ -103,7 +103,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RootContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "UnitStructureCountContainer", "VehicleStructureCountContainer", "StructureCountBtn")]
+[node name="RootContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "BarracksCountContainer", "GarageCountContainer")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.815
@@ -121,9 +121,8 @@ ConstructionOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchR
 UnitOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer")
 VehicleOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer")
 UpgradeOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer")
-UnitStructureCountContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/UnitStructureCountContainer")
-VehicleStructureCountContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/TankStructureCountContainer")
-StructureCountBtn = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/UnitStructureCountContainer/BtnContainer")
+BarracksCountContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer")
+GarageCountContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="RootContainer"]
 layout_mode = 2
@@ -407,11 +406,12 @@ size_flags_horizontal = 4
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_bottom = 0
 
-[node name="UnitStructureCountContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer"]
+[node name="BarracksCountContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="BtnContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/UnitStructureCountContainer"]
+[node name="BtnContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer"]
 visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
@@ -424,7 +424,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="Btn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/UnitStructureCountContainer/BtnContainer"]
+[node name="Btn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer/BtnContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -436,10 +436,35 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 text = "1"
 
-[node name="TankStructureCountContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer"]
+[node name="GarageCountContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
+
+[node name="BtnContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer"]
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+texture = ExtResource("7_w801c")
+region_rect = Rect2(792, 80, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Btn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer/BtnContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
+text = "1"
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
 layout_mode = 2
