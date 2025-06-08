@@ -5,10 +5,10 @@ using MyEnums;
 public partial class RootContainer : Container
 {
 	[Export] public Container MiniMapContainer { get; set; }
-	[Export] public Container StructuresContainer { get; set; }
-	[Export] public Container UnitsContainer { get; set; }
-	[Export] public Container VehiclesContainer { get; set; }
-	[Export] public Container UpgradesContainer { get; set; }
+	[Export] public Container StructureOptionsContainer { get; set; }
+	[Export] public Container UnitOptionsContainer { get; set; }
+	[Export] public Container VehicleOptionsContainer { get; set; }
+	[Export] public Container UpgradeOptionsContainer { get; set; }
 	[Export] public Container UnitStructureCountContainer { get; set; }
 	[Export] public Container VehicleStructureCountContainer { get; set; }
 	[Export] public NinePatchRect StructureCountBtn { get; set; }
@@ -24,12 +24,12 @@ public partial class RootContainer : Container
 		_signals.AddStructure += OnStructureAdd;
 
 		Utils.NullCheck(MiniMapContainer);
-		Utils.NullCheck(StructuresContainer);
+		Utils.NullCheck(StructureOptionsContainer);
 		Utils.NullCheck(UnitStructureCountContainer);
 		Utils.NullCheck(VehicleStructureCountContainer);
-		Utils.NullCheck(UnitsContainer);
-		Utils.NullCheck(VehiclesContainer);
-		Utils.NullCheck(UpgradesContainer);
+		Utils.NullCheck(UnitOptionsContainer);
+		Utils.NullCheck(VehicleOptionsContainer);
+		Utils.NullCheck(UpgradeOptionsContainer);
 		Utils.NullCheck(StructureCountBtn);
 
 		_structureCountContainer = UnitStructureCountContainer.GetParent<Container>();
@@ -88,14 +88,6 @@ public partial class RootContainer : Container
 		menu.Visible = !menu.Visible;
 	}
 
-	private void ShowOnly(Container toShow)
-	{
-		StructuresContainer.Visible = toShow == StructuresContainer;
-		UnitsContainer.Visible = toShow == UnitsContainer;
-		VehiclesContainer.Visible = toShow == VehiclesContainer;
-		UpgradesContainer.Visible = toShow == UpgradesContainer;
-	}
-
 	private void OnStructureAdd(int structureId)
 	{
 		StructureType structureType = (StructureType)structureId;
@@ -124,21 +116,31 @@ public partial class RootContainer : Container
 		parent.AddChild(btnContainer);
 	}
 
+	private void ShowOnly(Container toShow)
+	{
+		StructureOptionsContainer.Visible = toShow == StructureOptionsContainer;
+		UnitOptionsContainer.Visible = toShow == UnitOptionsContainer;
+		VehicleOptionsContainer.Visible = toShow == VehicleOptionsContainer;
+		UpgradeOptionsContainer.Visible = toShow == UpgradeOptionsContainer;
+	}
+
 	private void OnStructuresBtnPressed()
 	{
 		_structureCountContainer.Visible = false;
 		UnitStructureCountContainer.Visible = false;
 		VehicleStructureCountContainer.Visible = false;
-		ShowOnly(StructuresContainer);
+		ShowOnly(StructureOptionsContainer);
 	}
 
 	private void OnUnitsBtnPressed()
 	{
+
+
 		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
 		_structureCountContainer.Visible = isVisible;
 		UnitStructureCountContainer.Visible = isVisible;
 		VehicleStructureCountContainer.Visible = false;
-		ShowOnly(UnitsContainer);
+		ShowOnly(UnitOptionsContainer);
 	}
 
 	private void OnVehiclesBtnPressed()
@@ -147,7 +149,7 @@ public partial class RootContainer : Container
 		_structureCountContainer.Visible = isVisible;
 		VehicleStructureCountContainer.Visible = isVisible;
 		UnitStructureCountContainer.Visible = false;
-		ShowOnly(VehiclesContainer);
+		ShowOnly(VehicleOptionsContainer);
 	}
 
 	private void OnUpgradesBtnPressed()
@@ -155,6 +157,6 @@ public partial class RootContainer : Container
 		_structureCountContainer.Visible = false;
 		UnitStructureCountContainer.Visible = false;
 		VehicleStructureCountContainer.Visible = false;
-		ShowOnly(UpgradesContainer);
+		ShowOnly(UpgradeOptionsContainer);
 	}
 }
