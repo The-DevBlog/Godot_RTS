@@ -7,3 +7,4 @@
 # Tasks
 - Use enums to reference any input mappings
 - Having all of the unit selection logic in MouseManager.cs might not be a great idea, as it doesnt seem to scale well. Maybe change this?
+- RootContainer.cs holds a lot of logic for multiple things. Maybe divy it out?
