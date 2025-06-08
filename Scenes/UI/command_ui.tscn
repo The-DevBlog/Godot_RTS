@@ -103,7 +103,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RootContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("MiniMapContainer", "StructureOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "UnitStructureCountContainer", "VehicleStructureCountContainer", "StructureCountBtn")]
+[node name="RootContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "UnitStructureCountContainer", "VehicleStructureCountContainer", "StructureCountBtn")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.815
@@ -117,7 +117,7 @@ theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 script = ExtResource("1_k4jei")
 MiniMapContainer = NodePath("VBoxContainer/MiniMapContainer")
-StructureOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer")
+ConstructionOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer")
 UnitOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer")
 VehicleOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer")
 UpgradeOptionsContainer = NodePath("VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer")
@@ -239,24 +239,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BtnsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
+[node name="TabsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/margin_top = -2
 theme_override_constants/margin_bottom = -14
 
-[node name="MarginContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ConstructionContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer"]
+[node name="ConstructionContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("7_w801c")
@@ -266,7 +266,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="StructuresBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/ConstructionContainer"]
+[node name="ConstructionBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/ConstructionContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -276,7 +276,7 @@ grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_fgwrq")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_nk0xl")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/ConstructionContainer/StructuresBtn"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/ConstructionContainer/ConstructionBtn"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -291,7 +291,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_k4jei")
 
-[node name="UnitsContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer"]
+[node name="UnitsContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("7_w801c")
@@ -301,7 +301,7 @@ patch_margin_top = 6
 patch_margin_right = 5
 patch_margin_bottom = 6
 
-[node name="UnitsBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/UnitsContainer"]
+[node name="UnitsBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -311,7 +311,7 @@ grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_nk0xl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/UnitsContainer/UnitsBtn"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer/UnitsBtn"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -326,7 +326,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_f6022")
 
-[node name="VehiclesContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer"]
+[node name="VehiclesContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("7_w801c")
@@ -336,7 +336,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="VehiclesBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/VehiclesContainer"]
+[node name="VehiclesBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -346,7 +346,7 @@ grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_skqa3")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/VehiclesContainer/VehiclesBtn"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer/VehiclesBtn"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -360,7 +360,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_c22w8")
 
-[node name="UpgradesContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer"]
+[node name="UpgradesContainer" type="NinePatchRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("7_w801c")
@@ -370,7 +370,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="UpgradesBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/UpgradesContainer"]
+[node name="UpgradesBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UpgradesContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -384,7 +384,7 @@ grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_8sjux")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -441,7 +441,7 @@ visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="StructureOptionsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
+[node name="ConstructionOptionsContainer" type="MarginContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -449,14 +449,14 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 9
 
-[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GeneratorBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
+[node name="GeneratorBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -467,7 +467,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_ly8nf")
 script = ExtResource("10_ly8nf")
 Structure = 4
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer/GeneratorBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer/GeneratorBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -482,7 +482,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
 text = "Generator"
 
-[node name="BarracksBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
+[node name="BarracksBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -493,7 +493,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_g5aby")
 script = ExtResource("10_ly8nf")
 Structure = 1
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer/BarracksBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer/BarracksBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -508,11 +508,11 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
 text = "Barracks"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="OilWellBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
+[node name="OilWellBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -523,7 +523,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_esy4f")
 script = ExtResource("10_ly8nf")
 Structure = 3
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer2/OilWellBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/OilWellBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -538,7 +538,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
 text = "Oil Well"
 
-[node name="GarageBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
+[node name="GarageBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -549,7 +549,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_v0w7p")
 script = ExtResource("10_ly8nf")
 Structure = 2
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer2/GarageBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/GarageBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -564,11 +564,11 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
 text = "Garage"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SatelliteBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
+[node name="SatelliteBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -579,7 +579,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_cg0vo")
 script = ExtResource("10_ly8nf")
 Structure = 5
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer3/SatelliteBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3/SatelliteBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -594,7 +594,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
 text = "Satellite"
 
-[node name="CannonBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
+[node name="CannonBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -605,7 +605,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_tlv7r")
 script = ExtResource("10_ly8nf")
 Structure = 6
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer3/CannonBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3/CannonBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -620,11 +620,11 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
 text = "Cannon"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ResearchLabBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
+[node name="ResearchLabBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -635,7 +635,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
 script = ExtResource("10_ly8nf")
 Structure = 7
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer4/ResearchLabBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4/ResearchLabBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -650,7 +650,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
 text = "Research Lab"
 
-[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
+[node name="Button2" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -661,7 +661,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
 script = ExtResource("10_ly8nf")
 Structure = 8
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureOptionsContainer/VBoxContainer/HBoxContainer4/Button2"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4/Button2"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1200,7 +1200,7 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
 text = "Upgrade 8"
 
-[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/ConstructionContainer/StructuresBtn" to="RootContainer" method="OnStructuresBtnPressed"]
-[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/UnitsContainer/UnitsBtn" to="RootContainer" method="OnUnitsBtnPressed"]
-[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/VehiclesContainer/VehiclesBtn" to="RootContainer" method="OnVehiclesBtnPressed"]
-[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/BtnsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn" to="RootContainer" method="OnUpgradesBtnPressed"]
+[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/ConstructionContainer/ConstructionBtn" to="RootContainer" method="OnStructuresBtnPressed"]
+[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer/UnitsBtn" to="RootContainer" method="OnUnitsBtnPressed"]
+[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer/VehiclesBtn" to="RootContainer" method="OnVehiclesBtnPressed"]
+[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn" to="RootContainer" method="OnUpgradesBtnPressed"]
