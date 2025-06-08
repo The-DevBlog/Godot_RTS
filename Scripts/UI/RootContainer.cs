@@ -4,21 +4,35 @@ using MyEnums;
 
 public partial class RootContainer : Container
 {
+	[Export] public Container MiniMapContainer { get; set; }
 	[Export] public Container StructuresContainer { get; set; }
 	[Export] public Container UnitsContainer { get; set; }
 	[Export] public Container VehiclesContainer { get; set; }
 	[Export] public Container UpgradesContainer { get; set; }
+	[Export] public Container UnitStructureCountContainer { get; set; }
+	[Export] public Container VehicleStructureCountContainer { get; set; }
+	[Export] public NinePatchRect StructureCountBtn { get; set; }
+	private Container _structureCountContainer;
 	private Resources _resources;
+	private Signals _signals;
 	private Color normalColor = new Color("#c8c8c8");
 	private Color hoverColor = new Color("#ffffff");
-	private MarginContainer _miniMapContainer;
 	public override void _Ready()
 	{
-		_miniMapContainer = GetNode<MarginContainer>("VBoxContainer/MiniMapContainer");
 		_resources = Resources.Instance;
+		_signals = Signals.Instance;
+		_signals.AddStructure += OnStructureAdd;
 
-		if (_miniMapContainer == null)
-			Utils.PrintErr("MiniMapContainer node not found.");
+		Utils.NullCheck(MiniMapContainer);
+		Utils.NullCheck(StructuresContainer);
+		Utils.NullCheck(UnitStructureCountContainer);
+		Utils.NullCheck(VehicleStructureCountContainer);
+		Utils.NullCheck(UnitsContainer);
+		Utils.NullCheck(VehiclesContainer);
+		Utils.NullCheck(UpgradesContainer);
+		Utils.NullCheck(StructureCountBtn);
+
+		_structureCountContainer = UnitStructureCountContainer.GetParent<Container>();
 
 		SetupButtons(Group.StructureBtns);
 		SetupButtons(Group.UnitBtns);
@@ -26,8 +40,6 @@ public partial class RootContainer : Container
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));
-
-		NullCheck();
 	}
 
 	public override void _Process(double delta)
@@ -39,24 +51,6 @@ public partial class RootContainer : Container
 	{
 		var mousePosition = GetViewport().GetMousePosition();
 		_resources.IsHoveringUI = mousePosition.X >= GlobalPosition.X;
-	}
-
-	private void NullCheck()
-	{
-		if (StructuresContainer == null)
-			Utils.PrintErr("StructuresContainer is not set.");
-
-		if (UnitsContainer == null)
-			Utils.PrintErr("UnitsContainer is not set.");
-
-		if (VehiclesContainer == null)
-			Utils.PrintErr("VehiclesContainer is not set.");
-
-		if (UpgradesContainer == null)
-			Utils.PrintErr("UpgradesContainer is not set.");
-
-		if (_miniMapContainer == null)
-			Utils.PrintErr("MiniMapContainer is not set.");
 	}
 
 	private void SetupButtons(Enum group)
@@ -75,10 +69,10 @@ public partial class RootContainer : Container
 
 	private void OnWindowResize()
 	{
-		if (_miniMapContainer == null)
+		if (MiniMapContainer == null)
 			return;
 
-		float miniMapHeight = _miniMapContainer.Size.Y;
+		float miniMapHeight = MiniMapContainer.Size.Y;
 		float windowWidth = GetViewport().GetVisibleRect().Size.X;
 		float clampedWidth = Mathf.Min(miniMapHeight, windowWidth);
 		float newAnchorLeft = 1.0f - (clampedWidth / windowWidth);
@@ -102,11 +96,65 @@ public partial class RootContainer : Container
 		UpgradesContainer.Visible = toShow == UpgradesContainer;
 	}
 
-	private void OnStructuresBtnPressed() => ShowOnly(StructuresContainer);
+	private void OnStructureAdd(int structureId)
+	{
+		StructureType structureType = (StructureType)structureId;
 
-	private void OnUnitsBtnPressed() => ShowOnly(UnitsContainer);
+		if (structureType != StructureType.Garage && structureType != StructureType.Barracks)
+		{
+			GD.Print("Returning");
+			return;
+		}
 
-	private void OnVehiclesBtnPressed() => ShowOnly(VehiclesContainer);
+		int structureCount = _resources.StructureCount[structureType];
 
-	private void OnUpgradesBtnPressed() => ShowOnly(UpgradesContainer);
+		NinePatchRect btnContainer = StructureCountBtn.Duplicate() as NinePatchRect;
+		btnContainer.Visible = true;
+		Button btn = btnContainer.GetNode<Button>("Btn");
+
+		if (btn == null)
+		{
+			Utils.PrintErr("Button not found in StructureCountBtn. Is the name correct?");
+			return;
+		}
+
+		btn.Text = structureCount.ToString();
+
+		Control parent = structureType == StructureType.Garage ? VehicleStructureCountContainer : UnitStructureCountContainer;
+		parent.AddChild(btnContainer);
+	}
+
+	private void OnStructuresBtnPressed()
+	{
+		_structureCountContainer.Visible = false;
+		UnitStructureCountContainer.Visible = false;
+		VehicleStructureCountContainer.Visible = false;
+		ShowOnly(StructuresContainer);
+	}
+
+	private void OnUnitsBtnPressed()
+	{
+		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
+		_structureCountContainer.Visible = isVisible;
+		UnitStructureCountContainer.Visible = isVisible;
+		VehicleStructureCountContainer.Visible = false;
+		ShowOnly(UnitsContainer);
+	}
+
+	private void OnVehiclesBtnPressed()
+	{
+		bool isVisible = _resources.StructureCount[StructureType.Garage] > 1;
+		_structureCountContainer.Visible = isVisible;
+		VehicleStructureCountContainer.Visible = isVisible;
+		UnitStructureCountContainer.Visible = false;
+		ShowOnly(VehiclesContainer);
+	}
+
+	private void OnUpgradesBtnPressed()
+	{
+		_structureCountContainer.Visible = false;
+		UnitStructureCountContainer.Visible = false;
+		VehicleStructureCountContainer.Visible = false;
+		ShowOnly(UpgradesContainer);
+	}
 }

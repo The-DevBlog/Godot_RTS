@@ -3,7 +3,7 @@ using MyEnums;
 
 public partial class StructureBtn : Button
 {
-	[Export] public Structure Structure { get; set; }
+	[Export] public StructureType Structure { get; set; }
 	private Resources _resources;
 	private Signals _signals;
 	private StructureBase _structurePlaceholder;
@@ -21,7 +21,7 @@ public partial class StructureBtn : Button
 
 		Pressed += OnStructureSelect;
 
-		if (Structure == Structure.None)
+		if (Structure == StructureType.None)
 			Utils.PrintErr("Structure Enum is not set for " + Name);
 
 		if (_scene == null)
@@ -88,6 +88,11 @@ public partial class StructureBtn : Button
 			Utils.PrintErr("Failed to instantiate structure for " + Structure);
 			return;
 		}
+
+		// check if max structure count reached
+		bool maxStructureCount = _resources.MaxStructureCountReached(Structure);
+		if (maxStructureCount)
+			return;
 
 		// check if you have enough funds
 		bool enoughFunds = _resources.Funds >= structure.Cost;
@@ -171,8 +176,7 @@ public partial class StructureBtn : Button
 
 		_signals.EmitUpdateEnergy(structureBase.Energy);
 		_signals.EmitUpdateFunds(-structureBase.Cost);
-
-		GD.Print("Structure placed: " + Structure);
+		_signals.EmitAddStructure(Structure);
 	}
 
 	// Casts a ray under the mouse, returns the first StaticBody3D in "MapBase" and the hit position.

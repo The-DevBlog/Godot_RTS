@@ -9,7 +9,7 @@ namespace MyEnums
         MapBase,
     }
 
-    public enum Structure
+    public enum StructureType
     {
         None,
         Barracks,
