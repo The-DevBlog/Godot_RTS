@@ -18,6 +18,9 @@ public partial class RootContainer : Container
 	private Color hoverColor = new Color("#ffffff");
 	public override void _Ready()
 	{
+		Utils.PrintErr("Error!");
+		Utils.NullCheck(null);
+
 		_resources = Resources.Instance;
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
