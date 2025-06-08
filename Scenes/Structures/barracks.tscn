@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_ymdpg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
-size = Vector3(3.155, 1.535, 3.655)
+size = Vector3(5.88, 3.135, 5.425)
 
 [node name="Barracks" type="StaticBody3D"]
 script = ExtResource("1_ymdpg")
@@ -13,8 +13,8 @@ Cost = 500
 BuildTime = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0565929, 1.61968, 0.0337069)
 shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="Model" parent="." instance=ExtResource("1_c4alm")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.996677, 0)
