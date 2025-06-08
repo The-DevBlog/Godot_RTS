@@ -124,7 +124,7 @@ public partial class RootContainer : Container
 		UpgradeOptionsContainer.Visible = toShow == UpgradeOptionsContainer;
 	}
 
-	private void OnStructuresBtnPressed()
+	private void OnConstructionBtnPressed()
 	{
 		_structureCountContainer.Visible = false;
 		BarracksCountContainer.Visible = false;
@@ -132,7 +132,7 @@ public partial class RootContainer : Container
 		ShowOnly(ConstructionOptionsContainer);
 	}
 
-	private void OnUnitsBtnPressed()
+	private void OnBarracksBtnPressed()
 	{
 		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
 		_structureCountContainer.Visible = isVisible;
@@ -141,7 +141,7 @@ public partial class RootContainer : Container
 		ShowOnly(UnitOptionsContainer);
 	}
 
-	private void OnVehiclesBtnPressed()
+	private void OnGarageBtnPressed()
 	{
 		bool isVisible = _resources.StructureCount[StructureType.Garage] > 1;
 		_structureCountContainer.Visible = isVisible;

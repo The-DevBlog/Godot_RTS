@@ -300,7 +300,7 @@ patch_margin_top = 6
 patch_margin_right = 5
 patch_margin_bottom = 6
 
-[node name="UnitsBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer"]
+[node name="BarracksBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -310,7 +310,7 @@ grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_nk0xl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer/UnitsBtn"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer/BarracksBtn"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -335,7 +335,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="VehiclesBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer"]
+[node name="GarageBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -345,7 +345,7 @@ grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_skqa3")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
-[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer/VehiclesBtn"]
+[node name="TextureRect" type="TextureRect" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer/GarageBtn"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -1225,7 +1225,7 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
 text = "Upgrade 8"
 
-[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/ConstructionContainer/ConstructionBtn" to="RootContainer" method="OnStructuresBtnPressed"]
-[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer/UnitsBtn" to="RootContainer" method="OnUnitsBtnPressed"]
-[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer/VehiclesBtn" to="RootContainer" method="OnVehiclesBtnPressed"]
+[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/ConstructionContainer/ConstructionBtn" to="RootContainer" method="OnConstructionBtnPressed"]
+[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UnitsContainer/BarracksBtn" to="RootContainer" method="OnBarracksBtnPressed"]
+[connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/VehiclesContainer/GarageBtn" to="RootContainer" method="OnGarageBtnPressed"]
 [connection signal="pressed" from="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn" to="RootContainer" method="OnUpgradesBtnPressed"]
