@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bppke88gdo71r"]
+
+[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_dcstc"]
+[ext_resource type="PackedScene" uid="uid://oy8fpejdyrn6" path="res://Assets/Models/Structures/ScrapYard/ScrapYard.glb" id="2_dnflb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
+size = Vector3(9.205, 4.745, 6.63)
+
+[node name="ScrapYard" type="StaticBody3D"]
+script = ExtResource("1_dcstc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.37713, 0)
+shape = SubResource("BoxShape3D_s1wbf")
+
+[node name="Model" parent="." instance=ExtResource("2_dnflb")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0.909112, 3.35335, -0.215722)

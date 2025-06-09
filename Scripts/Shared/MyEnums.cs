@@ -14,7 +14,7 @@ namespace MyEnums
         None,
         Barracks,
         Garage,
-        OilWell,
+        ScrapYard,
         Generator,
         Satellite,
         Cannon,
