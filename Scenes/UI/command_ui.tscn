@@ -537,7 +537,7 @@ text = "Barracks"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="OilWellBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
+[node name="ScrapYardBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -548,7 +548,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_esy4f")
 script = ExtResource("10_ly8nf")
 Structure = 3
 
-[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/OilWellBtn"]
+[node name="Label" type="Label" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/ScrapYardBtn"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -561,7 +561,7 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_krnp2")
-text = "Oil Well"
+text = "Scrap Yard"
 
 [node name="GarageBtn" type="Button" parent="RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
 layout_mode = 2

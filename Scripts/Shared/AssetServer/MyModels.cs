@@ -16,7 +16,7 @@ public class MyModels
             { StructureType.Cannon,      GD.Load<PackedScene>("res://Scenes/Structures/cannon.tscn")   },
             { StructureType.Generator,   GD.Load<PackedScene>("res://Scenes/Structures/generator.tscn")},
             { StructureType.ResearchLab, GD.Load<PackedScene>("res://Scenes/Structures/research_lab.tscn") },
-            { StructureType.OilWell,     GD.Load<PackedScene>("res://Scenes/Structures/oil_well.tscn")  },
+            { StructureType.ScrapYard,     GD.Load<PackedScene>("res://Scenes/Structures/scrap_yard.tscn")  },
             { StructureType.Satellite,   GD.Load<PackedScene>("res://Scenes/Structures/satellite.tscn") },
         };
 
@@ -27,7 +27,7 @@ public class MyModels
             { StructureType.Cannon,      GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/cannon_placeholder.tscn")   },
             { StructureType.Generator,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/generator_placeholder.tscn")},
             { StructureType.ResearchLab, GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/research_lab_placeholder.tscn") },
-            { StructureType.OilWell,     GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/oil_well_placeholder.tscn")  },
+            { StructureType.ScrapYard,     GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/scrap_yard_placeholder.tscn")  },
             { StructureType.Satellite,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/satellite_placeholder.tscn") },
         };
     }
