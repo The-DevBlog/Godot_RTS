@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4t8pujatv061"]
+[gd_scene load_steps=5 format=3 uid="uid://dfwlldgg06bq6"]
 
 [ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/Camera.cs" id="1_npc2i"]
 [ext_resource type="Shader" uid="uid://bsbdr7uqyox1v" path="res://Shaders/outline_shader.gdshader" id="2_ac6r2"]
