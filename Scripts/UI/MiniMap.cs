@@ -19,7 +19,7 @@ public partial class MiniMap : Control
 		Vector2 scale = controlSize / mapSize;
 
 		// Draw the boundary box
-		DrawRect(new Rect2(Vector2.Zero, Size), _backgbroundColor, true, 2);
+		DrawRect(new Rect2(Vector2.Zero, Size), _backgbroundColor, true);
 
 		// Draw each unit as a blue dot
 		foreach (Unit u in GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString()))
@@ -29,7 +29,5 @@ public partial class MiniMap : Control
 			Vector2 localPos = (worldPos - worldMin) * scale;
 			DrawCircle(localPos, 3, _friendlyUnitsColor);
 		}
-
-		// (Optionally) draw enemies in red, resources in green, etc.
 	}
 }

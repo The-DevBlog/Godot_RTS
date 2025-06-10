@@ -12,8 +12,8 @@ public partial class InfoContainerLabels : HBoxContainer
 	{
 		_resources = Resources.Instance;
 
-		Utils.NullCheck(EnergyLabel);
-		Utils.NullCheck(FundsLabel);
+		Utils.NullExportCheck(EnergyLabel);
+		Utils.NullExportCheck(FundsLabel);
 
 		if (FundsLabel != null)
 			OnUpdateFunds();

@@ -22,13 +22,13 @@ public partial class RootContainer : Container
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
 
-		Utils.NullCheck(MiniMapContainer);
-		Utils.NullCheck(ConstructionOptionsContainer);
-		Utils.NullCheck(BarracksCountContainer);
-		Utils.NullCheck(GarageCountContainer);
-		Utils.NullCheck(UnitOptionsContainer);
-		Utils.NullCheck(VehicleOptionsContainer);
-		Utils.NullCheck(UpgradeOptionsContainer);
+		Utils.NullExportCheck(MiniMapContainer);
+		Utils.NullExportCheck(ConstructionOptionsContainer);
+		Utils.NullExportCheck(BarracksCountContainer);
+		Utils.NullExportCheck(GarageCountContainer);
+		Utils.NullExportCheck(UnitOptionsContainer);
+		Utils.NullExportCheck(VehicleOptionsContainer);
+		Utils.NullExportCheck(UpgradeOptionsContainer);
 
 		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
 
