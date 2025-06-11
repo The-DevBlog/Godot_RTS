@@ -6,6 +6,16 @@ public partial class MiniMap : Control
     private Color _backgroundColor = new Color("#171717");
     private Color _friendlyUnitsColor = new Color("#38a7f1");
     private Color _cameraRectColor = new Color("#ff0000");
+    private Vector2 _worldMin;
+    private Vector2 _worldMax;
+
+    public override void _Ready()
+    {
+        Utils.NullExportCheck(MapSize);
+
+        _worldMin = -MapSize;
+        _worldMax = MapSize;
+    }
 
     public override void _Process(double delta)
     {
@@ -15,10 +25,7 @@ public partial class MiniMap : Control
 
     public override void _Draw()
     {
-        Vector2 worldMin = -MapSize;
-        Vector2 worldMax = MapSize;
-
-        Vector2 mapSize = worldMax - worldMin;
+        Vector2 mapSize = _worldMax - _worldMin;
         Vector2 controlSize = Size;
         Vector2 scale = controlSize / mapSize;
 
@@ -30,7 +37,7 @@ public partial class MiniMap : Control
         {
             // world position (x,z) → minimap (u,v)
             Vector2 worldPos = new Vector2(u.GlobalPosition.X, u.GlobalPosition.Z);
-            Vector2 localPos = (worldPos - worldMin) * scale;
+            Vector2 localPos = (worldPos - _worldMin) * scale;
             DrawCircle(localPos, 3, _friendlyUnitsColor);
         }
 
@@ -40,9 +47,7 @@ public partial class MiniMap : Control
     private void DrawCameraRect()
     {
         // 1. world-bounds of your minimap
-        Vector2 worldMin = -MapSize;
-        Vector2 worldMax = MapSize;
-        Vector2 worldRange = worldMax - worldMin;
+        Vector2 worldRange = _worldMax - _worldMin;
 
         // 2. how many pixels = one world-unit?
         Vector2 controlSize = Size;
@@ -93,7 +98,7 @@ public partial class MiniMap : Control
         Vector2[] pixelCorners = new Vector2[4];
         for (int i = 0; i < 4; i++)
         {
-            pixelCorners[i] = (corners[i] - worldMin) * scale;
+            pixelCorners[i] = (corners[i] - _worldMin) * scale;
         }
 
         // 9. Draw the rotated rectangle as connected lines
@@ -104,7 +109,7 @@ public partial class MiniMap : Control
         }
 
         // Optional: Draw a small arrow to show camera direction
-        DrawCameraDirection(cam2d, yRotation, worldMin, scale);
+        DrawCameraDirection(cam2d, yRotation, _worldMin, scale);
     }
 
     private Vector2 RotateVector2(Vector2 vector, float angleRadians)
