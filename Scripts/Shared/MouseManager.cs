@@ -7,12 +7,12 @@ public partial class MouseManager : Control
 {
 	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
+	private HashSet<Unit> _prevSelectedUnits;
 	private Resources _resources;
 	private Signals _signals;
 	private Camera3D _camera;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
-	private HashSet<Unit> _prevSelectedUnits;
 	private bool _mouseDown;
 	private bool _dragActive;
 	private bool _isAnySelected;

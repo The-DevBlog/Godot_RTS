@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Camera : Node3D
+public partial class GameCamera : Node3D
 {
 	[Export] public float PanSpeed = 0.2f;
 	[Export] public float PanSpeedBoost = 2.0f;
@@ -11,6 +11,7 @@ public partial class Camera : Node3D
 	[Export] public float MaxZoom = 20.0f;
 	[Export] public float MouseSensitivity = 0.2f;
 	[Export] public float EdgeSize = 3.0f;
+	[Export] public Vector2 MapSize;
 
 	private Node3D _zoomPivot;
 	private Camera3D _camera;
@@ -26,6 +27,8 @@ public partial class Camera : Node3D
 		_moveTarget = Position;
 		_rotateKeysTarget = RotationDegrees.Y;
 		_zoomTarget = _camera.Position.Z;
+
+		Utils.NullExportCheck(MapSize);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -68,6 +71,7 @@ public partial class Camera : Node3D
 			scrollDirection.Z = 1;
 
 		_moveTarget += Transform.Basis * scrollDirection * PanSpeed;
+		ClampMoveTarget();
 	}
 
 	private void KeyboardScroll()
@@ -76,7 +80,8 @@ public partial class Camera : Node3D
 		Vector3 movementDirection = Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
 
 		float rotateKeys = Input.GetAxis("rotate_left", "rotate_right");
-		int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0) - (Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
+		int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0)
+							- (Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
 
 		var panSpeedBoost = Input.IsActionPressed("pan_speed_boost") ? PanSpeedBoost : 1.0f;
 
@@ -85,19 +90,30 @@ public partial class Camera : Node3D
 
 		if (!Resources.Instance.IsPlacingStructure)
 			_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
+
+		ClampMoveTarget();
 	}
 
 	private void UpdateCameraPosition()
 	{
-		// Smoothly move, rotate, and zoom
+		// Smooth movement
 		Position = Position.Lerp(_moveTarget, Smoothness);
 
+		// Smooth rotation
 		Vector3 rotation = RotationDegrees;
 		rotation.Y = Mathf.Lerp(rotation.Y, _rotateKeysTarget, Smoothness);
 		RotationDegrees = rotation;
 
+		// Smooth zoom
 		Vector3 camPos = _camera.Position;
 		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, 0.1f);
 		_camera.Position = camPos;
+	}
+
+	private void ClampMoveTarget()
+	{
+		// Clamp X/Z within defined bounds
+		_moveTarget.X = Mathf.Clamp(_moveTarget.X, -MapSize.X / 2, MapSize.X / 2);
+		_moveTarget.Z = Mathf.Clamp(_moveTarget.Z, -MapSize.Y / 2, MapSize.Y / 2);
 	}
 }

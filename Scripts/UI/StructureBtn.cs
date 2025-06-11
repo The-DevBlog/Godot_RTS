@@ -119,7 +119,7 @@ public partial class StructureBtn : Button
 		StaticBody3D groundBody = GetHoveredMapBase(out Vector3 hitPos);
 		if (groundBody == null)
 		{
-			Utils.PrintErr("PlaceStructure: Mouse not over MapBase. Cancelling placement.");
+			GD.PrintErr("PlaceStructure: Mouse not over MapBase. Cancelling placement.");
 			return;
 		}
 

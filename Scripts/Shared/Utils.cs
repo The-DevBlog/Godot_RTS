@@ -21,12 +21,21 @@ public static class Utils
             GD.PrintErr(message);
     }
 
-    public static void NullCheck(object obj, [CallerArgumentExpression("obj")] string paramName = null)
+    public static void NullExportCheck(object obj, [CallerArgumentExpression("obj")] string paramName = null)
+    {
+        if (obj == null)
+        {
+            var frame = new StackTrace(true).GetFrame(1); // the actual caller of NullExportCheck
+            PrintErr($"'{paramName}' is not set!", frame);
+        }
+    }
+
+    public static void NullCheck(object obj, string message, [CallerArgumentExpression("obj")] string paramName = null)
     {
         if (obj == null)
         {
             var frame = new StackTrace(true).GetFrame(1); // the actual caller of NullCheck
-            PrintErr($"'{paramName}' is not set!", frame);
+            PrintErr($"'{paramName}' is null. {message}", frame);
         }
     }
 }

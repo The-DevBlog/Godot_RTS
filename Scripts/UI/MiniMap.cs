@@ -1,15 +1,3 @@
-# Bugs
-- Shaders are applied above the unit select border. The select border should not be obstructed by anything besides UI
-- Placeholder structure should not be able to place in invalid placements
-- Rebaking the navigation region at runtime is currently very slow. This is because I am parsing through the entire scene tree. Check out this link: https://www.reddit.com/r/godot/comments/17x3qvx/baking_navmesh_regions_at_runtime_best_practices/
-- The upgrade icon on the ugprade button is a tad too large
-
-# Tasks
-- Use enums to reference any input mappings
-- Having all of the unit selection logic in MouseManager.cs might not be a great idea, as it doesnt seem to scale well. Maybe change this?
-- RootContainer.cs holds a lot of logic for multiple things. Maybe divy it out?
-- Find a way to make all things that depend on the map size to be dyanmic. For example, the camera needs the mapsize for camera bounds. The mini map also needs to the mapsize. 
-
 using Godot;
 
 public partial class MiniMap : Control
@@ -27,8 +15,8 @@ public partial class MiniMap : Control
     public override void _Ready()
     {
         Utils.NullExportCheck(MapSize);
-        _worldMin = -MapSize;
-        _worldMax = MapSize;
+        _worldMin = -MapSize / 2;
+        _worldMax = MapSize / 2;
     }
 
     public override void _Process(double delta)
@@ -88,14 +76,32 @@ public partial class MiniMap : Control
         float yaw = camera.GlobalTransform.Basis.GetEuler().Y;
 
         // Transform and draw
+        // Transform, clamp within world bounds, and draw
         for (int i = 0; i < 4; i++)
         {
-            Vector2 corner0 = RotateVector2(localCorners[i], -yaw) + cam2d;
-            Vector2 corner1 = RotateVector2(localCorners[(i + 1) % 4], -yaw) + cam2d;
-            Vector2 pixel0 = (corner0 - _worldMin) * scale;
-            Vector2 pixel1 = (corner1 - _worldMin) * scale;
+            // Rotate into world coords
+            Vector2 worldCorner0 = RotateVector2(localCorners[i], -yaw) + cam2d;
+            Vector2 worldCorner1 = RotateVector2(localCorners[(i + 1) % 4], -yaw) + cam2d;
+
+            // Clamp to minimap world limits
+            worldCorner0.X = Mathf.Clamp(worldCorner0.X, _worldMin.X, _worldMax.X);
+            worldCorner0.Y = Mathf.Clamp(worldCorner0.Y, _worldMin.Y, _worldMax.Y);
+            worldCorner1.X = Mathf.Clamp(worldCorner1.X, _worldMin.X, _worldMax.X);
+            worldCorner1.Y = Mathf.Clamp(worldCorner1.Y, _worldMin.Y, _worldMax.Y);
+
+            // Convert to pixel coords
+            Vector2 pixel0 = (worldCorner0 - _worldMin) * scale;
+            Vector2 pixel1 = (worldCorner1 - _worldMin) * scale;
             DrawLine(pixel0, pixel1, _cameraRectColor, 2f);
         }
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     Vector2 corner0 = RotateVector2(localCorners[i], -yaw) + cam2d;
+        //     Vector2 corner1 = RotateVector2(localCorners[(i + 1) % 4], -yaw) + cam2d;
+        //     Vector2 pixel0 = (corner0 - _worldMin) * scale;
+        //     Vector2 pixel1 = (corner1 - _worldMin) * scale;
+        //     DrawLine(pixel0, pixel1, _cameraRectColor, 2f);
+        // }
     }
 
     private Vector2 RotateVector2(Vector2 v, float angle)

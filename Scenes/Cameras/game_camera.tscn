@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfwlldgg06bq6"]
 
-[ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/Camera.cs" id="1_npc2i"]
+[ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/GameCamera.cs" id="1_npc2i"]
 [ext_resource type="Shader" uid="uid://bsbdr7uqyox1v" path="res://Shaders/outline_shader.gdshader" id="2_ac6r2"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_ogslg"]
@@ -12,10 +12,11 @@ shader = ExtResource("2_ac6r2")
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_thickness = 2.0
 
-[node name="Camera" type="Node3D"]
+[node name="GameCamera" type="Node3D"]
 script = ExtResource("1_npc2i")
 PanSpeedBoost = 3.0
-MaxZoom = 100.0
+MaxZoom = 50.0
+MapSize = Vector2(200, 200)
 metadata/_edit_group_ = true
 
 [node name="CameraZoomPivot" type="Node3D" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dylxy21qgcxxv"]
 
-[ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Shared/camera.tscn" id="1_c3mwy"]
+[ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
 [ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="3_r3lo5"]
@@ -72,9 +72,6 @@ mesh = SubResource("BoxMesh_or46v")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
 shape = SubResource("BoxShape3D_ns7qj")
 
-[node name="Camera" parent="." instance=ExtResource("1_c3mwy")]
-PanSpeedBoost = 2.0
-
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
 [node name="Shaders" type="Node3D" parent="."]
@@ -84,3 +81,5 @@ visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ckhy6")
+
+[node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
