@@ -18,3 +18,41 @@ shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="Model" parent="." instance=ExtResource("1_s1wbf")]
 transform = Transform3D(2.41, 0, 0, 0, 2.41, 0, 0, 0, 2.41, 0, 1.53338, 0)
+
+[node name="Cube_004" parent="Model" index="4"]
+transform = Transform3D(0, 0.00399777, 0.0136783, 0.259906, 8.1529e-10, -2.38285e-10, -1.54916e-08, 0.0136783, -0.00399777, 0.490817, -0.265454, 1.25676)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0, 1.8174, 3.03446)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 2.041
+spot_attenuation = 0.86
+spot_angle = 86.17
+spot_angle_attenuation = 0.683022
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.510072, 1.8174, 3.03446)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 2.041
+spot_attenuation = 0.86
+spot_angle = 86.17
+spot_angle_attenuation = 0.683022
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, -0.587537, 1.8174, 3.03446)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 2.041
+spot_attenuation = 0.86
+spot_angle = 86.17
+spot_angle_attenuation = 0.683022
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04582, 3.25467)
+
+[editable path="Model"]
