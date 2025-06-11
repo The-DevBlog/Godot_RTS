@@ -3,13 +3,13 @@ using Godot;
 public partial class MiniMap : Control
 {
     [Export] public Vector2 MapSize;
-    private Color _backgbroundColor = new Color("#171717");
+    private Color _backgroundColor = new Color("#171717");
     private Color _friendlyUnitsColor = new Color("#38a7f1");
     private Color _cameraRectColor = new Color("#ff0000");
+
     public override void _Process(double delta)
     {
         Utils.NullExportCheck(MapSize);
-
         QueueRedraw();
     }
 
@@ -23,7 +23,7 @@ public partial class MiniMap : Control
         Vector2 scale = controlSize / mapSize;
 
         // Draw the boundary box
-        DrawRect(new Rect2(Vector2.Zero, Size), _backgbroundColor, true);
+        DrawRect(new Rect2(Vector2.Zero, Size), _backgroundColor, true);
 
         // Draw each unit as a blue dot
         foreach (Unit u in GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString()))
@@ -39,74 +39,104 @@ public partial class MiniMap : Control
 
     private void DrawCameraRect()
     {
-        // 1) world‐bounds of your minimap
+        // 1. world-bounds of your minimap
         Vector2 worldMin = -MapSize;
         Vector2 worldMax = MapSize;
         Vector2 worldRange = worldMax - worldMin;
 
-        // 2) scale: world‐units → control‐pixels
+        // 2. how many pixels = one world-unit?
         Vector2 controlSize = Size;
         Vector2 scale = controlSize / worldRange;
 
-        // 3) get the active Camera3D
+        // 3. get the active Camera3D
         Camera3D camera = GetViewport().GetCamera3D();
         if (camera == null)
-            return;
+            return; // no camera, nothing to draw
 
-        // 4) camera position on the XZ plane
+        // 4. camera position on the XZ plane
         Vector3 cam3d = camera.GlobalTransform.Origin;
         Vector2 cam2d = new Vector2(cam3d.X, cam3d.Z);
 
-        // 5) compute half‐extents of the view‐rectangle (in world units)
-        Vector2 camHalf;
-        if (camera.Projection == Camera3D.ProjectionType.Orthogonal)
-        {
-            // orthographic: use the camera’s Size (half‐height) + aspect for width
-            float halfH = camera.Size;
-            Vector2 vp = GetViewportRect().Size;
-            float aspect = vp.x / vp.;
-            float halfW = halfH * aspect;
-            camHalf = new Vector2(halfW, halfH);
-        }
-        else
-        {
-            // perspective: at “straight‐down” pitch the footprint is
-            // altitude * tan(FOV/2) on the ground plane
-            float altitude = cam3d.y;
-            float fovRad = Mathf.DegToRad(camera.Fov);
-            float halfH = altitude * Mathf.Tan(fovRad * 0.5f);
-            Vector2 vp = GetViewportRect().Size;
-            float aspect = vp.x / vp.y;
-            float halfW = halfH * aspect;
-            camHalf = new Vector2(halfW, halfH);
-        }
+        // 5. compute half-extents of the view-rectangle (in world units)
+        float altitude = cam3d.Y;
+        float fovRad = Mathf.DegToRad(camera.Fov);
+        float halfH = altitude * Mathf.Tan(fovRad * 0.5f);
+        Vector2 vp = GetViewportRect().Size;
+        float aspect = vp.X / vp.Y;
+        float halfW = halfH * aspect;
 
-        // 6) extract camera’s yaw (rotation around Y)
-        //    in Godot 4, Rotation is a Vector3 of Euler angles (YXZ order), so:
-        float yaw = camera.Rotation.y;
+        // 6. Get camera's Y rotation (around vertical axis)
+        Vector3 cameraRotation = camera.GlobalTransform.Basis.GetEuler();
+        float yRotation = cameraRotation.Y; // Y axis rotation in radians
 
-        // 7) build the two local axes in world‐XZ
-        Vector2 right = new Vector2(Mathf.Cos(yaw), Mathf.Sin(yaw));
-        Vector2 up = new Vector2(-Mathf.Sin(yaw), Mathf.Cos(yaw));
+        // 7. Calculate the four corners of the camera view rectangle in world space
+        Vector2[] corners = new Vector2[4];
 
-        // 8) compute the 4 world‐space corners of the oriented rect
-        Vector2 center = cam2d;
-        Vector2 halfWv = right * camHalf.x;
-        Vector2 halfHv = up * camHalf.y;
+        // Local corners relative to camera (before rotation)
+        Vector2[] localCorners = {
+            new Vector2(-halfW, -halfH), // bottom-left
+            new Vector2(halfW, -halfH),  // bottom-right  
+            new Vector2(halfW, halfH),   // top-right
+            new Vector2(-halfW, halfH)   // top-left
+        };
 
-        Vector2 w1 = center + halfWv + halfHv;
-        Vector2 w2 = center - halfWv + halfHv;
-        Vector2 w3 = center - halfWv - halfHv;
-        Vector2 w4 = center + halfWv - halfHv;
-
-        // 9) convert each corner into minimap (pixel) coords
-        Vector2[] local = new Vector2[4];
-        Vector2[] world = new[] { w1, w2, w3, w4 };
+        // Rotate each corner and translate to world position
         for (int i = 0; i < 4; i++)
-            local[i] = (world[i] - worldMin) * scale;
+        {
+            // Rotate the local corner by camera's Y rotation
+            Vector2 rotatedCorner = RotateVector2(localCorners[i], yRotation);
+            // Translate to world position
+            corners[i] = cam2d + rotatedCorner;
+        }
 
-        // 10) draw the outline
+        // 8. Convert world corners to minimap pixel coordinates
+        Vector2[] pixelCorners = new Vector2[4];
         for (int i = 0; i < 4; i++)
-            DrawLine(local[i], local[(i + 1) % 4], _cameraRectColor, 2);
+        {
+            pixelCorners[i] = (corners[i] - worldMin) * scale;
+        }
+
+        // 9. Draw the rotated rectangle as connected lines
+        for (int i = 0; i < 4; i++)
+        {
+            int nextIndex = (i + 1) % 4;
+            DrawLine(pixelCorners[i], pixelCorners[nextIndex], _cameraRectColor, 2.0f);
+        }
+
+        // Optional: Draw a small arrow to show camera direction
+        DrawCameraDirection(cam2d, yRotation, worldMin, scale);
+    }
+
+    private Vector2 RotateVector2(Vector2 vector, float angleRadians)
+    {
+        float cos = Mathf.Cos(angleRadians);
+        float sin = Mathf.Sin(angleRadians);
+
+        return new Vector2(
+            vector.X * cos - vector.Y * sin,
+            vector.X * sin + vector.Y * cos
+        );
+    }
+
+    private void DrawCameraDirection(Vector2 cameraWorldPos, float yRotation, Vector2 worldMin, Vector2 scale)
+    {
+        // Convert camera position to pixel coordinates
+        Vector2 camPixelPos = (cameraWorldPos - worldMin) * scale;
+
+        // Create a forward direction vector (pointing "forward" from camera)
+        Vector2 forwardDir = RotateVector2(Vector2.Up, yRotation); // Up is forward in 2D top-down view
+
+        // Scale the direction for visibility
+        Vector2 arrowEnd = camPixelPos + forwardDir * 15; // 15 pixels long
+
+        // Draw the direction arrow
+        DrawLine(camPixelPos, arrowEnd, _cameraRectColor, 3.0f);
+
+        // Draw arrowhead
+        Vector2 arrowLeft = arrowEnd + RotateVector2(Vector2.Up, yRotation + Mathf.Pi * 0.75f) * 5;
+        Vector2 arrowRight = arrowEnd + RotateVector2(Vector2.Up, yRotation - Mathf.Pi * 0.75f) * 5;
+
+        DrawLine(arrowEnd, arrowLeft, _cameraRectColor, 2.0f);
+        DrawLine(arrowEnd, arrowRight, _cameraRectColor, 2.0f);
     }
 }
