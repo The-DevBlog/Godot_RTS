@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://by3j44aquklsd" path="res://Assets/Models/Structures/Garage/Garage.glb" id="1_s1wbf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
-size = Vector3(7.06, 2.51, 5.46)
+size = Vector3(6.28, 3.47281, 8.47816)
 
 [node name="Garage" type="StaticBody3D"]
 script = ExtResource("1_fgyi3")
@@ -13,8 +13,8 @@ Cost = 1250
 BuildTime = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25657, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73916, 0.356755)
 shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="Model" parent="." instance=ExtResource("1_s1wbf")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.207405, 0)
+transform = Transform3D(2.41, 0, 0, 0, 2.41, 0, 0, 0, 2.41, 0, 1.53338, 0)
