@@ -15,8 +15,8 @@ public partial class MiniMap : Control
     public override void _Ready()
     {
         Utils.NullExportCheck(MapSize);
-        _worldMin = -MapSize;
-        _worldMax = MapSize;
+        _worldMin = -MapSize / 2;
+        _worldMax = MapSize / 2;
     }
 
     public override void _Process(double delta)
