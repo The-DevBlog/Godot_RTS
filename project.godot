@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Godot_RTS"
+run/main_scene="uid://dylxy21qgcxxv"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
 [autoload]

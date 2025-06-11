@@ -15,7 +15,7 @@ shader_parameter/shadow_thickness = 2.0
 [node name="GameCamera" type="Node3D"]
 script = ExtResource("1_npc2i")
 PanSpeedBoost = 3.0
-MaxZoom = 100.0
+MaxZoom = 50.0
 metadata/_edit_group_ = true
 
 [node name="CameraZoomPivot" type="Node3D" parent="."]
