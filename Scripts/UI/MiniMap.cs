@@ -57,59 +57,58 @@ public partial class MiniMap : Control
         if (camera == null)
             return; // no camera, nothing to draw
 
-        // 4. camera position on the XZ plane
+        // 4. camera position and rotation
         Vector3 cam3d = camera.GlobalTransform.Origin;
         Vector2 cam2d = new Vector2(cam3d.X, cam3d.Z);
-
-        // 5. compute half-extents of the view-rectangle (in world units)
-        float altitude = cam3d.Y;
-        float fovRad = Mathf.DegToRad(camera.Fov);
-        float halfH = altitude * Mathf.Tan(fovRad * 0.5f);
-        Vector2 vp = GetViewportRect().Size;
-        float aspect = vp.X / vp.Y;
-        float halfW = halfH * aspect;
-
-        // 6. Get camera's Y rotation (around vertical axis)
         Vector3 cameraRotation = camera.GlobalTransform.Basis.GetEuler();
-        float yRotation = cameraRotation.Y; // Y axis rotation in radians
+        float yRotation = cameraRotation.Y; // Y axis rotation (yaw)
+        float xRotation = cameraRotation.X; // X axis rotation (pitch)
 
-        // 7. Calculate the four corners of the camera view rectangle in world space
-        Vector2[] corners = new Vector2[4];
+        // 5. Create a fixed-size trapezoid to represent camera view
+        // These are fixed world-space distances that won't change with zoom
+        float nearWidth = 40.0f;  // Width of trapezoid at the near end (wider)
+        float farWidth = 25.0f;    // Width of trapezoid at the far end (narrower)
+        float length = 15.0f;     // Length of the trapezoid
 
-        // Local corners relative to camera (before rotation)
-        Vector2[] localCorners = {
-            new Vector2(-halfW, -halfH), // bottom-left
-            new Vector2(halfW, -halfH),  // bottom-right  
-            new Vector2(halfW, halfH),   // top-right
-            new Vector2(-halfW, halfH)   // top-left
-        };
+        // Adjust trapezoid shape based on camera pitch
+        // More pitch = more elongated trapezoid
+        float pitchFactor = 1.0f + (Mathf.Abs(xRotation) / (Mathf.Pi * 0.5f)) * 0.5f; // 0.5f controls how much pitch affects length
+        length *= pitchFactor;
 
-        // Rotate each corner and translate to world position
-        // FIXED: Negate the Y rotation to correct the coordinate system difference
+        // 6. Create trapezoid vertices in local camera space (before rotation)
+        Vector2[] localCorners = new Vector2[4];
+
+        // Near edge (closer to camera - wider)
+        localCorners[0] = new Vector2(-nearWidth * 0.5f, 0);      // near left
+        localCorners[1] = new Vector2(nearWidth * 0.5f, 0);       // near right
+
+        // Far edge (further from camera - narrower)  
+        localCorners[2] = new Vector2(farWidth * 0.5f, length);   // far right
+        localCorners[3] = new Vector2(-farWidth * 0.5f, length);  // far left
+
+        // 7. Rotate trapezoid by camera's Y rotation and translate to world position
+        Vector2[] worldCorners = new Vector2[4];
         for (int i = 0; i < 4; i++)
         {
-            // Rotate the local corner by camera's Y rotation (negated for correct minimap orientation)
+            // Rotate by camera's yaw (negate for correct minimap orientation)
             Vector2 rotatedCorner = RotateVector2(localCorners[i], -yRotation);
-            // Translate to world position
-            corners[i] = cam2d + rotatedCorner;
+            // Translate to camera's world position
+            worldCorners[i] = cam2d + rotatedCorner;
         }
 
         // 8. Convert world corners to minimap pixel coordinates
         Vector2[] pixelCorners = new Vector2[4];
         for (int i = 0; i < 4; i++)
         {
-            pixelCorners[i] = (corners[i] - _worldMin) * scale;
+            pixelCorners[i] = (worldCorners[i] - _worldMin) * scale;
         }
 
-        // 9. Draw the rotated rectangle as connected lines
+        // 9. Draw the trapezoid
         for (int i = 0; i < 4; i++)
         {
             int nextIndex = (i + 1) % 4;
             DrawLine(pixelCorners[i], pixelCorners[nextIndex], _cameraRectColor, 2.0f);
         }
-
-        // Optional: Draw a small arrow to show camera direction
-        DrawCameraDirection(cam2d, yRotation, _worldMin, scale);
     }
 
     private Vector2 RotateVector2(Vector2 vector, float angleRadians)
@@ -121,28 +120,5 @@ public partial class MiniMap : Control
             vector.X * cos - vector.Y * sin,
             vector.X * sin + vector.Y * cos
         );
-    }
-
-    private void DrawCameraDirection(Vector2 cameraWorldPos, float yRotation, Vector2 worldMin, Vector2 scale)
-    {
-        // Convert camera position to pixel coordinates
-        Vector2 camPixelPos = (cameraWorldPos - worldMin) * scale;
-
-        // Create a forward direction vector (pointing "forward" from camera)
-        // FIXED: Negate the Y rotation here too for consistent direction
-        Vector2 forwardDir = RotateVector2(Vector2.Up, -yRotation); // Up is forward in 2D top-down view
-
-        // Scale the direction for visibility
-        Vector2 arrowEnd = camPixelPos + forwardDir * 15; // 15 pixels long
-
-        // Draw the direction arrow
-        DrawLine(camPixelPos, arrowEnd, _cameraRectColor, 3.0f);
-
-        // Draw arrowhead
-        Vector2 arrowLeft = arrowEnd + RotateVector2(Vector2.Up, -yRotation + Mathf.Pi * 0.75f) * 5;
-        Vector2 arrowRight = arrowEnd + RotateVector2(Vector2.Up, -yRotation - Mathf.Pi * 0.75f) * 5;
-
-        DrawLine(arrowEnd, arrowLeft, _cameraRectColor, 2.0f);
-        DrawLine(arrowEnd, arrowRight, _cameraRectColor, 2.0f);
     }
 }
