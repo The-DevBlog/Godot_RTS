@@ -76,14 +76,32 @@ public partial class MiniMap : Control
         float yaw = camera.GlobalTransform.Basis.GetEuler().Y;
 
         // Transform and draw
+        // Transform, clamp within world bounds, and draw
         for (int i = 0; i < 4; i++)
         {
-            Vector2 corner0 = RotateVector2(localCorners[i], -yaw) + cam2d;
-            Vector2 corner1 = RotateVector2(localCorners[(i + 1) % 4], -yaw) + cam2d;
-            Vector2 pixel0 = (corner0 - _worldMin) * scale;
-            Vector2 pixel1 = (corner1 - _worldMin) * scale;
+            // Rotate into world coords
+            Vector2 worldCorner0 = RotateVector2(localCorners[i], -yaw) + cam2d;
+            Vector2 worldCorner1 = RotateVector2(localCorners[(i + 1) % 4], -yaw) + cam2d;
+
+            // Clamp to minimap world limits
+            worldCorner0.X = Mathf.Clamp(worldCorner0.X, _worldMin.X, _worldMax.X);
+            worldCorner0.Y = Mathf.Clamp(worldCorner0.Y, _worldMin.Y, _worldMax.Y);
+            worldCorner1.X = Mathf.Clamp(worldCorner1.X, _worldMin.X, _worldMax.X);
+            worldCorner1.Y = Mathf.Clamp(worldCorner1.Y, _worldMin.Y, _worldMax.Y);
+
+            // Convert to pixel coords
+            Vector2 pixel0 = (worldCorner0 - _worldMin) * scale;
+            Vector2 pixel1 = (worldCorner1 - _worldMin) * scale;
             DrawLine(pixel0, pixel1, _cameraRectColor, 2f);
         }
+        // for (int i = 0; i < 4; i++)
+        // {
+        //     Vector2 corner0 = RotateVector2(localCorners[i], -yaw) + cam2d;
+        //     Vector2 corner1 = RotateVector2(localCorners[(i + 1) % 4], -yaw) + cam2d;
+        //     Vector2 pixel0 = (corner0 - _worldMin) * scale;
+        //     Vector2 pixel1 = (corner1 - _worldMin) * scale;
+        //     DrawLine(pixel0, pixel1, _cameraRectColor, 2f);
+        // }
     }
 
     private Vector2 RotateVector2(Vector2 v, float angle)
