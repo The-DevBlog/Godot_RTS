@@ -8,3 +8,4 @@
 - Use enums to reference any input mappings
 - Having all of the unit selection logic in MouseManager.cs might not be a great idea, as it doesnt seem to scale well. Maybe change this?
 - RootContainer.cs holds a lot of logic for multiple things. Maybe divy it out?
+- Find a way to make all things that depend on the map size to be dyanmic. For example, the camera needs the mapsize for camera bounds. The mini map also needs to the mapsize. 

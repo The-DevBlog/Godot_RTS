@@ -16,6 +16,7 @@ shader_parameter/shadow_thickness = 2.0
 script = ExtResource("1_npc2i")
 PanSpeedBoost = 3.0
 MaxZoom = 50.0
+MapSize = Vector2(200, 200)
 metadata/_edit_group_ = true
 
 [node name="CameraZoomPivot" type="Node3D" parent="."]
