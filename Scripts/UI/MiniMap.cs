@@ -19,7 +19,6 @@ public partial class MiniMap : Control
 
     public override void _Process(double delta)
     {
-        Utils.NullExportCheck(MapSize);
         QueueRedraw();
     }
 
@@ -86,10 +85,11 @@ public partial class MiniMap : Control
         };
 
         // Rotate each corner and translate to world position
+        // FIXED: Negate the Y rotation to correct the coordinate system difference
         for (int i = 0; i < 4; i++)
         {
-            // Rotate the local corner by camera's Y rotation
-            Vector2 rotatedCorner = RotateVector2(localCorners[i], yRotation);
+            // Rotate the local corner by camera's Y rotation (negated for correct minimap orientation)
+            Vector2 rotatedCorner = RotateVector2(localCorners[i], -yRotation);
             // Translate to world position
             corners[i] = cam2d + rotatedCorner;
         }
@@ -129,7 +129,8 @@ public partial class MiniMap : Control
         Vector2 camPixelPos = (cameraWorldPos - worldMin) * scale;
 
         // Create a forward direction vector (pointing "forward" from camera)
-        Vector2 forwardDir = RotateVector2(Vector2.Up, yRotation); // Up is forward in 2D top-down view
+        // FIXED: Negate the Y rotation here too for consistent direction
+        Vector2 forwardDir = RotateVector2(Vector2.Up, -yRotation); // Up is forward in 2D top-down view
 
         // Scale the direction for visibility
         Vector2 arrowEnd = camPixelPos + forwardDir * 15; // 15 pixels long
@@ -138,8 +139,8 @@ public partial class MiniMap : Control
         DrawLine(camPixelPos, arrowEnd, _cameraRectColor, 3.0f);
 
         // Draw arrowhead
-        Vector2 arrowLeft = arrowEnd + RotateVector2(Vector2.Up, yRotation + Mathf.Pi * 0.75f) * 5;
-        Vector2 arrowRight = arrowEnd + RotateVector2(Vector2.Up, yRotation - Mathf.Pi * 0.75f) * 5;
+        Vector2 arrowLeft = arrowEnd + RotateVector2(Vector2.Up, -yRotation + Mathf.Pi * 0.75f) * 5;
+        Vector2 arrowRight = arrowEnd + RotateVector2(Vector2.Up, -yRotation - Mathf.Pi * 0.75f) * 5;
 
         DrawLine(arrowEnd, arrowLeft, _cameraRectColor, 2.0f);
         DrawLine(arrowEnd, arrowRight, _cameraRectColor, 2.0f);
