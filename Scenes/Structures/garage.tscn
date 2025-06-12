@@ -25,8 +25,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73916, 0.356755)
 shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.0611633, 1.73791, 3.0729)
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.0480989, 1.74214, 3.07827)
 light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
 light_specular = 2.202
 light_bake_mode = 1
 spot_range = 1.401
@@ -35,8 +36,9 @@ spot_angle = 92.07
 spot_angle_attenuation = 1.23115
 
 [node name="SpotLight3D3" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.571235, 1.73791, 3.0729)
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.558171, 1.74214, 3.07827)
 light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
 light_specular = 2.202
 light_bake_mode = 1
 spot_range = 1.401
@@ -45,8 +47,9 @@ spot_angle = 92.07
 spot_angle_attenuation = 1.23115
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, -0.526374, 1.73791, 3.0729)
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, -0.539438, 1.74214, 3.07827)
 light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
 light_specular = 2.202
 light_bake_mode = 1
 spot_range = 1.401
@@ -56,19 +59,16 @@ spot_angle_attenuation = 1.23115
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.17293, 9.53726e-05, 8.12762e-05, -0.00121532, 0.0596551, 0.147495, 0.000612736, -0.0642454, 0.136957, 0.000622833, 1.79867, 3.06306)
-visible = false
 mesh = SubResource("BoxMesh_fgyi3")
 surface_material_override/0 = SubResource("StandardMaterial3D_eld4q")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0012162, -0.0564162, 0.080987, 1.17347, 0.000136695, -6.2521e-05, -0.00071057, 0.129187, 0.0353671, -1.17762, 0.87016, 3.01926)
-visible = false
 mesh = SubResource("BoxMesh_fgyi3")
 surface_material_override/0 = SubResource("StandardMaterial3D_eld4q")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.00121658, -0.0826707, 0.055108, 1.17384, 0.000103476, 3.67478e-05, -0.000710776, 0.0293891, 0.155017, 1.18692, 0.867778, 3.01735)
-visible = false
 mesh = SubResource("BoxMesh_fgyi3")
 surface_material_override/0 = SubResource("StandardMaterial3D_eld4q")
 
