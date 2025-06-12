@@ -11,12 +11,14 @@ public partial class MiniMap : Control
     private float _baseFarLength = 20.0f;
     private Vector2 _worldMin;
     private Vector2 _worldMax;
+    private Camera3D _camera;
 
     public override void _Ready()
     {
         Utils.NullExportCheck(MapSize);
         _worldMin = -MapSize / 2;
         _worldMax = MapSize / 2;
+        _camera = GetViewport().GetCamera3D();
     }
 
     public override void _Process(double delta)
@@ -47,18 +49,17 @@ public partial class MiniMap : Control
 
     private void DrawCameraRect(Vector2 scale)
     {
-        Camera3D camera = GetViewport().GetCamera3D();
-        if (camera == null) return;
+        if (_camera == null) return;
 
         // Zoom factor by camera height
-        float currentHeight = camera.GlobalTransform.Origin.Y;
+        float currentHeight = _camera.GlobalTransform.Origin.Y;
         float zoomScale = currentHeight / _defaultHeight;
 
         float nearDist = _baseNearDist * zoomScale;
         float farDist = nearDist + _baseFarLength * zoomScale;
 
         // FOV in radians
-        float fovRad = Mathf.DegToRad(camera.Fov);
+        float fovRad = Mathf.DegToRad(_camera.Fov);
         float nearWidth = 2f * nearDist * Mathf.Tan(fovRad * 0.5f) * 10.0f;
         float farWidth = 2f * farDist * Mathf.Tan(fovRad * 0.5f);
 
@@ -71,9 +72,9 @@ public partial class MiniMap : Control
 			new Vector2(-farWidth / 2f, -farDist),  // far left
 		];
 
-        Vector3 cam3d = camera.GlobalTransform.Origin;
+        Vector3 cam3d = _camera.GlobalTransform.Origin;
         Vector2 cam2d = new Vector2(cam3d.X, cam3d.Z);
-        float yaw = camera.GlobalTransform.Basis.GetEuler().Y;
+        float yaw = _camera.GlobalTransform.Basis.GetEuler().Y;
 
         // Transform, clamp within world bounds, and draw
         for (int i = 0; i < 4; i++)
