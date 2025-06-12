@@ -75,7 +75,6 @@ public partial class MiniMap : Control
         Vector2 cam2d = new Vector2(cam3d.X, cam3d.Z);
         float yaw = camera.GlobalTransform.Basis.GetEuler().Y;
 
-        // Transform and draw
         // Transform, clamp within world bounds, and draw
         for (int i = 0; i < 4; i++)
         {
