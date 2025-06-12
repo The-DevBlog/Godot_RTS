@@ -94,14 +94,6 @@ public partial class MiniMap : Control
             Vector2 pixel1 = (worldCorner1 - _worldMin) * scale;
             DrawLine(pixel0, pixel1, _cameraRectColor, 2f);
         }
-        // for (int i = 0; i < 4; i++)
-        // {
-        //     Vector2 corner0 = RotateVector2(localCorners[i], -yaw) + cam2d;
-        //     Vector2 corner1 = RotateVector2(localCorners[(i + 1) % 4], -yaw) + cam2d;
-        //     Vector2 pixel0 = (corner0 - _worldMin) * scale;
-        //     Vector2 pixel1 = (corner1 - _worldMin) * scale;
-        //     DrawLine(pixel0, pixel1, _cameraRectColor, 2f);
-        // }
     }
 
     private Vector2 RotateVector2(Vector2 v, float angle)
