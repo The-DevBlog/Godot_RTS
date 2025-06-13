@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=16 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
+[ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
 vertices = PackedVector3Array(-98.25, 0.75, -98.25, -98.25, 0.75, 98.25, 98.25, 0.75, 98.25, 98.25, 0.75, -98.25)
@@ -24,17 +25,33 @@ size = Vector3(200, 0.5, 200)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
 size = Vector3(200, 0.5, 200)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
+sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
+sky_curve = 0.0530337
+
+[sub_resource type="Sky" id="Sky_r3lo5"]
+sky_material = SubResource("ProceduralSkyMaterial_dun2r")
+
 [sub_resource type="Environment" id="Environment_ckhy6"]
-ambient_light_source = 2
-ambient_light_color = Color(0.68028, 0.688925, 0.648525, 1)
+background_mode = 2
+background_color = Color(5.39064e-06, 0.652982, 0.919254, 1)
+sky = SubResource("Sky_r3lo5")
+ambient_light_source = 1
+ambient_light_color = Color(0.743237, 0.466848, 0.0225394, 1)
+ambient_light_energy = 4.18
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
 sdfgi_bounce_feedback = 1.99
 sdfgi_min_cell_size = 17.88
-sdfgi_cascade0_distance = 1144.32
-sdfgi_max_distance = 18309.1
 sdfgi_energy = 0.585
 sdfgi_normal_bias = 1.025
 sdfgi_probe_bias = 0.65
+glow_enabled = true
+glow_intensity = 0.07
 glow_bloom = 0.45
+glow_blend_mode = 1
 fog_density = 0.0245
 adjustment_enabled = true
 adjustment_saturation = 0.77
@@ -43,6 +60,8 @@ adjustment_saturation = 0.77
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
+shadow_enabled = true
+directional_shadow_max_distance = 50.0
 
 [node name="Units" type="Node3D" parent="."]
 
@@ -50,7 +69,7 @@ transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 
 transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 19.1532, 0, -7.67288)
 
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, 13.8044, 0, -7.58137)
+transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, 13.8044, 0.0109811, -7.58137)
 
 [node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
 transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, 16.6373, 0, -7.2311)
@@ -83,3 +102,5 @@ visible = false
 environment = SubResource("Environment_ckhy6")
 
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
+
+[node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
