@@ -75,9 +75,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_eld4q")
 [node name="Model" parent="." instance=ExtResource("1_s1wbf")]
 transform = Transform3D(2.41, 0, 0, 0, 2.41, 0, 0, 0, 2.41, 0, 1.53327, 0)
 
-[node name="Cube" parent="Model" index="0"]
-transform = Transform3D(1, -0.000508102, 7.85312e-05, 0.00077513, 0.65551, -0.000149157, -5.88972e-05, 7.34625e-05, 1.33146, 0, 0.0214335, 0)
-
 [node name="LightmapGI" type="LightmapGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00540209)
 supersampling = true
