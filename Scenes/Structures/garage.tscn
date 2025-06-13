@@ -3,16 +3,12 @@
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_fgyi3"]
 [ext_resource type="PackedScene" uid="uid://by3j44aquklsd" path="res://Assets/Models/Structures/Garage/Garage.glb" id="1_s1wbf"]
 [ext_resource type="LightmapGIData" uid="uid://bgf6vkhg4ysni" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="3_eld4q"]
+[ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/Emissive_yellow.tres" id="4_7ea3r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(6.28, 3.47281, 8.47816)
 
 [sub_resource type="BoxMesh" id="BoxMesh_fgyi3"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eld4q"]
-emission_enabled = true
-emission = Color(0.862987, 0.903482, 0, 1)
-emission_energy_multiplier = 50.0
 
 [node name="Garage" type="StaticBody3D"]
 script = ExtResource("1_fgyi3")
@@ -22,6 +18,7 @@ BuildTime = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73916, 0.356755)
+visible = false
 shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
@@ -57,21 +54,6 @@ spot_attenuation = 2.15
 spot_angle = 92.07
 spot_angle_attenuation = 1.23115
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.17293, 9.53726e-05, 8.12762e-05, -0.00121532, 0.0596551, 0.147495, 0.000612736, -0.0642454, 0.136957, 0.000622833, 1.79867, 3.06306)
-mesh = SubResource("BoxMesh_fgyi3")
-surface_material_override/0 = SubResource("StandardMaterial3D_eld4q")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.0012162, -0.0564162, 0.080987, 1.17347, 0.000136695, -6.2521e-05, -0.00071057, 0.129187, 0.0353671, -1.17762, 0.87016, 3.01926)
-mesh = SubResource("BoxMesh_fgyi3")
-surface_material_override/0 = SubResource("StandardMaterial3D_eld4q")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.00121658, -0.0826707, 0.055108, 1.17384, 0.000103476, 3.67478e-05, -0.000710776, 0.0293891, 0.155017, 1.18692, 0.867778, 3.01735)
-mesh = SubResource("BoxMesh_fgyi3")
-surface_material_override/0 = SubResource("StandardMaterial3D_eld4q")
-
 [node name="Model" parent="." instance=ExtResource("1_s1wbf")]
 transform = Transform3D(2.41, 0, 0, 0, 2.41, 0, 0, 0, 2.41, 0, 1.53327, 0)
 
@@ -80,5 +62,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00
 supersampling = true
 generate_probes_subdiv = 1
 light_data = ExtResource("3_eld4q")
+
+[node name="EmissiveLights" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(1.17293, 9.53726e-05, 8.12762e-05, -0.00121532, 0.0596551, 0.147495, 0.000612736, -0.0642454, 0.136957, -0.00621692, 1.79867, 3.06502)
+mesh = SubResource("BoxMesh_fgyi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7ea3r")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(0.0012162, -0.0564162, 0.080987, 1.17347, 0.000136695, -6.2521e-05, -0.00071057, 0.129187, 0.0353671, -1.18446, 0.87016, 3.02122)
+mesh = SubResource("BoxMesh_fgyi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7ea3r")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(-0.0112084, -0.163855, 0.000998877, 0.422915, -0.000696813, 0.0642964, -0.448384, 0.00343871, 0.0606194, 1.45965, 2.91563, 2.93817)
+mesh = SubResource("BoxMesh_fgyi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7ea3r")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(-0.0112084, -0.163855, 0.000998877, 0.422915, -0.000696813, 0.0642964, -0.448384, 0.00343871, 0.0606194, 1.1757, 2.91442, 2.94413)
+mesh = SubResource("BoxMesh_fgyi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7ea3r")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(-0.0112084, -0.163855, 0.000998877, 0.422915, -0.000696813, 0.0642964, -0.448384, 0.00343871, 0.0606194, 0.901222, 2.91638, 2.94901)
+mesh = SubResource("BoxMesh_fgyi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7ea3r")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(2.05106, -0.00458221, -0.00100124, 0.0355747, 0.211085, 0.112132, -0.0124279, -0.152006, 0.155745, 0.0321559, 2.39139, -2.325)
+mesh = SubResource("BoxMesh_fgyi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7ea3r")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(0.00121658, -0.0826707, 0.055108, 1.17384, 0.000103476, 3.67478e-05, -0.000710776, 0.0293891, 0.155017, 1.18008, 0.867778, 3.01931)
+mesh = SubResource("BoxMesh_fgyi3")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_7ea3r")
 
 [editable path="Model"]
