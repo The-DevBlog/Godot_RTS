@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c6nban7o7nbxp"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_fgyi3"]
-[ext_resource type="PackedScene" uid="uid://by3j44aquklsd" path="res://Assets/Models/Structures/Garage/Garage.glb" id="1_s1wbf"]
-[ext_resource type="LightmapGIData" uid="uid://bgf6vkhg4ysni" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="3_eld4q"]
+[ext_resource type="PackedScene" uid="uid://cqytsmahtygs7" path="res://Assets/Models/Structures/Garage/Garage.glb" id="1_s1wbf"]
+[ext_resource type="LightmapGIData" uid="uid://bq6lwa0kx7013" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="3_eld4q"]
 [ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/emissive_yellow.tres" id="4_7ea3r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]

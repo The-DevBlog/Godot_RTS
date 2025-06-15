@@ -2,14 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://css8hsunr81cg"
+uid="uid://itkk6aotjdon"
 path.s3tc="res://.godot/imported/Garage_StructureFloor.png-3f9d864b78a1bd14ec46b9ea220d8b42.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "a9243644140edc8ad4670dd992d5c881"
+"md5": "0f3a0ad50805b70a3a81c69d66ffea15"
 }
 
 [deps]
