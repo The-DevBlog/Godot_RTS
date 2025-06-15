@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cv7iu3e2xje8o" path="res://Assets/Models/Structures/Cannon/Cannon.glb" id="1_0iar0"]
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_7d6ba"]
 
-[node name="Cannon" type="StaticBody3D"]
+[node name="CannonPlaceholder" type="StaticBody3D"]
 script = ExtResource("1_7d6ba")
 
 [node name="Model" parent="." instance=ExtResource("1_0iar0")]

@@ -13,12 +13,13 @@ namespace MyEnums
     {
         None,
         Barracks,
-        Garage,
-        ScrapYard,
-        Generator,
-        Satellite,
         Cannon,
+        Garage,
+        Generator,
         ResearchLab,
+        Reactor,
+        ScrapYard,
+        Satellite,
     }
 
     public enum Unit
