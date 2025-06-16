@@ -56,3 +56,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68961, 5.96784, -1.64563)
 mesh = SubResource("SphereMesh_fuk4o")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_fuk4o")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1.20418, 0, 0, 0, -5.26363e-08, -1.20418, 0, 1.20418, -5.26363e-08, 1.7044, 2.00538, 0.0201496)
+light_color = Color(1, 0.47451, 0, 1)
+light_energy = 16.0
+spot_range = 6.52084
+spot_angle = 48.723
+
+[editable path="Model"]
