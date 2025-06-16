@@ -84,7 +84,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_fuk4o")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(0.861904, 0, 0, 0, -3.7675e-08, -0.861904, 0, 0.861904, -3.7675e-08, 1.7044, 3.90125, 0.0201497)
+transform = Transform3D(1.00214, 0, 0, 0, -4.3805e-08, -1.00214, 0, 1.00214, -4.3805e-08, 1.7044, 3.90125, 0.0201497)
 light_color = Color(1, 0.47451, 0, 1)
 light_energy = 16.0
 spot_range = 3.50822
@@ -94,5 +94,7 @@ spot_angle = 77.3438
 transform = Transform3D(3.15393, 0, 0, 0, 1.00834, 0, 0, 0, 3.34705, 1.6758, 5.08116, 0)
 mesh = SubResource("CylinderMesh_n7u5k")
 surface_material_override/0 = SubResource("ShaderMaterial_2xpe4")
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
 
 [editable path="Model"]
