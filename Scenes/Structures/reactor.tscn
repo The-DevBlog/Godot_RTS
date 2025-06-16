@@ -28,7 +28,7 @@ radial_segments = 10
 noise = SubResource("FastNoiseLite_fuk4o")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2xpe4"]
-render_priority = 0
+render_priority = 5
 shader = ExtResource("4_fuk4o")
 shader_parameter/noise_tex = SubResource("NoiseTexture2D_n7u5k")
 shader_parameter/time_scale = 0.355
