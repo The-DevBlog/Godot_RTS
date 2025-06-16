@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_q857g"]
 [ext_resource type="PackedScene" uid="uid://4bqqot02ir8x" path="res://Assets/Models/Structures/Reactor/Reactor.glb" id="2_q857g"]
-[ext_resource type="Shader" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
+[ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
 [ext_resource type="Shader" path="res://Shaders/lava.gdshader" id="4_fuk4o"]
 [ext_resource type="LightmapGIData" uid="uid://dka2cgap7bne0" path="res://Assets/Models/Structures/Reactor/reactor.lmbake" id="4_n7u5k"]
 
@@ -10,8 +10,8 @@
 size = Vector3(9.7321, 5.82309, 6.03851)
 
 [sub_resource type="SphereMesh" id="SphereMesh_fuk4o"]
-radius = 0.05
-height = 0.1
+radius = 0.1
+height = 0.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fuk4o"]
 render_priority = 0
