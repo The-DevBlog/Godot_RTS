@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://6flf7itvukoc"]
+[gd_scene load_steps=13 format=3 uid="uid://deexst56o0ban"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_q857g"]
 [ext_resource type="PackedScene" uid="uid://4bqqot02ir8x" path="res://Assets/Models/Structures/Reactor/Reactor.glb" id="2_q857g"]
-[ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
-[ext_resource type="Shader" uid="uid://dvr171p24o3dl" path="res://Shaders/lava.gdshader" id="4_fuk4o"]
+[ext_resource type="Shader" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
+[ext_resource type="Shader" path="res://Shaders/lava.gdshader" id="4_fuk4o"]
 [ext_resource type="LightmapGIData" uid="uid://dka2cgap7bne0" path="res://Assets/Models/Structures/Reactor/reactor.lmbake" id="4_n7u5k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
@@ -20,7 +20,7 @@ shader_parameter/emission_strength = 50.0
 shader_parameter/strobe_speed = 3.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_n7u5k"]
-height = 0.1
+height = 0.01
 radial_segments = 10
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fuk4o"]
