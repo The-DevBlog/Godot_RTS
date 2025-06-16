@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://6flf7itvukoc"]
+[gd_scene load_steps=12 format=3 uid="uid://6flf7itvukoc"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_q857g"]
 [ext_resource type="PackedScene" uid="uid://4bqqot02ir8x" path="res://Assets/Models/Structures/Reactor/Reactor.glb" id="2_q857g"]
 [ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
+[ext_resource type="Shader" uid="uid://dvr171p24o3dl" path="res://Shaders/lava.gdshader" id="4_fuk4o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(9.7321, 5.82309, 6.03851)
@@ -16,6 +17,31 @@ render_priority = 0
 shader = ExtResource("3_kwyrb")
 shader_parameter/emission_strength = 50.0
 shader_parameter/strobe_speed = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_n7u5k"]
+height = 0.1
+radial_segments = 10
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vmpk5"]
+seed = 95
+frequency = 0.0161
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ixh1v"]
+noise = SubResource("FastNoiseLite_vmpk5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xpe4"]
+render_priority = 0
+shader = ExtResource("4_fuk4o")
+shader_parameter/ColorParameter = Color(0.848894, 0.409873, 0, 1)
+shader_parameter/Falloff = 5.0
+shader_parameter/Noise_Texsture = SubResource("NoiseTexture2D_ixh1v")
+shader_parameter/Midtones = 0.49
+shader_parameter/Highlights = 0.061
+shader_parameter/Multiplier = 9.925
+shader_parameter/Aplha = 1.0
+shader_parameter/Roughness = 0.1
+shader_parameter/Emmision_Strength = 1.0
+shader_parameter/Bump_Strength = 0.132
 
 [node name="Reactor" type="StaticBody3D"]
 script = ExtResource("1_q857g")
@@ -58,10 +84,15 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_fuk4o")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1.20418, 0, 0, 0, -5.26363e-08, -1.20418, 0, 1.20418, -5.26363e-08, 1.7044, 2.00538, 0.0201496)
+transform = Transform3D(0.861904, 0, 0, 0, -3.7675e-08, -0.861904, 0, 0.861904, -3.7675e-08, 1.7044, 3.90125, 0.0201497)
 light_color = Color(1, 0.47451, 0, 1)
 light_energy = 16.0
-spot_range = 6.52084
-spot_angle = 48.723
+spot_range = 3.50822
+spot_angle = 77.3438
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.15393, 0, 0, 0, 1.00834, 0, 0, 0, 3.34705, 1.6758, 5.08116, 0)
+mesh = SubResource("CylinderMesh_n7u5k")
+surface_material_override/0 = SubResource("ShaderMaterial_2xpe4")
 
 [editable path="Model"]
