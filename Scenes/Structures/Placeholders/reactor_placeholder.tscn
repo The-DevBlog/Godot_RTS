@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgicly6ay0ypt"]
+[gd_scene load_steps=3 format=3 uid="uid://b8r7m4qg1pklt"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_ftybx"]
-[ext_resource type="PackedScene" uid="uid://4bqqot02ir8x" path="res://Assets/Models/Structures/Reactor/Reactor.glb" id="2_e4wbf"]
+[ext_resource type="PackedScene" uid="uid://d1ksyqd67rx5m" path="res://Scenes/Inherited/reactor.tscn" id="3_lur7o"]
 
-[node name="ReactorPlaceholder" type="StaticBody3D"]
+[node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("Model")]
 script = ExtResource("1_ftybx")
 Energy = 25
 Cost = 500
 BuildTime = 3
+Model = NodePath("Reactor")
 
-[node name="Model" parent="." instance=ExtResource("2_e4wbf")]
-transform = Transform3D(1.85, 0, 0, 0, 1.85, 0, 0, 0, 1.85, 0, 0, 0)
+[node name="Reactor" parent="." instance=ExtResource("3_lur7o")]

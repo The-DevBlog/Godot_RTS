@@ -21,8 +21,7 @@ public partial class StructureBase : StaticBody3D
 		if (BuildTime == 0)
 			Utils.PrintErr("No BuildTime Assigned to structure");
 
-		if (Model == null)
-			Utils.PrintErr("Model is not set!");
+		Utils.NullExportCheck(Model);
 
 		SetTeamColor(_resources.TeamColor);
 	}
