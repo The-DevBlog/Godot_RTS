@@ -62,8 +62,8 @@ void fragment() {
     vec3 rim_col = vec3(1.0, 0.5, 0.0) * rim;
 
     // final composite
-    vec3 out_col = base_col 
-                 + crack * glow_strength 
+    vec3 out_col = base_col
+                 + crack * glow_strength
                  + rim_col;
 
     ALBEDO   = out_col;
