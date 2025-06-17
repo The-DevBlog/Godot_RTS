@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_88ox1"]
 [ext_resource type="PackedScene" uid="uid://bx0u07b11vjrt" path="res://Assets/Models/Structures/Generator/Generator.glb" id="1_lnclb"]
 
-[node name="Generator" type="StaticBody3D"]
+[node name="GeneratorPlaceholder" type="StaticBody3D"]
 script = ExtResource("1_88ox1")
 Energy = 25
 Cost = 500

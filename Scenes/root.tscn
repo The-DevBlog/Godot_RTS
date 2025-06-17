@@ -49,7 +49,8 @@ sdfgi_energy = 0.585
 sdfgi_normal_bias = 1.025
 sdfgi_probe_bias = 0.65
 glow_enabled = true
-glow_intensity = 0.07
+glow_intensity = 0.05
+glow_strength = 0.5
 glow_bloom = 0.45
 glow_blend_mode = 1
 fog_density = 0.0245
@@ -76,7 +77,7 @@ transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551
 transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, 16.6373, 0, -7.2311)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-transform = Transform3D(0.999994, 0.002234, -0.00274485, -0.00223445, 0.999997, -0.000164297, 0.00274447, 0.000170411, 0.999996, 0, -0.25, 0)
+transform = Transform3D(1.00472, 0.00224455, -0.00275781, -0.002245, 1.00472, -0.000165073, 0.00275743, 0.000171216, 1.00472, 0, -0.25, 0)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 script = ExtResource("3_dun2r")
 metadata/_edit_group_ = true
