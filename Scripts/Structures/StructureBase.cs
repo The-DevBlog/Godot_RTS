@@ -32,11 +32,11 @@ public partial class StructureBase : StaticBody3D
 		{
 			if (child is MeshInstance3D mesh)
 			{
-				// Get the current material on surface 1
+				// Get the current material on surface 0
 				var originalMaterial = mesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
 				if (originalMaterial == null)
 				{
-					Utils.PrintErr("Material on surface 1 is not a ShaderMaterial.");
+					Utils.PrintErr("Material on surface 0 is not a ShaderMaterial.");
 					continue;
 				}
 
