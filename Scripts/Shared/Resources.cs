@@ -18,7 +18,7 @@ public partial class Resources : Node
         Instance = this;
         Funds = 1000000;
         MaxStructureCount = 8;
-        TeamColor = Colors.Blue;
+        TeamColor = Colors.Orange;
 
         StructureCount = new Dictionary<StructureType, int>();
         foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))

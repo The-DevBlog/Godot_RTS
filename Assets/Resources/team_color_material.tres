@@ -10,3 +10,4 @@ shader = ExtResource("1_hhfyf")
 shader_parameter/albedo_texture = ExtResource("2_k4fws")
 shader_parameter/team_mask = ExtResource("3_mq68y")
 shader_parameter/team_color = Color(0.719703, 0, 0.0861997, 1)
+shader_parameter/outline_thickness = 3.0
