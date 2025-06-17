@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ctyi53g0y0wvo"]
 
-[ext_resource type="Shader" path="res://Shaders/team_color.gdshader" id="1_hhfyf"]
+[ext_resource type="Shader" uid="uid://b08400eugbkj6" path="res://Shaders/team_color.gdshader" id="1_hhfyf"]
 [ext_resource type="Texture2D" uid="uid://s3liewr7208k" path="res://Assets/Models/Structures/Reactor/Reactor_BaseColor.png" id="2_k4fws"]
 [ext_resource type="Texture2D" uid="uid://dfsjggai23cwq" path="res://Assets/Models/Structures/Reactor/TeamMask.png" id="3_mq68y"]
 

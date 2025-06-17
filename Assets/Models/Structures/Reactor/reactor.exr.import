@@ -2,8 +2,8 @@
 
 importer="2d_array_texture"
 type="CompressedTexture2DArray"
-uid="uid://s2ye3eo245lr"
-path.bptc="res://.godot/imported/garage.exr-d4e620bd5e9c2856232b44ccbafe0129.bptc.ctexarray"
+uid="uid://bvmhb76uhplo0"
+path.bptc="res://.godot/imported/reactor.exr-c1b306de16898a4990e8e24ddc87ce55.bptc.ctexarray"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Models/Structures/Garage/garage.exr"
-dest_files=["res://.godot/imported/garage.exr-d4e620bd5e9c2856232b44ccbafe0129.bptc.ctexarray"]
+source_file="res://Assets/Models/Structures/Reactor/reactor.exr"
+dest_files=["res://.godot/imported/reactor.exr-c1b306de16898a4990e8e24ddc87ce55.bptc.ctexarray"]
 
 [params]
 
