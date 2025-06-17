@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crcs42dqtvnma"
-path.s3tc="res://.godot/imported/Reactor_Base.png-ffb6a40657775ab8f293442e988a8b49.s3tc.ctex"
+uid="uid://s3liewr7208k"
+path.s3tc="res://.godot/imported/Reactor_BaseColor.png-8b41127fb33153b1f49221383131429f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "6c8d8bdf6158bd5855e08e60742a04f7"
+"md5": "39f979f80394a17c2d522c0a28883104"
 }
 
 [deps]
 
-source_file="res://Assets/Models/Structures/Reactor/Reactor_Base.png"
-dest_files=["res://.godot/imported/Reactor_Base.png-ffb6a40657775ab8f293442e988a8b49.s3tc.ctex"]
+source_file="res://Assets/Models/Structures/Reactor/Reactor_BaseColor.png"
+dest_files=["res://.godot/imported/Reactor_BaseColor.png-8b41127fb33153b1f49221383131429f.s3tc.ctex"]
 
 [params]
 

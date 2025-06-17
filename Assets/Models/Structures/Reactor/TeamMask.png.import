@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1jpp55g60nbm"
-path.s3tc="res://.godot/imported/Reactor_Material Base Color.png-664456ef7af1f03c3ae0e2250ef01c9a.s3tc.ctex"
+uid="uid://dfsjggai23cwq"
+path.s3tc="res://.godot/imported/TeamMask.png-2b505c2e324fce4ce9555f50458a6b10.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "31482fafd82afa09436f66ea6c254d81"
-}
 
 [deps]
 
-source_file="res://Assets/Models/Structures/Reactor/Reactor_Material Base Color.png"
-dest_files=["res://.godot/imported/Reactor_Material Base Color.png-664456ef7af1f03c3ae0e2250ef01c9a.s3tc.ctex"]
+source_file="res://Assets/Models/Structures/Reactor/TeamMask.png"
+dest_files=["res://.godot/imported/TeamMask.png-2b505c2e324fce4ce9555f50458a6b10.s3tc.ctex"]
 
 [params]
 

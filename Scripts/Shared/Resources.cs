@@ -12,11 +12,13 @@ public partial class Resources : Node
     public int EnergyConsumed { get; set; }
     public int Funds { get; set; }
     public int MaxStructureCount;
+    public Color TeamColor;
     public Resources()
     {
         Instance = this;
         Funds = 1000000;
         MaxStructureCount = 8;
+        TeamColor = Colors.Blue;
 
         StructureCount = new Dictionary<StructureType, int>();
         foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))
