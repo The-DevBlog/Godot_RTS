@@ -202,7 +202,7 @@ public partial class RootContainer : Control
 			InfoPopupLabelName.Text = structure.Name;
 			InfoPopupLabelCost.Text = $"${structure.Cost}";
 			InfoPopupLabelHP.Text = $"{structure.HP}";
-			InfoPopupLabelEnergy.Text = $"{structure.Energy}";
+			InfoPopupLabelEnergy.Text = $"{(structure.Energy > 0 ? "+" : "")}{structure.Energy}";
 			InfoPopupLabelBuildTime.Text = $"{structure.BuildTime}s";
 			return;
 		}

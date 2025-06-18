@@ -161,6 +161,8 @@ text = "Reactor"
 [node name="CostLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.968627, 0.870588, 0.509804, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "$100"
@@ -179,6 +181,7 @@ stretch_mode = 4
 [node name="BuildTimeLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "2s"
@@ -188,6 +191,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
+self_modulate = Color(0, 0.690196, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -197,6 +201,7 @@ stretch_mode = 4
 [node name="EnergyLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "2s"
@@ -233,6 +238,7 @@ stretch_mode = 4
 [node name="DPSLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/DPSContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "10 dps"
@@ -242,6 +248,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer"]
+self_modulate = Color(0.362611, 0.667567, 0.45007, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -251,6 +258,7 @@ stretch_mode = 4
 [node name="SpeedLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "25"
@@ -364,6 +372,8 @@ FundsLabel = NodePath("FundsLabel")
 [node name="FundsLabel" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
+theme_override_colors/font_color = Color(0.968627, 0.870588, 0.509804, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 25
 text = "$10000"
@@ -374,11 +384,14 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer/HBoxContainer"]
+self_modulate = Color(0, 0.690196, 1, 1)
 layout_mode = 2
 texture = ExtResource("3_848d2")
 
 [node name="EnergyLabel" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/InfoContainer/NinePatchRect/MarginContainer/NinePatchRect/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.690196, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 25
 text = "100/100"
