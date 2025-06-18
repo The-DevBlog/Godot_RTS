@@ -23,7 +23,7 @@ namespace MyEnums
         Satellite,
     }
 
-    public enum Unit
+    public enum UnitType
     {
         None,
         TankGen1,

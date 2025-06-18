@@ -16,6 +16,10 @@ public partial class RootContainer : Control
 	[Export] public Label InfoPopupLabelCost { get; set; }
 	[Export] public Label InfoPopupLabelBuildTime { get; set; }
 	[Export] public Label InfoPopupLabelEnergy { get; set; }
+	[Export] public Label InfoPopupLabelHP { get; set; }
+	[Export] public Label InfoPopupLabelDPS { get; set; }
+	[Export] public Label InfoPopupLabelSpeed { get; set; }
+
 	private Container _structureCountContainer;
 	private Resources _resources;
 	private Signals _signals;
@@ -26,7 +30,7 @@ public partial class RootContainer : Control
 		_resources = Resources.Instance;
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
-		_signals.OnStructureBtnHover += ShowInfoPopup;
+		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
 
 		Utils.NullExportCheck(MiniMapContainer);
 		Utils.NullExportCheck(ConstructionOptionsContainer);
@@ -179,19 +183,42 @@ public partial class RootContainer : Control
 		ShowOnly(UpgradeOptionsContainer);
 	}
 
-	private void ShowInfoPopup(StructureBase structure)
+	private void ShowInfoPopup(StructureBase structure, UnitBase unit)
 	{
-		if (structure != null)
-		{
-			InfoPopupContainer.Visible = true;
-			InfoPopupLabelName.Text = structure.Name;
-			InfoPopupLabelCost.Text = $"${structure.Cost}";
-			InfoPopupLabelBuildTime.Text = $"Time: {structure.BuildTime}s";
-			InfoPopupLabelEnergy.Text = $"Energy: {structure.Energy}";
-		}
-		else
+		if (structure == null && unit == null)
 		{
 			InfoPopupContainer.Visible = false;
+			return;
+		}
+
+		InfoPopupContainer.Visible = true;
+
+		if (structure != null)
+		{
+			InfoPopupLabelEnergy.GetParent<Container>().Visible = true;
+			InfoPopupLabelDPS.GetParent<Container>().Visible = false;
+			InfoPopupLabelSpeed.GetParent<Container>().Visible = false;
+
+			InfoPopupLabelName.Text = structure.Name;
+			InfoPopupLabelCost.Text = $"${structure.Cost}";
+			InfoPopupLabelHP.Text = $"{structure.HP}";
+			InfoPopupLabelEnergy.Text = $"{(structure.Energy > 0 ? "+" : "")}{structure.Energy}";
+			InfoPopupLabelBuildTime.Text = $"{structure.BuildTime}s";
+			return;
+		}
+
+		if (unit != null)
+		{
+			InfoPopupLabelDPS.GetParent<Container>().Visible = true;
+			InfoPopupLabelSpeed.GetParent<Container>().Visible = true;
+			InfoPopupLabelEnergy.GetParent<Container>().Visible = false;
+
+			InfoPopupLabelName.Text = unit.Name;
+			InfoPopupLabelCost.Text = $"${unit.Cost}";
+			InfoPopupLabelHP.Text = $"{unit.HP}";
+			InfoPopupLabelDPS.Text = $"{unit.DPS}";
+			InfoPopupLabelSpeed.Text = $"{unit.Speed}";
+			InfoPopupLabelBuildTime.Text = $"{unit.BuildTime}s";
 		}
 	}
 }

@@ -7,7 +7,7 @@ public partial class MouseManager : Control
 {
 	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
-	private HashSet<Unit> _prevSelectedUnits;
+	private HashSet<UnitBase> _prevSelectedUnits;
 	private Resources _resources;
 	private Signals _signals;
 	private Camera3D _camera;
@@ -24,7 +24,7 @@ public partial class MouseManager : Control
 		_resources = Resources.Instance;
 		_signals = Signals.Instance;
 		_signals.DeselectAllUnits += OnDeselectAllUnits;
-		_prevSelectedUnits = new HashSet<Unit>();
+		_prevSelectedUnits = new HashSet<UnitBase>();
 
 		if (_camera == null)
 			Utils.PrintErr("Camera3D not found.");
@@ -118,12 +118,12 @@ public partial class MouseManager : Control
 
 		if (collider != null && collider.IsInGroup(Group.Units.ToString()))
 		{
-			foreach (Unit u in _prevSelectedUnits)
+			foreach (UnitBase u in _prevSelectedUnits)
 				u.Selected = false;
 
-			Unit unit = FindAncestor<Unit>(collider);
+			UnitBase unit = FindAncestor<UnitBase>(collider);
 			unit.Selected = true;
-			_prevSelectedUnits = new HashSet<Unit>() { unit };
+			_prevSelectedUnits = new HashSet<UnitBase>() { unit };
 
 			return true;
 		}
@@ -168,7 +168,7 @@ public partial class MouseManager : Control
 		// collect selected units
 		var selectedUnits = GetTree()
 			.GetNodesInGroup(Group.Units.ToString())
-			.OfType<Unit>()
+			.OfType<UnitBase>()
 			.Where(u => u.Selected)
 			.ToArray();
 
@@ -259,12 +259,12 @@ public partial class MouseManager : Control
 	}
 
 	// Returns a list of units that are within the selection rectangle.
-	private List<Unit> GetUnitsInSelection()
+	private List<UnitBase> GetUnitsInSelection()
 	{
 		var selectRect = new Rect2(_dragStart, _dragEnd - _dragStart).Abs();
-		var picked = new List<Unit>();
+		var picked = new List<UnitBase>();
 
-		foreach (Unit unit in GetTree().GetNodesInGroup("units"))
+		foreach (UnitBase unit in GetTree().GetNodesInGroup("units"))
 		{
 			var screenPoint = _camera.UnprojectPosition(unit.GlobalPosition);
 
@@ -282,26 +282,26 @@ public partial class MouseManager : Control
 
 		GD.Print("Deselect all units");
 
-		foreach (Unit unit in _prevSelectedUnits)
+		foreach (UnitBase unit in _prevSelectedUnits)
 			unit.Selected = false;
 
-		_prevSelectedUnits = new HashSet<Unit>();
+		_prevSelectedUnits = new HashSet<UnitBase>();
 		_dragActive = false;
 	}
 
 	// Marks units as selected or unselected.
 	// The _prevSelectedUnits set is used to track the previous state of selection. (more efficient than looping through all units)
-	private void MarkSelectedUnits(List<Unit> units)
+	private void MarkSelectedUnits(List<UnitBase> units)
 	{
-		var selectedUnits = new HashSet<Unit>(units);
+		var selectedUnits = new HashSet<UnitBase>(units);
 
-		foreach (Unit unit in _prevSelectedUnits)
+		foreach (UnitBase unit in _prevSelectedUnits)
 		{
 			if (!selectedUnits.Contains(unit))
 				unit.Selected = false;
 		}
 
-		foreach (Unit unit in selectedUnits)
+		foreach (UnitBase unit in selectedUnits)
 		{
 			if (!_prevSelectedUnits.Contains(unit))
 				unit.Selected = true;

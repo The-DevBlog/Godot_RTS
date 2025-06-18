@@ -20,8 +20,8 @@ public partial class StructureBtn : Button
 		_scene = GetTree().CurrentScene as Node3D;
 
 		Pressed += OnStructureSelect;
-		MouseEntered += OnStructureBtnEnter;
-		MouseExited += OnStructureBtnExit;
+		MouseEntered += OnBtnEnter;
+		MouseExited += OnBtnExit;
 
 		if (Structure == StructureType.None)
 			Utils.PrintErr("Structure Enum is not set for " + Name);
@@ -217,16 +217,16 @@ public partial class StructureBtn : Button
 		return bodyHit;
 	}
 
-	private void OnStructureBtnEnter()
+	private void OnBtnEnter()
 	{
 		var packed = _models.Structures[Structure];
-		var structure = packed.Instantiate() as StructureBase;
+		var structure = packed.Instantiate<StructureBase>();
 
-		_signals.EmitOnStructureBtnHover(structure);
+		_signals.EmitBuildOptionsBtnBtnHover(structure, null);
 	}
 
-	private void OnStructureBtnExit()
+	private void OnBtnExit()
 	{
-		_signals.EmitOnStructureBtnHover(null);
+		_signals.EmitBuildOptionsBtnBtnHover(null, null);
 	}
 }

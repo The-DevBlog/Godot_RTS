@@ -6,8 +6,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(4.815, 5.26, 5.185)
 
-[node name="ResearchLab" type="StaticBody3D" groups=["structures"]]
+[node name="ResearchLab" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_og2p8")
+HP = 1000
+Energy = -100
+Cost = 2000
+BuildTime = 3
+Model = NodePath("Model")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.64757, -0.298066)

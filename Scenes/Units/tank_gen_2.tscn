@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bsqwqnw4t18r4"]
 
-[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Scripts/Units/Unit.cs" id="1_wc2c5"]
+[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Scripts/Units/UnitBase.cs" id="1_wc2c5"]
 [ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_r3h8b"]
 
@@ -10,7 +10,12 @@ radius = 1.2
 
 [node name="TankGen2" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_wc2c5")
-Speed = 7
+Speed = 10
+HP = 200
+DPS = 100
+Cost = 750
+BuildTime = 3
+Acceleration = 3
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -1,10 +1,14 @@
 using Godot;
 using MyEnums;
 
-public partial class Unit : CharacterBody3D
+public partial class UnitBase : CharacterBody3D
 {
-	[Export] public int Speed { get; set; } = 2;
-	[Export] public int Acceleration { get; set; } = 3;
+	[Export] public int Speed { get; set; }
+	[Export] public int HP { get; set; }
+	[Export] public int DPS { get; set; }
+	[Export] public int Cost { get; set; }
+	[Export] public int BuildTime { get; set; }
+	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
 
 	private float _movementDelta;
@@ -37,6 +41,13 @@ public partial class Unit : CharacterBody3D
 		_selectBorder.Visible = false;
 
 		_targetPosition = Vector3.Zero;
+
+		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
+		if (DPS == 0) Utils.PrintErr("No DPS Assigned to unit");
+		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");
+		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
+		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
+		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
 	}
 
 	public override void _PhysicsProcess(double delta)

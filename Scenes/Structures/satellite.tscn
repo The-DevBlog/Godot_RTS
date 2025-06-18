@@ -6,8 +6,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(3.565, 2.84, 3.7)
 
-[node name="Satellite2" type="StaticBody3D" groups=["structures"]]
+[node name="Satellite" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_sfmbn")
+HP = 1000
+Energy = 50
+Cost = 1500
+BuildTime = 3
+Model = NodePath("Model")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38908, 0)
