@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://itkk6aotjdon"
-path.s3tc="res://.godot/imported/Garage_StructureFloor.png-3f9d864b78a1bd14ec46b9ea220d8b42.s3tc.ctex"
+uid="uid://c2kc76w2f4gx3"
+path.s3tc="res://.godot/imported/TeamMask.png-77181b19736fdba97d1abe7767251a32.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "0f3a0ad50805b70a3a81c69d66ffea15"
-}
 
 [deps]
 
-source_file="res://Assets/Models/Structures/Garage/Garage_StructureFloor.png"
-dest_files=["res://.godot/imported/Garage_StructureFloor.png-3f9d864b78a1bd14ec46b9ea220d8b42.s3tc.ctex"]
+source_file="res://Assets/Models/Structures/Garage/TeamMask.png"
+dest_files=["res://.godot/imported/TeamMask.png-77181b19736fdba97d1abe7767251a32.s3tc.ctex"]
 
 [params]
 

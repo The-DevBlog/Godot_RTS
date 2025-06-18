@@ -3,7 +3,7 @@ shader_type spatial;
 uniform sampler2D albedo_texture : source_color;
 uniform sampler2D team_mask : source_color;
 uniform vec4 team_color : source_color;
-uniform float outline_thickness = 1.0;
+uniform float outline_thickness = 2.0;
 
 void fragment() {
     vec2 texel_size = vec2(1.0) / vec2(textureSize(team_mask, 0));

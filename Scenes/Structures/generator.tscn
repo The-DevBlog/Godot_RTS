@@ -18,3 +18,5 @@ shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="Model" parent="." instance=ExtResource("1_bhpv5")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 1.21024, 0)
+
+[editable path="Model"]
