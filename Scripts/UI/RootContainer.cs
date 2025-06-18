@@ -179,19 +179,32 @@ public partial class RootContainer : Control
 		ShowOnly(UpgradeOptionsContainer);
 	}
 
-	private void ShowInfoPopup(StructureBase structure)
+	private void ShowInfoPopup(StructureBase structure, UnitBase unit)
 	{
+		if (structure == null && unit == null)
+		{
+			InfoPopupContainer.Visible = false;
+			return;
+		}
+
+		InfoPopupContainer.Visible = true;
+
 		if (structure != null)
 		{
-			InfoPopupContainer.Visible = true;
 			InfoPopupLabelName.Text = structure.Name;
 			InfoPopupLabelCost.Text = $"${structure.Cost}";
 			InfoPopupLabelBuildTime.Text = $"{structure.BuildTime}s";
 			InfoPopupLabelEnergy.Text = $"{structure.Energy}";
+			return;
 		}
-		else
+
+		if (unit != null)
 		{
-			InfoPopupContainer.Visible = false;
+			InfoPopupLabelName.Text = unit.Name;
+			InfoPopupLabelCost.Text = $"${unit.Cost}";
+			InfoPopupLabelBuildTime.Text = $"{unit.BuildTime}s";
+			InfoPopupLabelEnergy.Text = $"{unit.Energy}";
+			return;
 		}
 	}
 }
