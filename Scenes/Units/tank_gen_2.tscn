@@ -10,7 +10,12 @@ radius = 1.2
 
 [node name="TankGen2" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_wc2c5")
-Speed = 7
+Speed = 10
+HP = 200
+DPS = 100
+Cost = 750
+BuildTime = 3
+Acceleration = 3
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

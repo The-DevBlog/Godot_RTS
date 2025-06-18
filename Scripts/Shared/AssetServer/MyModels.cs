@@ -6,6 +6,7 @@ public class MyModels
 {
     public Dictionary<StructureType, PackedScene> Structures { get; set; }
     public Dictionary<StructureType, PackedScene> StructurePlaceholders { get; set; }
+    public Dictionary<UnitType, PackedScene> Units { get; set; }
 
     public MyModels()
     {
@@ -31,6 +32,13 @@ public class MyModels
             { StructureType.ResearchLab, GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/research_lab_placeholder.tscn") },
             { StructureType.ScrapYard,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/scrap_yard_placeholder.tscn")  },
             { StructureType.Satellite,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/satellite_placeholder.tscn") },
+        };
+
+        Units = new Dictionary<UnitType, PackedScene>
+        {
+            { UnitType.TankGen1, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
+            { UnitType.TankGen2, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_2.tscn") },
+            { UnitType.Artillery, GD.Load<PackedScene>("res://Scenes/Units/artillery.tscn") },
         };
     }
 }

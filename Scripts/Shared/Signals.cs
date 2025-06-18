@@ -9,7 +9,7 @@ public partial class Signals : Node
     [Signal] public delegate void DeselectAllUnitsEventHandler();
     [Signal] public delegate void UpdateEnergyEventHandler();
     [Signal] public delegate void UpdateFundsEventHandler();
-    [Signal] public delegate void OnStructureBtnHoverEventHandler(StructureBase structure, UnitBase unit);
+    [Signal] public delegate void OnBuildOptionsBtnHoverEventHandler(StructureBase structure, UnitBase unit);
     [Signal] public delegate void AddStructureEventHandler(int structureId);
     private Resources _resources;
 
@@ -49,9 +49,9 @@ public partial class Signals : Node
         EmitSignal(SignalName.AddStructure, (int)structure);
     }
 
-    public void EmitOnStructureBtnHover(StructureBase structure, UnitBase unit)
+    public void EmitBuildOptionsBtnBtnHover(StructureBase structure, UnitBase unit)
     {
-        EmitSignal(SignalName.OnStructureBtnHover, structure, unit);
+        EmitSignal(SignalName.OnBuildOptionsBtnHover, structure, unit);
     }
 
 }

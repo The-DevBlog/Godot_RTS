@@ -30,7 +30,7 @@ public partial class RootContainer : Control
 		_resources = Resources.Instance;
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
-		_signals.OnStructureBtnHover += ShowInfoPopup;
+		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
 
 		Utils.NullExportCheck(MiniMapContainer);
 		Utils.NullExportCheck(ConstructionOptionsContainer);

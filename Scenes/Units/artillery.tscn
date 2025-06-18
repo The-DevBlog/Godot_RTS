@@ -10,6 +10,12 @@ radius = 1.2
 
 [node name="Artillery" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_ebj34")
+Speed = 10
+HP = 100
+DPS = 10
+Cost = 500
+BuildTime = 3
+Acceleration = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -44,6 +44,7 @@ shader_parameter/glow_strength = 0.0
 
 [node name="Reactor" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_q857g")
+HP = 500
 Energy = 25
 Cost = 500
 BuildTime = 3
