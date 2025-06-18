@@ -6,7 +6,7 @@ public partial class StructureBtn : Button
 	[Export] public StructureType Structure { get; set; }
 	private Resources _resources;
 	private Signals _signals;
-	private StructureBase _structurePlaceholder;
+	private StructureBase _structure;
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
@@ -20,6 +20,8 @@ public partial class StructureBtn : Button
 		_scene = GetTree().CurrentScene as Node3D;
 
 		Pressed += OnStructureSelect;
+		MouseEntered += OnStructureBtnEnter;
+		MouseExited += OnStructureBtnExit;
 
 		if (Structure == StructureType.None)
 			Utils.PrintErr("Structure Enum is not set for " + Name);
@@ -30,16 +32,16 @@ public partial class StructureBtn : Button
 
 	public override void _Process(double delta)
 	{
-		if (_structurePlaceholder != null)
+		if (_structure != null)
 		{
 			GetHoveredMapBase(out Vector3 hitPos);
-			_structurePlaceholder.GlobalPosition = hitPos;
+			_structure.GlobalPosition = hitPos;
 		}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (_structurePlaceholder == null)
+		if (_structure == null)
 			return;
 
 		if (Input.IsActionJustPressed("mb_secondary"))
@@ -62,17 +64,17 @@ public partial class StructureBtn : Button
 
 	private void RotatePlaceholder(float degrees)
 	{
-		var newRotation = _structurePlaceholder.RotationDegrees;
+		var newRotation = _structure.RotationDegrees;
 		newRotation.Y += degrees;
 
-		_structurePlaceholder.RotationDegrees = newRotation;
+		_structure.RotationDegrees = newRotation;
 	}
 
 	private void CancelStructure()
 	{
 		_resources.IsPlacingStructure = false;
-		_scene.RemoveChild(_structurePlaceholder);
-		_structurePlaceholder = null;
+		_scene.RemoveChild(_structure);
+		_structure = null;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
@@ -102,17 +104,17 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		_structurePlaceholder = structure;
+		_structure = structure;
 		Resources.Instance.IsPlacingStructure = true;
 		Input.MouseMode = Input.MouseModeEnum.Hidden;
-		_scene.AddChild(_structurePlaceholder);
+		_scene.AddChild(_structure);
 
 		this.ReleaseFocus();
 	}
 
 	private void PlaceStructure()
 	{
-		if (_structurePlaceholder == null)
+		if (_structure == null)
 			return;
 
 		// 1) Ray‐cast under the mouse and get (groundBody, hitPos)
@@ -144,11 +146,11 @@ public partial class StructureBtn : Button
 		}
 
 		// 3) Cache placeholder’s final world‐transform, then free it
-		Vector3 finalPos = _structurePlaceholder.GlobalPosition;
-		Basis finalBasis = _structurePlaceholder.GlobalTransform.Basis;
-		_scene.RemoveChild(_structurePlaceholder);
-		_structurePlaceholder.QueueFree();
-		_structurePlaceholder = null;
+		Vector3 finalPos = _structure.GlobalPosition;
+		Basis finalBasis = _structure.GlobalTransform.Basis;
+		_scene.RemoveChild(_structure);
+		_structure.QueueFree();
+		_structure = null;
 		_resources.IsPlacingStructure = false;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 
@@ -213,5 +215,18 @@ public partial class StructureBtn : Button
 
 		hitPosition = (Vector3)result["position"];
 		return bodyHit;
+	}
+
+	private void OnStructureBtnEnter()
+	{
+		var packed = _models.Structures[Structure];
+		var structure = packed.Instantiate() as StructureBase;
+
+		_signals.EmitOnStructureBtnHover(structure);
+	}
+
+	private void OnStructureBtnExit()
+	{
+		_signals.EmitOnStructureBtnHover(null);
 	}
 }

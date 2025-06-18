@@ -2,7 +2,7 @@ using System;
 using Godot;
 using MyEnums;
 
-public partial class RootContainer : Container
+public partial class RootContainer : Control
 {
 	[Export] public Container MiniMapContainer { get; set; }
 	[Export] public Container ConstructionOptionsContainer { get; set; }
@@ -11,6 +11,11 @@ public partial class RootContainer : Container
 	[Export] public Container UpgradeOptionsContainer { get; set; }
 	[Export] public Container BarracksCountContainer { get; set; }
 	[Export] public Container GarageCountContainer { get; set; }
+	[Export] public Container InfoPopupContainer { get; set; }
+	[Export] public Label InfoPopupLabelName { get; set; }
+	[Export] public Label InfoPopupLabelCost { get; set; }
+	[Export] public Label InfoPopupLabelBuildTime { get; set; }
+	[Export] public Label InfoPopupLabelEnergy { get; set; }
 	private Container _structureCountContainer;
 	private Resources _resources;
 	private Signals _signals;
@@ -21,6 +26,7 @@ public partial class RootContainer : Container
 		_resources = Resources.Instance;
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
+		_signals.OnStructureBtnHover += ShowInfoPopup;
 
 		Utils.NullExportCheck(MiniMapContainer);
 		Utils.NullExportCheck(ConstructionOptionsContainer);
@@ -29,6 +35,11 @@ public partial class RootContainer : Container
 		Utils.NullExportCheck(UnitOptionsContainer);
 		Utils.NullExportCheck(VehicleOptionsContainer);
 		Utils.NullExportCheck(UpgradeOptionsContainer);
+		Utils.NullExportCheck(InfoPopupContainer);
+		Utils.NullExportCheck(InfoPopupLabelName);
+		Utils.NullExportCheck(InfoPopupLabelCost);
+		Utils.NullExportCheck(InfoPopupLabelBuildTime);
+		Utils.NullExportCheck(InfoPopupLabelEnergy);
 
 		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
 
@@ -70,21 +81,31 @@ public partial class RootContainer : Container
 		if (MiniMapContainer == null)
 			return;
 
+		// how tall your minimap is
 		float miniMapHeight = MiniMapContainer.Size.Y;
+
+		// window width
 		float windowWidth = GetViewport().GetVisibleRect().Size.X;
+
+		// clamp so you never ask for more than the screen
 		float clampedWidth = Mathf.Min(miniMapHeight, windowWidth);
-		float newAnchorLeft = 1.0f - (clampedWidth / windowWidth);
+		float newAnchorLeft = 1f - (clampedWidth / windowWidth);
 
 		AnchorLeft = newAnchorLeft;
-		AnchorRight = 1.0f;
+		AnchorRight = 1f;
 
-		SetDeferred("size", new Vector2(miniMapHeight, Size.Y));
+		// 1) set the minimum-x to your minimap height
+		CustomMinimumSize = new Vector2(miniMapHeight, CustomMinimumSize.Y);
+
+		// 2) still tweak the *actual* size if you want:
+		SetDeferred("size", new Vector2(
+			// make sure you never shrink below miniMapHeight
+			Mathf.Max(miniMapHeight, Size.X),
+			Size.Y
+		));
 	}
 
-	private void ToggleVisibility(Container menu)
-	{
-		menu.Visible = !menu.Visible;
-	}
+	private void ToggleVisibility(Container menu) => menu.Visible = !menu.Visible;
 
 	private void OnStructureAdd(int structureId)
 	{
@@ -156,5 +177,21 @@ public partial class RootContainer : Container
 		BarracksCountContainer.Visible = false;
 		GarageCountContainer.Visible = false;
 		ShowOnly(UpgradeOptionsContainer);
+	}
+
+	private void ShowInfoPopup(StructureBase structure)
+	{
+		if (structure != null)
+		{
+			InfoPopupContainer.Visible = true;
+			InfoPopupLabelName.Text = structure.Name;
+			InfoPopupLabelCost.Text = $"${structure.Cost}";
+			InfoPopupLabelBuildTime.Text = $"Time: {structure.BuildTime}s";
+			InfoPopupLabelEnergy.Text = $"Energy: {structure.Energy}";
+		}
+		else
+		{
+			InfoPopupContainer.Visible = false;
+		}
 	}
 }

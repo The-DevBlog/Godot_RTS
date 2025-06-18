@@ -104,6 +104,5 @@ visible = false
 environment = SubResource("Environment_ckhy6")
 
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
-MaxZoom = 40.0
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
