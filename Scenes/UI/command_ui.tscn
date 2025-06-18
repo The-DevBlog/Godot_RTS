@@ -96,7 +96,7 @@ texture = ExtResource("15_ly8nf")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ktso"]
 texture = ExtResource("16_g5aby")
 
-[node name="CommandUI" type="Control" node_paths=PackedStringArray("MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "BarracksCountContainer", "GarageCountContainer", "InfoPopupContainer")]
+[node name="CommandUI" type="Control" node_paths=PackedStringArray("MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "BarracksCountContainer", "GarageCountContainer", "InfoPopupContainer", "InfoPopupLabelName", "InfoPopupLabelCost", "InfoPopupLabelBuildTime", "InfoPopupLabelEnergy")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -112,6 +112,10 @@ UpgradeOptionsContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/Bu
 BarracksCountContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer")
 GarageCountContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer")
 InfoPopupContainer = NodePath("HBoxContainer/InfoPopupContainer")
+InfoPopupLabelName = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/NameLabel")
+InfoPopupLabelCost = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/CostLabel")
+InfoPopupLabelBuildTime = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeLabel")
+InfoPopupLabelEnergy = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -131,27 +135,40 @@ size_flags_vertical = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/InfoPopupContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 22
 text = "Build Time"
 
-[node name="Label2" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="CostLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 22
 text = "Cost"
 
-[node name="Label3" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="BuildTimeLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 22
+text = "Cost"
+
+[node name="EnergyLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 22
 text = "Cost"
 
 [node name="RootContainer" type="MarginContainer" parent="HBoxContainer"]
@@ -1293,19 +1310,3 @@ text = "Upgrade 8"
 [connection signal="pressed" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/BarracksContainer/BarracksBtn" to="." method="OnBarracksBtnPressed"]
 [connection signal="pressed" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/GarageContainer/GarageBtn" to="." method="OnGarageBtnPressed"]
 [connection signal="pressed" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn" to="." method="OnUpgradesBtnPressed"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer/ReactorBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer/ReactorBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer/BarracksBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer/BarracksBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/ScrapYardBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/ScrapYardBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/GarageBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2/GarageBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3/SatelliteBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3/SatelliteBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3/CannonBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3/CannonBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4/ResearchLabBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4/ResearchLabBtn" to="." method="ShowInfoPopup"]
-[connection signal="mouse_entered" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4/Button2" to="." method="ShowInfoPopup"]
-[connection signal="mouse_exited" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4/Button2" to="." method="ShowInfoPopup"]
