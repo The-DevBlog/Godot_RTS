@@ -2,7 +2,7 @@ using System;
 using Godot;
 using MyEnums;
 
-public partial class RootContainer : Container
+public partial class RootContainer : Control
 {
 	[Export] public Container MiniMapContainer { get; set; }
 	[Export] public Container ConstructionOptionsContainer { get; set; }
@@ -165,6 +165,7 @@ public partial class RootContainer : Container
 
 	private void OnBarracksBtnPressed()
 	{
+		GD.Print("Select barracks!");
 		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
 		_structureCountContainer.Visible = isVisible;
 		BarracksCountContainer.Visible = isVisible;
