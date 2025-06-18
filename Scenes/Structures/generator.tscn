@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(4.875, 3.185, 6.38)
 
-[node name="Generator" type="StaticBody3D"]
+[node name="Generator" type="StaticBody3D" groups=["structures"]]
 script = ExtResource("1_50567")
 Energy = 25
 Cost = 500

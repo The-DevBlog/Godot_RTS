@@ -42,7 +42,7 @@ shader_parameter/rim_power = 3.048
 shader_parameter/rim_intensity = 1.0
 shader_parameter/glow_strength = 0.0
 
-[node name="Reactor" type="StaticBody3D" node_paths=PackedStringArray("Model")]
+[node name="Reactor" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_q857g")
 Energy = 25
 Cost = 500

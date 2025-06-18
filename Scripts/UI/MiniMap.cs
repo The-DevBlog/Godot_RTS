@@ -4,7 +4,7 @@ public partial class MiniMap : Control
 {
     [Export] public Vector2 MapSize;
     private Color _backgroundColor = new Color("#171717");
-    private Color _friendlyUnitsColor = new Color("#38a7f1");
+    private Color _friendlyUnitsColor;
     private Color _cameraRectColor = Colors.White;
     private float _defaultHeight = 10f;
     private float _baseNearDist = 1.0f;
@@ -12,6 +12,7 @@ public partial class MiniMap : Control
     private Vector2 _worldMin;
     private Vector2 _worldMax;
     private Camera3D _camera;
+    private Resources _resources;
 
     public override void _Ready()
     {
@@ -19,6 +20,8 @@ public partial class MiniMap : Control
         _worldMin = -MapSize / 2;
         _worldMax = MapSize / 2;
         _camera = GetViewport().GetCamera3D();
+        _resources = Resources.Instance;
+        _friendlyUnitsColor = _resources.TeamColor;
     }
 
     public override void _Process(double delta)
@@ -36,9 +39,19 @@ public partial class MiniMap : Control
         DrawRect(new Rect2(Vector2.Zero, Size), _backgroundColor, true);
 
         // Draw units
-        foreach (Unit u in GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString()))
+        var units = GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString().ToLower());
+        foreach (Unit unit in units)
         {
-            Vector2 worldPos = new Vector2(u.GlobalPosition.X, u.GlobalPosition.Z);
+            Vector2 worldPos = new Vector2(unit.GlobalPosition.X, unit.GlobalPosition.Z);
+            Vector2 localPos = (worldPos - _worldMin) * scale;
+            DrawCircle(localPos, 3, _friendlyUnitsColor);
+        }
+
+        // Draw structures
+        var structures = GetTree().GetNodesInGroup(MyEnums.Group.Structures.ToString().ToLower());
+        foreach (StructureBase structure in structures)
+        {
+            Vector2 worldPos = new Vector2(structure.GlobalPosition.X, structure.GlobalPosition.Z);
             Vector2 localPos = (worldPos - _worldMin) * scale;
             DrawCircle(localPos, 3, _friendlyUnitsColor);
         }

@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(5.88, 3.135, 5.425)
 
-[node name="Barracks" type="StaticBody3D"]
+[node name="Barracks" type="StaticBody3D" groups=["structures"]]
 script = ExtResource("1_ymdpg")
 Energy = -15
 Cost = 500

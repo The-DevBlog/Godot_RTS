@@ -6,7 +6,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(9.205, 4.745, 6.63)
 
-[node name="ScrapYard" type="StaticBody3D"]
+[node name="ScrapYard" type="StaticBody3D" groups=["structures"]]
 script = ExtResource("1_dcstc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
