@@ -45,7 +45,7 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_dgeou")
 
-[node name="Garage" type="Node3D"]
+[node name="Garage2" type="Node3D"]
 transform = Transform3D(2.41, 0, 0, 0, 2.41, 0, 0, 0, 2.41, 0, 1.62876, 0)
 
 [node name="StructureFloor_003" type="MeshInstance3D" parent="."]
