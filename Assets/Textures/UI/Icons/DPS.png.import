@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drjukkku7lixp"
-path="res://.godot/imported/Damage.png-33b68c94b68f582e025b7beacf6c7ec9.ctex"
+path="res://.godot/imported/DPS.png-2a1e41d375add7d496f67225115407bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Icons/Damage.png"
-dest_files=["res://.godot/imported/Damage.png-33b68c94b68f582e025b7beacf6c7ec9.ctex"]
+source_file="res://Assets/Textures/UI/Icons/DPS.png"
+dest_files=["res://.godot/imported/DPS.png-2a1e41d375add7d496f67225115407bf.ctex"]
 
 [params]
 

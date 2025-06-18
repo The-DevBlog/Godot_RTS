@@ -16,6 +16,10 @@ public partial class RootContainer : Control
 	[Export] public Label InfoPopupLabelCost { get; set; }
 	[Export] public Label InfoPopupLabelBuildTime { get; set; }
 	[Export] public Label InfoPopupLabelEnergy { get; set; }
+	[Export] public Label InfoPopupLabelHP { get; set; }
+	[Export] public Label InfoPopupLabelDPS { get; set; }
+	[Export] public Label InfoPopupLabelSpeed { get; set; }
+
 	private Container _structureCountContainer;
 	private Resources _resources;
 	private Signals _signals;
@@ -191,20 +195,30 @@ public partial class RootContainer : Control
 
 		if (structure != null)
 		{
+			InfoPopupLabelEnergy.GetParent<Container>().Visible = true;
+			InfoPopupLabelDPS.GetParent<Container>().Visible = false;
+			InfoPopupLabelSpeed.GetParent<Container>().Visible = false;
+
 			InfoPopupLabelName.Text = structure.Name;
 			InfoPopupLabelCost.Text = $"${structure.Cost}";
-			InfoPopupLabelBuildTime.Text = $"{structure.BuildTime}s";
+			InfoPopupLabelHP.Text = $"{structure.HP}";
 			InfoPopupLabelEnergy.Text = $"{structure.Energy}";
+			InfoPopupLabelBuildTime.Text = $"{structure.BuildTime}s";
 			return;
 		}
 
 		if (unit != null)
 		{
+			InfoPopupLabelDPS.GetParent<Container>().Visible = true;
+			InfoPopupLabelSpeed.GetParent<Container>().Visible = true;
+			InfoPopupLabelEnergy.GetParent<Container>().Visible = false;
+
 			InfoPopupLabelName.Text = unit.Name;
 			InfoPopupLabelCost.Text = $"${unit.Cost}";
+			InfoPopupLabelHP.Text = $"{unit.HP}";
+			InfoPopupLabelHP.Text = $"{unit.DPS}";
+			InfoPopupLabelSpeed.Text = $"{unit.Speed}";
 			InfoPopupLabelBuildTime.Text = $"{unit.BuildTime}s";
-			InfoPopupLabelEnergy.Text = $"{unit.Energy}";
-			return;
 		}
 	}
 }

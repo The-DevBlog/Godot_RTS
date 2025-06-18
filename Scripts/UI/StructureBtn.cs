@@ -222,11 +222,11 @@ public partial class StructureBtn : Button
 		var packed = _models.Structures[Structure];
 		var structure = packed.Instantiate() as StructureBase;
 
-		_signals.EmitOnStructureBtnHover(structure);
+		_signals.EmitOnStructureBtnHover(structure, null);
 	}
 
 	private void OnStructureBtnExit()
 	{
-		_signals.EmitOnStructureBtnHover(null);
+		_signals.EmitOnStructureBtnHover(null, null);
 	}
 }
