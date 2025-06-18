@@ -83,8 +83,6 @@ public partial class RootContainer : Control
 		AnchorLeft = newAnchorLeft;
 		AnchorRight = 1f;
 
-		//  ↓↓↓ Enforce a minimum width of miniMapHeight ↓↓↓
-
 		// 1) set the minimum-x to your minimap height
 		CustomMinimumSize = new Vector2(miniMapHeight, CustomMinimumSize.Y);
 
@@ -95,22 +93,6 @@ public partial class RootContainer : Control
 			Size.Y
 		));
 	}
-
-	// private void OnWindowResize()
-	// {
-	// 	if (MiniMapContainer == null)
-	// 		return;
-
-	// 	float miniMapHeight = MiniMapContainer.Size.Y;
-	// 	float windowWidth = GetViewport().GetVisibleRect().Size.X;
-	// 	float clampedWidth = Mathf.Min(miniMapHeight, windowWidth);
-	// 	float newAnchorLeft = 1.0f - (clampedWidth / windowWidth);
-
-	// 	AnchorLeft = newAnchorLeft;
-	// 	AnchorRight = 1.0f;
-
-	// 	SetDeferred("size", new Vector2(miniMapHeight, Size.Y));
-	// }
 
 	private void ToggleVisibility(Container menu)
 	{
