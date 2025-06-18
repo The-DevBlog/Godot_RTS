@@ -16,7 +16,7 @@ public partial class Resources : Node
     public Resources()
     {
         Instance = this;
-        Funds = 1000000;
+        Funds = 10000;
         MaxStructureCount = 8;
         TeamColor = Colors.OrangeRed;
 

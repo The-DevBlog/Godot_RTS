@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=42 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
@@ -14,12 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://daexh3giq74at" path="res://Assets/Textures/UI/Icons/Tank.png" id="7_c22w8"]
 [ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/UI/Icons/Rifle.png" id="7_f6022"]
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
-[ext_resource type="Texture2D" uid="uid://dniuodhac8jni" path="res://Assets/Textures/UI/Structures/Barracks.png" id="8_ww22p"]
-[ext_resource type="Texture2D" uid="uid://4avpgs334yis" path="res://Assets/Textures/UI/Structures/ResearchLab.png" id="9_4e0cq"]
 [ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
-[ext_resource type="Texture2D" uid="uid://dypbkgy26tn3f" path="res://Assets/Textures/UI/Structures/Garage.png" id="10_o42af"]
-[ext_resource type="Texture2D" uid="uid://bq4jjptvimvfi" path="res://Assets/Textures/UI/Structures/Satellite.png" id="11_c5tkt"]
-[ext_resource type="Texture2D" uid="uid://cpuibkheybmgy" path="res://Assets/Textures/UI/Structures/Cannon.png" id="12_uy737"]
 [ext_resource type="Texture2D" uid="uid://doej4y573d76i" path="res://Assets/Textures/UI/Units/Rifleman.png" id="13_uy737"]
 [ext_resource type="Texture2D" uid="uid://c7143f4fv22ev" path="res://Assets/Textures/UI/Units/TankGen1.png" id="14_c22w8"]
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
@@ -62,26 +57,32 @@ texture_margin_right = 5.0
 texture_margin_bottom = 6.0
 region_rect = Rect2(841, 80, 20, 21)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_esy4f"]
+load_path = "res://.godot/imported/Reactor.png-900353f8142a909d99b045e3792faef1.ctex"
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ly8nf"]
-texture = ExtResource("9_4e0cq")
+texture = SubResource("CompressedTexture2D_esy4f")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5aby"]
-texture = ExtResource("8_ww22p")
+texture = SubResource("CompressedTexture2D_esy4f")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esy4f"]
-texture = ExtResource("9_4e0cq")
+texture = SubResource("CompressedTexture2D_esy4f")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_v0w7p"]
+load_path = "res://.godot/imported/Garage.png-56a04bef0f4e5e83a255a120cc95c6ba.ctex"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0w7p"]
-texture = ExtResource("10_o42af")
+texture = SubResource("CompressedTexture2D_v0w7p")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cg0vo"]
-texture = ExtResource("11_c5tkt")
+texture = SubResource("CompressedTexture2D_esy4f")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlv7r"]
-texture = ExtResource("12_uy737")
+texture = SubResource("CompressedTexture2D_esy4f")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7aoqs"]
-texture = ExtResource("9_4e0cq")
+texture = SubResource("CompressedTexture2D_esy4f")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdtk1"]
 texture = ExtResource("13_uy737")

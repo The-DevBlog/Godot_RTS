@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x6b8qtnkja73"
-path="res://.godot/imported/Garage.png-56a04bef0f4e5e83a255a120cc95c6ba.ctex"
+uid="uid://bq6aa66jlouje"
+path="res://.godot/imported/Reactor.png-900353f8142a909d99b045e3792faef1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Structures/Garage.png"
-dest_files=["res://.godot/imported/Garage.png-56a04bef0f4e5e83a255a120cc95c6ba.ctex"]
+source_file="res://Assets/Textures/UI/Structures/Reactor.png"
+dest_files=["res://.godot/imported/Reactor.png-900353f8142a909d99b045e3792faef1.ctex"]
 
 [params]
 
