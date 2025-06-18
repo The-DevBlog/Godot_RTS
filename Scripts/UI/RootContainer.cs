@@ -96,10 +96,7 @@ public partial class RootContainer : Control
 		));
 	}
 
-	private void ToggleVisibility(Container menu)
-	{
-		menu.Visible = !menu.Visible;
-	}
+	private void ToggleVisibility(Container menu) => menu.Visible = !menu.Visible;
 
 	private void OnStructureAdd(int structureId)
 	{
