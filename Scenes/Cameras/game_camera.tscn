@@ -11,11 +11,14 @@ render_priority = 0
 shader = ExtResource("2_ac6r2")
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/shadow_thickness = 2.0
+shader_parameter/base_thickness = 2.5
+shader_parameter/depth_scale = 5.0
+shader_parameter/min_thickness = 0.22
+shader_parameter/max_thickness = 1.5
 
 [node name="GameCamera" type="Node3D"]
 script = ExtResource("1_npc2i")
 PanSpeedBoost = 3.0
-MaxZoom = 50.0
 MapSize = Vector2(200, 200)
 metadata/_edit_group_ = true
 

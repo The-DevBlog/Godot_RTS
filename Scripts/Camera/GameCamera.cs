@@ -7,8 +7,8 @@ public partial class GameCamera : Node3D
 	[Export] public float RotateSpeed = 1.2f;
 	[Export] public float ZoomSpeed = 2.0f;
 	[Export(PropertyHint.Range, "0.01,0.4")] public float Smoothness = 0.1f;
-	[Export] public float MinZoom = -5.0f;
-	[Export] public float MaxZoom = 20.0f;
+	[Export] public float MinZoom = 0.0f;
+	[Export] public float MaxZoom = 40.0f;
 	[Export] public float MouseSensitivity = 0.2f;
 	[Export] public float EdgeSize = 3.0f;
 	[Export] public Vector2 MapSize;

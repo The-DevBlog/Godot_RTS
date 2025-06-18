@@ -13,7 +13,7 @@ public partial class StructureBase : StaticBody3D
 		_resources = Resources.Instance;
 
 		if (Energy == 0)
-			Utils.PrintErr("No Energy Assigned to structure");
+			Utils.PrintErr("Nod Energy Assigned to structure");
 
 		if (Cost == 0)
 			Utils.PrintErr("No Cost Assigned to structure");

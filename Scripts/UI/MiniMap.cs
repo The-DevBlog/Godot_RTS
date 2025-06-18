@@ -4,7 +4,7 @@ public partial class MiniMap : Control
 {
     [Export] public Vector2 MapSize;
     private Color _backgroundColor = new Color("#171717");
-    private Color _friendlyUnitsColor = new Color("#38a7f1");
+    private Color _friendlyUnitsColor;
     private Color _cameraRectColor = Colors.White;
     private float _defaultHeight = 10f;
     private float _baseNearDist = 1.0f;
@@ -12,6 +12,7 @@ public partial class MiniMap : Control
     private Vector2 _worldMin;
     private Vector2 _worldMax;
     private Camera3D _camera;
+    private Resources _resources;
 
     public override void _Ready()
     {
@@ -19,6 +20,8 @@ public partial class MiniMap : Control
         _worldMin = -MapSize / 2;
         _worldMax = MapSize / 2;
         _camera = GetViewport().GetCamera3D();
+        _resources = Resources.Instance;
+        _friendlyUnitsColor = _resources.TeamColor;
     }
 
     public override void _Process(double delta)
@@ -35,16 +38,87 @@ public partial class MiniMap : Control
         // Draw background
         DrawRect(new Rect2(Vector2.Zero, Size), _backgroundColor, true);
 
-        // Draw units
-        foreach (Unit u in GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString()))
-        {
-            Vector2 worldPos = new Vector2(u.GlobalPosition.X, u.GlobalPosition.Z);
-            Vector2 localPos = (worldPos - _worldMin) * scale;
-            DrawCircle(localPos, 3, _friendlyUnitsColor);
-        }
-
-        // Draw camera view
+        DrawUnits(scale);
+        DrawStructures(scale);
         DrawCameraRect(scale);
+    }
+
+    private void DrawUnits(Vector2 scale)
+    {
+        var units = GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString().ToLower());
+        foreach (Unit unit in units)
+        {
+            Vector2 worldPos = new Vector2(unit.GlobalPosition.X, unit.GlobalPosition.Z);
+            Vector2 localPos = (worldPos - _worldMin) * scale;
+
+            // Try to get the collision shape size
+            float radius = 3f; // fallback
+            var collider = unit.GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
+            if (collider != null && collider.Shape is SphereShape3D sphere)
+            {
+                radius = sphere.Radius * scale.X; // scale to minimap
+            }
+            else if (collider != null && collider.Shape is BoxShape3D box)
+            {
+                radius = Mathf.Max(box.Size.X, box.Size.Z) * 0.5f * scale.X;
+            }
+
+            // Draw black outline
+            DrawCircle(localPos, radius + 1f, Colors.Black);
+            // Draw unit fill
+            DrawCircle(localPos, radius, _friendlyUnitsColor);
+        }
+    }
+
+    private void DrawStructures(Vector2 scale)
+    {
+        // Draw structures
+        var structures = GetTree().GetNodesInGroup(MyEnums.Group.Structures.ToString().ToLower());
+        foreach (StructureBase structure in structures)
+        {
+            Vector2 worldPos = new Vector2(structure.GlobalPosition.X, structure.GlobalPosition.Z);
+            Vector2 localPos = (worldPos - _worldMin) * scale;
+
+            // Default rectangle size
+            Vector2 rectSize = new Vector2(6, 6);
+
+            var collider = structure.GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
+            if (collider != null && collider.Shape is BoxShape3D box)
+            {
+                rectSize = new Vector2(box.Size.X * scale.X, box.Size.Z * scale.Y);
+            }
+            else if (collider != null && collider.Shape is SphereShape3D sphere)
+            {
+                float diameter = sphere.Radius * 2f;
+                rectSize = new Vector2(diameter * scale.X, diameter * scale.Y);
+            }
+
+            // Get the structure's yaw (Y rotation)
+            float yaw = structure.GlobalTransform.Basis.GetEuler().Y;
+
+            // Rectangle corners centered at (0,0)
+            Vector2 half = rectSize / 2f;
+            Vector2[] corners =
+            [
+                new Vector2(-half.X, -half.Y),
+                new Vector2( half.X, -half.Y),
+                new Vector2( half.X,  half.Y),
+                new Vector2(-half.X,  half.Y),
+            ];
+
+            // Rotate and translate corners
+            for (int i = 0; i < 4; i++)
+            {
+                corners[i] = RotateVector2(corners[i], -yaw) + localPos;
+            }
+
+            // Draw the rectangle as a polygon
+            DrawPolygon(corners, new Color[] { _friendlyUnitsColor, _friendlyUnitsColor, _friendlyUnitsColor, _friendlyUnitsColor });
+
+            // Draw black outline
+            for (int i = 0; i < 4; i++)
+                DrawLine(corners[i], corners[(i + 1) % 4], Colors.Black, 1f);
+        }
     }
 
     private void DrawCameraRect(Vector2 scale)

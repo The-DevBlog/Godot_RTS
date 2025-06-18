@@ -3,6 +3,7 @@ namespace MyEnums
     public enum Group
     {
         Units,
+        Structures,
         StructureBtns,
         UnitBtns,
         VehicleBtns,
