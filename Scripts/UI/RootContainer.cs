@@ -11,6 +11,7 @@ public partial class RootContainer : Control
 	[Export] public Container UpgradeOptionsContainer { get; set; }
 	[Export] public Container BarracksCountContainer { get; set; }
 	[Export] public Container GarageCountContainer { get; set; }
+	[Export] public Container InfoPopupContainer { get; set; }
 	private Container _structureCountContainer;
 	private Resources _resources;
 	private Signals _signals;
@@ -29,6 +30,7 @@ public partial class RootContainer : Control
 		Utils.NullExportCheck(UnitOptionsContainer);
 		Utils.NullExportCheck(VehicleOptionsContainer);
 		Utils.NullExportCheck(UpgradeOptionsContainer);
+		Utils.NullExportCheck(InfoPopupContainer);
 
 		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
 
@@ -171,4 +173,6 @@ public partial class RootContainer : Control
 		GarageCountContainer.Visible = false;
 		ShowOnly(UpgradeOptionsContainer);
 	}
+
+	private void ShowInfoPopup() => InfoPopupContainer.Visible = !InfoPopupContainer.Visible;
 }
