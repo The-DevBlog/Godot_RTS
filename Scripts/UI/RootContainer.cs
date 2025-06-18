@@ -70,16 +70,47 @@ public partial class RootContainer : Container
 		if (MiniMapContainer == null)
 			return;
 
+		// how tall your minimap is
 		float miniMapHeight = MiniMapContainer.Size.Y;
+
+		// window width
 		float windowWidth = GetViewport().GetVisibleRect().Size.X;
+
+		// clamp so you never ask for more than the screen
 		float clampedWidth = Mathf.Min(miniMapHeight, windowWidth);
-		float newAnchorLeft = 1.0f - (clampedWidth / windowWidth);
+		float newAnchorLeft = 1f - (clampedWidth / windowWidth);
 
 		AnchorLeft = newAnchorLeft;
-		AnchorRight = 1.0f;
+		AnchorRight = 1f;
 
-		SetDeferred("size", new Vector2(miniMapHeight, Size.Y));
+		//  ↓↓↓ Enforce a minimum width of miniMapHeight ↓↓↓
+
+		// 1) set the minimum-x to your minimap height
+		CustomMinimumSize = new Vector2(miniMapHeight, CustomMinimumSize.Y);
+
+		// 2) still tweak the *actual* size if you want:
+		SetDeferred("size", new Vector2(
+			// make sure you never shrink below miniMapHeight
+			Mathf.Max(miniMapHeight, Size.X),
+			Size.Y
+		));
 	}
+
+	// private void OnWindowResize()
+	// {
+	// 	if (MiniMapContainer == null)
+	// 		return;
+
+	// 	float miniMapHeight = MiniMapContainer.Size.Y;
+	// 	float windowWidth = GetViewport().GetVisibleRect().Size.X;
+	// 	float clampedWidth = Mathf.Min(miniMapHeight, windowWidth);
+	// 	float newAnchorLeft = 1.0f - (clampedWidth / windowWidth);
+
+	// 	AnchorLeft = newAnchorLeft;
+	// 	AnchorRight = 1.0f;
+
+	// 	SetDeferred("size", new Vector2(miniMapHeight, Size.Y));
+	// }
 
 	private void ToggleVisibility(Container menu)
 	{
