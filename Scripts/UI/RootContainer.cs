@@ -186,8 +186,8 @@ public partial class RootContainer : Control
 			InfoPopupContainer.Visible = true;
 			InfoPopupLabelName.Text = structure.Name;
 			InfoPopupLabelCost.Text = $"${structure.Cost}";
-			InfoPopupLabelBuildTime.Text = $"Time: {structure.BuildTime}s";
-			InfoPopupLabelEnergy.Text = $"Energy: {structure.Energy}";
+			InfoPopupLabelBuildTime.Text = $"{structure.BuildTime}s";
+			InfoPopupLabelEnergy.Text = $"{structure.Energy}";
 		}
 		else
 		{

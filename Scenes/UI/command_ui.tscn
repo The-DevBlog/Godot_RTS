@@ -1,10 +1,11 @@
-[gd_scene load_steps=40 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=41 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
 [ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/UI/Icons/Energy.png" id="3_848d2"]
 [ext_resource type="Script" uid="uid://cjnedqmyjcxpv" path="res://Scripts/UI/MiniMap.cs" id="3_esy4f"]
 [ext_resource type="Script" uid="uid://0sljbdu2hi6b" path="res://Scripts/UI/InfoContainerLabels.cs" id="3_g5aby"]
+[ext_resource type="Texture2D" uid="uid://dy6p6ekctvphs" path="res://Assets/Textures/UI/Icons/Time.png" id="3_v0w7p"]
 [ext_resource type="Texture2D" uid="uid://ci5l8emphylve" path="res://Assets/Textures/UI/Icons/Hammer.png" id="6_k4jei"]
 [ext_resource type="Texture2D" uid="uid://b7jxwwtbgc30" path="res://Assets/Textures/UI/Icons/Armor.png" id="7_an80e"]
 [ext_resource type="Texture2D" uid="uid://daexh3giq74at" path="res://Assets/Textures/UI/Icons/Tank.png" id="7_c22w8"]
@@ -114,8 +115,8 @@ GarageCountContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/Build
 InfoPopupContainer = NodePath("HBoxContainer/InfoPopupContainer")
 InfoPopupLabelName = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/NameLabel")
 InfoPopupLabelCost = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/CostLabel")
-InfoPopupLabelBuildTime = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeLabel")
-InfoPopupLabelEnergy = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyLabel")
+InfoPopupLabelBuildTime = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer/BuildTimeLabel")
+InfoPopupLabelEnergy = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer/EnergyLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -128,6 +129,7 @@ grow_horizontal = 0
 grow_vertical = 2
 
 [node name="InfoPopupContainer" type="PanelContainer" parent="HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -147,7 +149,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
-text = "Name"
+text = "Reactor"
 
 [node name="CostLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -156,19 +158,41 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "$100"
 
-[node name="BuildTimeLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="BuildTimeContainer" type="HBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 22
-text = "Time: 2s"
+theme_override_constants/separation = 8
 
-[node name="EnergyLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_v0w7p")
+stretch_mode = 4
+
+[node name="BuildTimeLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
-text = "Energy: 25"
+text = "2s"
+
+[node name="EnergyContainer" type="HBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_848d2")
+stretch_mode = 4
+
+[node name="EnergyLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 22
+text = "2s"
 
 [node name="RootContainer" type="MarginContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
