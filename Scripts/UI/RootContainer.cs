@@ -149,7 +149,6 @@ public partial class RootContainer : Control
 
 	private void OnBarracksBtnPressed()
 	{
-		GD.Print("Select barracks!");
 		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
 		_structureCountContainer.Visible = isVisible;
 		BarracksCountContainer.Visible = isVisible;
