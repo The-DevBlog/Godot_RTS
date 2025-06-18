@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnk0x7l6d7sjt"]
 
-[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Scripts/Units/Unit.cs" id="1_ebj34"]
+[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Scripts/Units/UnitBase.cs" id="1_ebj34"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_a2hf6"]
 [ext_resource type="PackedScene" uid="uid://buxx3yidow5ae" path="res://Assets/Models/Units/Artillery/Artillery.gltf" id="3_ebj34"]
 

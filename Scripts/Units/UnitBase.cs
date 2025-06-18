@@ -1,7 +1,7 @@
 using Godot;
 using MyEnums;
 
-public partial class Unit : CharacterBody3D
+public partial class UnitBase : CharacterBody3D
 {
 	[Export] public int Speed { get; set; } = 2;
 	[Export] public int Acceleration { get; set; } = 3;
