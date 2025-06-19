@@ -11,21 +11,22 @@ public partial class GameCamera : Node3D
 	[Export] public float MaxZoom = 40.0f;
 	[Export] public float MouseSensitivity = 0.2f;
 	[Export] public float EdgeSize = 3.0f;
+	[Export] public Camera3D Camera { get; private set; }
 	private Vector2 _mapSize;
 	private Node3D _zoomPivot;
-	private Camera3D _camera;
 	private Vector3 _moveTarget;
 	private float _rotateKeysTarget = 0.0f;
 	private float _zoomTarget = 0.0f;
 
 	public override void _Ready()
 	{
+		Utils.NullExportCheck(Camera);
+
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
-		_camera = GetNode<Camera3D>("CameraZoomPivot/Camera3D");
 		_mapSize = SceneResources.Instance.MapSize;
 		_moveTarget = Position;
 		_rotateKeysTarget = RotationDegrees.Y;
-		_zoomTarget = _camera.Position.Z;
+		_zoomTarget = Camera.Position.Z;
 	}
 
 	public override void _Input(InputEvent @event)
@@ -40,6 +41,13 @@ public partial class GameCamera : Node3D
 		MouseEdgeScroll(delta);
 		KeyboardScroll(delta);
 		UpdateCameraPosition();
+	}
+
+	public void SetCameraTarget(Vector2 worldXZ)
+	{
+		_moveTarget.X = worldXZ.X;
+		_moveTarget.Z = worldXZ.Y;
+		ClampMoveTarget(); // Optional, depending on your bounds
 	}
 
 	private void HideMouseIfRotating()
@@ -102,9 +110,9 @@ public partial class GameCamera : Node3D
 		RotationDegrees = rotation;
 
 		// Smooth zoom
-		Vector3 camPos = _camera.Position;
+		Vector3 camPos = Camera.Position;
 		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, 0.1f);
-		_camera.Position = camPos;
+		Camera.Position = camPos;
 	}
 
 	private void ClampMoveTarget()
