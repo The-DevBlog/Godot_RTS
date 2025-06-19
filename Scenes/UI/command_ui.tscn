@@ -25,6 +25,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg0vo"]
 bg_color = Color(0.14902, 0.137255, 0.133333, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fgwrq"]
 texture = ExtResource("7_w801c")
