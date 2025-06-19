@@ -100,6 +100,9 @@ shape = SubResource("BoxShape3D_ns7qj")
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
+[node name="Control" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer/NinePatchRect/MarginContainer" index="1" node_paths=PackedStringArray("GameCamera")]
+GameCamera = NodePath("../../../../../../../../GameCamera")
+
 [node name="Shaders" type="Node3D" parent="."]
 
 [node name="PixelatedShader" parent="Shaders" instance=ExtResource("6_ckhy6")]
@@ -108,8 +111,12 @@ visible = false
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ckhy6")
 
-[node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
+[node name="GameCamera" parent="." node_paths=PackedStringArray("Camera") instance=ExtResource("1_c3mwy")]
 PanSpeed = 40.0
 RotateSpeed = 200.0
+Camera = NodePath("CameraZoomPivot/Camera3D")
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
+
+[editable path="CommandUI"]
+[editable path="GameCamera"]
