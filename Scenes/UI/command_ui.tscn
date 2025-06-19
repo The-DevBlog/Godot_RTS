@@ -316,7 +316,6 @@ patch_margin_bottom = 5
 [node name="Control" type="Control" parent="HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
 script = ExtResource("3_esy4f")
-MapSize = Vector2(200, 200)
 
 [node name="InfoContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 75)

@@ -5,6 +5,7 @@
 
 [node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("Model")]
 script = ExtResource("1_ftybx")
+HP = 200
 Energy = 25
 Cost = 500
 BuildTime = 3

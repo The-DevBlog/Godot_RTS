@@ -8,7 +8,7 @@ public partial class MouseManager : Control
 	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
 	private HashSet<UnitBase> _prevSelectedUnits;
-	private Resources _resources;
+	private GlobalResources _resources;
 	private Signals _signals;
 	private Camera3D _camera;
 	private Vector2 _dragStart = Vector2.Zero;
@@ -21,7 +21,7 @@ public partial class MouseManager : Control
 	{
 		Instance = this;
 		_camera = GetViewport().GetCamera3D();
-		_resources = Resources.Instance;
+		_resources = GlobalResources.Instance;
 		_signals = Signals.Instance;
 		_signals.DeselectAllUnits += OnDeselectAllUnits;
 		_prevSelectedUnits = new HashSet<UnitBase>();

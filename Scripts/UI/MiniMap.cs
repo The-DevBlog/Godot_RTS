@@ -2,7 +2,7 @@ using Godot;
 
 public partial class MiniMap : Control
 {
-    [Export] public Vector2 MapSize;
+    private Vector2 _mapSize;
     private Color _backgroundColor = new Color("#171717");
     private Color _friendlyUnitsColor;
     private Color _cameraRectColor = Colors.White;
@@ -12,15 +12,15 @@ public partial class MiniMap : Control
     private Vector2 _worldMin;
     private Vector2 _worldMax;
     private Camera3D _camera;
-    private Resources _resources;
+    private GlobalResources _resources;
 
     public override void _Ready()
     {
-        Utils.NullExportCheck(MapSize);
-        _worldMin = -MapSize / 2;
-        _worldMax = MapSize / 2;
+        _mapSize = SceneResources.Instance.MapSize;
+        _worldMin = -_mapSize / 2;
+        _worldMax = _mapSize / 2;
         _camera = GetViewport().GetCamera3D();
-        _resources = Resources.Instance;
+        _resources = GlobalResources.Instance;
         _friendlyUnitsColor = _resources.TeamColor;
     }
 
