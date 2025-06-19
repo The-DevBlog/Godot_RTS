@@ -12,12 +12,12 @@ public partial class Signals : Node
     [Signal] public delegate void OnBuildOptionsBtnHoverEventHandler(StructureBase structure, UnitBase unit);
     [Signal] public delegate void AddStructureEventHandler(int structureId);
     [Signal] public delegate void UpdateEnergyColorEventHandler();
-    private Resources _resources;
+    private GlobalResources _resources;
 
     public override void _Ready()
     {
         Instance = this;
-        _resources = Resources.Instance;
+        _resources = GlobalResources.Instance;
     }
 
     public void EmitUpdateNavigationMap(NavigationRegion3D region) => EmitSignal(SignalName.UpdateNavigationMap, region);

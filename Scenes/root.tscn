@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=17 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
+[ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Shared/SceneResources.cs" id="1_qtxxq"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
 [ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="3_r3lo5"]
@@ -58,6 +59,8 @@ adjustment_enabled = true
 adjustment_saturation = 0.77
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_qtxxq")
+MapSize = Vector2(750, 750)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
@@ -76,10 +79,12 @@ transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551
 [node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
 transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, 16.6373, 0, -7.2311)
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
 transform = Transform3D(1.00472, 0.00224455, -0.00275781, -0.002245, 1.00472, -0.000165073, 0.00275743, 0.000171216, 1.00472, 0, -0.25, 0)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 script = ExtResource("3_dun2r")
+GroundMesh = NodePath("Ground/MeshInstance3D")
+GroundCollider = NodePath("Ground/CollisionShape3D")
 metadata/_edit_group_ = true
 
 [node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["MapBase"]]

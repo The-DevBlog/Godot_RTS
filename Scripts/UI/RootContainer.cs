@@ -21,13 +21,13 @@ public partial class RootContainer : Control
 	[Export] public Label InfoPopupLabelSpeed { get; set; }
 
 	private Container _structureCountContainer;
-	private Resources _resources;
+	private GlobalResources _resources;
 	private Signals _signals;
 	private Color normalColor = new Color("#c8c8c8");
 	private Color hoverColor = new Color("#ffffff");
 	public override void _Ready()
 	{
-		_resources = Resources.Instance;
+		_resources = GlobalResources.Instance;
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;

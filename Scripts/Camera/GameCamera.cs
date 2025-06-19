@@ -11,8 +11,7 @@ public partial class GameCamera : Node3D
 	[Export] public float MaxZoom = 40.0f;
 	[Export] public float MouseSensitivity = 0.2f;
 	[Export] public float EdgeSize = 3.0f;
-	[Export] public Vector2 MapSize;
-
+	private Vector2 _mapSize;
 	private Node3D _zoomPivot;
 	private Camera3D _camera;
 	private Vector3 _moveTarget;
@@ -23,12 +22,10 @@ public partial class GameCamera : Node3D
 	{
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
 		_camera = GetNode<Camera3D>("CameraZoomPivot/Camera3D");
-
+		_mapSize = SceneResources.Instance.MapSize;
 		_moveTarget = Position;
 		_rotateKeysTarget = RotationDegrees.Y;
 		_zoomTarget = _camera.Position.Z;
-
-		Utils.NullExportCheck(MapSize);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -88,7 +85,7 @@ public partial class GameCamera : Node3D
 		_moveTarget += movementDirection * PanSpeed * panSpeedBoost * (float)delta;
 		_rotateKeysTarget += rotateKeys * RotateSpeed * (float)delta;
 
-		if (!Resources.Instance.IsPlacingStructure)
+		if (!GlobalResources.Instance.IsPlacingStructure)
 			_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
 
 		ClampMoveTarget();
@@ -113,7 +110,7 @@ public partial class GameCamera : Node3D
 	private void ClampMoveTarget()
 	{
 		// Clamp X/Z within defined bounds
-		_moveTarget.X = Mathf.Clamp(_moveTarget.X, -MapSize.X / 2, MapSize.X / 2);
-		_moveTarget.Z = Mathf.Clamp(_moveTarget.Z, -MapSize.Y / 2, MapSize.Y / 2);
+		_moveTarget.X = Mathf.Clamp(_moveTarget.X, -_mapSize.X / 2, _mapSize.X / 2);
+		_moveTarget.Z = Mathf.Clamp(_moveTarget.Z, -_mapSize.Y / 2, _mapSize.Y / 2);
 	}
 }

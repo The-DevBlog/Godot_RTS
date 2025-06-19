@@ -4,7 +4,7 @@ using MyEnums;
 public partial class UnitBtn : Button
 {
 	[Export] public UnitType Unit { get; set; }
-	private Resources _resources;
+	private GlobalResources _resources;
 	private Signals _signals;
 	private MyModels _models;
 	private UnitBase _unit;
@@ -12,7 +12,7 @@ public partial class UnitBtn : Button
 	public override void _Ready()
 	{
 		_models = AssetServer.Instance.Models;
-		_resources = Resources.Instance;
+		_resources = GlobalResources.Instance;
 		_signals = Signals.Instance;
 
 		MouseEntered += OnBtnEnter;

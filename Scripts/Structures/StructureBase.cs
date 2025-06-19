@@ -7,11 +7,11 @@ public partial class StructureBase : StaticBody3D
 	[Export] public int Cost { get; set; }
 	[Export] public int BuildTime { get; set; }
 	[Export] public Node3D Model;
-	private Resources _resources;
+	private GlobalResources _resources;
 
 	public override void _Ready()
 	{
-		_resources = Resources.Instance;
+		_resources = GlobalResources.Instance;
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to structure");
 		if (Energy == 0) Utils.PrintErr("No Energy Assigned to structure");

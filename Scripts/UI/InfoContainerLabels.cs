@@ -4,13 +4,13 @@ public partial class InfoContainerLabels : HBoxContainer
 {
 	[Export] public Label EnergyLabel { get; set; }
 	[Export] public Label FundsLabel { get; set; }
-	private Resources _resources;
+	private GlobalResources _resources;
 	private Signals _signals;
 	private int _energyConsumed;
 
 	public override void _Ready()
 	{
-		_resources = Resources.Instance;
+		_resources = GlobalResources.Instance;
 
 		Utils.NullExportCheck(EnergyLabel);
 		Utils.NullExportCheck(FundsLabel);

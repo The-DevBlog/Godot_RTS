@@ -4,7 +4,7 @@ using MyEnums;
 public partial class StructureBtn : Button
 {
 	[Export] public StructureType Structure { get; set; }
-	private Resources _resources;
+	private GlobalResources _resources;
 	private Signals _signals;
 	private StructureBase _structure;
 	private MyModels _models;
@@ -13,7 +13,7 @@ public partial class StructureBtn : Button
 
 	public override void _Ready()
 	{
-		_resources = Resources.Instance;
+		_resources = GlobalResources.Instance;
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
@@ -105,7 +105,7 @@ public partial class StructureBtn : Button
 		}
 
 		_structure = structure;
-		Resources.Instance.IsPlacingStructure = true;
+		GlobalResources.Instance.IsPlacingStructure = true;
 		Input.MouseMode = Input.MouseModeEnum.Hidden;
 		_scene.AddChild(_structure);
 
