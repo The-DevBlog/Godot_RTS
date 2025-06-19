@@ -40,8 +40,8 @@ public partial class GameCamera : Node3D
 	public override void _Process(double delta)
 	{
 		HideMouseIfRotating();
-		MouseEdgeScroll();
-		KeyboardScroll();
+		MouseEdgeScroll(delta);
+		KeyboardScroll(delta);
 		UpdateCameraPosition();
 	}
 
@@ -54,7 +54,7 @@ public partial class GameCamera : Node3D
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
-	private void MouseEdgeScroll()
+	private void MouseEdgeScroll(double delta)
 	{
 		Vector2 mousePos = GetViewport().GetMousePosition();
 		Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
@@ -70,11 +70,11 @@ public partial class GameCamera : Node3D
 		else if (mousePos.Y > viewportSize.Y - EdgeSize)
 			scrollDirection.Z = 1;
 
-		_moveTarget += Transform.Basis * scrollDirection * PanSpeed;
+		_moveTarget += Transform.Basis * scrollDirection * PanSpeed * (float)delta;
 		ClampMoveTarget();
 	}
 
-	private void KeyboardScroll()
+	private void KeyboardScroll(double delta)
 	{
 		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
 		Vector3 movementDirection = Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
@@ -85,8 +85,8 @@ public partial class GameCamera : Node3D
 
 		var panSpeedBoost = Input.IsActionPressed("pan_speed_boost") ? PanSpeedBoost : 1.0f;
 
-		_moveTarget += movementDirection * PanSpeed * panSpeedBoost;
-		_rotateKeysTarget += rotateKeys * RotateSpeed;
+		_moveTarget += movementDirection * PanSpeed * panSpeedBoost * (float)delta;
+		_rotateKeysTarget += rotateKeys * RotateSpeed * (float)delta;
 
 		if (!Resources.Instance.IsPlacingStructure)
 			_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
