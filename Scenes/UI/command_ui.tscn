@@ -152,6 +152,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="InfoPopupContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
