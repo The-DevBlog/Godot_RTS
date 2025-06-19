@@ -184,20 +184,18 @@ public partial class RootContainer : Control
 		ShowOnly(UpgradeOptionsContainer);
 	}
 
+	// TODO: DOes not work
 	private void UpdateEnergyColor()
 	{
 		if (_resources.EnergyConsumed > _resources.Energy)
 		{
-			GD.Print("Energy is low, changing color to red");
-			InfoPopupLabelEnergy.AddThemeColorOverride("default_color", _resources.EnergyLowColor);
-			// InfoPopupLabelEnergy.Modulate = Colors.Red;
-			// InfoPopupLabelEnergy.GetParent<Container>().Modulate = Colors.Red;
+
 		}
 		else
 		{
-			GD.Print("Energy is sufficient, changing color to white");
-			InfoPopupLabelEnergy.Modulate = Colors.White;
-			InfoPopupLabelEnergy.GetParent<Container>().Modulate = Colors.White;
+			// GD.Print("Energy is sufficient, changing color to white");
+			// InfoPopupLabelEnergy.Modulate = Colors.White;
+			// InfoPopupLabelEnergy.GetParent<Container>().Modulate = Colors.White;
 		}
 	}
 
