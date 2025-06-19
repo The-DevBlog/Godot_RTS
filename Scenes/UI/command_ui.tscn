@@ -120,14 +120,14 @@ VehicleOptionsContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/Bu
 UpgradeOptionsContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer")
 BarracksCountContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer")
 GarageCountContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer")
-InfoPopupContainer = NodePath("HBoxContainer/InfoPopupContainer")
-InfoPopupLabelName = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/NameLabel")
-InfoPopupLabelCost = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/CostLabel")
-InfoPopupLabelBuildTime = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer/BuildTimeLabel")
-InfoPopupLabelEnergy = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer/EnergyLabel")
-InfoPopupLabelHP = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/HPContainer/HPLabel")
-InfoPopupLabelDPS = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/DPSContainer/DPSLabel")
-InfoPopupLabelSpeed = NodePath("HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer/SpeedLabel")
+InfoPopupContainer = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer")
+InfoPopupLabelName = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/NameLabel")
+InfoPopupLabelCost = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/CostLabel")
+InfoPopupLabelBuildTime = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer/BuildTimeLabel")
+InfoPopupLabelEnergy = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer/EnergyLabel")
+InfoPopupLabelHP = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/HPContainer/HPLabel")
+InfoPopupLabelDPS = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/DPSContainer/DPSLabel")
+InfoPopupLabelSpeed = NodePath("HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer/SpeedLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -140,30 +140,41 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="InfoPopupContainer" type="PanelContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer1" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Spacer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InfoPopupContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_cg0vo")
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/InfoPopupContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/InfoPopupContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "Reactor"
 
-[node name="CostLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="CostLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.968627, 0.870588, 0.509804, 1)
@@ -172,18 +183,18 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "$100"
 
-[node name="BuildTimeContainer" type="HBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="BuildTimeContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("3_v0w7p")
 stretch_mode = 4
 
-[node name="BuildTimeLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer"]
+[node name="BuildTimeLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/BuildTimeContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -191,11 +202,11 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "2s"
 
-[node name="EnergyContainer" type="HBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="EnergyContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
 self_modulate = Color(0, 0.690196, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -203,7 +214,7 @@ size_flags_vertical = 4
 texture = ExtResource("3_848d2")
 stretch_mode = 4
 
-[node name="EnergyLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
+[node name="EnergyLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/EnergyContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -211,36 +222,36 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "2s"
 
-[node name="HPContainer" type="HBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="HPContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/HPContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/HPContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("5_7aoqs")
 stretch_mode = 4
 
-[node name="HPLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/HPContainer"]
+[node name="HPLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/HPContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "50"
 
-[node name="DPSContainer" type="HBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="DPSContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/DPSContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/DPSContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("6_pdtk1")
 stretch_mode = 4
 
-[node name="DPSLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/DPSContainer"]
+[node name="DPSLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/DPSContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -248,11 +259,11 @@ theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "10 dps"
 
-[node name="SpeedContainer" type="HBoxContainer" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
+[node name="SpeedContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer"]
 self_modulate = Color(0.362611, 0.667567, 0.45007, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -260,13 +271,17 @@ size_flags_vertical = 4
 texture = ExtResource("7_bfyu0")
 stretch_mode = 4
 
-[node name="SpeedLabel" type="Label" parent="HBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer"]
+[node name="SpeedLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/SpeedContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 22
 text = "25"
+
+[node name="Spacer3" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="RootContainer" type="MarginContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
