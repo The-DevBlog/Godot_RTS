@@ -31,6 +31,7 @@ public partial class RootContainer : Control
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
+		_signals.UpdateEnergyColor += UpdateEnergyColor;
 
 		Utils.NullExportCheck(MiniMapContainer);
 		Utils.NullExportCheck(ConstructionOptionsContainer);
@@ -181,6 +182,23 @@ public partial class RootContainer : Control
 		BarracksCountContainer.Visible = false;
 		GarageCountContainer.Visible = false;
 		ShowOnly(UpgradeOptionsContainer);
+	}
+
+	private void UpdateEnergyColor()
+	{
+		if (_resources.EnergyConsumed > _resources.Energy)
+		{
+			GD.Print("Energy is low, changing color to red");
+			InfoPopupLabelEnergy.AddThemeColorOverride("default_color", _resources.EnergyLowColor);
+			// InfoPopupLabelEnergy.Modulate = Colors.Red;
+			// InfoPopupLabelEnergy.GetParent<Container>().Modulate = Colors.Red;
+		}
+		else
+		{
+			GD.Print("Energy is sufficient, changing color to white");
+			InfoPopupLabelEnergy.Modulate = Colors.White;
+			InfoPopupLabelEnergy.GetParent<Container>().Modulate = Colors.White;
+		}
 	}
 
 	private void ShowInfoPopup(StructureBase structure, UnitBase unit)

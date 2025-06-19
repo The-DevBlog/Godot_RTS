@@ -11,6 +11,7 @@ public partial class Signals : Node
     [Signal] public delegate void UpdateFundsEventHandler();
     [Signal] public delegate void OnBuildOptionsBtnHoverEventHandler(StructureBase structure, UnitBase unit);
     [Signal] public delegate void AddStructureEventHandler(int structureId);
+    [Signal] public delegate void UpdateEnergyColorEventHandler();
     private Resources _resources;
 
     public override void _Ready()
@@ -29,6 +30,9 @@ public partial class Signals : Node
             _resources.Energy += energy;
         else if (energy < 0)
             _resources.EnergyConsumed += Math.Abs(energy);
+
+        if (_resources.EnergyConsumed > _resources.Energy)
+            EmitSignal(SignalName.UpdateEnergyColor);
 
         EmitSignal(SignalName.UpdateEnergy);
     }
