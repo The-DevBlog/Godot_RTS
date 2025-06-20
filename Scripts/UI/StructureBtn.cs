@@ -37,6 +37,7 @@ public partial class StructureBtn : Button
 
 	public override void _Process(double delta)
 	{
+		GD.Print("is placing strcuture: " + _globalResources.IsPlacingStructure);
 		if (_structure != null)
 		{
 			GetHoveredMapBase(out Vector3 hitPos);
@@ -79,12 +80,24 @@ public partial class StructureBtn : Button
 	{
 		_globalResources.IsPlacingStructure = false;
 		_scene.RemoveChild(_structure);
+
+		_structure.QueueFree();
 		_structure = null;
+
+		_overlaps.Clear();
+
+		GlobalResources.Instance.IsPlacingStructure = false;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
 	private void OnStructureSelect()
 	{
+		if (_structure != null)
+		{
+			CancelStructure();
+			return;
+		}
+
 		// deselect all units
 		_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
 
@@ -124,7 +137,7 @@ public partial class StructureBtn : Button
 
 	private void PlaceStructure()
 	{
-		if (_structure == null || !_validPlacement)
+		if (_structure == null || !_validPlacement || _globalResources.IsHoveringUI)
 			return;
 
 		// 1) Ray‐cast under the mouse and get (groundBody, hitPos)

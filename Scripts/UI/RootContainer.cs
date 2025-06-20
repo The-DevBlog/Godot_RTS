@@ -4,6 +4,7 @@ using MyEnums;
 
 public partial class RootContainer : Control
 {
+	[Export] public Container UIContainer { get; set; }
 	[Export] public Container MiniMapContainer { get; set; }
 	[Export] public Container ConstructionOptionsContainer { get; set; }
 	[Export] public Container UnitOptionsContainer { get; set; }
@@ -35,6 +36,7 @@ public partial class RootContainer : Control
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
 		_signals.UpdateEnergyColor += UpdateEnergyColor;
 
+		Utils.NullExportCheck(UIContainer);
 		Utils.NullExportCheck(MiniMapContainer);
 		Utils.NullExportCheck(ConstructionOptionsContainer);
 		Utils.NullExportCheck(BarracksCountContainer);
@@ -66,7 +68,7 @@ public partial class RootContainer : Control
 	private void SetIsHoveringUI()
 	{
 		var mousePosition = GetViewport().GetMousePosition();
-		_globalResources.IsHoveringUI = mousePosition.X >= GlobalPosition.X;
+		_globalResources.IsHoveringUI = mousePosition.X >= UIContainer.GlobalPosition.X;
 	}
 
 	private void SetupButtons(Enum group)
