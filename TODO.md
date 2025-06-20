@@ -1,9 +1,9 @@
 # Bugs
-- Rebaking the navigation region at runtime is currently very slow. This is because I am parsing through the entire scene tree. Check out this link: https://www.reddit.com/r/godot/comments/17x3qvx/baking_navmesh_regions_at_runtime_best_practices/
 - The upgrade icon on the ugprade button is a tad too large
 - I cant get the 'energy' label txt to turn red when consumed energy > energy
 
 # Tasks
+- Rebaking the navigation region at runtime is currently very slow. This is because I am parsing through the entire scene tree. The larger my map is, the longer the bake takes. Check out this link: https://www.reddit.com/r/godot/comments/17x3qvx/baking_navmesh_regions_at_runtime_best_practices/
 - Make trello board
 - Build models
 - Animate garage fan
