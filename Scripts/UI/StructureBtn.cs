@@ -33,9 +33,6 @@ public partial class StructureBtn : Button
 
 		if (_scene == null)
 			Utils.PrintErr("Current scene is not a Node3D.");
-
-		// _structure.Area.AreaEntered += OnAreaEntered;
-		// _structure.Area.AreaExited += OnAreaExited;
 	}
 
 	public override void _Process(double delta)
