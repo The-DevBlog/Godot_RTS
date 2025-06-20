@@ -6,6 +6,7 @@
 # Tasks
 - Make trello board
 - Build models
+- Animate garage fan
 - Animate garage door
 - Garage to build tanks
 - Placeholder structure should not be able to place in invalid placements
