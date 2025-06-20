@@ -4,7 +4,8 @@ using MyEnums;
 public partial class StructureBtn : Button
 {
 	[Export] public StructureType Structure { get; set; }
-	private GlobalResources _resources;
+	private GlobalResources _globalResources;
+	private SceneResources _sceneResources;
 	private Signals _signals;
 	private StructureBase _structure;
 	private MyModels _models;
@@ -13,7 +14,8 @@ public partial class StructureBtn : Button
 
 	public override void _Ready()
 	{
-		_resources = GlobalResources.Instance;
+		_globalResources = GlobalResources.Instance;
+		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
@@ -72,7 +74,7 @@ public partial class StructureBtn : Button
 
 	private void CancelStructure()
 	{
-		_resources.IsPlacingStructure = false;
+		_globalResources.IsPlacingStructure = false;
 		_scene.RemoveChild(_structure);
 		_structure = null;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
@@ -92,12 +94,12 @@ public partial class StructureBtn : Button
 		}
 
 		// check if max structure count reached
-		bool maxStructureCount = _resources.MaxStructureCountReached(Structure);
+		bool maxStructureCount = _globalResources.MaxStructureCountReached(Structure);
 		if (maxStructureCount)
 			return;
 
 		// check if you have enough funds
-		bool enoughFunds = _resources.Funds >= structure.Cost;
+		bool enoughFunds = _sceneResources.Funds >= structure.Cost;
 		if (!enoughFunds)
 		{
 			GD.Print("Not enough funds!");
@@ -151,7 +153,7 @@ public partial class StructureBtn : Button
 		_scene.RemoveChild(_structure);
 		_structure.QueueFree();
 		_structure = null;
-		_resources.IsPlacingStructure = false;
+		_globalResources.IsPlacingStructure = false;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 
 		// 4) Instantiate the real structure under navRegion

@@ -4,13 +4,13 @@ public partial class InfoContainerLabels : HBoxContainer
 {
 	[Export] public Label EnergyLabel { get; set; }
 	[Export] public Label FundsLabel { get; set; }
-	private GlobalResources _resources;
+	private SceneResources _sceneResources;
 	private Signals _signals;
 	private int _energyConsumed;
 
 	public override void _Ready()
 	{
-		_resources = GlobalResources.Instance;
+		_sceneResources = SceneResources.Instance;
 
 		Utils.NullExportCheck(EnergyLabel);
 		Utils.NullExportCheck(FundsLabel);
@@ -25,11 +25,11 @@ public partial class InfoContainerLabels : HBoxContainer
 
 	private void UpdateEnergy()
 	{
-		EnergyLabel.Text = $"{_resources.EnergyConsumed}/{_resources.Energy}";
+		EnergyLabel.Text = $"{_sceneResources.EnergyConsumed}/{_sceneResources.Energy}";
 	}
 
 	private void OnUpdateFunds()
 	{
-		FundsLabel.Text = $"${_resources.Funds}";
+		FundsLabel.Text = $"${_sceneResources.Funds}";
 	}
 }

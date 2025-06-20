@@ -21,13 +21,15 @@ public partial class RootContainer : Control
 	[Export] public Label InfoPopupLabelSpeed { get; set; }
 
 	private Container _structureCountContainer;
-	private GlobalResources _resources;
+	private GlobalResources _globalResources;
+	private SceneResources _sceneResources;
 	private Signals _signals;
 	private Color normalColor = new Color("#c8c8c8");
 	private Color hoverColor = new Color("#ffffff");
 	public override void _Ready()
 	{
-		_resources = GlobalResources.Instance;
+		_globalResources = GlobalResources.Instance;
+		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
@@ -64,7 +66,7 @@ public partial class RootContainer : Control
 	private void SetIsHoveringUI()
 	{
 		var mousePosition = GetViewport().GetMousePosition();
-		_resources.IsHoveringUI = mousePosition.X >= GlobalPosition.X;
+		_globalResources.IsHoveringUI = mousePosition.X >= GlobalPosition.X;
 	}
 
 	private void SetupButtons(Enum group)
@@ -122,7 +124,7 @@ public partial class RootContainer : Control
 			return;
 		}
 
-		int structureCount = _resources.StructureCount[structureType];
+		int structureCount = _globalResources.StructureCount[structureType];
 
 		Container structureCountContainer = _structureCountContainer.Duplicate() as Container;
 		structureCountContainer.Visible = true;
@@ -160,7 +162,7 @@ public partial class RootContainer : Control
 
 	private void OnBarracksBtnPressed()
 	{
-		bool isVisible = _resources.StructureCount[StructureType.Barracks] > 1;
+		bool isVisible = _globalResources.StructureCount[StructureType.Barracks] > 1;
 		_structureCountContainer.Visible = isVisible;
 		BarracksCountContainer.Visible = isVisible;
 		GarageCountContainer.Visible = false;
@@ -169,7 +171,7 @@ public partial class RootContainer : Control
 
 	private void OnGarageBtnPressed()
 	{
-		bool isVisible = _resources.StructureCount[StructureType.Garage] > 1;
+		bool isVisible = _globalResources.StructureCount[StructureType.Garage] > 1;
 		_structureCountContainer.Visible = isVisible;
 		GarageCountContainer.Visible = isVisible;
 		BarracksCountContainer.Visible = false;
@@ -187,7 +189,7 @@ public partial class RootContainer : Control
 	// TODO: DOes not work
 	private void UpdateEnergyColor()
 	{
-		if (_resources.EnergyConsumed > _resources.Energy)
+		if (_sceneResources.EnergyConsumed > _sceneResources.Energy)
 		{
 
 		}

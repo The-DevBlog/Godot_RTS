@@ -8,15 +8,12 @@ public partial class GlobalResources : Node
 	public Dictionary<StructureType, int> StructureCount { get; }
 	public bool IsPlacingStructure { get; set; }
 	public bool IsHoveringUI { get; set; }
-	public int Energy { get; set; }
-	public int EnergyConsumed { get; set; }
-	public int Funds { get; set; }
+
 	public int MaxStructureCount;
 	public Color TeamColor;
 	public GlobalResources()
 	{
 		Instance = this;
-		Funds = 1000000;
 		MaxStructureCount = 8;
 		TeamColor = Colors.OrangeRed;
 
