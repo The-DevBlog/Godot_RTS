@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using MyEnums;
 
@@ -10,6 +11,8 @@ public partial class StructureBtn : Button
 	private StructureBase _structure;
 	private MyModels _models;
 	private Camera3D _camera;
+	private bool _validPlacement => _overlaps.Count == 0;
+	private readonly HashSet<Area3D> _overlaps = new();
 	private Node3D _scene;
 
 	public override void _Ready()
@@ -30,6 +33,9 @@ public partial class StructureBtn : Button
 
 		if (_scene == null)
 			Utils.PrintErr("Current scene is not a Node3D.");
+
+		// _structure.Area.AreaEntered += OnAreaEntered;
+		// _structure.Area.AreaExited += OnAreaExited;
 	}
 
 	public override void _Process(double delta)
@@ -107,16 +113,21 @@ public partial class StructureBtn : Button
 		}
 
 		_structure = structure;
+
 		GlobalResources.Instance.IsPlacingStructure = true;
 		Input.MouseMode = Input.MouseModeEnum.Hidden;
 		_scene.AddChild(_structure);
+
+		// connect signals for area overlap detection
+		_structure.Area.AreaEntered += OnAreaEntered;
+		_structure.Area.AreaExited += OnAreaExited;
 
 		this.ReleaseFocus();
 	}
 
 	private void PlaceStructure()
 	{
-		if (_structure == null)
+		if (_structure == null || !_validPlacement)
 			return;
 
 		// 1) Ray‐cast under the mouse and get (groundBody, hitPos)
@@ -230,5 +241,18 @@ public partial class StructureBtn : Button
 	private void OnBtnExit()
 	{
 		_signals.EmitBuildOptionsBtnBtnHover(null, null);
+	}
+
+	private void OnAreaEntered(Area3D other)
+	{
+		if (other == _structure.Area) return;   // ignore self-entering
+		_overlaps.Add(other);
+		// optional: update visuals here
+	}
+
+	private void OnAreaExited(Area3D other)
+	{
+		_overlaps.Remove(other);
+		// optional: update visuals here
 	}
 }

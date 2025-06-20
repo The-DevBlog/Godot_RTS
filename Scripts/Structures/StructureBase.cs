@@ -7,10 +7,12 @@ public partial class StructureBase : StaticBody3D
 	[Export] public int Cost { get; set; }
 	[Export] public int BuildTime { get; set; }
 	[Export] public Node3D Model;
+	public Area3D Area { get; private set; }
 	private GlobalResources _resources;
 
 	public override void _Ready()
 	{
+		Area = GetNode<Area3D>("Area3D");
 		_resources = GlobalResources.Instance;
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to structure");
@@ -19,6 +21,7 @@ public partial class StructureBase : StaticBody3D
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to structure");
 
 		Utils.NullExportCheck(Model);
+		Utils.NullExportCheck(Area);
 
 		SetTeamColor(_resources.TeamColor);
 	}
