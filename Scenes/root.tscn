@@ -60,7 +60,7 @@ adjustment_saturation = 0.77
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_qtxxq")
-MapSize = Vector2(1000, 1000)
+MapSize = Vector2(500, 500)
 Funds = 20000
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
