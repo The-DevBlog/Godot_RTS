@@ -21,7 +21,6 @@ Model = NodePath("Garage")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00505364, 1.73916, 0.0871179)
 shape = SubResource("BoxShape3D_alkuy")
-disabled = true
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00540209)
