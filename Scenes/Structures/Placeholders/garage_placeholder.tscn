@@ -1,13 +1,113 @@
-[gd_scene load_steps=3 format=3 uid="uid://cquq6ty2k8cbm"]
+[gd_scene load_steps=7 format=3 uid="uid://cquq6ty2k8cbm"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_0dtdr"]
+[ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="2_1l7fw"]
+[ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/Emissive_yellow.tres" id="3_buljm"]
 [ext_resource type="PackedScene" uid="uid://dtxo5ku40nsbh" path="res://Scenes/Inherited/garage.tscn" id="3_ifhu8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_alkuy"]
+size = Vector3(6.66231, 3.47281, 7.7283)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a5y2n"]
 
 [node name="GaragePlaceholder" type="StaticBody3D" node_paths=PackedStringArray("Model")]
 script = ExtResource("1_0dtdr")
-Energy = -50
-Cost = 1250
-BuildTime = 3
-Model = NodePath("Model")
+HP = -1
+Energy = -1
+Cost = -1
+BuildTime = -1
+Model = NodePath("Garage")
 
-[node name="Model" parent="." instance=ExtResource("3_ifhu8")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00505364, 1.73916, 0.0871179)
+shape = SubResource("BoxShape3D_alkuy")
+disabled = true
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00540209)
+supersampling = true
+generate_probes_subdiv = 1
+light_data = ExtResource("2_1l7fw")
+
+[node name="EmissiveLights" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(1.17293, 9.53726e-05, 8.12762e-05, -0.00121532, 0.0596551, 0.147495, 0.000612736, -0.0642454, 0.136957, -0.00621692, 1.79867, 3.06502)
+mesh = SubResource("BoxMesh_a5y2n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_buljm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(0.0012162, -0.0564162, 0.080987, 1.17347, 0.000136695, -6.2521e-05, -0.00071057, 0.129187, 0.0353671, -1.18446, 0.87016, 3.02122)
+mesh = SubResource("BoxMesh_a5y2n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_buljm")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(-0.0112084, -0.163855, 0.000998877, 0.422915, -0.000696813, 0.0642964, -0.448384, 0.00343871, 0.0606194, 1.42878, 2.98689, 2.93495)
+mesh = SubResource("BoxMesh_a5y2n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_buljm")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(-0.0112084, -0.163855, 0.000998877, 0.422915, -0.000696813, 0.0642964, -0.448384, 0.00343871, 0.0606194, 1.14483, 2.98568, 2.94091)
+mesh = SubResource("BoxMesh_a5y2n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_buljm")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(-0.0112084, -0.163855, 0.000998877, 0.422915, -0.000696813, 0.0642964, -0.448384, 0.00343871, 0.0606194, 0.870356, 2.98764, 2.94579)
+mesh = SubResource("BoxMesh_a5y2n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_buljm")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(2.05106, -0.00458221, -0.00100124, 0.0355747, 0.211085, 0.112132, -0.0124279, -0.152006, 0.155745, 0.0321559, 2.39139, -2.325)
+mesh = SubResource("BoxMesh_a5y2n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_buljm")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="EmissiveLights"]
+transform = Transform3D(0.00121658, -0.0826707, 0.055108, 1.17384, 0.000103476, 3.67478e-05, -0.000710776, 0.0293891, 0.155017, 1.18008, 0.867778, 3.01931)
+mesh = SubResource("BoxMesh_a5y2n")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_buljm")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.0480989, 1.74214, 3.07827)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 1.401
+spot_attenuation = 2.15
+spot_angle = 92.07
+spot_angle_attenuation = 1.23115
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.558171, 1.74214, 3.07827)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 1.401
+spot_attenuation = 2.15
+spot_angle = 92.07
+spot_angle_attenuation = 1.23115
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, -0.539438, 1.74214, 3.07827)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 1.401
+spot_attenuation = 2.15
+spot_angle = 92.07
+spot_angle_attenuation = 1.23115
+
+[node name="Garage" parent="." instance=ExtResource("3_ifhu8")]
+
+[editable path="Garage"]

@@ -22,39 +22,6 @@ Model = NodePath("Garage")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00505364, 1.73916, 0.0871179)
 shape = SubResource("BoxShape3D_s1wbf")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.0480989, 1.74214, 3.07827)
-light_color = Color(0.846419, 0.637212, 0.154263, 1)
-light_energy = 8.0
-light_specular = 2.202
-light_bake_mode = 1
-spot_range = 1.401
-spot_attenuation = 2.15
-spot_angle = 92.07
-spot_angle_attenuation = 1.23115
-
-[node name="SpotLight3D3" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.558171, 1.74214, 3.07827)
-light_color = Color(0.846419, 0.637212, 0.154263, 1)
-light_energy = 8.0
-light_specular = 2.202
-light_bake_mode = 1
-spot_range = 1.401
-spot_attenuation = 2.15
-spot_angle = 92.07
-spot_angle_attenuation = 1.23115
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, -0.539438, 1.74214, 3.07827)
-light_color = Color(0.846419, 0.637212, 0.154263, 1)
-light_energy = 8.0
-light_specular = 2.202
-light_bake_mode = 1
-spot_range = 1.401
-spot_attenuation = 2.15
-spot_angle = 92.07
-spot_angle_attenuation = 1.23115
-
 [node name="LightmapGI" type="LightmapGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00540209)
 supersampling = true
@@ -104,6 +71,41 @@ transform = Transform3D(0.00121658, -0.0826707, 0.055108, 1.17384, 0.000103476, 
 mesh = SubResource("BoxMesh_fgyi3")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("4_7ea3r")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.0480989, 1.74214, 3.07827)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 1.401
+spot_attenuation = 2.15
+spot_angle = 92.07
+spot_angle_attenuation = 1.23115
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.558171, 1.74214, 3.07827)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 1.401
+spot_attenuation = 2.15
+spot_angle = 92.07
+spot_angle_attenuation = 1.23115
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, -0.539438, 1.74214, 3.07827)
+light_color = Color(0.846419, 0.637212, 0.154263, 1)
+light_energy = 8.0
+light_specular = 2.202
+light_bake_mode = 1
+spot_range = 1.401
+spot_attenuation = 2.15
+spot_angle = 92.07
+spot_angle_attenuation = 1.23115
 
 [node name="Garage" parent="." instance=ExtResource("5_71xs8")]
 
