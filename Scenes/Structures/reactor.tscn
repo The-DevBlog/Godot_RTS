@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://deexst56o0ban"]
+[gd_scene load_steps=14 format=3 uid="uid://deexst56o0ban"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_q857g"]
 [ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
@@ -42,6 +42,9 @@ shader_parameter/rim_power = 3.048
 shader_parameter/rim_intensity = 1.0
 shader_parameter/glow_strength = 0.0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_n7u5k"]
+size = Vector3(12.0009, 5.82309, 7.85081)
+
 [node name="Reactor" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_q857g")
 HP = 500
@@ -52,7 +55,6 @@ Model = NodePath("Reactor")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.209956, 2.8753, 0.0492393)
-visible = false
 shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="Strobes" type="Node3D" parent="."]
@@ -133,5 +135,11 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_2xpe4")
 
 [node name="Reactor" parent="." instance=ExtResource("6_vmpk5")]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00727922, 2.8753, 0.0288457)
+shape = SubResource("BoxShape3D_n7u5k")
 
 [editable path="Reactor"]
