@@ -68,12 +68,9 @@ public partial class RootContainer : Control
 
 	private void ToggleMouseVisibility()
 	{
-		if (_globalResources.IsHoveringUI)
-			Input.MouseMode = Input.MouseModeEnum.Visible;
-		else if (_globalResources.IsPlacingStructure)
-			Input.MouseMode = Input.MouseModeEnum.Hidden;
-		else
-			Input.MouseMode = Input.MouseModeEnum.Visible;
+		Input.MouseMode = (_globalResources.IsHoveringUI || !_globalResources.IsPlacingStructure)
+			? Input.MouseModeEnum.Visible
+			: Input.MouseModeEnum.Hidden;
 	}
 
 	private void SetIsHoveringUI()
