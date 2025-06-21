@@ -37,7 +37,6 @@ public partial class StructureBtn : Button
 
 	public override void _Process(double delta)
 	{
-		GD.Print("is placing strcuture: " + _globalResources.IsPlacingStructure);
 		if (_structure != null)
 		{
 			GetHoveredMapBase(out Vector3 hitPos);
@@ -68,6 +67,8 @@ public partial class StructureBtn : Button
 		}
 	}
 
+
+
 	private void RotatePlaceholder(float degrees)
 	{
 		var newRotation = _structure.RotationDegrees;
@@ -87,7 +88,6 @@ public partial class StructureBtn : Button
 		_overlaps.Clear();
 
 		GlobalResources.Instance.IsPlacingStructure = false;
-		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
 	private void OnStructureSelect()
@@ -125,7 +125,7 @@ public partial class StructureBtn : Button
 		_structure = structure;
 
 		GlobalResources.Instance.IsPlacingStructure = true;
-		Input.MouseMode = Input.MouseModeEnum.Hidden;
+		// Input.MouseMode = Input.MouseModeEnum.Hidden;
 		_scene.AddChild(_structure);
 
 		// connect signals for area overlap detection
@@ -137,7 +137,13 @@ public partial class StructureBtn : Button
 
 	private void PlaceStructure()
 	{
-		if (_structure == null || !_validPlacement || _globalResources.IsHoveringUI)
+		if (_globalResources.IsHoveringUI)
+		{
+			CancelStructure();
+			return;
+		}
+
+		if (_structure == null || !_validPlacement)
 			return;
 
 		// 1) Ray‐cast under the mouse and get (groundBody, hitPos)
@@ -175,7 +181,6 @@ public partial class StructureBtn : Button
 		_structure.QueueFree();
 		_structure = null;
 		_globalResources.IsPlacingStructure = false;
-		Input.MouseMode = Input.MouseModeEnum.Visible;
 
 		// 4) Instantiate the real structure under navRegion
 		PackedScene realScene = _models.Structures[Structure];
