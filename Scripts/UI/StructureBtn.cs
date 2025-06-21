@@ -12,8 +12,6 @@ public partial class StructureBtn : Button
 	private StructureBase _structure;
 	private MyModels _models;
 	private Camera3D _camera;
-	// private bool _validPlacement => _overlaps.Count == 0;
-	// private readonly HashSet<Area3D> _overlaps = new();
 	private Node3D _scene;
 
 	public override void _Ready()
@@ -78,15 +76,15 @@ public partial class StructureBtn : Button
 
 	private void CancelStructure()
 	{
+		_globalResources.IsPlacingStructure = false;
+
 		if (_placeholder == null) return;
 
 		_placeholder.Area.AreaEntered -= _placeholder.OnAreaEntered;
 		_placeholder.Area.AreaExited -= _placeholder.OnAreaExited;
 		_placeholder.QueueFree();
-		_placeholder = null;
 		_placeholder.Overlaps.Clear();
-
-		GlobalResources.Instance.IsPlacingStructure = false;
+		_placeholder = null;
 	}
 
 	private void OnStructureSelect()
