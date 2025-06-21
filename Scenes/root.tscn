@@ -73,13 +73,13 @@ directional_shadow_max_distance = 50.0
 [node name="Units" type="Node3D" parent="."]
 
 [node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
-transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 19.1532, 0, -7.67288)
+transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 2.04756, 0, -2.01788)
 
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, 13.8044, 0.0109811, -7.58137)
+transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.30124, 0.0109811, -1.92637)
 
 [node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
-transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, 16.6373, 0, -7.2311)
+transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, -0.468336, 0, -1.5761)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
 transform = Transform3D(1.00472, 0.00224455, -0.00275781, -0.002245, 1.00472, -0.000165073, 0.00275743, 0.000171216, 1.00472, 0, -0.25, 0)
@@ -117,6 +117,9 @@ environment = SubResource("Environment_ckhy6")
 PanSpeed = 40.0
 RotateSpeed = 200.0
 Camera = NodePath("CameraZoomPivot/Camera3D")
+
+[node name="Camera3D" parent="GameCamera/CameraZoomPivot" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, -1.92836, 2.29813)
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
 
