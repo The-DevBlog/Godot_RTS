@@ -12,8 +12,8 @@ public partial class StructureBtn : Button
 	private StructureBase _structure;
 	private MyModels _models;
 	private Camera3D _camera;
-	private bool _validPlacement => _overlaps.Count == 0;
-	private readonly HashSet<Area3D> _overlaps = new();
+	// private bool _validPlacement => _overlaps.Count == 0;
+	// private readonly HashSet<Area3D> _overlaps = new();
 	private Node3D _scene;
 
 	public override void _Ready()
@@ -80,11 +80,11 @@ public partial class StructureBtn : Button
 	{
 		if (_placeholder == null) return;
 
-		_placeholder.Area.AreaEntered -= OnAreaEntered;
-		_placeholder.Area.AreaExited -= OnAreaExited;
+		_placeholder.Area.AreaEntered -= _placeholder.OnAreaEntered;
+		_placeholder.Area.AreaExited -= _placeholder.OnAreaExited;
 		_placeholder.QueueFree();
 		_placeholder = null;
-		_overlaps.Clear();
+		_placeholder.Overlaps.Clear();
 
 		GlobalResources.Instance.IsPlacingStructure = false;
 	}
@@ -127,8 +127,8 @@ public partial class StructureBtn : Button
 		_scene.AddChild(_placeholder);
 
 		// connect signals for area overlap detection
-		_placeholder.Area.AreaEntered += OnAreaEntered;
-		_placeholder.Area.AreaExited += OnAreaExited;
+		_placeholder.Area.AreaEntered += _placeholder.OnAreaEntered;
+		_placeholder.Area.AreaExited += _placeholder.OnAreaExited;
 
 		this.ReleaseFocus();
 	}
@@ -142,7 +142,7 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		if (_placeholder == null || !_validPlacement)
+		if (_placeholder == null || !_placeholder.ValidPlacement)
 			return;
 
 
@@ -176,8 +176,8 @@ public partial class StructureBtn : Button
 
 		// 3) finish and remove placeholder
 		var finalTransform = _placeholder.GlobalTransform;
-		_placeholder.Area.AreaEntered -= OnAreaEntered;
-		_placeholder.Area.AreaExited -= OnAreaExited;
+		_placeholder.Area.AreaEntered -= _placeholder.OnAreaEntered;
+		_placeholder.Area.AreaExited -= _placeholder.OnAreaExited;
 		_placeholder.QueueFree();
 		_placeholder = null;
 		GlobalResources.Instance.IsPlacingStructure = false;
@@ -244,20 +244,5 @@ public partial class StructureBtn : Button
 	private void OnBtnExit()
 	{
 		_signals.EmitBuildOptionsBtnBtnHover(null, null);
-	}
-
-	private void OnAreaEntered(Area3D other)
-	{
-		if (other == _placeholder.Area)
-			return;   // ignore self-entering
-
-		_overlaps.Add(other);
-		// optional: update visuals here
-	}
-
-	private void OnAreaExited(Area3D other)
-	{
-		_overlaps.Remove(other);
-		// optional: update visuals here
 	}
 }
