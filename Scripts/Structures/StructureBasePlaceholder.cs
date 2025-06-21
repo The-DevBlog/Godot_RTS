@@ -15,6 +15,8 @@ public partial class StructureBasePlaceholder : StructureBase
 
 		Utils.NullExportCheck(ValidityRing);
 
+		Area.AreaEntered += OnAreaEntered;
+		Area.AreaExited += OnAreaExited;
 		_validityShader = ValidityRing.GetSurfaceOverrideMaterial(0) as ShaderMaterial;
 	}
 

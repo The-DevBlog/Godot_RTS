@@ -126,10 +126,6 @@ public partial class StructureBtn : Button
 		GlobalResources.Instance.IsPlacingStructure = true;
 		_scene.AddChild(_placeholder);
 
-		// connect signals for area overlap detection
-		_placeholder.Area.AreaEntered += _placeholder.OnAreaEntered;
-		_placeholder.Area.AreaExited += _placeholder.OnAreaExited;
-
 		this.ReleaseFocus();
 	}
 
