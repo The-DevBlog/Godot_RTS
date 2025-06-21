@@ -1,19 +1,25 @@
+using System.Collections.Generic;
 using Godot;
 using MyEnums;
 
 public partial class StructureBtn : Button
 {
 	[Export] public StructureType Structure { get; set; }
-	private GlobalResources _resources;
+	private GlobalResources _globalResources;
+	private SceneResources _sceneResources;
 	private Signals _signals;
+	private StructureBasePlaceholder _placeholder;
 	private StructureBase _structure;
 	private MyModels _models;
 	private Camera3D _camera;
+	// private bool _validPlacement => _overlaps.Count == 0;
+	// private readonly HashSet<Area3D> _overlaps = new();
 	private Node3D _scene;
 
 	public override void _Ready()
 	{
-		_resources = GlobalResources.Instance;
+		_globalResources = GlobalResources.Instance;
+		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
@@ -32,16 +38,16 @@ public partial class StructureBtn : Button
 
 	public override void _Process(double delta)
 	{
-		if (_structure != null)
+		if (_placeholder != null)
 		{
 			GetHoveredMapBase(out Vector3 hitPos);
-			_structure.GlobalPosition = hitPos;
+			_placeholder.GlobalPosition = hitPos;
 		}
 	}
 
 	public override void _Input(InputEvent @event)
 	{
-		if (_structure == null)
+		if (_placeholder == null)
 			return;
 
 		if (Input.IsActionJustPressed("mb_secondary"))
@@ -64,22 +70,33 @@ public partial class StructureBtn : Button
 
 	private void RotatePlaceholder(float degrees)
 	{
-		var newRotation = _structure.RotationDegrees;
+		var newRotation = _placeholder.RotationDegrees;
 		newRotation.Y += degrees;
 
-		_structure.RotationDegrees = newRotation;
+		_placeholder.RotationDegrees = newRotation;
 	}
 
 	private void CancelStructure()
 	{
-		_resources.IsPlacingStructure = false;
-		_scene.RemoveChild(_structure);
-		_structure = null;
-		Input.MouseMode = Input.MouseModeEnum.Visible;
+		if (_placeholder == null) return;
+
+		_placeholder.Area.AreaEntered -= _placeholder.OnAreaEntered;
+		_placeholder.Area.AreaExited -= _placeholder.OnAreaExited;
+		_placeholder.QueueFree();
+		_placeholder = null;
+		_placeholder.Overlaps.Clear();
+
+		GlobalResources.Instance.IsPlacingStructure = false;
 	}
 
 	private void OnStructureSelect()
 	{
+		if (_placeholder != null)
+		{
+			CancelStructure();
+			return;
+		}
+
 		// deselect all units
 		_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
 
@@ -92,30 +109,38 @@ public partial class StructureBtn : Button
 		}
 
 		// check if max structure count reached
-		bool maxStructureCount = _resources.MaxStructureCountReached(Structure);
+		bool maxStructureCount = _globalResources.MaxStructureCountReached(Structure);
 		if (maxStructureCount)
 			return;
 
 		// check if you have enough funds
-		bool enoughFunds = _resources.Funds >= structure.Cost;
+		bool enoughFunds = _sceneResources.Funds >= structure.Cost;
 		if (!enoughFunds)
 		{
 			GD.Print("Not enough funds!");
 			return;
 		}
 
-		_structure = structure;
+		_placeholder = _models.StructurePlaceholders[Structure].Instantiate<StructureBasePlaceholder>();
+
 		GlobalResources.Instance.IsPlacingStructure = true;
-		Input.MouseMode = Input.MouseModeEnum.Hidden;
-		_scene.AddChild(_structure);
+		_scene.AddChild(_placeholder);
 
 		this.ReleaseFocus();
 	}
 
 	private void PlaceStructure()
 	{
-		if (_structure == null)
+		GD.Print("Place!!");
+		if (_globalResources.IsHoveringUI)
+		{
+			CancelStructure();
 			return;
+		}
+
+		if (_placeholder == null || !_placeholder.ValidPlacement)
+			return;
+
 
 		// 1) Ray‐cast under the mouse and get (groundBody, hitPos)
 		StaticBody3D groundBody = GetHoveredMapBase(out Vector3 hitPos);
@@ -145,39 +170,26 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		// 3) Cache placeholder’s final world‐transform, then free it
-		Vector3 finalPos = _structure.GlobalPosition;
-		Basis finalBasis = _structure.GlobalTransform.Basis;
-		_scene.RemoveChild(_structure);
-		_structure.QueueFree();
-		_structure = null;
-		_resources.IsPlacingStructure = false;
+		// 3) finish and remove placeholder
+		var finalTransform = _placeholder.GlobalTransform;
+		_placeholder.Area.AreaEntered -= _placeholder.OnAreaEntered;
+		_placeholder.Area.AreaExited -= _placeholder.OnAreaExited;
+		_placeholder.QueueFree();
+		_placeholder = null;
+		GlobalResources.Instance.IsPlacingStructure = false;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 
 		// 4) Instantiate the real structure under navRegion
-		PackedScene realScene = _models.Structures[Structure];
-		Node3D structure = realScene.Instantiate() as Node3D;
-		if (structure == null)
-		{
-			Utils.PrintErr("Failed to instantiate structure for " + Structure);
-			return;
-		}
-
-		navRegion.AddChild(structure);
+		_structure = _models.Structures[Structure].Instantiate<StructureBase>();
+		navRegion.AddChild(_structure);
 
 		// 5) Apply the placeholder’s world transform (GlobalPosition + rotation)
-		structure.GlobalPosition = finalPos;
-		structure.GlobalTransform = new Transform3D(finalBasis, finalPos);
+		_structure.GlobalTransform = finalTransform;
 
 		// 6) Tell listeners to rebuild navmesh for only that one region
 		_signals.EmitUpdateNavigationMap(navRegion);
-
-		var structureBase = structure as StructureBase;
-		if (structureBase == null)
-			Utils.PrintErr("StructureBase class is not assigned to structure: " + Structure);
-
-		_signals.EmitUpdateEnergy(structureBase.Energy);
-		_signals.EmitUpdateFunds(-structureBase.Cost);
+		_signals.EmitUpdateEnergy(_structure.Energy);
+		_signals.EmitUpdateFunds(-_structure.Cost);
 		_signals.EmitAddStructure(Structure);
 	}
 

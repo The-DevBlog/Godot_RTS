@@ -105,7 +105,7 @@ texture = ExtResource("15_ly8nf")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ktso"]
 texture = ExtResource("16_g5aby")
 
-[node name="CommandUI" type="Control" node_paths=PackedStringArray("MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "BarracksCountContainer", "GarageCountContainer", "InfoPopupContainer", "InfoPopupLabelName", "InfoPopupLabelCost", "InfoPopupLabelBuildTime", "InfoPopupLabelEnergy", "InfoPopupLabelHP", "InfoPopupLabelDPS", "InfoPopupLabelSpeed")]
+[node name="CommandUI" type="Control" node_paths=PackedStringArray("UIContainer", "MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "BarracksCountContainer", "GarageCountContainer", "InfoPopupContainer", "InfoPopupLabelName", "InfoPopupLabelCost", "InfoPopupLabelBuildTime", "InfoPopupLabelEnergy", "InfoPopupLabelHP", "InfoPopupLabelDPS", "InfoPopupLabelSpeed")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -113,6 +113,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k4jei")
+UIContainer = NodePath("HBoxContainer/RootContainer")
 MiniMapContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer")
 ConstructionOptionsContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer")
 UnitOptionsContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer")
@@ -414,7 +415,7 @@ theme_override_colors/font_color = Color(0, 0.690196, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 25
-text = "100/100"
+text = "0/0"
 
 [node name="BuildContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer"]
 layout_mode = 2

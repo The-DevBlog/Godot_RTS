@@ -60,7 +60,9 @@ adjustment_saturation = 0.77
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_qtxxq")
-MapSize = Vector2(750, 750)
+MapSize = Vector2(500, 500)
+Funds = 20000
+TeamColor = Color(0.356362, 0.688192, 1, 1)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)

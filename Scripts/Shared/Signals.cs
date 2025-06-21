@@ -12,12 +12,14 @@ public partial class Signals : Node
     [Signal] public delegate void OnBuildOptionsBtnHoverEventHandler(StructureBase structure, UnitBase unit);
     [Signal] public delegate void AddStructureEventHandler(int structureId);
     [Signal] public delegate void UpdateEnergyColorEventHandler();
-    private GlobalResources _resources;
+    private GlobalResources _globalResources;
+    private SceneResources _sceneResources;
 
     public override void _Ready()
     {
         Instance = this;
-        _resources = GlobalResources.Instance;
+        _globalResources = GlobalResources.Instance;
+        _sceneResources = SceneResources.Instance;
     }
 
     public void EmitUpdateNavigationMap(NavigationRegion3D region) => EmitSignal(SignalName.UpdateNavigationMap, region);
@@ -27,11 +29,11 @@ public partial class Signals : Node
         GD.Print("Update Energy: " + energy);
 
         if (energy > 0)
-            _resources.Energy += energy;
+            _sceneResources.Energy += energy;
         else if (energy < 0)
-            _resources.EnergyConsumed += Math.Abs(energy);
+            _sceneResources.EnergyConsumed += Math.Abs(energy);
 
-        if (_resources.EnergyConsumed > _resources.Energy)
+        if (_sceneResources.EnergyConsumed > _sceneResources.Energy)
             EmitSignal(SignalName.UpdateEnergyColor);
 
         EmitSignal(SignalName.UpdateEnergy);
@@ -41,7 +43,7 @@ public partial class Signals : Node
     {
         GD.Print("Update Funds: " + funds);
 
-        _resources.Funds += funds;
+        _sceneResources.Funds += funds;
         EmitSignal(SignalName.UpdateFunds);
     }
 
@@ -49,7 +51,7 @@ public partial class Signals : Node
     {
         GD.Print("Add Structure: " + structure);
 
-        _resources.AddStructure(structure);
+        _globalResources.AddStructure(structure);
         EmitSignal(SignalName.AddStructure, (int)structure);
     }
 
