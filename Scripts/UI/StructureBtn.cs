@@ -125,7 +125,6 @@ public partial class StructureBtn : Button
 		_structure = structure;
 
 		GlobalResources.Instance.IsPlacingStructure = true;
-		// Input.MouseMode = Input.MouseModeEnum.Hidden;
 		_scene.AddChild(_structure);
 
 		// connect signals for area overlap detection
