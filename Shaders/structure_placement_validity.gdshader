@@ -1,33 +1,39 @@
 shader_type spatial;
 render_mode unshaded, cull_disabled, depth_draw_always, depth_test_disabled;
 
-// true = green border; false = red
+// per‐instance toggle
 uniform bool  valid_placement = true;
-// sizes of your plane in world units (X and Z)
-uniform vec2  plane_size      = vec2(1.0, 1.0);
-// desired border thickness in world units
-uniform float thickness = 0.2;
+// world‐size of the plane
+uniform vec2  plane_size   = vec2(1.0, 1.0);
+// width of the ring in world‐units
+uniform float thickness    = 0.2;
+// radius of the rounded corners, in world‐units
+uniform float corner_radius = 0.3;
 
 void fragment() {
-    // UV runs [0→1] across the plane
-    vec2 uv = UV;
+    // 1) Compute local pos in world units, centered at (0,0)
+    vec2 pos = (UV - 0.5) * plane_size;
+    vec2 half = plane_size * 0.5;
 
-    // compute distance in world units from each edge:
-    float dx = min(uv.x * plane_size.x, (1.0 - uv.x) * plane_size.x);
-    float dy = min(uv.y * plane_size.y, (1.0 - uv.y) * plane_size.y);
-    float dist_to_edge = min(dx, dy);
+    // 2) SDF to outer rounded rect (half-size = half, radius = corner_radius)
+    vec2 q = abs(pos) - (half - vec2(corner_radius));
+    vec2 q_clamped = max(q, vec2(0.0));
+    float outer_dist = length(q_clamped) - corner_radius;
 
-    // only draw where we're within 'thickness_world' of any edge:
-    if (dist_to_edge > thickness) {
+    // 3) SDF to inner rounded rect (half-size = half - vec2(thickness), same radius)
+    vec2 inner_half = half - vec2(thickness);
+    vec2 iq = abs(pos) - (inner_half - vec2(corner_radius));
+    vec2 iq_clamped = max(iq, vec2(0.0));
+    float inner_dist = length(iq_clamped) - corner_radius;
+
+    // 4) Border region = inside outer AND outside inner
+    if (!(outer_dist < 0.0 && inner_dist > 0.0)) {
         discard;
     }
 
-    // pick color by valid_placement
-    if (valid_placement) {
-        ALBEDO = vec3(0.0, 1.0, 0.0);
-        ALPHA  = 1.0;
-    } else {
-        ALBEDO = vec3(1.0, 0.0, 0.0);
-        ALPHA  = 1.0;
-    }
+    // 5) Color it
+    ALBEDO = valid_placement
+        ? vec3(0.0, 1.0, 0.0)
+        : vec3(1.0, 0.0, 0.0);
+    ALPHA = 1.0;
 }
