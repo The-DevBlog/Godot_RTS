@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=18 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Shared/SceneResources.cs" id="1_qtxxq"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
+[ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
@@ -55,6 +56,8 @@ glow_strength = 0.5
 glow_bloom = 0.45
 glow_blend_mode = 1
 fog_density = 0.0245
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
 adjustment_enabled = true
 adjustment_saturation = 0.77
 
@@ -63,10 +66,12 @@ script = ExtResource("1_qtxxq")
 MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.356362, 0.688192, 1, 1)
+RainyWeather = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
-light_energy = 0.841
+light_color = Color(0.00752476, 0.292404, 1, 1)
+light_energy = 0.3
 shadow_enabled = true
 directional_shadow_max_distance = 50.0
 
@@ -112,16 +117,12 @@ visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ckhy6")
+script = ExtResource("8_8fnbn")
 
-[node name="GameCamera" parent="." node_paths=PackedStringArray("Camera") instance=ExtResource("1_c3mwy")]
+[node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
 PanSpeed = 40.0
 RotateSpeed = 200.0
-Camera = NodePath("CameraZoomPivot/Camera3D")
-
-[node name="Camera3D" parent="GameCamera/CameraZoomPivot" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, -1.92836, 2.29813)
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
 
 [editable path="CommandUI"]
-[editable path="GameCamera"]

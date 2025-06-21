@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfwlldgg06bq6"]
+[gd_scene load_steps=10 format=3 uid="uid://dfwlldgg06bq6"]
 
 [ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/GameCamera.cs" id="1_npc2i"]
 [ext_resource type="Shader" uid="uid://bsbdr7uqyox1v" path="res://Shaders/outline_shader.gdshader" id="2_ac6r2"]
+[ext_resource type="Script" uid="uid://b61w5d5kdvuvv" path="res://Scripts/Particles/RainParticles.cs" id="3_7q1ag"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_ogslg"]
 size = Vector2(2, 2)
@@ -16,9 +17,39 @@ shader_parameter/depth_scale = 5.0
 shader_parameter/min_thickness = 0.22
 shader_parameter/max_thickness = 1.5
 
-[node name="GameCamera" type="Node3D"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c64dr"]
+emission_shape_offset = Vector3(0, 20, 0)
+emission_shape = 3
+emission_box_extents = Vector3(30, 20, 30)
+direction = Vector3(0, -1, 0)
+spread = 5.0
+initial_velocity_min = 25.0
+initial_velocity_max = 25.0
+color = Color(0.741385, 0.741385, 0.741385, 1)
+
+[sub_resource type="Curve" id="Curve_gu4b2"]
+_limits = [0.0, 0.1, 0.0, 1.0]
+_data = [Vector2(0, 0.000678405), 0.0, 0.0, 0, 0, Vector2(0.936022, 0.064723), -0.336267, -0.336267, 0, 0, Vector2(1, 0.000468425), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dpswx"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_o1ohc"]
+material = SubResource("StandardMaterial3D_dpswx")
+size = 0.05
+sections = 2
+section_length = 0.005
+curve = SubResource("Curve_gu4b2")
+
+[node name="GameCamera" type="Node3D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_npc2i")
 PanSpeedBoost = 3.0
+Camera = NodePath("CameraZoomPivot/Camera3D")
 metadata/_edit_group_ = true
 
 [node name="CameraZoomPivot" type="Node3D" parent="."]
@@ -32,3 +63,15 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.055)
 mesh = SubResource("QuadMesh_ogslg")
 surface_material_override/0 = SubResource("ShaderMaterial_kr66b")
+
+[node name="RainParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.86221, 13.306)
+amount = 2500
+lifetime = 0.5
+randomness = 0.5
+visibility_aabb = AABB(-10, -0.66, -10, 20, 8, 20)
+trail_enabled = true
+trail_lifetime = 0.02
+process_material = SubResource("ParticleProcessMaterial_c64dr")
+draw_pass_1 = SubResource("RibbonTrailMesh_o1ohc")
+script = ExtResource("3_7q1ag")
