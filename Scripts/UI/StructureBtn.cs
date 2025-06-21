@@ -67,8 +67,6 @@ public partial class StructureBtn : Button
 		}
 	}
 
-
-
 	private void RotatePlaceholder(float degrees)
 	{
 		var newRotation = _structure.RotationDegrees;
