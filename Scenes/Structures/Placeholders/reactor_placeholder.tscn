@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8r7m4qg1pklt"]
+[gd_scene load_steps=16 format=3 uid="uid://b8r7m4qg1pklt"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_ftybx"]
 [ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="2_xvr5x"]
 [ext_resource type="PackedScene" uid="uid://bbtuet73d1ffo" path="res://Scenes/Inherited/reactor.tscn" id="3_lur7o"]
 [ext_resource type="LightmapGIData" uid="uid://b3i3ocddopo57" path="res://Assets/Models/Structures/Reactor/reactor.lmbake" id="3_wlhko"]
 [ext_resource type="Shader" uid="uid://dvr171p24o3dl" path="res://Shaders/lava.gdshader" id="4_u7dov"]
+[ext_resource type="Shader" uid="uid://cdhbgwpj6njb6" path="res://Shaders/structure_placement_validity.gdshader" id="6_wlhko"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_x0cs3"]
 radius = 0.1
@@ -41,6 +42,16 @@ shader_parameter/glow_strength = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xvr5x"]
 size = Vector3(12.0009, 5.82309, 7.85081)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u7dov"]
+size = Vector2(12.84, 8.535)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlhko"]
+render_priority = 0
+shader = ExtResource("6_wlhko")
+shader_parameter/valid_placement = true
+shader_parameter/plane_size = Vector2(1.465, 1.125)
+shader_parameter/thickness_world = 0.04
 
 [node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("Model")]
 script = ExtResource("1_ftybx")
@@ -134,5 +145,9 @@ surface_material_override/0 = SubResource("ShaderMaterial_xdcgy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00727922, 2.8753, 0.0288457)
 shape = SubResource("BoxShape3D_xvr5x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_u7dov")
+surface_material_override/0 = SubResource("ShaderMaterial_wlhko")
 
 [editable path="Reactor"]
