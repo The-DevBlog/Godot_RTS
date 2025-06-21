@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bbtuet73d1ffo" path="res://Scenes/Inherited/reactor.tscn" id="6_vmpk5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
-size = Vector3(9.7321, 5.82309, 6.03851)
+size = Vector3(9.75535, 5.82309, 6.03851)
 
 [sub_resource type="SphereMesh" id="SphereMesh_fuk4o"]
 radius = 0.1
@@ -43,7 +43,7 @@ shader_parameter/rim_intensity = 1.0
 shader_parameter/glow_strength = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n7u5k"]
-size = Vector3(12.8977, 5.82309, 8.57965)
+size = Vector3(12.9523, 5.82309, 8.63455)
 
 [node name="Reactor" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_q857g")
@@ -54,7 +54,7 @@ BuildTime = 3
 Model = NodePath("Reactor")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.209956, 2.8753, 0.0492393)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0296776, 2.8753, 0.0492393)
 shape = SubResource("BoxShape3D_s1wbf")
 
 [node name="Strobes" type="Node3D" parent="."]
@@ -139,7 +139,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_2xpe4")
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00604171, 2.8753, 0.000253111)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0212424, 2.8753, -0.0271979)
 shape = SubResource("BoxShape3D_n7u5k")
 
 [editable path="Reactor"]

@@ -11,7 +11,7 @@ size = Vector3(6.66231, 3.47281, 7.7283)
 [sub_resource type="BoxMesh" id="BoxMesh_fgyi3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7ea3r"]
-size = Vector3(9.94084, 3.47281, 10.7475)
+size = Vector3(10.3153, 3.47281, 10.7475)
 
 [node name="Garage" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_fgyi3")
@@ -115,7 +115,7 @@ spot_angle_attenuation = 1.23115
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.118961, 1.73916, 0.251162)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141096, 1.73916, 0.251162)
 shape = SubResource("BoxShape3D_7ea3r")
 
 [editable path="Garage"]

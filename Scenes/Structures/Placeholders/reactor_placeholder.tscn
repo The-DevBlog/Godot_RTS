@@ -5,18 +5,16 @@
 [ext_resource type="Shader" uid="uid://cdhbgwpj6njb6" path="res://Shaders/structure_placement_validity.gdshader" id="6_wlhko"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xvr5x"]
-size = Vector3(12.8977, 5.82309, 8.57965)
+size = Vector3(12.9523, 5.82309, 8.63455)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_u7dov"]
-size = Vector2(12.84, 8.535)
+size = Vector2(13.045, 8.74)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wlhko"]
 render_priority = 0
 shader = ExtResource("6_wlhko")
 shader_parameter/valid_placement = true
 shader_parameter/plane_size = Vector2(1.465, 1.125)
-shader_parameter/thickness = 0.045
-shader_parameter/corner_radius = 0.11
 
 [node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityRing", "Model")]
 script = ExtResource("1_wlhko")
@@ -35,7 +33,7 @@ transparency = 0.3
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00604171, 2.8753, 0.000253111)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0212424, 2.8753, -0.0271979)
 shape = SubResource("BoxShape3D_xvr5x")
 
 [node name="ValidityRing" type="MeshInstance3D" parent="."]

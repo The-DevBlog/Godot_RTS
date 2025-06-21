@@ -8,12 +8,12 @@ public partial class StructureBase : StaticBody3D
 	[Export] public int BuildTime { get; set; }
 	[Export] public Node3D Model;
 	public Area3D Area { get; private set; }
-	private GlobalResources _resources;
+	private SceneResources _sceneResources;
 
 	public override void _Ready()
 	{
 		Area = GetNode<Area3D>("Area3D");
-		_resources = GlobalResources.Instance;
+		_sceneResources = SceneResources.Instance;
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to structure");
 		if (Energy == 0) Utils.PrintErr("No Energy Assigned to structure");
@@ -23,7 +23,7 @@ public partial class StructureBase : StaticBody3D
 		Utils.NullExportCheck(Model);
 		Utils.NullExportCheck(Area);
 
-		SetTeamColor(_resources.TeamColor);
+		SetTeamColor(_sceneResources.TeamColor);
 	}
 
 	public void SetTeamColor(Color color)
