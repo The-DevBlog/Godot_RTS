@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cquq6ty2k8cbm"]
 
-[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_0dtdr"]
+[ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_1l7fw"]
 [ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="2_1l7fw"]
 [ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/Emissive_yellow.tres" id="3_buljm"]
 [ext_resource type="PackedScene" uid="uid://dtxo5ku40nsbh" path="res://Scenes/Inherited/garage.tscn" id="3_ifhu8"]
@@ -11,7 +11,7 @@
 size = Vector3(9.49774, 3.47281, 9.9986)
 
 [node name="GaragePlaceholder" type="StaticBody3D" node_paths=PackedStringArray("Model")]
-script = ExtResource("1_0dtdr")
+script = ExtResource("1_1l7fw")
 HP = -1
 Energy = -1
 Cost = -1
