@@ -1,13 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4gy8gjkq87cb"]
+[gd_scene load_steps=7 format=3 uid="uid://b4gy8gjkq87cb"]
 
-[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_6ll3j"]
+[ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_6ll3j"]
 [ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_72kei"]
+[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_ffudo"]
 
-[node name="BarracksPlaceholder" type="StaticBody3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_buljm"]
+render_priority = 1
+shader = ExtResource("3_ffudo")
+shader_parameter/grid_radius = 10.5
+shader_parameter/grid_size = Vector2(1, 1)
+shader_parameter/cell_margin = 0.1
+shader_parameter/cell_corner_rad = 0.1
+shader_parameter/edge_fade = 14.0
+shader_parameter/valid_color = Vector4(0.8, 0.8, 0.8, 0.8)
+shader_parameter/invalid_color = Vector4(1, 0, 0, 0.8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6y0hw"]
+material = SubResource("ShaderMaterial_buljm")
+size = Vector2(20, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ffudo"]
+size = Vector3(7.00906, 3.47281, 8.78516)
+
+[node name="BarracksPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
 script = ExtResource("1_6ll3j")
-Energy = -15
-Cost = 500
-BuildTime = 3
+ValidityGrid = NodePath("ValidityGrid")
+HP = -1
+Energy = -1
+Cost = -1
+BuildTime = -1
+Model = NodePath("Barracks")
 
-[node name="Model" parent="." instance=ExtResource("1_72kei")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985161, 0)
+[node name="ValidityGrid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0760515, 0)
+mesh = SubResource("PlaneMesh_6y0hw")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.312357, 1.73916, -2.41995e-05)
+shape = SubResource("BoxShape3D_ffudo")
+
+[node name="Barracks" parent="." instance=ExtResource("1_72kei")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.901435, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.965926, 1.13133e-08, -0.258819, 0.258819, -4.2222e-08, 0.965926, 0, -1, -4.37114e-08, 1, 3.10697, -0.187459)
+
+[editable path="Barracks"]
