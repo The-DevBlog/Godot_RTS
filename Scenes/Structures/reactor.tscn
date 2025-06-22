@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://deexst56o0ban"]
+[gd_scene load_steps=20 format=3 uid="uid://deexst56o0ban"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_q857g"]
 [ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
 [ext_resource type="LightmapGIData" uid="uid://b3i3ocddopo57" path="res://Assets/Models/Structures/Reactor/reactor.lmbake" id="3_n7u5k"]
 [ext_resource type="Shader" uid="uid://dvr171p24o3dl" path="res://Shaders/lava.gdshader" id="4_fuk4o"]
+[ext_resource type="Shader" uid="uid://d2kmf2rma73yr" path="res://Shaders/embers.gdshader" id="5_vmpk5"]
 [ext_resource type="PackedScene" uid="uid://bbtuet73d1ffo" path="res://Scenes/Inherited/reactor.tscn" id="6_vmpk5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
@@ -41,6 +42,32 @@ shader_parameter/toon_steps = 3.0
 shader_parameter/rim_power = 3.048
 shader_parameter/rim_intensity = 1.0
 shader_parameter/glow_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixh1v"]
+render_priority = 1
+shader = ExtResource("5_vmpk5")
+shader_parameter/ember_color = Color(1, 0.360043, 0.080025, 1)
+shader_parameter/edge_fade = 1.445
+
+[sub_resource type="Curve" id="Curve_vmpk5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.63135, 0.514778), 2.06284, 2.06284, 0, 0, Vector2(0.824383, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ixh1v"]
+curve = SubResource("Curve_vmpk5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2xpe4"]
+lifetime_randomness = 0.2
+emission_shape = 2
+emission_sphere_radius = 1.2
+gravity = Vector3(0, 10, 0)
+turbulence_enabled = true
+turbulence_noise_strength = 4.38
+turbulence_influence_over_life = SubResource("CurveTexture_ixh1v")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ap7sa"]
+radius = 0.05
+height = 0.1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_n7u5k"]
 size = Vector3(12.9523, 5.82309, 8.63455)
@@ -133,6 +160,13 @@ transform = Transform3D(3.15393, 0, 0, 0, 1.00834, 0, 0, 0, 3.34705, 1.6758, 5.0
 mesh = SubResource("CylinderMesh_n7u5k")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_2xpe4")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Lava"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70076, 5.1913, 0.0325537)
+material_override = SubResource("ShaderMaterial_ixh1v")
+cast_shadow = 0
+process_material = SubResource("ParticleProcessMaterial_2xpe4")
+draw_pass_1 = SubResource("SphereMesh_ap7sa")
 
 [node name="Reactor" parent="." instance=ExtResource("6_vmpk5")]
 

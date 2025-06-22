@@ -129,7 +129,6 @@ public partial class StructureBtn : Button
 
 	private void PlaceStructure()
 	{
-		GD.Print("Place!!");
 		if (_globalResources.IsHoveringUI)
 		{
 			CancelStructure();
