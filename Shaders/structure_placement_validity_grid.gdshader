@@ -14,29 +14,58 @@ uniform float edge_fade      = 1.0;
 // grid color & alpha
 uniform vec4  grid_color     = vec4(1.0,1.0,1.0,1.0);
 
+instance uniform bool valid_placement = true;
+
+// hard-coded defaults in-shader, no color-picker:
+uniform vec4 valid_color   = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 invalid_color = vec4(1.0, 0.0, 0.0, 1.0);
+
+
+
+// void fragment() {
+//     // 1) Map UV into world-space pos (centered)
+//     vec2 pos = (UV - 0.5) * plane_size;
+//     float dist = length(pos);  // distance from center
+
+//     // 2) Compute a fade factor: 1.0 well inside, 0.0 at/over the radius
+//     float fade = 1.0 - smoothstep(grid_radius - edge_fade, grid_radius, dist);
+//     // if fully faded out, skip
+//     if (fade <= 0.0)
+//         discard;
+
+//     // 3) Figure out if we're on a grid line
+//     vec2 uvg = pos / grid_size;
+//     vec2 f   = fract(uvg);
+//     // world-space distance to nearest cell edge
+//     float dx = min(f.x, 1.0 - f.x) * grid_size.x;
+//     float dy = min(f.y, 1.0 - f.y) * grid_size.y;
+//     float d  = min(dx, dy);
+
+//     if (d < line_width) {
+//         // 4) Draw the line, modulating alpha by the fade
+//         ALBEDO = grid_color.rgb;
+//         ALPHA  = grid_color.a * fade;
+//     } else {
+//         discard;
+//     }
+// }
+
 void fragment() {
-    // 1) Map UV into world-space pos (centered)
     vec2 pos = (UV - 0.5) * plane_size;
-    float dist = length(pos);  // distance from center
-
-    // 2) Compute a fade factor: 1.0 well inside, 0.0 at/over the radius
+    float dist = length(pos);
     float fade = 1.0 - smoothstep(grid_radius - edge_fade, grid_radius, dist);
-    // if fully faded out, skip
-    if (fade <= 0.0)
-        discard;
+    if (fade <= 0.0) discard;
 
-    // 3) Figure out if we're on a grid line
     vec2 uvg = pos / grid_size;
     vec2 f   = fract(uvg);
-    // world-space distance to nearest cell edge
     float dx = min(f.x, 1.0 - f.x) * grid_size.x;
     float dy = min(f.y, 1.0 - f.y) * grid_size.y;
     float d  = min(dx, dy);
 
     if (d < line_width) {
-        // 4) Draw the line, modulating alpha by the fade
-        ALBEDO = grid_color.rgb;
-        ALPHA  = grid_color.a * fade;
+        vec4 col = valid_placement ? valid_color : invalid_color;
+        ALBEDO = col.rgb;
+        ALPHA  = col.a * fade;
     } else {
         discard;
     }

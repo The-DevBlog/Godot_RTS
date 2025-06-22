@@ -4,12 +4,11 @@ using MyEnums;
 
 public partial class StructureBasePlaceholder : StructureBase
 {
-	[Export] MeshInstance3D ValidityRing { get; set; }
+	[Export] MeshInstance3D ValidityGrid { get; set; }
 	public readonly HashSet<Area3D> Overlaps = new();
 	public bool ValidPlacement => Overlaps.Count == 0;
-	private Vector2 _gridCellSize = new Vector2(2.0f, 2.0f);
+	private Vector2 _gridCellSize = new Vector2(1.0f, 1.0f);
 	private bool _lastValidState = true;
-	private ShaderMaterial _validityShader;
 	private Camera3D _camera;
 
 	public override void _Ready()
@@ -18,12 +17,10 @@ public partial class StructureBasePlaceholder : StructureBase
 
 		_camera = GetViewport().GetCamera3D();
 
-		Utils.NullExportCheck(ValidityRing);
+		Utils.NullExportCheck(ValidityGrid);
 
 		Area.AreaEntered += OnAreaEntered;
 		Area.AreaExited += OnAreaExited;
-
-		_validityShader = ValidityRing.GetSurfaceOverrideMaterial(0) as ShaderMaterial;
 	}
 
 	public override void _Process(double delta)
@@ -96,9 +93,9 @@ public partial class StructureBasePlaceholder : StructureBase
 		// only flip if it really changed
 		if (nowValid == _lastValidState)
 			return;
+
 		_lastValidState = nowValid;
 
-		// this assumes your shader has a `uniform bool valid_placement;`
-		_validityShader.SetShaderParameter("valid_placement", nowValid);
+		ValidityGrid.SetInstanceShaderParameter("valid_placement", nowValid);
 	}
 }

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c2kc76w2f4gx3" path="res://Assets/Models/Structures/Garage/TeamMask.png" id="3_cifo0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rxu1i"]
-render_priority = 0
+render_priority = 4
 shader = ExtResource("1_rxu1i")
 shader_parameter/albedo_texture = ExtResource("1_7stc3")
 shader_parameter/team_mask = ExtResource("3_cifo0")

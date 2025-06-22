@@ -16,9 +16,8 @@ shader = ExtResource("6_wlhko")
 shader_parameter/valid_placement = true
 shader_parameter/plane_size = Vector2(1.465, 1.125)
 
-[node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityRing", "Model")]
+[node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("Model")]
 script = ExtResource("1_wlhko")
-ValidityRing = NodePath("ValidityRing")
 HP = -1
 Energy = -1
 Cost = -1
