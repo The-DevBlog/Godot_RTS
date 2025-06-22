@@ -23,7 +23,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		if (_sceneResources.RainyWeather)
 			return;
 
-		_sunLight.LightEnergy = 2.0f;
+		_sunLight.LightEnergy = 1.75f;
 		_sunLight.LightColor = _dayColor;
 
 		Environment.VolumetricFogEnabled = false;

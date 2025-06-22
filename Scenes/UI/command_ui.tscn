@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=44 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bq6aa66jlouje" path="res://Assets/Textures/UI/Structures/Reactor.png" id="15_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
+[ext_resource type="Texture2D" uid="uid://c2w03bgb2pcqr" path="res://Assets/Textures/UI/Structures/Barracks.png" id="17_tlv7r"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg0vo"]
@@ -70,7 +71,7 @@ region_rect = Rect2(841, 80, 20, 21)
 texture = ExtResource("15_bfyu0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5aby"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("17_tlv7r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esy4f"]
 texture = ExtResource("15_bfyu0")

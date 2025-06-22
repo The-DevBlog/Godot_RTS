@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbq0dbyjkmmu8"
-path.s3tc="res://.godot/imported/Barracks_BaseColor.png-3b1d6e50f57a7cb657c4e0f8a27d84a8.s3tc.ctex"
+uid="uid://boy1l6o3apbki"
+path.s3tc="res://.godot/imported/TeamMask.png-8d5a9122732b6a4c2834e46d62e8f357.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "44b25ab0c224bd22fc1eb78534e483de"
-}
 
 [deps]
 
-source_file="res://Assets/Models/Structures/Barracks/Barracks_BaseColor.png"
-dest_files=["res://.godot/imported/Barracks_BaseColor.png-3b1d6e50f57a7cb657c4e0f8a27d84a8.s3tc.ctex"]
+source_file="res://Assets/Models/Structures/Barracks/TeamMask.png"
+dest_files=["res://.godot/imported/TeamMask.png-8d5a9122732b6a4c2834e46d62e8f357.s3tc.ctex"]
 
 [params]
 

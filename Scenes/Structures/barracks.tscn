@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://p6omv7jvueob"]
 
-[ext_resource type="PackedScene" uid="uid://de4mmvlinkg3e" path="res://Assets/Models/Structures/Barracks/Barracks.glb" id="1_c4alm"]
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_ymdpg"]
 [ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="3_1gvql"]
+[ext_resource type="PackedScene" uid="uid://bmi5o5g1ocs7s" path="res://Scenes/Inherited/barracks.tscn" id="4_474wx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
 size = Vector3(5.52723, 3.135, 7.93049)
@@ -31,9 +31,6 @@ Model = NodePath("Barracks")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.238854, 1.61968, 0.0266391)
 shape = SubResource("BoxShape3D_s1wbf")
 
-[node name="Barracks" parent="." instance=ExtResource("1_c4alm")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.901435, 0)
-
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
@@ -42,57 +39,93 @@ shape = SubResource("BoxShape3D_ymdpg")
 
 [node name="Lights" type="Node3D" parent="."]
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(0.953038, -1.32381e-08, 0.302852, -0.302852, -4.16586e-08, 0.953038, 2.91947e-16, -1, -4.37114e-08, 0.936243, 3.02139, -0.187459)
+[node name="CatwalkLight1" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.953038, -1.32381e-08, 0.302852, -0.302852, -4.16586e-08, 0.953038, 2.91947e-16, -1, -4.37114e-08, 0.668231, 3.02139, -0.187459)
 light_color = Color(0.847059, 0.635294, 0.152941, 1)
 light_energy = 40.0
+light_bake_mode = 1
 shadow_enabled = true
-spot_range = 1.632
+spot_range = 1.707
 spot_attenuation = 0.1
-spot_angle = 63.0
+spot_angle = 57.37
 spot_angle_attenuation = 0.965941
 
-[node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(0.953038, -1.32381e-08, 0.302852, -0.302852, -4.16586e-08, 0.953038, 2.91947e-16, -1, -4.37114e-08, 0.936243, 3.02139, -2.02023)
+[node name="CatwalkLight2" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.953038, -1.32381e-08, 0.302852, -0.302852, -4.16586e-08, 0.953038, 2.91947e-16, -1, -4.37114e-08, 0.668231, 3.02139, -2.02023)
 light_color = Color(0.847059, 0.635294, 0.152941, 1)
 light_energy = 40.0
+light_bake_mode = 1
 shadow_enabled = true
-spot_range = 1.632
+spot_range = 1.707
 spot_attenuation = 0.1
-spot_angle = 63.0
+spot_angle = 57.37
 spot_angle_attenuation = 0.965941
 
-[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(0.953038, -1.32381e-08, 0.302852, -0.302852, -4.16586e-08, 0.953038, 2.91947e-16, -1, -4.37114e-08, 0.936243, 3.02139, 1.64513)
+[node name="CatwalkLight3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.953038, -1.32381e-08, 0.302852, -0.302852, -4.16586e-08, 0.953038, 2.91947e-16, -1, -4.37114e-08, 0.668231, 3.02139, 1.64513)
 light_color = Color(0.847059, 0.635294, 0.152941, 1)
 light_energy = 40.0
+light_bake_mode = 1
 shadow_enabled = true
-spot_range = 1.632
+spot_range = 1.707
 spot_attenuation = 0.1
-spot_angle = 63.0
+spot_angle = 57.37
 spot_angle_attenuation = 0.965941
+
+[node name="OverhangLight1" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.981544, -8.35925e-09, 0.191237, -0.191237, -4.29046e-08, 0.981544, 0, -1, -4.37114e-08, -2.00677, 1.54299, -2.01284)
+light_color = Color(0.847059, 0.635294, 0.152941, 1)
+light_energy = 40.0
+light_bake_mode = 1
+spot_range = 1.822
+spot_attenuation = -2.02
+spot_angle = 65.24
+spot_angle_attenuation = 3.24898
+
+[node name="OverhangLight2" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.981544, -8.35925e-09, 0.191237, -0.191237, -4.29046e-08, 0.981544, 0, -1, -4.37114e-08, -2.00677, 1.54299, -0.0976511)
+light_color = Color(0.847059, 0.635294, 0.152941, 1)
+light_energy = 40.0
+light_bake_mode = 1
+spot_range = 1.822
+spot_attenuation = -2.02
+spot_angle = 65.24
+spot_angle_attenuation = 3.24898
+
+[node name="OverhangLight3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.981544, -8.35925e-09, 0.191237, -0.191237, -4.29046e-08, 0.981544, 0, -1, -4.37114e-08, -2.00677, 1.54299, 1.53633)
+light_color = Color(0.847059, 0.635294, 0.152941, 1)
+light_energy = 40.0
+light_bake_mode = 1
+spot_range = 1.822
+spot_attenuation = -2.02
+spot_angle = 65.24
+spot_angle_attenuation = 3.24898
 
 [node name="EmissiveLights" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="EmissiveLights"]
-transform = Transform3D(0.149054, -0.00668387, 0, 0.0280698, 0.0354922, 0, 0, 0, 0.111921, 0.879735, 3.00874, -0.188384)
+transform = Transform3D(0.149054, -0.00668387, 0, 0.0280698, 0.0354922, 0, 0, 0, 0.111921, 0.58259, 3.00874, -0.188384)
 mesh = SubResource("BoxMesh_1gvql")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="EmissiveLights"]
-transform = Transform3D(0.149054, -0.00668387, 0, 0.0280698, 0.0354922, 0, 0, 0, 0.111921, 0.879735, 3.00874, -2.02115)
+transform = Transform3D(0.149054, -0.00668387, 0, 0.0280698, 0.0354922, 0, 0, 0, 0.111921, 0.58259, 3.00874, -2.02115)
 mesh = SubResource("BoxMesh_1gvql")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="EmissiveLights"]
-transform = Transform3D(0.149054, -0.00668387, 0, 0.0280698, 0.0354922, 0, 0, 0, 0.111921, 0.879735, 3.00874, 1.6442)
+transform = Transform3D(0.149054, -0.00668387, 0, 0.0280698, 0.0354922, 0, 0, 0, 0.111921, 0.58259, 3.00874, 1.6442)
 mesh = SubResource("BoxMesh_1gvql")
 skeleton = NodePath("../..")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00540209)
+visible = false
 supersampling = true
 generate_probes_subdiv = 1
 light_data = ExtResource("3_1gvql")
+
+[node name="Barracks" parent="." instance=ExtResource("4_474wx")]
 
 [editable path="Barracks"]
