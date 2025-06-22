@@ -66,6 +66,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_kr66b")
 
 [node name="RainParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.86221, 13.306)
+visible = false
 amount = 2500
 lifetime = 0.5
 randomness = 0.5
