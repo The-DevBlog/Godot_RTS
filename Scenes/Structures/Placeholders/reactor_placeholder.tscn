@@ -10,12 +10,11 @@ size = Vector3(11.944, 5.82309, 7.74637)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qumjl"]
 render_priority = 1
 shader = ExtResource("3_4o8lw")
-shader_parameter/plane_size = Vector2(20, 20)
 shader_parameter/grid_radius = 10.5
 shader_parameter/grid_size = Vector2(1, 1)
-shader_parameter/line_width = 0.02
-shader_parameter/edge_fade = 5.5
-shader_parameter/grid_color = Vector4(1, 1, 1, 1)
+shader_parameter/cell_margin = 0.1
+shader_parameter/cell_corner_rad = 0.1
+shader_parameter/edge_fade = 15.0
 shader_parameter/valid_color = Vector4(0.8, 0.8, 0.8, 0.8)
 shader_parameter/invalid_color = Vector4(1, 0, 0, 0.8)
 
