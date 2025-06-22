@@ -11,22 +11,6 @@
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
-vertices = PackedVector3Array(-98.25, 0.75, -98.25, -98.25, 0.75, 98.25, 98.25, 0.75, 98.25, 98.25, 0.75, -98.25)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-agent_height = 1.0
-agent_radius = 1.6
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckhy6"]
-albedo_color = Color(0.329412, 0.486275, 0.32549, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_or46v"]
-material = SubResource("StandardMaterial3D_ckhy6")
-size = Vector3(200, 0.5, 200)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
-size = Vector3(200, 0.5, 200)
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
 sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
 sky_curve = 0.0530337
@@ -58,9 +42,25 @@ glow_bloom = 0.08
 glow_blend_mode = 4
 fog_density = 0.0245
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.01
+volumetric_fog_density = 0.02
 adjustment_enabled = true
 adjustment_saturation = 0.77
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
+vertices = PackedVector3Array(-98.25, 0.75, -98.25, -98.25, 0.75, 98.25, 98.25, 0.75, 98.25, 98.25, 0.75, -98.25)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+agent_height = 1.0
+agent_radius = 1.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckhy6"]
+albedo_color = Color(0.329412, 0.486275, 0.32549, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_or46v"]
+material = SubResource("StandardMaterial3D_ckhy6")
+size = Vector3(200, 0.5, 200)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
+size = Vector3(200, 0.5, 200)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_qtxxq")
@@ -69,22 +69,9 @@ Funds = 20000
 TeamColor = Color(0.356362, 0.688192, 1, 1)
 RainyWeather = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
-light_color = Color(0.491813, 0.659919, 0.999999, 1)
-shadow_enabled = true
-directional_shadow_max_distance = 50.0
-
-[node name="Units" type="Node3D" parent="."]
-
-[node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
-transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 2.04756, 0, -2.01788)
-
-[node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.30124, 0.0109811, -1.92637)
-
-[node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
-transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, -0.468336, 0, -1.5761)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ckhy6")
+script = ExtResource("8_8fnbn")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
 transform = Transform3D(1.00472, 0.00224455, -0.00275781, -0.002245, 1.00472, -0.000165073, 0.00275743, 0.000171216, 1.00472, 0, -0.25, 0)
@@ -105,23 +92,37 @@ mesh = SubResource("BoxMesh_or46v")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
 shape = SubResource("BoxShape3D_ns7qj")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
+light_color = Color(0.88314, 0.923414, 0.999999, 1)
+light_energy = 2.5
+shadow_enabled = true
+directional_shadow_max_distance = 50.0
+
+[node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
+PanSpeed = 40.0
+RotateSpeed = 200.0
+
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
 [node name="Control" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer/NinePatchRect/MarginContainer" index="1" node_paths=PackedStringArray("GameCamera")]
 GameCamera = NodePath("../../../../../../../../GameCamera")
 
+[node name="Units" type="Node3D" parent="."]
+
+[node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
+transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 2.04756, 0, -2.01788)
+
+[node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.30124, 0.0109811, -1.92637)
+
+[node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
+transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, -0.468336, 0, -1.5761)
+
 [node name="Shaders" type="Node3D" parent="."]
 
 [node name="PixelatedShader" parent="Shaders" instance=ExtResource("6_ckhy6")]
 visible = false
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_ckhy6")
-script = ExtResource("8_8fnbn")
-
-[node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
-PanSpeed = 40.0
-RotateSpeed = 200.0
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
 
