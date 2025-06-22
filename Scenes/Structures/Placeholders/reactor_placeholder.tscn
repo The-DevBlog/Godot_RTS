@@ -1,24 +1,30 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8r7m4qg1pklt"]
 
 [ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_wlhko"]
+[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_4o8lw"]
 [ext_resource type="PackedScene" uid="uid://bbtuet73d1ffo" path="res://Scenes/Inherited/reactor.tscn" id="3_lur7o"]
-[ext_resource type="Shader" uid="uid://cdhbgwpj6njb6" path="res://Shaders/structure_placement_validity.gdshader" id="6_wlhko"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xvr5x"]
-size = Vector3(12.9523, 5.82309, 8.63455)
+size = Vector3(11.944, 5.82309, 7.74637)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_u7dov"]
-size = Vector2(13.045, 8.74)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qumjl"]
+render_priority = 1
+shader = ExtResource("3_4o8lw")
+shader_parameter/grid_radius = 10.5
+shader_parameter/grid_size = Vector2(1, 1)
+shader_parameter/cell_margin = 0.1
+shader_parameter/cell_corner_rad = 0.1
+shader_parameter/edge_fade = 15.0
+shader_parameter/valid_color = Vector4(0.8, 0.8, 0.8, 0.8)
+shader_parameter/invalid_color = Vector4(1, 0, 0, 0.8)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlhko"]
-render_priority = 0
-shader = ExtResource("6_wlhko")
-shader_parameter/valid_placement = true
-shader_parameter/plane_size = Vector2(1.465, 1.125)
+[sub_resource type="PlaneMesh" id="PlaneMesh_xvr5x"]
+material = SubResource("ShaderMaterial_qumjl")
+size = Vector2(20, 20)
 
-[node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityRing", "Model")]
+[node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
 script = ExtResource("1_wlhko")
-ValidityRing = NodePath("ValidityRing")
+ValidityGrid = NodePath("ValidityGrid")
 HP = -1
 Energy = -1
 Cost = -1
@@ -27,17 +33,14 @@ Model = NodePath("Reactor")
 
 [node name="Reactor" parent="." instance=ExtResource("3_lur7o")]
 
-[node name="Cube_003" parent="Reactor" index="0"]
-transparency = 0.3
-
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0212424, 2.8753, -0.0271979)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0154555, 2.8753, 0.00419134)
 shape = SubResource("BoxShape3D_xvr5x")
 
-[node name="ValidityRing" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_u7dov")
-surface_material_override/0 = SubResource("ShaderMaterial_wlhko")
+[node name="ValidityGrid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0760515, 0)
+mesh = SubResource("PlaneMesh_xvr5x")
 
 [editable path="Reactor"]

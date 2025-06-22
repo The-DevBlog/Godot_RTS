@@ -129,10 +129,7 @@ public partial class RootContainer : Control
 		StructureType structureType = (StructureType)structureId;
 
 		if (structureType != StructureType.Garage && structureType != StructureType.Barracks)
-		{
-			GD.Print("Returning");
 			return;
-		}
 
 		int structureCount = _globalResources.StructureCount[structureType];
 

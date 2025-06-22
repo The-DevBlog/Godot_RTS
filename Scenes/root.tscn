@@ -41,7 +41,6 @@ glow_strength = 1.41
 glow_bloom = 0.08
 glow_blend_mode = 4
 fog_density = 0.0245
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.02
 adjustment_enabled = true
 adjustment_saturation = 0.77
@@ -53,6 +52,7 @@ agent_height = 1.0
 agent_radius = 1.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckhy6"]
+render_priority = -1
 albedo_color = Color(0.329412, 0.486275, 0.32549, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]

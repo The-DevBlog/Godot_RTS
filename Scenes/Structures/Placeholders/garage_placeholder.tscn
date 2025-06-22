@@ -4,25 +4,31 @@
 [ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="2_1l7fw"]
 [ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/Emissive_yellow.tres" id="3_buljm"]
 [ext_resource type="PackedScene" uid="uid://dtxo5ku40nsbh" path="res://Scenes/Inherited/garage.tscn" id="3_ifhu8"]
-[ext_resource type="Shader" uid="uid://cdhbgwpj6njb6" path="res://Shaders/structure_placement_validity.gdshader" id="5_buljm"]
+[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="6_alkuy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a5y2n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_alkuy"]
-size = Vector3(10.3153, 3.47281, 10.7475)
+size = Vector3(9.31105, 3.47281, 9.90435)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_alkuy"]
-size = Vector2(10.44, 10.87)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_buljm"]
+render_priority = 1
+shader = ExtResource("6_alkuy")
+shader_parameter/grid_radius = 10.5
+shader_parameter/grid_size = Vector2(1, 1)
+shader_parameter/cell_margin = 0.1
+shader_parameter/cell_corner_rad = 0.1
+shader_parameter/edge_fade = 14.0
+shader_parameter/valid_color = Vector4(0.8, 0.8, 0.8, 0.8)
+shader_parameter/invalid_color = Vector4(1, 0, 0, 0.8)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a5y2n"]
-render_priority = 0
-shader = ExtResource("5_buljm")
-shader_parameter/valid_placement = true
-shader_parameter/plane_size = Vector2(1.11, 1.33)
+[sub_resource type="PlaneMesh" id="PlaneMesh_1mdts"]
+material = SubResource("ShaderMaterial_buljm")
+size = Vector2(20, 20)
 
-[node name="GaragePlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityRing", "Model")]
+[node name="GaragePlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
 script = ExtResource("1_1l7fw")
-ValidityRing = NodePath("ValidityRing")
+ValidityGrid = NodePath("ValidityGrid")
 HP = -1
 Energy = -1
 Cost = -1
@@ -119,18 +125,14 @@ spot_angle_attenuation = 1.23115
 
 [node name="Garage" parent="." instance=ExtResource("3_ifhu8")]
 
-[node name="StructureFloor_003" parent="Garage" index="0"]
-transparency = 0.3
-
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.141096, 1.73916, 0.251162)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114316, 1.73916, 0.256559)
 shape = SubResource("BoxShape3D_alkuy")
 
-[node name="ValidityRing" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125866, 0, 0.251734)
-mesh = SubResource("PlaneMesh_alkuy")
-surface_material_override/0 = SubResource("ShaderMaterial_a5y2n")
+[node name="ValidityGrid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0760515, 0)
+mesh = SubResource("PlaneMesh_1mdts")
 
 [editable path="Garage"]
