@@ -67,7 +67,6 @@ script = ExtResource("1_qtxxq")
 MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.356362, 0.688192, 1, 1)
-RainyWeather = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ckhy6")
