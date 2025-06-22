@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_fgyi3"]
 [ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="2_7ea3r"]
-[ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/Emissive_yellow.tres" id="4_7ea3r"]
+[ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/emissive_yellow.tres" id="4_7ea3r"]
 [ext_resource type="PackedScene" uid="uid://dtxo5ku40nsbh" path="res://Scenes/Inherited/garage.tscn" id="5_71xs8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
@@ -83,8 +83,8 @@ light_color = Color(0.846419, 0.637212, 0.154263, 1)
 light_energy = 8.0
 light_specular = 2.202
 light_bake_mode = 1
-spot_range = 1.401
-spot_attenuation = 2.15
+spot_range = 1.865
+spot_attenuation = 0.84
 spot_angle = 92.07
 spot_angle_attenuation = 1.23115
 
