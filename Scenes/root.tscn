@@ -44,9 +44,10 @@ ambient_light_energy = 4.18
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
-sdfgi_enabled = true
 sdfgi_bounce_feedback = 1.99
 sdfgi_min_cell_size = 17.88
+sdfgi_cascade0_distance = 1144.32
+sdfgi_max_distance = 18309.1
 sdfgi_energy = 0.585
 sdfgi_normal_bias = 1.025
 sdfgi_probe_bias = 0.65
@@ -70,8 +71,7 @@ RainyWeather = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
-light_color = Color(0.00752476, 0.292404, 1, 1)
-light_energy = 0.3
+light_color = Color(0.491813, 0.659919, 0.999999, 1)
 shadow_enabled = true
 directional_shadow_max_distance = 50.0
 
