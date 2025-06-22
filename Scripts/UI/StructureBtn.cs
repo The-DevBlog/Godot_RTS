@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Godot;
 using MyEnums;
 
@@ -13,7 +12,6 @@ public partial class StructureBtn : Button
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
-
 	public override void _Ready()
 	{
 		_globalResources = GlobalResources.Instance;
@@ -34,15 +32,6 @@ public partial class StructureBtn : Button
 			Utils.PrintErr("Current scene is not a Node3D.");
 	}
 
-	public override void _Process(double delta)
-	{
-		if (_placeholder != null)
-		{
-			GetHoveredMapBase(out Vector3 hitPos);
-			_placeholder.GlobalPosition = hitPos;
-		}
-	}
-
 	public override void _Input(InputEvent @event)
 	{
 		if (_placeholder == null)
@@ -60,9 +49,9 @@ public partial class StructureBtn : Button
 		if (@event is InputEventMouseButton mb && mb.Pressed)
 		{
 			if (mb.ButtonIndex == MouseButton.WheelUp)
-				RotatePlaceholder(45.0f);
+				RotatePlaceholder(90.0f);
 			else if (mb.ButtonIndex == MouseButton.WheelDown)
-				RotatePlaceholder(-45.0f);
+				RotatePlaceholder(-90.0f);
 		}
 	}
 
@@ -140,7 +129,7 @@ public partial class StructureBtn : Button
 
 
 		// 1) Ray‐cast under the mouse and get (groundBody, hitPos)
-		StaticBody3D groundBody = GetHoveredMapBase(out Vector3 hitPos);
+		StaticBody3D groundBody = _placeholder.GetHoveredMapBase(out Vector3 hitPos);
 		if (groundBody == null)
 		{
 			GD.PrintErr("PlaceStructure: Mouse not over MapBase. Cancelling placement.");
@@ -188,42 +177,6 @@ public partial class StructureBtn : Button
 		_signals.EmitUpdateEnergy(_structure.Energy);
 		_signals.EmitUpdateFunds(-_structure.Cost);
 		_signals.EmitAddStructure(Structure);
-	}
-
-	// Casts a ray under the mouse, returns the first StaticBody3D in "MapBase" and the hit position.
-	private StaticBody3D GetHoveredMapBase(out Vector3 hitPosition)
-	{
-		hitPosition = Vector3.Zero;
-
-		// Build the ray under the mouse
-		Vector2 mousePos = GetViewport().GetMousePosition();
-		Vector3 rayOrigin = _camera.ProjectRayOrigin(mousePos);
-		Vector3 rayDirection = _camera.ProjectRayNormal(mousePos);
-		Vector3 rayEnd = rayOrigin + rayDirection * 1000.0f;
-
-		var spaceState = _camera.GetWorld3D().DirectSpaceState;
-		var query = new PhysicsRayQueryParameters3D
-		{
-			From = rayOrigin,
-			To = rayEnd,
-			CollisionMask = 2,
-		};
-
-		var result = spaceState.IntersectRay(query);
-		if (result.Count == 0)
-			return null;
-
-		// Extract the collider and check if it’s a StaticBody3D in MapBase
-		CollisionObject3D colObj = (CollisionObject3D)result["collider"];
-		if (colObj == null)
-			return null;
-
-		StaticBody3D bodyHit = colObj as StaticBody3D;
-		if (bodyHit == null || !bodyHit.IsInGroup(Group.MapBase.ToString()))
-			return null;
-
-		hitPosition = (Vector3)result["position"];
-		return bodyHit;
 	}
 
 	private void OnBtnEnter()
