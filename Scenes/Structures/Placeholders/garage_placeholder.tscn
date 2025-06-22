@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cquq6ty2k8cbm"]
+[gd_scene load_steps=13 format=3 uid="uid://cquq6ty2k8cbm"]
 
 [ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_1l7fw"]
 [ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="2_1l7fw"]
 [ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/Emissive_yellow.tres" id="3_buljm"]
 [ext_resource type="PackedScene" uid="uid://dtxo5ku40nsbh" path="res://Scenes/Inherited/garage.tscn" id="3_ifhu8"]
 [ext_resource type="Shader" uid="uid://cdhbgwpj6njb6" path="res://Shaders/structure_placement_validity.gdshader" id="5_buljm"]
+[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="6_alkuy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a5y2n"]
 
@@ -19,6 +20,20 @@ render_priority = 0
 shader = ExtResource("5_buljm")
 shader_parameter/valid_placement = true
 shader_parameter/plane_size = Vector2(1.11, 1.33)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qumjl"]
+render_priority = 0
+shader = ExtResource("6_alkuy")
+shader_parameter/plane_size = Vector2(20, 20)
+shader_parameter/grid_radius = 10.355
+shader_parameter/grid_size = Vector2(2, 2)
+shader_parameter/line_width = 0.05
+shader_parameter/edge_fade = 5.615
+shader_parameter/grid_color = Vector4(1, 1, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1mdts"]
+material = SubResource("ShaderMaterial_qumjl")
+size = Vector2(20, 20)
 
 [node name="GaragePlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityRing", "Model")]
 script = ExtResource("1_1l7fw")
@@ -130,7 +145,11 @@ shape = SubResource("BoxShape3D_alkuy")
 
 [node name="ValidityRing" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125866, 0, 0.251734)
+visible = false
 mesh = SubResource("PlaneMesh_alkuy")
 surface_material_override/0 = SubResource("ShaderMaterial_a5y2n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_1mdts")
 
 [editable path="Garage"]
