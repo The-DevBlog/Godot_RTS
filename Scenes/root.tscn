@@ -52,6 +52,7 @@ agent_height = 1.0
 agent_radius = 1.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckhy6"]
+render_priority = -1
 albedo_color = Color(0.329412, 0.486275, 0.32549, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]

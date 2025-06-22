@@ -9,13 +9,13 @@
 [sub_resource type="BoxMesh" id="BoxMesh_a5y2n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_alkuy"]
-size = Vector3(9.32816, 3.47281, 9.97081)
+size = Vector3(9.31105, 3.47281, 9.90435)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qumjl"]
-render_priority = 0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_buljm"]
+render_priority = 1
 shader = ExtResource("6_alkuy")
 shader_parameter/plane_size = Vector2(20, 20)
-shader_parameter/grid_radius = 10.685
+shader_parameter/grid_radius = 10.5
 shader_parameter/grid_size = Vector2(1, 1)
 shader_parameter/line_width = 0.02
 shader_parameter/edge_fade = 5.5
@@ -24,7 +24,7 @@ shader_parameter/valid_color = Vector4(0.8, 0.8, 0.8, 0.8)
 shader_parameter/invalid_color = Vector4(1, 0, 0, 0.8)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1mdts"]
-material = SubResource("ShaderMaterial_qumjl")
+material = SubResource("ShaderMaterial_buljm")
 size = Vector2(20, 20)
 
 [node name="GaragePlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
@@ -129,10 +129,11 @@ spot_angle_attenuation = 1.23115
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.105761, 1.73916, 0.28979)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114316, 1.73916, 0.256559)
 shape = SubResource("BoxShape3D_alkuy")
 
 [node name="ValidityGrid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0760515, 0)
 mesh = SubResource("PlaneMesh_1mdts")
 
 [editable path="Garage"]

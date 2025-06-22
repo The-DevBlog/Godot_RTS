@@ -4,7 +4,7 @@ using MyEnums;
 
 public partial class StructureBasePlaceholder : StructureBase
 {
-	[Export] MeshInstance3D ValidityGrid { get; set; }
+	[Export] public MeshInstance3D ValidityGrid { get; set; }
 	public readonly HashSet<Area3D> Overlaps = new();
 	public bool ValidPlacement => Overlaps.Count == 0;
 	private Vector2 _gridCellSize = new Vector2(1.0f, 1.0f);
