@@ -13,8 +13,13 @@ size = Vector3(6.66231, 3.47281, 7.7283)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7ea3r"]
 size = Vector3(9.31105, 3.47281, 9.90435)
 
-[node name="Garage" type="StaticBody3D" groups=["structures"]]
+[node name="Garage" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_7ea3r")
+HP = 1000
+Energy = -30
+Cost = 1250
+BuildTime = 3
+Model = NodePath("Garage")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00505364, 1.73916, 0.0871179)

@@ -8,8 +8,7 @@ public partial class GlobalResources : Node
     public Dictionary<StructureType, int> StructureCount { get; }
     public bool IsPlacingStructure { get; set; }
     public bool IsHoveringUI { get; set; }
-
-    public int MaxStructureCount;
+    public int MaxStructureCount; // max structure count for garage and barracks
     public GlobalResources()
     {
         Instance = this;
