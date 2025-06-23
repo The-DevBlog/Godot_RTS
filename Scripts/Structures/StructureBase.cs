@@ -36,7 +36,7 @@ public partial class StructureBase : StaticBody3D
 				var originalMaterial = mesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
 				if (originalMaterial == null)
 				{
-					Utils.PrintErr("Material on surface 0 is not a ShaderMaterial.");
+					Utils.PrintErr("Material on surface 0 is null.");
 					continue;
 				}
 

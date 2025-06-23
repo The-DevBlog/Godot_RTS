@@ -1,6 +1,7 @@
-[gd_scene load_steps=43 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=45 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
+[ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
 [ext_resource type="FontFile" uid="uid://cjnkmb1x2vkxq" path="res://Assets/Fonts/Orbitron-Black.ttf" id="2_krnp2"]
 [ext_resource type="Texture2D" uid="uid://qxmrs5fv3wb6" path="res://Assets/Textures/UI/Icons/Energy.png" id="3_848d2"]
 [ext_resource type="Script" uid="uid://cjnedqmyjcxpv" path="res://Scripts/UI/MiniMap.cs" id="3_esy4f"]
@@ -21,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bq6aa66jlouje" path="res://Assets/Textures/UI/Structures/Reactor.png" id="15_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
+[ext_resource type="Texture2D" uid="uid://c2w03bgb2pcqr" path="res://Assets/Textures/UI/Structures/Barracks.png" id="17_tlv7r"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg0vo"]
@@ -70,7 +72,7 @@ region_rect = Rect2(841, 80, 20, 21)
 texture = ExtResource("15_bfyu0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5aby"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("17_tlv7r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esy4f"]
 texture = ExtResource("15_bfyu0")
@@ -172,7 +174,7 @@ layout_mode = 2
 [node name="NameLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 22
 text = "Reactor"
 
@@ -181,7 +183,7 @@ layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.968627, 0.870588, 0.509804, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 22
 text = "$100"
 
@@ -200,7 +202,7 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 22
 text = "2s"
 
@@ -220,7 +222,7 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 22
 text = "2s"
 
@@ -238,7 +240,7 @@ stretch_mode = 4
 [node name="HPLabel" type="Label" parent="HBoxContainer/VBoxContainer/InfoPopupContainer/MarginContainer/VBoxContainer/HPContainer"]
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 22
 text = "50"
 
@@ -257,7 +259,7 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 22
 text = "10 dps"
 
@@ -277,7 +279,7 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 22
 text = "25"
 
@@ -395,7 +397,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 theme_override_colors/font_color = Color(0.968627, 0.870588, 0.509804, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 25
 text = "$10000"
 
@@ -413,7 +415,7 @@ texture = ExtResource("3_848d2")
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.690196, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 theme_override_font_sizes/font_size = 25
 text = "0/0"
 
@@ -704,7 +706,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Reactor"
 
 [node name="BarracksBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
@@ -730,7 +732,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Barracks"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer"]
@@ -760,7 +762,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Scrap Yard"
 
 [node name="GarageBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
@@ -786,7 +788,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Garage"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer"]
@@ -816,7 +818,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Satellite"
 
 [node name="CannonBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
@@ -842,7 +844,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Cannon"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer"]
@@ -872,7 +874,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Research Lab"
 
 [node name="Button2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer4" groups=["StructureBtns"]]
@@ -897,7 +899,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="UnitOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
@@ -939,7 +941,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer" groups=["UnitBtns"]]
@@ -965,7 +967,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
@@ -995,7 +997,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer2" groups=["UnitBtns"]]
@@ -1021,7 +1023,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
@@ -1051,7 +1053,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer3" groups=["UnitBtns"]]
@@ -1077,7 +1079,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
@@ -1107,7 +1109,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer4" groups=["UnitBtns"]]
@@ -1133,7 +1135,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="VehicleOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
@@ -1175,7 +1177,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Tank Gen I"
 
 [node name="TankGen2Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer" groups=["VehicleBtns"]]
@@ -1201,7 +1203,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Tank Gen II"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer"]
@@ -1231,7 +1233,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "Artillery"
 
 [node name="TankGen1Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2" groups=["VehicleBtns"]]
@@ -1257,7 +1259,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer"]
@@ -1287,7 +1289,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="TankGen1Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3" groups=["VehicleBtns"]]
@@ -1313,7 +1315,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer"]
@@ -1343,7 +1345,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="TankGen1Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer4" groups=["VehicleBtns"]]
@@ -1369,7 +1371,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="UpgradeOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]

@@ -2,26 +2,27 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2w03bgb2pcqr"
-path="res://.godot/imported/Barracks.png-8b51bcce7aa6642f5254efe7056b4aad.ctex"
+uid="uid://boy1l6o3apbki"
+path.s3tc="res://.godot/imported/TeamMask.png-8d5a9122732b6a4c2834e46d62e8f357.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Structures/Barracks.png"
-dest_files=["res://.godot/imported/Barracks.png-8b51bcce7aa6642f5254efe7056b4aad.ctex"]
+source_file="res://Assets/Models/Structures/Barracks/TeamMask.png"
+dest_files=["res://.godot/imported/TeamMask.png-8d5a9122732b6a4c2834e46d62e8f357.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0
