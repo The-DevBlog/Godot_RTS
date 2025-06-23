@@ -76,46 +76,6 @@ public partial class StructureBtn : Button
 		_placeholder = null;
 	}
 
-	// private void OnStructureSelect()
-	// {
-	// 	if (_placeholder != null)
-	// 	{
-	// 		CancelStructure();
-	// 		return;
-	// 	}
-
-	// 	// deselect all units
-	// 	_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
-
-	// 	PackedScene structureModel = _models.StructurePlaceholders[Structure];
-	// 	StructureBase structure = structureModel.Instantiate() as StructureBase;
-	// 	if (structure == null)
-	// 	{
-	// 		Utils.PrintErr("Failed to instantiate structure for " + Structure);
-	// 		return;
-	// 	}
-
-	// 	// check if max structure count reached
-	// 	bool maxStructureCount = _globalResources.MaxStructureCountReached(Structure);
-	// 	if (maxStructureCount)
-	// 		return;
-
-	// 	// check if you have enough funds
-	// 	bool enoughFunds = _sceneResources.Funds >= structure.Cost;
-	// 	if (!enoughFunds)
-	// 	{
-	// 		GD.Print("Not enough funds!");
-	// 		return;
-	// 	}
-
-	// 	_placeholder = _models.StructurePlaceholders[Structure].Instantiate<StructureBasePlaceholder>();
-
-	// 	GlobalResources.Instance.IsPlacingStructure = true;
-	// 	_scene.AddChild(_placeholder);
-
-	// 	this.ReleaseFocus();
-	// }
-
 	private void OnStructureSelect()
 	{
 		if (_placeholder != null)
