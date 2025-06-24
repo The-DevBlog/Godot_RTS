@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtgdc2bpfqbm0"
-path="res://.godot/imported/Lock135x135.png-cc0791dbe75528392864ac3fedc95942.ctex"
+uid="uid://ccsu7dho1ek3j"
+path="res://.godot/imported/upgrade.png-27565efcd33ca1214f4e5b178870db5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Icons/Lock135x135.png"
-dest_files=["res://.godot/imported/Lock135x135.png-cc0791dbe75528392864ac3fedc95942.ctex"]
+source_file="res://Assets/Textures/UI/Upgrades/upgrade.png"
+dest_files=["res://.godot/imported/upgrade.png-27565efcd33ca1214f4e5b178870db5a.ctex"]
 
 [params]
 

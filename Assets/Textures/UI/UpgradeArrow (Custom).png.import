@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dui5wx4xvqw3j"
-path="res://.godot/imported/Garage.png-56a04bef0f4e5e83a255a120cc95c6ba.ctex"
+uid="uid://bv11sib88ydda"
+path="res://.godot/imported/UpgradeArrow (Custom).png-6072d0ad9a247f0dc7c2e1f10e196ced.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Structures/Garage.png"
-dest_files=["res://.godot/imported/Garage.png-56a04bef0f4e5e83a255a120cc95c6ba.ctex"]
+source_file="res://Assets/Textures/UI/UpgradeArrow (Custom).png"
+dest_files=["res://.godot/imported/UpgradeArrow (Custom).png-6072d0ad9a247f0dc7c2e1f10e196ced.ctex"]
 
 [params]
 

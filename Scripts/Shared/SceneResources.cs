@@ -14,6 +14,7 @@ public partial class SceneResources : Node3D
 	public int MaxStructureCount; // max structure count for garage and barracks
 	public Dictionary<StructureType, int> StructureCount { get; }
 	public Dictionary<UnitType, bool> UnitAvailability { get; private set; }
+	public Dictionary<UpgradeType, bool> UpgradeAvailability { get; private set; }
 
 	public SceneResources()
 	{
@@ -26,6 +27,10 @@ public partial class SceneResources : Node3D
 		UnitAvailability = new Dictionary<UnitType, bool>();
 		foreach (var unit in UnitType.GetValues<UnitType>())
 			UnitAvailability[unit] = false;
+
+		UpgradeAvailability = new Dictionary<UpgradeType, bool>();
+		foreach (var upgrade in UpgradeType.GetValues<UpgradeType>())
+			UpgradeAvailability[upgrade] = false;
 	}
 
 	public override void _EnterTree()

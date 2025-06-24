@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=52 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -10,21 +10,23 @@
 [ext_resource type="Texture2D" uid="uid://bwwpxip5jipmr" path="res://Assets/Textures/UI/Icons/HP.png" id="5_7aoqs"]
 [ext_resource type="Texture2D" uid="uid://ci5l8emphylve" path="res://Assets/Textures/UI/Icons/Hammer.png" id="6_k4jei"]
 [ext_resource type="Texture2D" uid="uid://drjukkku7lixp" path="res://Assets/Textures/UI/Icons/DPS.png" id="6_pdtk1"]
-[ext_resource type="Texture2D" uid="uid://b7jxwwtbgc30" path="res://Assets/Textures/UI/Icons/Armor.png" id="7_an80e"]
 [ext_resource type="Texture2D" uid="uid://bnww46iohnkb2" path="res://Assets/Textures/UI/Icons/Speed.png" id="7_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://daexh3giq74at" path="res://Assets/Textures/UI/Icons/Tank.png" id="7_c22w8"]
 [ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/UI/Icons/Rifle.png" id="7_f6022"]
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 [ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
-[ext_resource type="Texture2D" uid="uid://x6b8qtnkja73" path="res://Assets/Textures/UI/Structures/Garage.png" id="10_o42af"]
 [ext_resource type="Texture2D" uid="uid://doej4y573d76i" path="res://Assets/Textures/UI/Units/Rifleman.png" id="13_uy737"]
 [ext_resource type="Texture2D" uid="uid://c7143f4fv22ev" path="res://Assets/Textures/UI/Units/TankGen1.png" id="14_c22w8"]
-[ext_resource type="Texture2D" uid="uid://bq6aa66jlouje" path="res://Assets/Textures/UI/Structures/Reactor.png" id="15_bfyu0"]
+[ext_resource type="Texture2D" uid="uid://5h1464w3edvs" path="res://Assets/Textures/UI/Icons/Upgrades.png" id="14_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
-[ext_resource type="Texture2D" uid="uid://c2w03bgb2pcqr" path="res://Assets/Textures/UI/Structures/Barracks.png" id="17_tlv7r"]
+[ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor.png" id="16_nk0xl"]
+[ext_resource type="Texture2D" uid="uid://oe6o25dfoi58" path="res://Assets/Textures/UI/Structures/Barracks.png" id="18_fgwrq"]
+[ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage.png" id="19_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock250x250.png" id="20_pdtk1"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
+[ext_resource type="Script" uid="uid://do3p3enwhoxf7" path="res://Scripts/UI/UpgradeBtn.cs" id="26_bfyu0"]
+[ext_resource type="Texture2D" uid="uid://ccsu7dho1ek3j" path="res://Assets/Textures/UI/Upgrades/upgrade.png" id="26_fgwrq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg0vo"]
 bg_color = Color(0.14902, 0.137255, 0.133333, 1)
@@ -61,34 +63,26 @@ texture_margin_right = 5.0
 texture_margin_bottom = 6.0
 region_rect = Rect2(841, 80, 20, 21)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sjux"]
-texture = ExtResource("7_w801c")
-texture_margin_left = 5.0
-texture_margin_top = 6.0
-texture_margin_right = 5.0
-texture_margin_bottom = 6.0
-region_rect = Rect2(841, 80, 20, 21)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ly8nf"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5aby"]
-texture = ExtResource("17_tlv7r")
+texture = ExtResource("18_fgwrq")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esy4f"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0w7p"]
-texture = ExtResource("10_o42af")
+texture = ExtResource("19_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cg0vo"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlv7r"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7aoqs"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dq3k1"]
 texture = ExtResource("20_pdtk1")
@@ -117,6 +111,12 @@ texture = ExtResource("15_ly8nf")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ktso"]
 texture = ExtResource("16_g5aby")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ndkd"]
+texture = ExtResource("20_pdtk1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pyy5"]
+texture = ExtResource("26_fgwrq")
+
 [node name="CommandUI" type="Control" node_paths=PackedStringArray("UIContainer", "MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "BarracksCountContainer", "GarageCountContainer", "InfoPopupContainer", "InfoPopupLabelName", "InfoPopupLabelCost", "InfoPopupLabelBuildTime", "InfoPopupLabelEnergy", "InfoPopupLabelHP", "InfoPopupLabelDPS", "InfoPopupLabelSpeed")]
 layout_mode = 3
 anchors_preset = 15
@@ -124,6 +124,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.995423)
 script = ExtResource("1_k4jei")
 UIContainer = NodePath("HBoxContainer/RootContainer")
 MiniMapContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer")
@@ -586,29 +587,26 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.11779
-offset_top = -3.0
-offset_right = 1.11778
-offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/focus = SubResource("StyleBoxTexture_8sjux")
+theme_override_styles/focus = SubResource("StyleBoxTexture_skqa3")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+anchor_bottom = 1.0
+offset_left = -29.5798
+offset_top = 2.0
+offset_right = 30.4202
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_an80e")
+texture = ExtResource("14_fgwrq")
+expand_mode = 2
+stretch_mode = 5
 
 [node name="StructureCountContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
 visible = false
@@ -679,6 +677,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 text = "1"
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -810,8 +809,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_cg0vo")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_cg0vo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_cg0vo")
 script = ExtResource("10_ly8nf")
 Structure = 8
@@ -836,8 +835,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_tlv7r")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_tlv7r")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_tlv7r")
 script = ExtResource("10_ly8nf")
 Structure = 2
@@ -866,8 +865,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_7aoqs")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_7aoqs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
 script = ExtResource("10_ly8nf")
 Structure = 5
@@ -892,8 +891,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_7aoqs")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_7aoqs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
 script = ExtResource("10_ly8nf")
 
@@ -1401,7 +1400,6 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
 [node name="UpgradeOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -1421,14 +1419,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 1"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 1
 
 [node name="Button2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 2"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1439,14 +1449,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 3"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 3
 
 [node name="Button2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 4"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 4
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1457,14 +1479,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 5"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 5
 
 [node name="Button2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 6"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 6
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1475,14 +1509,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 7"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 7
 
 [node name="Button2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UpgradeOptionsContainer/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-text = "Upgrade 8"
+theme_override_styles/disabled = SubResource("StyleBoxTexture_5ndkd")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5pyy5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5pyy5")
+disabled = true
+script = ExtResource("26_bfyu0")
+Upgrade = 8
 
 [connection signal="pressed" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/ConstructionContainer/ConstructionBtn" to="." method="OnConstructionBtnPressed"]
 [connection signal="pressed" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/BarracksContainer/BarracksBtn" to="." method="OnBarracksBtnPressed"]

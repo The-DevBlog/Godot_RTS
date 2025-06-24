@@ -1,10 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1r7dc16scr2o"]
+[gd_scene load_steps=7 format=3 uid="uid://d1r7dc16scr2o"]
 
-[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_mx3h2"]
+[ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_mx3h2"]
 [ext_resource type="PackedScene" uid="uid://bwl453h332lwy" path="res://Assets/Models/Structures/ResearchLab/ResearchLab.glb" id="1_udmyl"]
+[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_ow447"]
 
-[node name="ResearchLabPlaceholder" type="StaticBody3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_23sj3"]
+size = Vector3(7.00906, 3.47281, 8.78516)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_buljm"]
+render_priority = 1
+shader = ExtResource("3_ow447")
+shader_parameter/grid_radius = 10.5
+shader_parameter/grid_size = Vector2(1, 1)
+shader_parameter/cell_margin = 0.1
+shader_parameter/cell_corner_rad = 0.1
+shader_parameter/edge_fade = 14.0
+shader_parameter/valid_color = Vector4(0.8, 0.8, 0.8, 0.8)
+shader_parameter/invalid_color = Vector4(1, 0, 0, 0.8)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_st7d1"]
+material = SubResource("ShaderMaterial_buljm")
+size = Vector2(20, 20)
+
+[node name="ResearchLabPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
 script = ExtResource("1_mx3h2")
+ValidityGrid = NodePath("ValidityGrid")
+HP = -1
+Energy = -1
+Cost = -1
+BuildTime = -1
+Model = NodePath("Model")
 
 [node name="Model" parent="." instance=ExtResource("1_udmyl")]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.645051, 0)
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00830847, 1.73916, -2.41995e-05)
+shape = SubResource("BoxShape3D_23sj3")
+
+[node name="ValidityGrid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0760515, 0)
+mesh = SubResource("PlaneMesh_st7d1")
