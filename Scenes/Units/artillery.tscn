@@ -10,6 +10,7 @@ radius = 1.2
 
 [node name="Artillery" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_ebj34")
+UnitType = 3
 Speed = 10
 HP = 100
 DPS = 10

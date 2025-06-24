@@ -10,7 +10,7 @@ radius = 0.9
 
 [node name="TankGen1" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_46sye")
-UnitType = 3
+UnitType = 1
 Speed = 3
 HP = 150
 DPS = 100

@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
 [ext_resource type="LightmapGIData" uid="uid://b3i3ocddopo57" path="res://Assets/Models/Structures/Reactor/reactor.lmbake" id="3_n7u5k"]
 [ext_resource type="Shader" uid="uid://dvr171p24o3dl" path="res://Shaders/lava.gdshader" id="4_fuk4o"]
-[ext_resource type="Shader" uid="uid://d2kmf2rma73yr" path="res://Shaders/embers.gdshader" id="5_vmpk5"]
+[ext_resource type="Shader" path="res://Shaders/embers.gdshader" id="5_vmpk5"]
 [ext_resource type="PackedScene" uid="uid://bbtuet73d1ffo" path="res://Scenes/Inherited/reactor.tscn" id="6_vmpk5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
