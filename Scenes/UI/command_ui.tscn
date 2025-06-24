@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=45 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 [ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://x6b8qtnkja73" path="res://Assets/Textures/UI/Structures/Garage.png" id="10_o42af"]
-[ext_resource type="Script" uid="uid://bmatsbtwhliua" path="res://Scripts/UI/TabsBtn.cs" id="13_pdtk1"]
 [ext_resource type="Texture2D" uid="uid://doej4y573d76i" path="res://Assets/Textures/UI/Units/Rifleman.png" id="13_uy737"]
 [ext_resource type="Texture2D" uid="uid://c7143f4fv22ev" path="res://Assets/Textures/UI/Units/TankGen1.png" id="14_c22w8"]
 [ext_resource type="Texture2D" uid="uid://bq6aa66jlouje" path="res://Assets/Textures/UI/Structures/Reactor.png" id="15_bfyu0"]
@@ -512,9 +511,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_nk0xl")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
-disabled = true
-script = ExtResource("13_pdtk1")
-StructureType = 1
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/BarracksContainer/BarracksBtn"]
 layout_mode = 1
@@ -550,9 +546,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_skqa3")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
-disabled = true
-script = ExtResource("13_pdtk1")
-StructureType = 3
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/GarageContainer/GarageBtn"]
 layout_mode = 1
@@ -591,9 +584,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxTexture_8sjux")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
-disabled = true
-script = ExtResource("13_pdtk1")
-StructureType = 5
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/UpgradesContainer/UpgradesBtn"]
 layout_mode = 1
