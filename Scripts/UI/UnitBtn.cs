@@ -44,6 +44,12 @@ public partial class UnitBtn : Button
 
 	private void OnBtnEnter()
 	{
+		if (!_models.Units.ContainsKey(Unit))
+		{
+			Utils.PrintErr("MyModels.cs -> Units dictionary does not contains key for UnitType: " + Unit);
+			return;
+		}
+
 		var packed = _models.Units[Unit];
 		var unit = packed.Instantiate<UnitBase>();
 

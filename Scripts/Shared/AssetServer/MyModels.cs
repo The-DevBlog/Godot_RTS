@@ -39,6 +39,7 @@ public class MyModels
             { UnitType.TankGen1, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
             { UnitType.TankGen2, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_2.tscn") },
             { UnitType.Artillery, GD.Load<PackedScene>("res://Scenes/Units/artillery.tscn") },
+            { UnitType.Infantry, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
         };
     }
 }
