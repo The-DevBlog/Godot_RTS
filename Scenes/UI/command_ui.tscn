@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=54 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -16,13 +16,14 @@
 [ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/UI/Icons/Rifle.png" id="7_f6022"]
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 [ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
-[ext_resource type="Texture2D" uid="uid://x6b8qtnkja73" path="res://Assets/Textures/UI/Structures/Garage.png" id="10_o42af"]
 [ext_resource type="Texture2D" uid="uid://doej4y573d76i" path="res://Assets/Textures/UI/Units/Rifleman.png" id="13_uy737"]
 [ext_resource type="Texture2D" uid="uid://c7143f4fv22ev" path="res://Assets/Textures/UI/Units/TankGen1.png" id="14_c22w8"]
 [ext_resource type="Texture2D" uid="uid://bq6aa66jlouje" path="res://Assets/Textures/UI/Structures/Reactor.png" id="15_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
+[ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor2.png" id="16_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://c2w03bgb2pcqr" path="res://Assets/Textures/UI/Structures/Barracks.png" id="17_tlv7r"]
+[ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage2.png" id="19_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock250x250.png" id="20_pdtk1"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
 [ext_resource type="Script" uid="uid://do3p3enwhoxf7" path="res://Scripts/UI/UpgradeBtn.cs" id="26_bfyu0"]
@@ -72,16 +73,16 @@ texture_margin_bottom = 6.0
 region_rect = Rect2(841, 80, 20, 21)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ly8nf"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5aby"]
 texture = ExtResource("17_tlv7r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esy4f"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0w7p"]
-texture = ExtResource("10_o42af")
+texture = ExtResource("19_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cg0vo"]
 texture = ExtResource("15_bfyu0")
@@ -819,8 +820,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_cg0vo")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_cg0vo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_cg0vo")
 script = ExtResource("10_ly8nf")
 Structure = 8
@@ -845,8 +846,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_tlv7r")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_tlv7r")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_tlv7r")
 script = ExtResource("10_ly8nf")
 Structure = 2
@@ -875,8 +876,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_7aoqs")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_7aoqs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
 script = ExtResource("10_ly8nf")
 Structure = 5
@@ -901,8 +902,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/hover = SubResource("StyleBoxTexture_7aoqs")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_7aoqs")
+theme_override_styles/hover = SubResource("StyleBoxTexture_esy4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_esy4f")
 theme_override_styles/normal = SubResource("StyleBoxTexture_7aoqs")
 script = ExtResource("10_ly8nf")
 
