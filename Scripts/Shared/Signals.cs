@@ -13,6 +13,7 @@ public partial class Signals : Node
 	[Signal] public delegate void AddStructureEventHandler(int structureId);
 	[Signal] public delegate void UpdateEnergyColorEventHandler();
 	[Signal] public delegate void UpdateUnitAvailabilityEventHandler();
+	[Signal] public delegate void UpdateUpgradesAvailabilityEventHandler();
 	private SceneResources _sceneResources;
 
 	public override void _Ready()
@@ -55,11 +56,30 @@ public partial class Signals : Node
 
 		if (structure == StructureType.Garage || structure == StructureType.Barracks)
 			EmitUpdateUnitAvailability();
+
+		if (structure == StructureType.ResearchLab)
+			EmitUpdateUpgradesAvailability();
 	}
 
 	public void EmitBuildOptionsBtnBtnHover(StructureBase structure, UnitBase unit)
 	{
 		EmitSignal(SignalName.OnBuildOptionsBtnHover, structure, unit);
+	}
+
+	public void EmitUpdateUpgradesAvailability()
+	{
+		bool upgradesUnlocked = _sceneResources.StructureCount[StructureType.ResearchLab] > 0;
+
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade1] = upgradesUnlocked;
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade2] = upgradesUnlocked;
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade3] = upgradesUnlocked;
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade4] = upgradesUnlocked;
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade5] = upgradesUnlocked;
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade6] = upgradesUnlocked;
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade7] = upgradesUnlocked;
+		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade8] = upgradesUnlocked;
+
+		EmitSignal(SignalName.UpdateUpgradesAvailability);
 	}
 
 	public void EmitUpdateUnitAvailability()
