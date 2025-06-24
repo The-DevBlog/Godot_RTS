@@ -9,22 +9,17 @@ public partial class UpgradeBtn : Button
 
 	public override void _Ready()
 	{
-		// _models = AssetServer.Instance.Models;
-		// _label = GetNode<Label>("Label");
-		_sceneResources = SceneResources.Instance;
-		_signals = Signals.Instance;
+		if (Upgrade == UpgradeType.None)
+			Utils.PrintErr("Upgrade type is set to none");
 
+		_sceneResources = SceneResources.Instance;
+
+		_signals = Signals.Instance;
 		_signals.UpdateUpgradesAvailability += EnableDisableBtns;
-		// MouseEntered += OnBtnEnter;
-		// MouseExited += OnBtnExit;
-		// Pressed += OnUnitSelect;
 	}
 
 	private void EnableDisableBtns()
 	{
 		Disabled = !_sceneResources.UpgradeAvailability[Upgrade];
-
-		if (!Disabled)
-			Text = Upgrade.ToString();
 	}
 }

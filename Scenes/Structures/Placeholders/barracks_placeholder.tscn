@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_ffudo"]
 [ext_resource type="PackedScene" uid="uid://bmi5o5g1ocs7s" path="res://Scenes/Inherited/barracks.tscn" id="4_6y0hw"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_buljm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffudo"]
 render_priority = 1
 shader = ExtResource("3_ffudo")
 shader_parameter/grid_radius = 10.5
@@ -16,7 +16,7 @@ shader_parameter/valid_color = Vector4(0.8, 0.8, 0.8, 0.8)
 shader_parameter/invalid_color = Vector4(1, 0, 0, 0.8)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6y0hw"]
-material = SubResource("ShaderMaterial_buljm")
+material = SubResource("ShaderMaterial_ffudo")
 size = Vector2(20, 20)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ffudo"]
