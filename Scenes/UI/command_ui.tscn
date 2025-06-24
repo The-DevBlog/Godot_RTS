@@ -20,9 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://c7143f4fv22ev" path="res://Assets/Textures/UI/Units/TankGen1.png" id="14_c22w8"]
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
-[ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor2.png" id="16_nk0xl"]
-[ext_resource type="Texture2D" uid="uid://oe6o25dfoi58" path="res://Assets/Textures/UI/Structures/Barracks2.png" id="18_fgwrq"]
-[ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage2.png" id="19_nk0xl"]
+[ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor.png" id="16_nk0xl"]
+[ext_resource type="Texture2D" uid="uid://oe6o25dfoi58" path="res://Assets/Textures/UI/Structures/Barracks.png" id="18_fgwrq"]
+[ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage.png" id="19_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock250x250.png" id="20_pdtk1"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
 [ext_resource type="Script" uid="uid://do3p3enwhoxf7" path="res://Scripts/UI/UpgradeBtn.cs" id="26_bfyu0"]
@@ -132,6 +132,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1, 0.998065)
 script = ExtResource("1_k4jei")
 UIContainer = NodePath("HBoxContainer/RootContainer")
 MiniMapContainer = NodePath("HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer")

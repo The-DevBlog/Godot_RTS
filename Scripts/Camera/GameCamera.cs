@@ -17,11 +17,13 @@ public partial class GameCamera : Node3D
 	private Vector3 _moveTarget;
 	private float _rotateKeysTarget = 0.0f;
 	private float _zoomTarget = 0.0f;
+	private GlobalResources _globalResources;
 
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(Camera);
 
+		_globalResources = GlobalResources.Instance;
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
 		_mapSize = SceneResources.Instance.MapSize;
 		_moveTarget = Position;
@@ -32,12 +34,15 @@ public partial class GameCamera : Node3D
 	public override void _Input(InputEvent @event)
 	{
 		if (@event is InputEventMouseMotion motionEvent && Input.IsActionPressed("rotate"))
+		{
 			_rotateKeysTarget -= (float)(motionEvent.Relative.X * MouseSensitivity);
+		}
+
+		HideMouseIfRotating(@event);
 	}
 
 	public override void _Process(double delta)
 	{
-		HideMouseIfRotating();
 		MouseEdgeScroll(delta);
 		KeyboardScroll(delta);
 		UpdateCameraPosition();
@@ -50,10 +55,12 @@ public partial class GameCamera : Node3D
 		ClampMoveTarget(); // Optional, depending on your bounds
 	}
 
-	private void HideMouseIfRotating()
+	private void HideMouseIfRotating(InputEvent @event)
 	{
 		if (Input.IsActionJustPressed("rotate"))
+		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
+		}
 
 		if (Input.IsActionJustReleased("rotate"))
 			Input.MouseMode = Input.MouseModeEnum.Visible;

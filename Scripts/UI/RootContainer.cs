@@ -62,15 +62,7 @@ public partial class RootContainer : Control
 
 	public override void _Process(double delta)
 	{
-		ToggleMouseVisibility();
 		SetIsHoveringUI();
-	}
-
-	private void ToggleMouseVisibility()
-	{
-		Input.MouseMode = (_globalResources.IsHoveringUI || !_globalResources.IsPlacingStructure)
-			? Input.MouseModeEnum.Visible
-			: Input.MouseModeEnum.Hidden;
 	}
 
 	private void SetIsHoveringUI()
