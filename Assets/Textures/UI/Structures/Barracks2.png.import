@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpe7uqgt8qi4v"
-path="res://.godot/imported/Barracks.png-8b51bcce7aa6642f5254efe7056b4aad.ctex"
+uid="uid://oe6o25dfoi58"
+path="res://.godot/imported/Barracks2.png-496d5dfc296924efffd45b5e80085beb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Structures/Barracks.png"
-dest_files=["res://.godot/imported/Barracks.png-8b51bcce7aa6642f5254efe7056b4aad.ctex"]
+source_file="res://Assets/Textures/UI/Structures/Barracks2.png"
+dest_files=["res://.godot/imported/Barracks2.png-496d5dfc296924efffd45b5e80085beb.ctex"]
 
 [params]
 

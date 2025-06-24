@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=53 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -18,11 +18,10 @@
 [ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://doej4y573d76i" path="res://Assets/Textures/UI/Units/Rifleman.png" id="13_uy737"]
 [ext_resource type="Texture2D" uid="uid://c7143f4fv22ev" path="res://Assets/Textures/UI/Units/TankGen1.png" id="14_c22w8"]
-[ext_resource type="Texture2D" uid="uid://bq6aa66jlouje" path="res://Assets/Textures/UI/Structures/Reactor.png" id="15_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
 [ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor2.png" id="16_nk0xl"]
-[ext_resource type="Texture2D" uid="uid://c2w03bgb2pcqr" path="res://Assets/Textures/UI/Structures/Barracks.png" id="17_tlv7r"]
+[ext_resource type="Texture2D" uid="uid://oe6o25dfoi58" path="res://Assets/Textures/UI/Structures/Barracks2.png" id="18_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage2.png" id="19_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock250x250.png" id="20_pdtk1"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
@@ -76,7 +75,7 @@ region_rect = Rect2(841, 80, 20, 21)
 texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5aby"]
-texture = ExtResource("17_tlv7r")
+texture = ExtResource("18_fgwrq")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_esy4f"]
 texture = ExtResource("16_nk0xl")
@@ -85,13 +84,13 @@ texture = ExtResource("16_nk0xl")
 texture = ExtResource("19_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cg0vo"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlv7r"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7aoqs"]
-texture = ExtResource("15_bfyu0")
+texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dq3k1"]
 texture = ExtResource("20_pdtk1")
