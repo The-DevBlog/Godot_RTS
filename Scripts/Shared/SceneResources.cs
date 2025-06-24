@@ -23,7 +23,6 @@ public partial class SceneResources : Node3D
 		foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))
 			StructureCount[s] = 0;
 
-
 		UnitAvailability = new Dictionary<UnitType, bool>();
 		foreach (var unit in UnitType.GetValues<UnitType>())
 			UnitAvailability[unit] = false;
