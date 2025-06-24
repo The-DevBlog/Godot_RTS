@@ -57,7 +57,9 @@ public partial class UnitBtn : Button
 
 	private void EnableDisableBtns()
 	{
-		_label.Text = Unit.ToString();
 		Disabled = !_sceneResources.UnitAvailability[Unit];
+
+		if (!Disabled)
+			_label.Text = Unit.ToString();
 	}
 }

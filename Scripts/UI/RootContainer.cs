@@ -234,6 +234,12 @@ public partial class RootContainer : Control
 
 		if (unit != null)
 		{
+			if (!unit.Unlocked)
+			{
+				InfoPopupContainer.Visible = false;
+				return;
+			}
+
 			InfoPopupLabelDPS.GetParent<Container>().Visible = true;
 			InfoPopupLabelSpeed.GetParent<Container>().Visible = true;
 			InfoPopupLabelEnergy.GetParent<Container>().Visible = false;
