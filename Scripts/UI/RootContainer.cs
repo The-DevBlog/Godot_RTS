@@ -131,7 +131,7 @@ public partial class RootContainer : Control
 		if (structureType != StructureType.Garage && structureType != StructureType.Barracks)
 			return;
 
-		int structureCount = _globalResources.StructureCount[structureType];
+		int structureCount = _sceneResources.StructureCount[structureType];
 
 		Container structureCountContainer = _structureCountContainer.Duplicate() as Container;
 		structureCountContainer.Visible = true;
@@ -169,7 +169,7 @@ public partial class RootContainer : Control
 
 	private void OnBarracksBtnPressed()
 	{
-		bool isVisible = _globalResources.StructureCount[StructureType.Barracks] > 1;
+		bool isVisible = _sceneResources.StructureCount[StructureType.Barracks] > 1;
 		_structureCountContainer.Visible = isVisible;
 		BarracksCountContainer.Visible = isVisible;
 		GarageCountContainer.Visible = false;
@@ -178,7 +178,7 @@ public partial class RootContainer : Control
 
 	private void OnGarageBtnPressed()
 	{
-		bool isVisible = _globalResources.StructureCount[StructureType.Garage] > 1;
+		bool isVisible = _sceneResources.StructureCount[StructureType.Garage] > 1;
 		_structureCountContainer.Visible = isVisible;
 		GarageCountContainer.Visible = isVisible;
 		BarracksCountContainer.Visible = false;
@@ -234,6 +234,12 @@ public partial class RootContainer : Control
 
 		if (unit != null)
 		{
+			if (!unit.Unlocked)
+			{
+				InfoPopupContainer.Visible = false;
+				return;
+			}
+
 			InfoPopupLabelDPS.GetParent<Container>().Visible = true;
 			InfoPopupLabelSpeed.GetParent<Container>().Visible = true;
 			InfoPopupLabelEnergy.GetParent<Container>().Visible = false;

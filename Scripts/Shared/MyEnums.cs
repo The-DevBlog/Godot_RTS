@@ -29,5 +29,6 @@ namespace MyEnums
         TankGen1,
         TankGen2,
         Artillery,
+        Infantry,
     }
 }

@@ -4,19 +4,42 @@ using MyEnums;
 public partial class UnitBtn : Button
 {
 	[Export] public UnitType Unit { get; set; }
-	private GlobalResources _resources;
 	private Signals _signals;
 	private MyModels _models;
+	private SceneResources _sceneResources;
 	private UnitBase _unit;
-
+	private Label _label;
 	public override void _Ready()
 	{
 		_models = AssetServer.Instance.Models;
-		_resources = GlobalResources.Instance;
+		_label = GetNode<Label>("Label");
+		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 
+		_signals.UpdateUnitAvailability += EnableDisableBtns;
 		MouseEntered += OnBtnEnter;
 		MouseExited += OnBtnExit;
+		Pressed += OnUnitSelect;
+	}
+
+	private void OnUnitSelect()
+	{
+		GD.Print("Building " + Unit.ToString());
+
+		var unit = _models.Units[Unit];
+		UnitBase unitInstance = unit.Instantiate<UnitBase>();
+
+		bool enoughFunds = _sceneResources.Funds >= unitInstance.Cost;
+		if (!enoughFunds)
+		{
+			GD.Print("Not enough funds!");
+			return;
+		}
+
+		_signals.EmitUpdateFunds(-unitInstance.Cost);
+
+
+		GD.Print("Unit Instance: " + unitInstance);
 	}
 
 	private void OnBtnEnter()
@@ -30,5 +53,13 @@ public partial class UnitBtn : Button
 	private void OnBtnExit()
 	{
 		_signals.EmitBuildOptionsBtnBtnHover(null, null);
+	}
+
+	private void EnableDisableBtns()
+	{
+		Disabled = !_sceneResources.UnitAvailability[Unit];
+
+		if (!Disabled)
+			_label.Text = Unit.ToString();
 	}
 }

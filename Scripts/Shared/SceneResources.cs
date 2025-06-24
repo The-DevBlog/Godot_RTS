@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using Godot;
+using MyEnums;
 
 public partial class SceneResources : Node3D
 {
@@ -9,6 +11,22 @@ public partial class SceneResources : Node3D
 	[Export] public bool RainyWeather { get; set; }
 	public int Energy { get; set; }
 	public int EnergyConsumed { get; set; }
+	public int MaxStructureCount; // max structure count for garage and barracks
+	public Dictionary<StructureType, int> StructureCount { get; }
+	public Dictionary<UnitType, bool> UnitAvailability { get; private set; }
+
+	public SceneResources()
+	{
+		MaxStructureCount = 8;
+
+		StructureCount = new Dictionary<StructureType, int>();
+		foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))
+			StructureCount[s] = 0;
+
+		UnitAvailability = new Dictionary<UnitType, bool>();
+		foreach (var unit in UnitType.GetValues<UnitType>())
+			UnitAvailability[unit] = false;
+	}
 
 	public override void _EnterTree()
 	{
@@ -17,5 +35,35 @@ public partial class SceneResources : Node3D
 
 		if (Funds == 0)
 			Utils.PrintErr("No Funds Assigned");
+	}
+
+	public void AddStructure(StructureType structure)
+	{
+		StructureCount[structure]++;
+	}
+
+	public void RemoveStructure(StructureType structure)
+	{
+		if (StructureCount[structure] <= 0)
+		{
+			Utils.PrintErr($"Cannot reduce structure count: {structure} as count is already zero.");
+			return;
+		}
+
+		StructureCount[structure]--;
+	}
+
+	public bool MaxStructureCountReached(StructureType structure)
+	{
+		bool reached;
+		if (structure != StructureType.Garage && structure != StructureType.Barracks)
+			return false;
+		else
+			reached = StructureCount[structure] >= MaxStructureCount;
+
+		if (reached)
+			GD.Print("Max structure count reached for: " + structure);
+
+		return reached;
 	}
 }

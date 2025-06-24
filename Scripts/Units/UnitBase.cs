@@ -3,6 +3,7 @@ using MyEnums;
 
 public partial class UnitBase : CharacterBody3D
 {
+	[Export] public UnitType UnitType { get; set; }
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
 	[Export] public int DPS { get; set; }
@@ -10,7 +11,7 @@ public partial class UnitBase : CharacterBody3D
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
-
+	public bool Unlocked => SceneResources.Instance.UnitAvailability[UnitType];
 	private float _movementDelta;
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;
@@ -42,6 +43,7 @@ public partial class UnitBase : CharacterBody3D
 
 		_targetPosition = Vector3.Zero;
 
+		if (UnitType == UnitType.None) Utils.PrintErr("UnitType is not set for unit");
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
 		if (DPS == 0) Utils.PrintErr("No DPS Assigned to unit");
 		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");

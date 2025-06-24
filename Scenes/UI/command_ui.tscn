@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=49 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
 [ext_resource type="Texture2D" uid="uid://c2w03bgb2pcqr" path="res://Assets/Textures/UI/Structures/Barracks.png" id="17_tlv7r"]
+[ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock250x250.png" id="20_pdtk1"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg0vo"]
@@ -89,8 +90,14 @@ texture = ExtResource("15_bfyu0")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7aoqs"]
 texture = ExtResource("15_bfyu0")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dq3k1"]
+texture = ExtResource("20_pdtk1")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdtk1"]
 texture = ExtResource("13_uy737")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4wsv"]
+texture = ExtResource("20_pdtk1")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c22w8"]
 texture = ExtResource("14_c22w8")
@@ -100,6 +107,9 @@ texture = ExtResource("14_c22w8")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8e5iw"]
 texture = ExtResource("14_c22w8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pfjam"]
+texture = ExtResource("20_pdtk1")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfyu0"]
 texture = ExtResource("15_ly8nf")
@@ -923,11 +933,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 1
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer/Btn1"]
 layout_mode = 1
@@ -942,18 +954,19 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 2
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer/Btn2"]
 layout_mode = 1
@@ -968,7 +981,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -979,11 +991,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 3
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer2/Btn1"]
 layout_mode = 1
@@ -998,18 +1012,19 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer2" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 1
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer2/Btn2"]
 layout_mode = 1
@@ -1024,7 +1039,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1035,11 +1049,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 1
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer3/Btn1"]
 layout_mode = 1
@@ -1054,18 +1070,19 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer3" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 1
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer3/Btn2"]
 layout_mode = 1
@@ -1080,7 +1097,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1091,11 +1107,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 1
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer4/Btn1"]
 layout_mode = 1
@@ -1110,18 +1128,19 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer4" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+disabled = true
 script = ExtResource("22_pdtk1")
-Unit = 1
+Unit = 4
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer4/Btn2"]
 layout_mode = 1
@@ -1136,7 +1155,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="VehicleOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
 visible = false
@@ -1159,9 +1177,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_f4wsv")
 theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 1
 
@@ -1178,16 +1198,17 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "Tank Gen I"
 
 [node name="TankGen2Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer" groups=["VehicleBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pfjam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_bfyu0")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bfyu0")
 theme_override_styles/normal = SubResource("StyleBoxTexture_bfyu0")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 2
 
@@ -1204,7 +1225,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "Tank Gen II"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1215,9 +1235,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pfjam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6ktso")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_6ktso")
 theme_override_styles/normal = SubResource("StyleBoxTexture_6ktso")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 3
 
@@ -1234,16 +1256,17 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "Artillery"
 
 [node name="TankGen1Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2" groups=["VehicleBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pfjam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 1
 
@@ -1260,7 +1283,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1271,9 +1293,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pfjam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 1
 
@@ -1290,16 +1314,17 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="TankGen1Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3" groups=["VehicleBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pfjam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 1
 
@@ -1316,7 +1341,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer"]
 layout_mode = 2
@@ -1327,9 +1351,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pfjam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 1
 
@@ -1346,16 +1372,17 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="TankGen1Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer4" groups=["VehicleBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pfjam")
 theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
+disabled = true
 script = ExtResource("22_pdtk1")
 Unit = 1
 
@@ -1372,7 +1399,6 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
-text = "??"
 
 [node name="UpgradeOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
 visible = false

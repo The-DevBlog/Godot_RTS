@@ -96,7 +96,7 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		bool maxStructureCount = _globalResources.MaxStructureCountReached(Structure);
+		bool maxStructureCount = _sceneResources.MaxStructureCountReached(Structure);
 		if (maxStructureCount)
 			return;
 
