@@ -4,7 +4,6 @@ using MyEnums;
 public partial class UnitBtn : Button
 {
 	[Export] public UnitType Unit { get; set; }
-	private GlobalResources _globalResources;
 	private Signals _signals;
 	private MyModels _models;
 	private SceneResources _sceneResources;
@@ -13,9 +12,9 @@ public partial class UnitBtn : Button
 	{
 		_models = AssetServer.Instance.Models;
 		_sceneResources = SceneResources.Instance;
-		_globalResources = GlobalResources.Instance;
 		_signals = Signals.Instance;
 
+		_signals.UpdateUnitAvailability += EnableDisableBtns;
 		MouseEntered += OnBtnEnter;
 		MouseExited += OnBtnExit;
 		Pressed += OnUnitSelect;
@@ -52,5 +51,10 @@ public partial class UnitBtn : Button
 	private void OnBtnExit()
 	{
 		_signals.EmitBuildOptionsBtnBtnHover(null, null);
+	}
+
+	private void EnableDisableBtns()
+	{
+		Disabled = !_sceneResources.UnitAvailability[Unit];
 	}
 }
