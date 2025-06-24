@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g5tvj7lsemmq"
-path="res://.godot/imported/UpgradeArrow (Custom).png-57ca69cb8fecfd4f493ab9fa1b3e0951.ctex"
+uid="uid://5h1464w3edvs"
+path="res://.godot/imported/Upgrades.png-17f2b48271ef241b19cd27253be76461.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Icons/UpgradeArrow (Custom).png"
-dest_files=["res://.godot/imported/UpgradeArrow (Custom).png-57ca69cb8fecfd4f493ab9fa1b3e0951.ctex"]
+source_file="res://Assets/Textures/UI/Icons/Upgrades.png"
+dest_files=["res://.godot/imported/Upgrades.png-17f2b48271ef241b19cd27253be76461.ctex"]
 
 [params]
 
