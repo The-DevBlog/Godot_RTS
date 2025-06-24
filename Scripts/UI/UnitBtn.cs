@@ -8,9 +8,11 @@ public partial class UnitBtn : Button
 	private MyModels _models;
 	private SceneResources _sceneResources;
 	private UnitBase _unit;
+	private Label _label;
 	public override void _Ready()
 	{
 		_models = AssetServer.Instance.Models;
+		_label = GetNode<Label>("Label");
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 
@@ -55,6 +57,7 @@ public partial class UnitBtn : Button
 
 	private void EnableDisableBtns()
 	{
+		_label.Text = Unit.ToString();
 		Disabled = !_sceneResources.UnitAvailability[Unit];
 	}
 }
