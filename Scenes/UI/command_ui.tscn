@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=50 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -79,9 +79,6 @@ texture = ExtResource("16_nk0xl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7aoqs"]
 texture = ExtResource("16_nk0xl")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dq3k1"]
-texture = ExtResource("20_pdtk1")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tlv7r"]
 load_path = "res://.godot/imported/Infantry.png-bdb22657a57964eea6355eae7969e571.ctex"
@@ -682,6 +679,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 text = "1"
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -916,7 +914,6 @@ theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "??"
 
 [node name="UnitOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -936,7 +933,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -958,12 +955,22 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer/Btn1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -985,6 +992,16 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer/Btn2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -994,7 +1011,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -1016,12 +1033,22 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer2/Btn1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer2" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -1043,6 +1070,16 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer2/Btn2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -1052,7 +1089,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -1074,12 +1111,22 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer3/Btn1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer3" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -1101,6 +1148,16 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer3/Btn2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
 [node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -1110,7 +1167,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -1132,12 +1189,22 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer4/Btn1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
 [node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer4" groups=["UnitBtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_dq3k1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
@@ -1158,6 +1225,16 @@ offset_right = 40.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/UnitOptionsContainer/VBoxContainer/HBoxContainer4/Btn2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
 
 [node name="VehicleOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
 visible = false
