@@ -6,7 +6,8 @@ public class MyModels
 {
     public Dictionary<StructureType, PackedScene> Structures { get; set; }
     public Dictionary<StructureType, PackedScene> StructurePlaceholders { get; set; }
-    public Dictionary<UnitType, PackedScene> Units { get; set; }
+    public Dictionary<InfantryType, PackedScene> Infantry { get; set; }
+    public Dictionary<VehicleType, PackedScene> Vehicles { get; set; }
 
     public MyModels()
     {
@@ -34,12 +35,16 @@ public class MyModels
             { StructureType.Satellite,   GD.Load<PackedScene>("res://Scenes/Structures/Placeholders/satellite_placeholder.tscn") },
         };
 
-        Units = new Dictionary<UnitType, PackedScene>
+        Infantry = new Dictionary<InfantryType, PackedScene>
         {
-            { UnitType.TankGen1, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
-            { UnitType.TankGen2, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_2.tscn") },
-            { UnitType.Artillery, GD.Load<PackedScene>("res://Scenes/Units/artillery.tscn") },
-            { UnitType.Infantry, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
+            { InfantryType.Infantry, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
+        };
+
+        Vehicles = new Dictionary<VehicleType, PackedScene>
+        {
+            { VehicleType.TankGen1, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
+            { VehicleType.TankGen2, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_2.tscn") },
+            { VehicleType.Artillery, GD.Load<PackedScene>("res://Scenes/Units/artillery.tscn") },
         };
     }
 }

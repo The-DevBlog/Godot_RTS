@@ -80,7 +80,7 @@ public partial class MiniMap : Control
     private void DrawUnits(Vector2 scale)
     {
         var units = GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString().ToLower());
-        foreach (UnitBase unit in units)
+        foreach (Unit unit in units)
         {
             Vector2 worldPos = new Vector2(unit.GlobalPosition.X, unit.GlobalPosition.Z);
             Vector2 localPos = (worldPos - _worldMin) * scale;

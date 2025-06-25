@@ -236,7 +236,7 @@ public partial class RootContainer : Control
 		UpgradeInfoPopupLabelBuildTime.Text = $"{upgradeInfo.BuildTime}s";
 	}
 
-	private void ShowInfoPopup(StructureBase structure, UnitBase unit)
+	private void ShowInfoPopup(StructureBase structure, Unit unit)
 	{
 		if (structure == null && unit == null)
 		{
@@ -262,6 +262,8 @@ public partial class RootContainer : Control
 
 		if (unit != null)
 		{
+			GD.Print("Unit unlocked: " + unit.Unlocked);
+
 			if (!unit.Unlocked)
 			{
 				InfoPopupContainer.Visible = false;

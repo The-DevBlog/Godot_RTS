@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnk0x7l6d7sjt"]
 
-[ext_resource type="Script" uid="uid://ck7sifrfkdful" path="res://Scripts/Units/UnitBase.cs" id="1_ebj34"]
+[ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Vehicle.cs" id="1_r00e8"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_a2hf6"]
 [ext_resource type="PackedScene" uid="uid://buxx3yidow5ae" path="res://Assets/Models/Units/Artillery/Artillery.gltf" id="3_ebj34"]
 
@@ -9,14 +9,7 @@ height = 1.5
 radius = 1.2
 
 [node name="Artillery" type="CharacterBody3D" groups=["units"]]
-script = ExtResource("1_ebj34")
-UnitType = 3
-Speed = 10
-HP = 100
-DPS = 10
-Cost = 500
-BuildTime = 3
-Acceleration = 2
+script = ExtResource("1_r00e8")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

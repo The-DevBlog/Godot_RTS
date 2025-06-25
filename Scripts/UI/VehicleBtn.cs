@@ -1,13 +1,13 @@
 using Godot;
 using MyEnums;
 
-public partial class UnitBtn : Button
+public partial class VehicleBtn : Button
 {
-	[Export] public UnitType Unit { get; set; }
+	[Export] public VehicleType Unit { get; set; }
 	private Signals _signals;
 	private MyModels _models;
 	private SceneResources _sceneResources;
-	private UnitBase _unit;
+	private Unit _unit;
 	private Label _label;
 	private TextureRect _lockTexture;
 	private Color _normalModulate = new Color("#c8c8c8");
@@ -24,7 +24,7 @@ public partial class UnitBtn : Button
 		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Unit.ToString());
 		if (_label == null) Utils.PrintErr("Label not found for unit: " + Unit.ToString());
 
-		_signals.UpdateUnitAvailability += EnableDisableBtns;
+		_signals.UpdateVehicleAvailability += EnableDisableBtns;
 		MouseEntered += OnMouseEnter;
 		MouseExited += OnMouseExit;
 		Pressed += OnUnitSelect;
@@ -35,8 +35,8 @@ public partial class UnitBtn : Button
 
 	private void OnUnitSelect()
 	{
-		var unit = _models.Units[Unit];
-		UnitBase unitInstance = unit.Instantiate<UnitBase>();
+		var unit = _models.Vehicles[Unit];
+		Unit unitInstance = unit.Instantiate<Unit>();
 
 		bool enoughFunds = _sceneResources.Funds >= unitInstance.Cost;
 		if (!enoughFunds)
@@ -51,7 +51,7 @@ public partial class UnitBtn : Button
 
 	private void OnMouseEnter()
 	{
-		if (!_models.Units.ContainsKey(Unit))
+		if (!_models.Vehicles.ContainsKey(Unit))
 		{
 			Utils.PrintErr("MyModels.cs -> Units dictionary does not contains key for UnitType: " + Unit);
 			return;
@@ -60,8 +60,8 @@ public partial class UnitBtn : Button
 		if (!Disabled)
 			SelfModulate = _hoverModulate;
 
-		var packed = _models.Units[Unit];
-		var unit = packed.Instantiate<UnitBase>();
+		var packed = _models.Vehicles[Unit];
+		var unit = packed.Instantiate<Unit>();
 
 		_signals.EmitBuildOptionsBtnBtnHover(null, unit);
 	}
@@ -74,7 +74,7 @@ public partial class UnitBtn : Button
 
 	private void EnableDisableBtns()
 	{
-		Disabled = !_sceneResources.UnitAvailability[Unit];
+		Disabled = !_sceneResources.VehicleAvailability[Unit];
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 		_lockTexture.Visible = Disabled;
 	}
