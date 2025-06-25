@@ -10,6 +10,7 @@ public partial class Signals : Node
 	[Signal] public delegate void UpdateEnergyEventHandler();
 	[Signal] public delegate void UpdateFundsEventHandler();
 	[Signal] public delegate void OnBuildOptionsBtnHoverEventHandler(StructureBase structure, UnitBase unit);
+	[Signal] public delegate void OnUpgradeBtnHoverEventHandler(UpgradeType upgrade);
 	[Signal] public delegate void AddStructureEventHandler(int structureId);
 	[Signal] public delegate void UpdateEnergyColorEventHandler();
 	[Signal] public delegate void UpdateUnitAvailabilityEventHandler();
@@ -64,6 +65,11 @@ public partial class Signals : Node
 	public void EmitBuildOptionsBtnBtnHover(StructureBase structure, UnitBase unit)
 	{
 		EmitSignal(SignalName.OnBuildOptionsBtnHover, structure, unit);
+	}
+
+	public void EmitUpgradeBtnHover(UpgradeType upgrade)
+	{
+		EmitSignal(SignalName.OnUpgradeBtnHover, (int)upgrade);
 	}
 
 	public void EmitUpdateUpgradesAvailability()

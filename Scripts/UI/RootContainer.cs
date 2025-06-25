@@ -13,6 +13,7 @@ public partial class RootContainer : Control
 	[Export] public Container BarracksCountContainer { get; set; }
 	[Export] public Container GarageCountContainer { get; set; }
 	[Export] public Container InfoPopupContainer { get; set; }
+	[Export] public Container UpgradeInfoPopupContainer { get; set; }
 	[Export] public Label InfoPopupLabelName { get; set; }
 	[Export] public Label InfoPopupLabelCost { get; set; }
 	[Export] public Label InfoPopupLabelBuildTime { get; set; }
@@ -20,6 +21,10 @@ public partial class RootContainer : Control
 	[Export] public Label InfoPopupLabelHP { get; set; }
 	[Export] public Label InfoPopupLabelDPS { get; set; }
 	[Export] public Label InfoPopupLabelSpeed { get; set; }
+	[Export] public Label UpgradeInfoPopupLabelName { get; set; }
+	[Export] public Label UpgradeInfoPopupLabelDescription { get; set; }
+	[Export] public Label UpgradeInfoPopupLabelCost { get; set; }
+	[Export] public Label UpgradeInfoPopupLabelBuildTime { get; set; }
 
 	private Container _structureCountContainer;
 	private GlobalResources _globalResources;
@@ -34,6 +39,7 @@ public partial class RootContainer : Control
 		_signals = Signals.Instance;
 		_signals.AddStructure += OnStructureAdd;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
+		_signals.OnUpgradeBtnHover += ShowUpgradeInfoPopup;
 		_signals.UpdateEnergyColor += UpdateEnergyColor;
 
 		Utils.NullExportCheck(UIContainer);
@@ -49,6 +55,14 @@ public partial class RootContainer : Control
 		Utils.NullExportCheck(InfoPopupLabelCost);
 		Utils.NullExportCheck(InfoPopupLabelBuildTime);
 		Utils.NullExportCheck(InfoPopupLabelEnergy);
+		Utils.NullExportCheck(InfoPopupLabelHP);
+		Utils.NullExportCheck(InfoPopupLabelDPS);
+		Utils.NullExportCheck(InfoPopupLabelSpeed);
+		Utils.NullExportCheck(UpgradeInfoPopupContainer);
+		Utils.NullExportCheck(UpgradeInfoPopupLabelName);
+		Utils.NullExportCheck(UpgradeInfoPopupLabelDescription);
+		Utils.NullExportCheck(UpgradeInfoPopupLabelCost);
+		Utils.NullExportCheck(UpgradeInfoPopupLabelBuildTime);
 
 		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
 
@@ -196,6 +210,30 @@ public partial class RootContainer : Control
 			// InfoPopupLabelEnergy.Modulate = Colors.White;
 			// InfoPopupLabelEnergy.GetParent<Container>().Modulate = Colors.White;
 		}
+	}
+
+	private void ShowUpgradeInfoPopup(UpgradeType upgrade)
+	{
+		if (upgrade == UpgradeType.None)
+		{
+			UpgradeInfoPopupContainer.Visible = false;
+			return;
+		}
+
+		UpgradeInfoPopupContainer.Visible = true;
+
+		UpgradeInfo upgradeInfo = UpgradeInfoData.UpgradeDataMap[upgrade];
+
+		if (upgradeInfo == null)
+		{
+			Utils.PrintErr($"Upgrade data not found for: {upgrade}");
+			return;
+		}
+
+		UpgradeInfoPopupLabelName.Text = upgradeInfo.Name;
+		UpgradeInfoPopupLabelDescription.Text = upgradeInfo.Description;
+		UpgradeInfoPopupLabelCost.Text = $"${upgradeInfo.Cost}";
+		UpgradeInfoPopupLabelBuildTime.Text = $"{upgradeInfo.BuildTime}s";
 	}
 
 	private void ShowInfoPopup(StructureBase structure, UnitBase unit)
