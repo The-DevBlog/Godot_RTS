@@ -70,14 +70,7 @@ public partial class Signals : Node
 	{
 		bool upgradesUnlocked = _sceneResources.StructureCount[StructureType.ResearchLab] > 0;
 
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade1] = upgradesUnlocked;
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade2] = upgradesUnlocked;
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade3] = upgradesUnlocked;
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade4] = upgradesUnlocked;
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade5] = upgradesUnlocked;
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade6] = upgradesUnlocked;
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade7] = upgradesUnlocked;
-		_sceneResources.UpgradeAvailability[UpgradeType.Upgrade8] = upgradesUnlocked;
+		_sceneResources.UpgradesAvailable = upgradesUnlocked;
 
 		EmitSignal(SignalName.UpdateUpgradesAvailability);
 	}
