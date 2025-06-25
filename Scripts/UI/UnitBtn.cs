@@ -21,6 +21,9 @@ public partial class UnitBtn : Button
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 
+		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Unit.ToString());
+		if (_label == null) Utils.PrintErr("Label not found for unit: " + Unit.ToString());
+
 		_signals.UpdateUnitAvailability += EnableDisableBtns;
 		MouseEntered += OnMouseEnter;
 		MouseExited += OnMouseExit;
