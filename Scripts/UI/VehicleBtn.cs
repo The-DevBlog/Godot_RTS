@@ -4,6 +4,7 @@ using MyEnums;
 public partial class VehicleBtn : Button
 {
 	[Export] public VehicleType Unit { get; set; }
+	public bool Unlocked => SceneResources.Instance.VehicleAvailability[Unit];
 	private Signals _signals;
 	private MyModels _models;
 	private SceneResources _sceneResources;

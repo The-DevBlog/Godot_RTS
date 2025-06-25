@@ -10,6 +10,7 @@ radius = 1.2
 
 [node name="TankGen2" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_eb2nj")
+VehicleType = 2
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

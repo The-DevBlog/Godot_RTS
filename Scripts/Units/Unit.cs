@@ -10,7 +10,7 @@ public partial class Unit : CharacterBody3D
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
-	public virtual bool Unlocked => false;
+	// public virtual bool Unlocked => false;
 	private float _movementDelta;
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;

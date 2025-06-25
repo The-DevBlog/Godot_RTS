@@ -262,9 +262,13 @@ public partial class RootContainer : Control
 
 		if (unit != null)
 		{
-			GD.Print("Unit unlocked: " + unit.Unlocked);
+			bool unitUnlocked = false;
+			if (unit is Vehicle vehicle)
+				unitUnlocked = _sceneResources.VehicleAvailability[vehicle.VehicleType];
+			else if (unit is Infantry infantry)
+				unitUnlocked = _sceneResources.InfantryAvailability[infantry.InfantryType];
 
-			if (!unit.Unlocked)
+			if (!unitUnlocked)
 			{
 				InfoPopupContainer.Visible = false;
 				return;
