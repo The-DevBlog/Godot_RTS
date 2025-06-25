@@ -63,7 +63,6 @@ size = Vector3(200, 0.5, 200)
 size = Vector3(200, 0.5, 200)
 
 [node name="World" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0196333, 0, -0.010726)
 script = ExtResource("1_qtxxq")
 MapSize = Vector2(500, 500)
 Funds = 5000
