@@ -35,8 +35,6 @@ public partial class UnitBtn : Button
 
 	private void OnUnitSelect()
 	{
-		GD.Print("Building " + Unit.ToString());
-
 		var unit = _models.Units[Unit];
 		UnitBase unitInstance = unit.Instantiate<UnitBase>();
 
@@ -47,6 +45,7 @@ public partial class UnitBtn : Button
 			return;
 		}
 
+		GD.Print("Building " + Unit.ToString());
 		_signals.EmitUpdateFunds(-unitInstance.Cost);
 	}
 
