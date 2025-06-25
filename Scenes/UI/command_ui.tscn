@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor.png" id="16_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://oe6o25dfoi58" path="res://Assets/Textures/UI/Structures/Barracks.png" id="18_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage.png" id="19_nk0xl"]
-[ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock250x250.png" id="20_pdtk1"]
+[ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock.png" id="20_pdtk1"]
 [ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/UnitBtn.cs" id="22_pdtk1"]
 [ext_resource type="Script" uid="uid://do3p3enwhoxf7" path="res://Scripts/UI/UpgradeBtn.cs" id="26_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://ccsu7dho1ek3j" path="res://Assets/Textures/UI/Upgrades/upgrade.png" id="26_fgwrq"]
