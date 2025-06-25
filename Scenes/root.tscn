@@ -65,7 +65,7 @@ size = Vector3(200, 0.5, 200)
 [node name="World" type="Node3D"]
 script = ExtResource("1_qtxxq")
 MapSize = Vector2(500, 500)
-Funds = 5000
+Funds = 20000
 TeamColor = Color(0.356362, 0.688192, 1, 1)
 RainyWeather = true
 
