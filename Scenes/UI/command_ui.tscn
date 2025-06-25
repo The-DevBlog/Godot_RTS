@@ -677,7 +677,6 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 text = "1"
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -1400,6 +1399,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_7aoqs")
 
 [node name="UpgradeOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
