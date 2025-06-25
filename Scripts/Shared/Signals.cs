@@ -92,7 +92,6 @@ public partial class Signals : Node
 		_sceneResources.VehicleAvailability[VehicleType.TankGen2] = vehiclesUnlocked;
 		_sceneResources.VehicleAvailability[VehicleType.Artillery] = vehiclesUnlocked;
 
-		GD.Print("Update Vehicle Availability");
 		EmitSignal(SignalName.UpdateVehicleAvailability);
 	}
 

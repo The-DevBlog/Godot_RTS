@@ -37,7 +37,7 @@ public class MyModels
 
         Infantry = new Dictionary<InfantryType, PackedScene>
         {
-            { InfantryType.Infantry, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
+            { InfantryType.Infantry, GD.Load<PackedScene>("res://Scenes/Units/Infantry.tscn") },
         };
 
         Vehicles = new Dictionary<VehicleType, PackedScene>
