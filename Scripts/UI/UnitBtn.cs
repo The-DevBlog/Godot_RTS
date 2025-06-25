@@ -9,10 +9,12 @@ public partial class UnitBtn : Button
 	private SceneResources _sceneResources;
 	private UnitBase _unit;
 	private Label _label;
+	private TextureRect _lockTexture;
 	public override void _Ready()
 	{
 		_models = AssetServer.Instance.Models;
 		_label = GetNode<Label>("Label");
+		_lockTexture = GetNode<TextureRect>("LockTexture");
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 
@@ -20,6 +22,8 @@ public partial class UnitBtn : Button
 		MouseEntered += OnBtnEnter;
 		MouseExited += OnBtnExit;
 		Pressed += OnUnitSelect;
+
+		_label.Text = Unit.ToString();
 	}
 
 	private void OnUnitSelect()
@@ -37,9 +41,6 @@ public partial class UnitBtn : Button
 		}
 
 		_signals.EmitUpdateFunds(-unitInstance.Cost);
-
-
-		GD.Print("Unit Instance: " + unitInstance);
 	}
 
 	private void OnBtnEnter()
@@ -64,8 +65,6 @@ public partial class UnitBtn : Button
 	private void EnableDisableBtns()
 	{
 		Disabled = !_sceneResources.UnitAvailability[Unit];
-
-		if (!Disabled)
-			_label.Text = Unit.ToString();
+		_lockTexture.Visible = Disabled;
 	}
 }
