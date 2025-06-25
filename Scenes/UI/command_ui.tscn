@@ -90,7 +90,6 @@ texture = SubResource("CompressedTexture2D_tlv7r")
 texture = ExtResource("20_pdtk1")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bfyu0"]
-load_path = "res://.godot/imported/Tank2.png-2442cbb9c657aab4be88c11fbf859d7f.ctex"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c22w8"]
 texture = SubResource("CompressedTexture2D_bfyu0")
@@ -105,7 +104,6 @@ texture = SubResource("CompressedTexture2D_bfyu0")
 texture = ExtResource("20_pdtk1")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7aoqs"]
-load_path = "res://.godot/imported/Tank2.png-2442cbb9c657aab4be88c11fbf859d7f.ctex"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfyu0"]
 texture = SubResource("CompressedTexture2D_7aoqs")

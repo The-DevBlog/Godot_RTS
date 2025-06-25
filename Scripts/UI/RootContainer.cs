@@ -53,7 +53,7 @@ public partial class RootContainer : Control
 		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
 
 		SetupButtons(Group.StructureBtns);
-		SetupButtons(Group.UnitBtns);
+		// SetupButtons(Group.UnitBtns);
 		SetupButtons(Group.VehicleBtns);
 
 		GetTree().Root.SizeChanged += OnWindowResize;

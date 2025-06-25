@@ -10,6 +10,9 @@ public partial class UnitBtn : Button
 	private UnitBase _unit;
 	private Label _label;
 	private TextureRect _lockTexture;
+	private Color _normalModulate = new Color("#c8c8c8");
+	private Color _hoverModulate = new Color("#ffffff");
+	private Color _disabledModulate = new Color("#808080");
 	public override void _Ready()
 	{
 		_models = AssetServer.Instance.Models;
@@ -19,9 +22,10 @@ public partial class UnitBtn : Button
 		_signals = Signals.Instance;
 
 		_signals.UpdateUnitAvailability += EnableDisableBtns;
-		MouseEntered += OnBtnEnter;
-		MouseExited += OnBtnExit;
+		MouseEntered += OnMouseEnter;
+		MouseExited += OnMouseExit;
 		Pressed += OnUnitSelect;
+		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 
 		_label.Text = Unit.ToString();
 	}
@@ -43,7 +47,7 @@ public partial class UnitBtn : Button
 		_signals.EmitUpdateFunds(-unitInstance.Cost);
 	}
 
-	private void OnBtnEnter()
+	private void OnMouseEnter()
 	{
 		if (!_models.Units.ContainsKey(Unit))
 		{
@@ -51,20 +55,25 @@ public partial class UnitBtn : Button
 			return;
 		}
 
+		if (!Disabled)
+			SelfModulate = _hoverModulate;
+
 		var packed = _models.Units[Unit];
 		var unit = packed.Instantiate<UnitBase>();
 
 		_signals.EmitBuildOptionsBtnBtnHover(null, unit);
 	}
 
-	private void OnBtnExit()
+	private void OnMouseExit()
 	{
+		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 		_signals.EmitBuildOptionsBtnBtnHover(null, null);
 	}
 
 	private void EnableDisableBtns()
 	{
 		Disabled = !_sceneResources.UnitAvailability[Unit];
+		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 		_lockTexture.Visible = Disabled;
 	}
 }
