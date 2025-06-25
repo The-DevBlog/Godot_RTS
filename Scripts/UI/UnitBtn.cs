@@ -37,9 +37,6 @@ public partial class UnitBtn : Button
 		}
 
 		_signals.EmitUpdateFunds(-unitInstance.Cost);
-
-
-		GD.Print("Unit Instance: " + unitInstance);
 	}
 
 	private void OnBtnEnter()

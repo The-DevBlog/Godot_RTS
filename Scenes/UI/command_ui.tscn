@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=51 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -15,11 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bfsmu7c6uhl3q" path="res://Assets/Textures/UI/Icons/Rifle.png" id="7_f6022"]
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 [ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
-[ext_resource type="Texture2D" uid="uid://doej4y573d76i" path="res://Assets/Textures/UI/Units/Rifleman.png" id="13_uy737"]
-[ext_resource type="Texture2D" uid="uid://c7143f4fv22ev" path="res://Assets/Textures/UI/Units/TankGen1.png" id="14_c22w8"]
 [ext_resource type="Texture2D" uid="uid://5h1464w3edvs" path="res://Assets/Textures/UI/Icons/Upgrades.png" id="14_fgwrq"]
-[ext_resource type="Texture2D" uid="uid://boi3g2fljw40r" path="res://Assets/Textures/UI/Units/TankGen2.png" id="15_ly8nf"]
-[ext_resource type="Texture2D" uid="uid://bb8pkgbll5wfe" path="res://Assets/Textures/UI/Units/Artillery.png" id="16_g5aby"]
 [ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor.png" id="16_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://oe6o25dfoi58" path="res://Assets/Textures/UI/Structures/Barracks.png" id="18_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage.png" id="19_nk0xl"]
@@ -87,29 +83,38 @@ texture = ExtResource("16_nk0xl")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dq3k1"]
 texture = ExtResource("20_pdtk1")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tlv7r"]
+load_path = "res://.godot/imported/Infantry.png-bdb22657a57964eea6355eae7969e571.ctex"
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdtk1"]
-texture = ExtResource("13_uy737")
+texture = SubResource("CompressedTexture2D_tlv7r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4wsv"]
 texture = ExtResource("20_pdtk1")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bfyu0"]
+load_path = "res://.godot/imported/Tank2.png-2442cbb9c657aab4be88c11fbf859d7f.ctex"
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c22w8"]
-texture = ExtResource("14_c22w8")
+texture = SubResource("CompressedTexture2D_bfyu0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l1kts"]
-texture = ExtResource("14_c22w8")
+texture = SubResource("CompressedTexture2D_bfyu0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8e5iw"]
-texture = ExtResource("14_c22w8")
+texture = SubResource("CompressedTexture2D_bfyu0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pfjam"]
 texture = ExtResource("20_pdtk1")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7aoqs"]
+load_path = "res://.godot/imported/Tank2.png-2442cbb9c657aab4be88c11fbf859d7f.ctex"
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfyu0"]
-texture = ExtResource("15_ly8nf")
+texture = SubResource("CompressedTexture2D_7aoqs")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ktso"]
-texture = ExtResource("16_g5aby")
+texture = SubResource("CompressedTexture2D_7aoqs")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ndkd"]
 texture = ExtResource("20_pdtk1")

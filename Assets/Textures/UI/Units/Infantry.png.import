@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4avpgs334yis"
-path="res://.godot/imported/ResearchLab.png-6b1b6d78e1c11fbf816f56b68b1341e3.ctex"
+uid="uid://hnm2tmrsppxm"
+path="res://.godot/imported/Infantry.png-bdb22657a57964eea6355eae7969e571.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Structures/ResearchLab.png"
-dest_files=["res://.godot/imported/ResearchLab.png-6b1b6d78e1c11fbf816f56b68b1341e3.ctex"]
+source_file="res://Assets/Textures/UI/Units/Infantry.png"
+dest_files=["res://.godot/imported/Infantry.png-bdb22657a57964eea6355eae7969e571.ctex"]
 
 [params]
 
