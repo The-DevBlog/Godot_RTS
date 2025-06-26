@@ -12,7 +12,7 @@ public partial class Signals : Node
 	[Signal] public delegate void OnBuildOptionsBtnHoverEventHandler(StructureBase structure, Unit unit);
 	[Signal] public delegate void OnUpgradeBtnHoverEventHandler(UpgradeType upgrade);
 	[Signal] public delegate void AddStructureEventHandler(int structureId);
-	[Signal] public delegate void BuildVehicleEventHandler(int garageId);
+	[Signal] public delegate void BuildVehicleEventHandler(Vehicle vehicle);
 	[Signal] public delegate void UpdateEnergyColorEventHandler();
 	[Signal] public delegate void UpdateInfantryAvailabilityEventHandler();
 	[Signal] public delegate void UpdateVehicleAvailabilityEventHandler();
@@ -104,8 +104,8 @@ public partial class Signals : Node
 		EmitSignal(SignalName.UpdateInfantryAvailability);
 	}
 
-	public void EmitBuildVehicle(int garageId)
+	public void EmitBuildVehicle(Vehicle vehicle)
 	{
-		EmitSignal(SignalName.BuildVehicle, garageId);
+		EmitSignal(SignalName.BuildVehicle, vehicle);
 	}
 }

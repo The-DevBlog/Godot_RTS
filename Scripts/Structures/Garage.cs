@@ -25,8 +25,8 @@ public partial class Garage : StructureBase
 	}
 
 
-	private void BuildVehicle(int garageId)
+	private void BuildVehicle(Vehicle vehicle)
 	{
-		GD.Print("Building vehicle in Garage ID: " + Id);
+		GD.Print($"Building {vehicle.Name} in Garage {Id}");
 	}
 }
