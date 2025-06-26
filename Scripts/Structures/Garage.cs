@@ -10,20 +10,19 @@ public partial class Garage : StructureBase
 	public override void _Ready()
 	{
 		base._Ready();
-		Id = _sceneResources.StructureCount[StructureType.Garage];
-		// _signals.BuildVehicle += BuildVehicle;
+
+		int garageCount = _sceneResources.StructureCount[StructureType.Garage];
+		Id = garageCount;
+
+		if (Id == 0)
+		{
+			Activate();
+		}
 	}
 
-	public void Activate()
-	{
-		_signals.BuildVehicle += BuildVehicle;
-	}
+	public void Activate() => _signals.BuildVehicle += BuildVehicle;
 
-	public void Deactivate()
-	{
-		_signals.BuildVehicle -= BuildVehicle;
-	}
-
+	public void Deactivate() => _signals.BuildVehicle -= BuildVehicle;
 
 	private void BuildVehicle(Vehicle vehicle)
 	{
