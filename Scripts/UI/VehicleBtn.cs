@@ -46,6 +46,7 @@ public partial class VehicleBtn : Button
 		}
 
 		GD.Print("Building " + Unit.ToString());
+		_signals.EmitBuildVehicle(_sceneResources.ActiveGarageId);
 		_signals.EmitUpdateFunds(-unitInstance.Cost);
 	}
 

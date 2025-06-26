@@ -37,7 +37,7 @@ public partial class RootContainer : Control
 		_globalResources = GlobalResources.Instance;
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
-		_signals.AddStructure += OnStructureAdd;
+		_signals.AddStructure += AddGarageOrBarracksInstanceBtn;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
 		_signals.OnUpgradeBtnHover += ShowUpgradeInfoPopup;
 		_signals.UpdateEnergyColor += UpdateEnergyColor;
@@ -128,7 +128,7 @@ public partial class RootContainer : Control
 
 	private void ToggleVisibility(Container menu) => menu.Visible = !menu.Visible;
 
-	private void OnStructureAdd(int structureId)
+	private void AddGarageOrBarracksInstanceBtn(int structureId)
 	{
 		StructureType structureType = (StructureType)structureId;
 

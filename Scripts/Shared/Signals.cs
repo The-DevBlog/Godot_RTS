@@ -103,4 +103,9 @@ public partial class Signals : Node
 
 		EmitSignal(SignalName.UpdateInfantryAvailability);
 	}
+
+	public void EmitBuildVehicle(int garageId)
+	{
+		EmitSignal(SignalName.BuildVehicle, garageId);
+	}
 }
