@@ -155,14 +155,27 @@ public partial class RootContainer : Control
 		Control parent = null;
 		if (structureType == StructureType.Garage)
 		{
-			btn.Pressed += () => SetActiveGarage(btn.Text.ToInt()); ;
+			btn.Pressed += () => SetActiveGarage(btn.Text.ToInt());
+			btn.AddToGroup(Group.GarageBtns.ToString());
 			parent = GarageCountContainer;
 		}
 		else
 		{
+			btn.AddToGroup(Group.BarracksBtns.ToString());
 			btn.Pressed += () => SetActiveBarracks(btn.Text.ToInt());
 			parent = BarracksCountContainer;
 		}
+
+		var highlight = new StyleBoxFlat
+		{
+			BorderWidthTop = 2,
+			BorderWidthBottom = 2,
+			BorderWidthLeft = 2,
+			BorderWidthRight = 2,
+			BorderColor = Colors.Yellow
+		};
+
+		btn.AddThemeStyleboxOverride("pressed", highlight);
 
 		parent.AddChild(btnContainer);
 	}
