@@ -15,9 +15,7 @@ public partial class Garage : StructureBase
 		Id = garageCount;
 
 		if (Id == 0)
-		{
 			Activate();
-		}
 	}
 
 	public void Activate() => _signals.BuildVehicle += BuildVehicle;

@@ -160,7 +160,7 @@ public partial class RootContainer : Control
 		}
 		else
 		{
-			// btn.Pressed += OnBarracksBtnPressed;
+			btn.Pressed += () => SetActiveBarracks(btn.Text.ToInt());
 			parent = BarracksCountContainer;
 		}
 
@@ -174,6 +174,19 @@ public partial class RootContainer : Control
 		VehicleOptionsContainer.Visible = toShow == VehicleOptionsContainer;
 		UpgradeOptionsContainer.Visible = toShow == UpgradeOptionsContainer;
 	}
+
+	private void SetActiveBarracks(int id)
+	{
+		_sceneResources.ActiveBarracksId = --id;
+		foreach (var barracks in _sceneResources.BarracksMap)
+		{
+			if (barracks.Id == id)
+				barracks.Activate();
+			else
+				barracks.Deactivate();
+		}
+	}
+
 
 	private void SetActiveGarage(int id)
 	{

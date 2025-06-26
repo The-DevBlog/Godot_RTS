@@ -179,6 +179,8 @@ public partial class StructureBtn : Button
 
 		if (_structure is Garage garage)
 			_sceneResources.GaragesMap.Add(garage);
+		else if (_structure is Barracks barracks)
+			_sceneResources.BarracksMap.Add(barracks);
 	}
 
 	private void OnBtnEnter()
