@@ -26,6 +26,8 @@ public partial class RootContainer : Control
 	[Export] public Label UpgradeInfoPopupLabelCost { get; set; }
 	[Export] public Label UpgradeInfoPopupLabelBuildTime { get; set; }
 
+	private Button _garageInstanceBtn;
+	private Button _barracksInstanceBtn;
 	private Container _structureCountContainer;
 	private GlobalResources _globalResources;
 	private SceneResources _sceneResources;
@@ -65,6 +67,11 @@ public partial class RootContainer : Control
 		Utils.NullExportCheck(UpgradeInfoPopupLabelBuildTime);
 
 		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
+		_garageInstanceBtn = GarageCountContainer.GetNode<Button>("BtnContainer/Btn");
+		_barracksInstanceBtn = BarracksCountContainer.GetNode<Button>("BtnContainer/Btn");
+
+		if (_garageInstanceBtn == null) Utils.PrintErr("GarageInstanceBtn not found in GarageCountContainer");
+		if (_barracksInstanceBtn == null) Utils.PrintErr("BarracksInstanceBtn not found in BarracksCountContainer");
 
 		SetupButtons(Group.StructureBtns);
 
@@ -135,6 +142,8 @@ public partial class RootContainer : Control
 		if (structureType != StructureType.Garage && structureType != StructureType.Barracks)
 			return;
 
+		bool isGarage = structureType == StructureType.Garage;
+
 		int structureCount = _sceneResources.StructureCount[structureType];
 
 		Container structureCountContainer = _structureCountContainer.Duplicate() as Container;
@@ -142,7 +151,7 @@ public partial class RootContainer : Control
 
 		// get the placeholder that is currently in the scene
 		NinePatchRect btnContainer = null;
-		if (structureType == StructureType.Garage)
+		if (isGarage)
 		{
 			btnContainer = GarageCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
 			if (btnContainer == null)
@@ -167,7 +176,7 @@ public partial class RootContainer : Control
 		btn.Text = structureCount.ToString();
 
 		Control parent = null;
-		if (structureType == StructureType.Garage)
+		if (isGarage)
 		{
 			btn.Pressed += () => SetActiveGarage(btn.Text.ToInt());
 			parent = GarageCountContainer;
@@ -179,6 +188,19 @@ public partial class RootContainer : Control
 		}
 
 		parent.AddChild(btnContainer);
+
+		// if no active garage/barracks, set the first one as active
+		var group = btn.ButtonGroup;
+		if (group.GetPressedButton() == null)
+		{
+			btn.SetPressed(true);
+
+			if (isGarage)
+				SetActiveGarage(structureCount);
+			else
+				SetActiveBarracks(structureCount);
+
+		}
 	}
 
 	private void ShowOnly(Container toShow)
