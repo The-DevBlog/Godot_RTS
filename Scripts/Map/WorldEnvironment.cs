@@ -1,42 +1,74 @@
 using Godot;
+using MyEnums;
 
 public partial class WorldEnvironment : Godot.WorldEnvironment
 {
+	[Export] private MeshInstance3D _groundMesh;
 	private SceneResources _sceneResources;
+	private Weather _weather;
+	private TimeOfDay _timeOfDay;
+	private Season _season;
 	private DirectionalLight3D _sunLight;
-	private Color _nightColor = new Color("#7da8ff");
-	private Color _dayColor = new Color("#e1ebff");
+	private Color _colorGround = new Color("#547c53");
+	private Color _colorNight = new Color("#7da8ff");
+	private Color _colorDay = new Color("#e1ebff");
 
 	public override void _Ready()
 	{
 		_sceneResources = SceneResources.Instance;
+
+		_season = _sceneResources.Season;
+		_weather = _sceneResources.Weather;
+		_timeOfDay = _sceneResources.TimeOfDay;
 		_sunLight = GetNode<DirectionalLight3D>("../DirectionalLight3D");
 
+		Utils.NullCheck(_season);
 		Utils.NullCheck(_sunLight);
+		Utils.NullCheck(_weather);
+		Utils.NullCheck(_timeOfDay);
+		Utils.NullExportCheck(_groundMesh);
 
-		RainyWeather();
-		SunnyDay();
+		// 1) Create a new StandardMaterial3D and set its BaseColor:
+		var groundMat = new StandardMaterial3D();
+		groundMat.AlbedoColor = _colorGround;
+
+		// 2) Assign it as an override on the MeshInstance3D:
+		_groundMesh.MaterialOverride = groundMat;
+
+
+		InitSeason();
+		InitTimeOfDay();
+		InitWeather();
 	}
 
-	private void SunnyDay()
+	private void InitSeason()
 	{
-		if (_sceneResources.RainyWeather)
-			return;
 
-		_sunLight.LightEnergy = 1.75f;
-		_sunLight.LightColor = _dayColor;
-
-		Environment.VolumetricFogEnabled = false;
 	}
 
-	private void RainyWeather()
+	private void InitTimeOfDay()
 	{
-		if (!_sceneResources.RainyWeather)
-			return;
+		if (_timeOfDay == TimeOfDay.Day)
+		{
+			_sunLight.LightEnergy = 1.75f;
+			_sunLight.LightColor = _colorDay;
+		}
+		else if (_timeOfDay == TimeOfDay.Night)
+		{
+			_sunLight.LightEnergy = 1.0f;
+			_sunLight.LightColor = _colorNight;
+		}
+	}
 
-		_sunLight.LightEnergy = 1;
-		_sunLight.LightColor = _nightColor;
-
-		Environment.VolumetricFogEnabled = true;
+	private void InitWeather()
+	{
+		if (_weather == Weather.Rainy)
+		{
+			Environment.VolumetricFogEnabled = true;
+		}
+		else if (_weather == Weather.Sunny)
+		{
+			Environment.VolumetricFogEnabled = false;
+		}
 	}
 }

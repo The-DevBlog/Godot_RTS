@@ -1,10 +1,15 @@
 using Godot;
+using MyEnums;
 
 public partial class RainParticles : GpuParticles3D
 {
+	private SceneResources _sceneResources;
 	public override void _Ready()
 	{
-		Emitting = SceneResources.Instance.RainyWeather;
-		Visible = SceneResources.Instance.RainyWeather;
+		_sceneResources = SceneResources.Instance;
+
+		bool isRaining = _sceneResources.Weather == Weather.Rainy;
+		Emitting = isRaining;
+		Visible = isRaining;
 	}
 }
