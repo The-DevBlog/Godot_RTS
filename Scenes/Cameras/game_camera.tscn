@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfwlldgg06bq6"]
+[gd_scene load_steps=9 format=3 uid="uid://dfwlldgg06bq6"]
 
 [ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/GameCamera.cs" id="1_npc2i"]
 [ext_resource type="Shader" uid="uid://bsbdr7uqyox1v" path="res://Shaders/outline_shader.gdshader" id="2_ac6r2"]
-[ext_resource type="Script" uid="uid://b61w5d5kdvuvv" path="res://Scripts/Particles/RainParticles.cs" id="3_7q1ag"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_ogslg"]
 size = Vector2(2, 2)
@@ -75,4 +74,3 @@ trail_enabled = true
 trail_lifetime = 0.02
 process_material = SubResource("ParticleProcessMaterial_c64dr")
 draw_pass_1 = SubResource("RibbonTrailMesh_o1ohc")
-script = ExtResource("3_7q1ag")
