@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=52 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -16,7 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://b14uv1yds6bo5" path="res://Assets/Textures/UI/UIAtlas.png" id="7_w801c"]
 [ext_resource type="Script" uid="uid://bmm8qf11wyfl5" path="res://Scripts/UI/StructureBtn.cs" id="10_ly8nf"]
 [ext_resource type="Texture2D" uid="uid://5h1464w3edvs" path="res://Assets/Textures/UI/Icons/Upgrades.png" id="14_fgwrq"]
+[ext_resource type="ButtonGroup" uid="uid://cgu07ex6k0lcq" path="res://Scenes/UI/BarracskBtnGroup.tres" id="16_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://b5qg44lbxu8lp" path="res://Assets/Textures/UI/Structures/Reactor.png" id="16_nk0xl"]
+[ext_resource type="ButtonGroup" uid="uid://2ma2h5f8y74t" path="res://Scenes/UI/GarageBtnGroup.tres" id="17_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://oe6o25dfoi58" path="res://Assets/Textures/UI/Structures/Barracks.png" id="18_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://dui5wx4xvqw3j" path="res://Assets/Textures/UI/Structures/Garage.png" id="19_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock.png" id="20_pdtk1"]
@@ -63,9 +65,16 @@ region_rect = Rect2(841, 80, 20, 21)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bfyu0"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pdtk1"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_pdtk1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgwrq"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ly8nf"]
 texture = ExtResource("16_nk0xl")
@@ -699,7 +708,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer/BtnContainer" groups=["BarracksBtns"]]
+[node name="Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer/BtnContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -709,10 +718,10 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bfyu0")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_pdtk1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fgwrq")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pdtk1")
+button_group = ExtResource("16_fgwrq")
 text = "1"
 
 [node name="GarageCountContainer" type="HBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer"]
@@ -733,7 +742,7 @@ patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
-[node name="Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer/BtnContainer" groups=["GarageBtns"]]
+[node name="Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer/BtnContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -743,10 +752,10 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 18
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bfyu0")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_pdtk1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fgwrq")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_k4jei")
 toggle_mode = true
-button_group = SubResource("ButtonGroup_pdtk1")
+button_group = ExtResource("17_nk0xl")
 text = "1"
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer"]

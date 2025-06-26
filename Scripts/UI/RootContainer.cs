@@ -141,13 +141,27 @@ public partial class RootContainer : Control
 		structureCountContainer.Visible = true;
 
 		// get the placeholder that is currently in the scene
-		NinePatchRect btnContainer = BarracksCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
-		btnContainer.Visible = true;
-		if (btnContainer == null)
+		NinePatchRect btnContainer = null;
+		if (structureType == StructureType.Garage)
 		{
-			Utils.PrintErr($"BtnContainer not found in {structureCountContainer.Name}. Is the name correct?");
-			return;
+			btnContainer = GarageCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
+			if (btnContainer == null)
+			{
+				Utils.PrintErr($"BtnContainer not found in {GarageCountContainer.Name}. Is the name correct?");
+				return;
+			}
 		}
+		else
+		{
+			btnContainer = BarracksCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
+			if (btnContainer == null)
+			{
+				Utils.PrintErr($"BtnContainer not found in {BarracksCountContainer.Name}. Is the name correct?");
+				return;
+			}
+		}
+
+		btnContainer.Visible = true;
 
 		Button btn = btnContainer.GetNode<Button>("Btn");
 		btn.Text = structureCount.ToString();
@@ -156,26 +170,13 @@ public partial class RootContainer : Control
 		if (structureType == StructureType.Garage)
 		{
 			btn.Pressed += () => SetActiveGarage(btn.Text.ToInt());
-			btn.AddToGroup(Group.GarageBtns.ToString());
 			parent = GarageCountContainer;
 		}
 		else
 		{
-			btn.AddToGroup(Group.BarracksBtns.ToString());
 			btn.Pressed += () => SetActiveBarracks(btn.Text.ToInt());
 			parent = BarracksCountContainer;
 		}
-
-		var highlight = new StyleBoxFlat
-		{
-			BorderWidthTop = 2,
-			BorderWidthBottom = 2,
-			BorderWidthLeft = 2,
-			BorderWidthRight = 2,
-			BorderColor = Colors.Yellow
-		};
-
-		btn.AddThemeStyleboxOverride("pressed", highlight);
 
 		parent.AddChild(btnContainer);
 	}

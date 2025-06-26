@@ -5,8 +5,6 @@ namespace MyEnums
         Units,
         Structures,
         StructureBtns,
-        GarageBtns,
-        BarracksBtns,
         MapBase,
     }
 

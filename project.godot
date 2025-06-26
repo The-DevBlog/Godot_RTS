@@ -36,8 +36,6 @@ project/assembly_name="Godot_RTS"
 
 structures=""
 units=""
-GarageBtns=""
-BarracksBtns=""
 
 [input]
 
