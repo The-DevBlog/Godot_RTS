@@ -3,11 +3,10 @@ using MyEnums;
 
 public partial class VehicleBtn : Button
 {
-	[Export] public VehicleType Unit { get; set; }
+	[Export] public VehicleType Vehicle { get; set; }
 	private Signals _signals;
 	private MyModels _models;
 	private SceneResources _sceneResources;
-	private Unit _unit;
 	private Label _label;
 	private TextureRect _lockTexture;
 	private Color _normalModulate = new Color("#c8c8c8");
@@ -21,8 +20,9 @@ public partial class VehicleBtn : Button
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 
-		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Unit.ToString());
-		if (_label == null) Utils.PrintErr("Label not found for unit: " + Unit.ToString());
+		if (Vehicle == VehicleType.None) Utils.PrintErr("VehicleType is to set None");
+		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Vehicle.ToString());
+		if (_label == null) Utils.PrintErr("Label not found for unit: " + Vehicle.ToString());
 
 		_signals.UpdateVehicleAvailability += EnableDisableBtns;
 		MouseEntered += OnMouseEnter;
@@ -30,38 +30,38 @@ public partial class VehicleBtn : Button
 		Pressed += OnUnitSelect;
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 
-		_label.Text = Unit.ToString();
+		_label.Text = Vehicle.ToString();
 	}
 
 	private void OnUnitSelect()
 	{
-		var unit = _models.Vehicles[Unit];
-		Unit unitInstance = unit.Instantiate<Unit>();
+		var unit = _models.Vehicles[Vehicle];
+		Vehicle vehicleInstance = unit.Instantiate<Vehicle>();
 
-		bool enoughFunds = _sceneResources.Funds >= unitInstance.Cost;
+		bool enoughFunds = _sceneResources.Funds >= vehicleInstance.Cost;
 		if (!enoughFunds)
 		{
 			GD.Print("Not enough funds!");
 			return;
 		}
 
-		GD.Print($"Building {Unit} in Garage {_sceneResources.ActiveGarageId}");
-		_signals.EmitBuildVehicle();
-		_signals.EmitUpdateFunds(-unitInstance.Cost);
+		GD.Print($"Building {Vehicle} in Garage {_sceneResources.ActiveGarageId}");
+		_signals.EmitBuildVehicle(vehicleInstance);
+		_signals.EmitUpdateFunds(-vehicleInstance.Cost);
 	}
 
 	private void OnMouseEnter()
 	{
-		if (!_models.Vehicles.ContainsKey(Unit))
+		if (!_models.Vehicles.ContainsKey(Vehicle))
 		{
-			Utils.PrintErr("MyModels.cs -> Units dictionary does not contains key for UnitType: " + Unit);
+			Utils.PrintErr("MyModels.cs -> Units dictionary does not contains key for UnitType: " + Vehicle);
 			return;
 		}
 
 		if (!Disabled)
 			SelfModulate = _hoverModulate;
 
-		var packed = _models.Vehicles[Unit];
+		var packed = _models.Vehicles[Vehicle];
 		var unit = packed.Instantiate<Unit>();
 
 		_signals.EmitBuildOptionsBtnBtnHover(null, unit);
@@ -75,7 +75,7 @@ public partial class VehicleBtn : Button
 
 	private void EnableDisableBtns()
 	{
-		Disabled = !_sceneResources.VehicleAvailability[Unit];
+		Disabled = !_sceneResources.VehicleAvailability[Vehicle];
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 		_lockTexture.Visible = Disabled;
 	}
