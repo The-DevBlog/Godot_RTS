@@ -26,6 +26,8 @@ public partial class RootContainer : Control
 	[Export] public Label UpgradeInfoPopupLabelCost { get; set; }
 	[Export] public Label UpgradeInfoPopupLabelBuildTime { get; set; }
 
+	private Button _garageInstanceBtn;
+	private Button _barracksInstanceBtn;
 	private Container _structureCountContainer;
 	private GlobalResources _globalResources;
 	private SceneResources _sceneResources;
@@ -37,7 +39,7 @@ public partial class RootContainer : Control
 		_globalResources = GlobalResources.Instance;
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
-		_signals.AddStructure += OnStructureAdd;
+		_signals.AddStructure += AddGarageOrBarracksInstanceBtn;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
 		_signals.OnUpgradeBtnHover += ShowUpgradeInfoPopup;
 		_signals.UpdateEnergyColor += UpdateEnergyColor;
@@ -65,6 +67,11 @@ public partial class RootContainer : Control
 		Utils.NullExportCheck(UpgradeInfoPopupLabelBuildTime);
 
 		_structureCountContainer = BarracksCountContainer.GetParent<Container>();
+		_garageInstanceBtn = GarageCountContainer.GetNode<Button>("BtnContainer/Btn");
+		_barracksInstanceBtn = BarracksCountContainer.GetNode<Button>("BtnContainer/Btn");
+
+		if (_garageInstanceBtn == null) Utils.PrintErr("GarageInstanceBtn not found in GarageCountContainer");
+		if (_barracksInstanceBtn == null) Utils.PrintErr("BarracksInstanceBtn not found in BarracksCountContainer");
 
 		SetupButtons(Group.StructureBtns);
 
@@ -128,31 +135,72 @@ public partial class RootContainer : Control
 
 	private void ToggleVisibility(Container menu) => menu.Visible = !menu.Visible;
 
-	private void OnStructureAdd(int structureId)
+	private void AddGarageOrBarracksInstanceBtn(int structureId)
 	{
 		StructureType structureType = (StructureType)structureId;
 
 		if (structureType != StructureType.Garage && structureType != StructureType.Barracks)
 			return;
 
+		bool isGarage = structureType == StructureType.Garage;
+
 		int structureCount = _sceneResources.StructureCount[structureType];
 
 		Container structureCountContainer = _structureCountContainer.Duplicate() as Container;
 		structureCountContainer.Visible = true;
 
-		NinePatchRect btnContainer = BarracksCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
-		btnContainer.Visible = true;
-		if (btnContainer == null)
+		// get the placeholder that is currently in the scene
+		NinePatchRect btnContainer = null;
+		if (isGarage)
 		{
-			Utils.PrintErr($"BtnContainer not found in {structureCountContainer.Name}. Is the name correct?");
-			return;
+			btnContainer = GarageCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
+			if (btnContainer == null)
+			{
+				Utils.PrintErr($"BtnContainer not found in {GarageCountContainer.Name}. Is the name correct?");
+				return;
+			}
 		}
+		else
+		{
+			btnContainer = BarracksCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
+			if (btnContainer == null)
+			{
+				Utils.PrintErr($"BtnContainer not found in {BarracksCountContainer.Name}. Is the name correct?");
+				return;
+			}
+		}
+
+		btnContainer.Visible = true;
 
 		Button btn = btnContainer.GetNode<Button>("Btn");
 		btn.Text = structureCount.ToString();
 
-		Control parent = structureType == StructureType.Garage ? GarageCountContainer : BarracksCountContainer;
+		Control parent = null;
+		if (isGarage)
+		{
+			btn.Pressed += () => SetActiveGarage(btn.Text.ToInt());
+			parent = GarageCountContainer;
+		}
+		else
+		{
+			btn.Pressed += () => SetActiveBarracks(btn.Text.ToInt());
+			parent = BarracksCountContainer;
+		}
+
 		parent.AddChild(btnContainer);
+
+		// if no active garage/barracks, set the first one as active
+		var group = btn.ButtonGroup;
+		if (group.GetPressedButton() == null)
+		{
+			btn.SetPressed(true);
+
+			if (isGarage)
+				SetActiveGarage(structureCount);
+			else
+				SetActiveBarracks(structureCount);
+
+		}
 	}
 
 	private void ShowOnly(Container toShow)
@@ -161,6 +209,31 @@ public partial class RootContainer : Control
 		UnitOptionsContainer.Visible = toShow == UnitOptionsContainer;
 		VehicleOptionsContainer.Visible = toShow == VehicleOptionsContainer;
 		UpgradeOptionsContainer.Visible = toShow == UpgradeOptionsContainer;
+	}
+
+	private void SetActiveBarracks(int id)
+	{
+		_sceneResources.ActiveBarracksId = --id;
+		foreach (var barracks in _sceneResources.BarracksMap)
+		{
+			if (barracks.Id == id)
+				barracks.Activate();
+			else
+				barracks.Deactivate();
+		}
+	}
+
+
+	private void SetActiveGarage(int id)
+	{
+		_sceneResources.ActiveGarageId = --id;
+		foreach (var garage in _sceneResources.GaragesMap)
+		{
+			if (garage.Id == id)
+				garage.Activate();
+			else
+				garage.Deactivate();
+		}
 	}
 
 	private void OnConstructionBtnPressed()
@@ -236,7 +309,7 @@ public partial class RootContainer : Control
 		UpgradeInfoPopupLabelBuildTime.Text = $"{upgradeInfo.BuildTime}s";
 	}
 
-	private void ShowInfoPopup(StructureBase structure, UnitBase unit)
+	private void ShowInfoPopup(StructureBase structure, Unit unit)
 	{
 		if (structure == null && unit == null)
 		{
@@ -262,7 +335,13 @@ public partial class RootContainer : Control
 
 		if (unit != null)
 		{
-			if (!unit.Unlocked)
+			bool unitUnlocked = false;
+			if (unit is Vehicle vehicle)
+				unitUnlocked = _sceneResources.VehicleAvailability[vehicle.VehicleType];
+			else if (unit is Infantry infantry)
+				unitUnlocked = _sceneResources.InfantryAvailability[infantry.InfantryType];
+
+			if (!unitUnlocked)
 			{
 				InfoPopupContainer.Visible = false;
 				return;

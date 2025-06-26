@@ -1,7 +1,7 @@
 using Godot;
 using MyEnums;
 
-public partial class UnitBtn : Button
+public partial class InfantryBtn : Button
 {
 	[Export] public InfantryType Infantry { get; set; }
 	private Signals _signals;

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://p6omv7jvueob"]
 
-[ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_ymdpg"]
+[ext_resource type="Script" uid="uid://bkso8d0vavnh6" path="res://Scripts/Structures/Barracks.cs" id="1_1gvql"]
 [ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="3_1gvql"]
 [ext_resource type="PackedScene" uid="uid://bmi5o5g1ocs7s" path="res://Scenes/Inherited/barracks.tscn" id="4_474wx"]
 
@@ -20,11 +20,11 @@ emission_energy_multiplier = 10.0
 material = SubResource("StandardMaterial3D_ymdpg")
 
 [node name="Barracks" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
-script = ExtResource("1_ymdpg")
+script = ExtResource("1_1gvql")
 HP = 750
 Energy = -15
-Cost = 500
-BuildTime = 3
+Cost = 750
+BuildTime = 5
 Model = NodePath("Barracks")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

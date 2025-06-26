@@ -12,21 +12,27 @@ public partial class SceneResources : Node3D
 	public int Energy { get; set; }
 	public int EnergyConsumed { get; set; }
 	public int MaxStructureCount; // max structure count for garage and barracks
-	public Dictionary<StructureType, int> StructureCount { get; }
-	public Dictionary<UnitType, bool> UnitAvailability { get; private set; }
+	public Dictionary<StructureType, int> StructureCount { get; } = new();
+	public Dictionary<InfantryType, bool> InfantryAvailability { get; private set; } = new();
+	public Dictionary<VehicleType, bool> VehicleAvailability { get; private set; } = new();
+	public HashSet<Garage> GaragesMap { get; } = new();
+	public HashSet<Barracks> BarracksMap { get; } = new();
+	public int ActiveGarageId { get; set; } = 0;
+	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
 
 	public SceneResources()
 	{
 		MaxStructureCount = 8;
 
-		StructureCount = new Dictionary<StructureType, int>();
 		foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))
 			StructureCount[s] = 0;
 
-		UnitAvailability = new Dictionary<UnitType, bool>();
-		foreach (var unit in UnitType.GetValues<UnitType>())
-			UnitAvailability[unit] = false;
+		foreach (var unit in InfantryType.GetValues<InfantryType>())
+			InfantryAvailability[unit] = false;
+
+		foreach (var vehicle in VehicleType.GetValues<VehicleType>())
+			VehicleAvailability[vehicle] = false;
 	}
 
 	public override void _EnterTree()

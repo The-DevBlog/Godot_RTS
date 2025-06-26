@@ -1,13 +1,12 @@
 using Godot;
 using MyEnums;
 
-public partial class UnitBtn : Button
+public partial class VehicleBtn : Button
 {
-	[Export] public InfantryType Infantry { get; set; }
+	[Export] public VehicleType Vehicle { get; set; }
 	private Signals _signals;
 	private MyModels _models;
 	private SceneResources _sceneResources;
-	private Unit _unit;
 	private Label _label;
 	private TextureRect _lockTexture;
 	private Color _normalModulate = new Color("#c8c8c8");
@@ -21,48 +20,47 @@ public partial class UnitBtn : Button
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 
-		if (Infantry == InfantryType.None) Utils.PrintErr("InfantryType is to set None");
-		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Infantry.ToString());
-		if (_label == null) Utils.PrintErr("Label not found for unit: " + Infantry.ToString());
+		if (Vehicle == VehicleType.None) Utils.PrintErr("VehicleType is to set None");
+		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Vehicle.ToString());
+		if (_label == null) Utils.PrintErr("Label not found for unit: " + Vehicle.ToString());
 
-		_signals.UpdateInfantryAvailability += EnableDisableBtns;
+		_signals.UpdateVehicleAvailability += EnableDisableBtns;
 		MouseEntered += OnMouseEnter;
 		MouseExited += OnMouseExit;
 		Pressed += OnUnitSelect;
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 
-		_label.Text = Infantry.ToString();
+		_label.Text = Vehicle.ToString();
 	}
 
 	private void OnUnitSelect()
 	{
-		var unit = _models.Infantry[Infantry];
-		Infantry infantryInstance = unit.Instantiate<Infantry>();
+		var unit = _models.Vehicles[Vehicle];
+		Vehicle vehicleInstance = unit.Instantiate<Vehicle>();
 
-		bool enoughFunds = _sceneResources.Funds >= infantryInstance.Cost;
+		bool enoughFunds = _sceneResources.Funds >= vehicleInstance.Cost;
 		if (!enoughFunds)
 		{
 			GD.Print("Not enough funds!");
 			return;
 		}
 
-		_signals.EmitBuildInfantry(infantryInstance);
-		_signals.EmitUpdateFunds(-infantryInstance.Cost);
+		_signals.EmitBuildVehicle(vehicleInstance);
+		_signals.EmitUpdateFunds(-vehicleInstance.Cost);
 	}
-
 
 	private void OnMouseEnter()
 	{
-		if (!_models.Infantry.ContainsKey(Infantry))
+		if (!_models.Vehicles.ContainsKey(Vehicle))
 		{
-			Utils.PrintErr("MyModels.cs -> Units dictionary does not contains key for UnitType: " + Infantry);
+			Utils.PrintErr("MyModels.cs -> Units dictionary does not contains key for UnitType: " + Vehicle);
 			return;
 		}
 
 		if (!Disabled)
 			SelfModulate = _hoverModulate;
 
-		var packed = _models.Infantry[Infantry];
+		var packed = _models.Vehicles[Vehicle];
 		var unit = packed.Instantiate<Unit>();
 
 		_signals.EmitBuildOptionsBtnBtnHover(null, unit);
@@ -76,7 +74,7 @@ public partial class UnitBtn : Button
 
 	private void EnableDisableBtns()
 	{
-		Disabled = !_sceneResources.InfantryAvailability[Infantry];
+		Disabled = !_sceneResources.VehicleAvailability[Vehicle];
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 		_lockTexture.Visible = Disabled;
 	}

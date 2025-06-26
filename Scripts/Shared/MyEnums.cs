@@ -21,13 +21,18 @@ namespace MyEnums
         Satellite,
     }
 
-    public enum UnitType
+    public enum InfantryType
+    {
+        None,
+        Infantry,
+    }
+
+    public enum VehicleType
     {
         None,
         TankGen1,
         TankGen2,
         Artillery,
-        Infantry,
     }
 
     public enum UpgradeType

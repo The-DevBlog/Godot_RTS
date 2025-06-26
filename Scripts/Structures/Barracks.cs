@@ -1,7 +1,7 @@
 using Godot;
 using MyEnums;
 
-public partial class Garage : StructureBase
+public partial class Barracks : StructureBase
 {
 	public int Id { get; private set; }
 	private SceneResources _sceneResources = SceneResources.Instance;
@@ -11,21 +11,21 @@ public partial class Garage : StructureBase
 	{
 		base._Ready();
 
-		int garageCount = _sceneResources.StructureCount[StructureType.Garage];
-		Id = garageCount;
+		int barracksCount = _sceneResources.StructureCount[StructureType.Barracks];
+		Id = barracksCount;
 
 		if (Id == 0)
 			Activate();
 	}
 
-	public void Activate() => _signals.BuildVehicle += BuildVehicle;
+	public void Activate() => _signals.BuildInfantry += BuildInfantry;
 
-	public void Deactivate() => _signals.BuildVehicle -= BuildVehicle;
+	public void Deactivate() => _signals.BuildInfantry -= BuildInfantry;
 
-	private void BuildVehicle(Vehicle vehicle)
+	private void BuildInfantry(Infantry infantry)
 	{
 		var sceneRoot = GetTree().CurrentScene;
-		sceneRoot.AddChild(vehicle);
+		sceneRoot.AddChild(infantry);
 
 		// how far in front of the garage you want to spawn:
 		float spawnDistance = 6f;
@@ -44,8 +44,8 @@ public partial class Garage : StructureBase
 		var flippedBasis = spawnT.Basis.Rotated(Vector3.Up, Mathf.Pi);
 		spawnT.Basis = flippedBasis;
 
-		vehicle.GlobalTransform = spawnT;
+		infantry.GlobalTransform = spawnT;
 
-		GD.Print($"Building {vehicle.Name} in Garage {Id}");
+		GD.Print($"Building {infantry.Name} in Barracks {Id}");
 	}
 }

@@ -176,6 +176,11 @@ public partial class StructureBtn : Button
 		_signals.EmitUpdateEnergy(_structure.Energy);
 		_signals.EmitUpdateFunds(-_structure.Cost);
 		_signals.EmitAddStructure(Structure);
+
+		if (_structure is Garage garage)
+			_sceneResources.GaragesMap.Add(garage);
+		else if (_structure is Barracks barracks)
+			_sceneResources.BarracksMap.Add(barracks);
 	}
 
 	private void OnBtnEnter()
