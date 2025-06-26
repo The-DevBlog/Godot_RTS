@@ -24,6 +24,23 @@ public partial class Garage : StructureBase
 
 	private void BuildVehicle(Vehicle vehicle)
 	{
+		// Get the root node of the *current* scene:
+		//    This returns whatever you called `GetTree().ChangeSceneTo(...)` on
+		//    (e.g. your main world node, which might be a Node2D or a Spatial).
+		var sceneRoot = GetTree().CurrentScene;
+		if (sceneRoot == null)
+		{
+			GD.PrintErr("No CurrentScene set – are you running from a scene that was loaded via ChangeScene?");
+			return;
+		}
+
+		sceneRoot.AddChild(vehicle);
+
+		Vector3 position = GlobalPosition;
+		position.Z += 5;
+		vehicle.GlobalPosition = position;
+
 		GD.Print($"Building {vehicle.Name} in Garage {Id}");
 	}
+
 }
