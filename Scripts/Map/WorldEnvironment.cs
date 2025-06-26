@@ -4,11 +4,14 @@ using MyEnums;
 public partial class WorldEnvironment : Godot.WorldEnvironment
 {
 	[Export] private MeshInstance3D _groundMesh;
+	[Export] private StandardMaterial3D _groundMaterial;
+	[Export] private GpuParticles3D _rainParticles;
 	private SceneResources _sceneResources;
 	private Weather _weather;
 	private TimeOfDay _timeOfDay;
 	private Season _season;
 	private DirectionalLight3D _sunLight;
+	private Color _colorGroundSnow = new Color("#d0d0d0");
 	private Color _colorGround = new Color("#547c53");
 	private Color _colorNight = new Color("#7da8ff");
 	private Color _colorDay = new Color("#e1ebff");
@@ -26,14 +29,15 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		Utils.NullCheck(_sunLight);
 		Utils.NullCheck(_weather);
 		Utils.NullCheck(_timeOfDay);
+		Utils.NullExportCheck(_rainParticles);
 		Utils.NullExportCheck(_groundMesh);
 
 		// 1) Create a new StandardMaterial3D and set its BaseColor:
-		var groundMat = new StandardMaterial3D();
-		groundMat.AlbedoColor = _colorGround;
+		// var groundMat = new StandardMaterial3D();
+		// groundMat.AlbedoColor = _colorGround;
 
-		// 2) Assign it as an override on the MeshInstance3D:
-		_groundMesh.MaterialOverride = groundMat;
+		// // 2) Assign it as an override on the MeshInstance3D:
+		// _groundMesh.MaterialOverride = groundMat;
 
 
 		InitSeason();
@@ -43,6 +47,19 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 
 	private void InitSeason()
 	{
+		var groundMaterial = new StandardMaterial3D();
+
+
+		if (_season == Season.Summer)
+		{
+			groundMaterial.AlbedoColor = _colorGround;
+		}
+		else if (_season == Season.Winter)
+		{
+			groundMaterial.AlbedoColor = _colorGroundSnow;
+		}
+
+		_groundMesh.MaterialOverride = groundMaterial;
 
 	}
 
@@ -64,6 +81,8 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 	{
 		if (_weather == Weather.Rainy)
 		{
+			_rainParticles.Emitting = true;
+			_rainParticles.Visible = true;
 			Environment.VolumetricFogEnabled = true;
 		}
 		else if (_weather == Weather.Sunny)
