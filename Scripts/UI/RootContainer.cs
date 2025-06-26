@@ -140,6 +140,7 @@ public partial class RootContainer : Control
 		Container structureCountContainer = _structureCountContainer.Duplicate() as Container;
 		structureCountContainer.Visible = true;
 
+		// get the placeholder that is currently in the scene
 		NinePatchRect btnContainer = BarracksCountContainer.GetNode("BtnContainer").Duplicate() as NinePatchRect;
 		btnContainer.Visible = true;
 		if (btnContainer == null)
@@ -151,7 +152,18 @@ public partial class RootContainer : Control
 		Button btn = btnContainer.GetNode<Button>("Btn");
 		btn.Text = structureCount.ToString();
 
-		Control parent = structureType == StructureType.Garage ? GarageCountContainer : BarracksCountContainer;
+		Control parent = null;
+		if (structureType == StructureType.Garage)
+		{
+			btn.Pressed += () => SetActiveGarage(btn.Text.ToInt()); ;
+			parent = GarageCountContainer;
+		}
+		else
+		{
+			// btn.Pressed += OnBarracksBtnPressed;
+			parent = BarracksCountContainer;
+		}
+
 		parent.AddChild(btnContainer);
 	}
 
@@ -161,6 +173,18 @@ public partial class RootContainer : Control
 		UnitOptionsContainer.Visible = toShow == UnitOptionsContainer;
 		VehicleOptionsContainer.Visible = toShow == VehicleOptionsContainer;
 		UpgradeOptionsContainer.Visible = toShow == UpgradeOptionsContainer;
+	}
+
+	private void SetActiveGarage(int id)
+	{
+		_sceneResources.ActiveGarageId = --id;
+		foreach (var garage in _sceneResources.GaragesMap)
+		{
+			if (garage.Id == id)
+				garage.Activate();
+			else
+				garage.Deactivate();
+		}
 	}
 
 	private void OnConstructionBtnPressed()

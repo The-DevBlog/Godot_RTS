@@ -45,7 +45,7 @@ public partial class VehicleBtn : Button
 			return;
 		}
 
-		GD.Print("Building " + Unit.ToString());
+		GD.Print($"Building {Unit} in Garage {_sceneResources.ActiveGarageId}");
 		_signals.EmitBuildVehicle(_sceneResources.ActiveGarageId);
 		_signals.EmitUpdateFunds(-unitInstance.Cost);
 	}

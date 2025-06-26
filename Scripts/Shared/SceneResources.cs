@@ -15,8 +15,9 @@ public partial class SceneResources : Node3D
 	public Dictionary<StructureType, int> StructureCount { get; } = new();
 	public Dictionary<InfantryType, bool> InfantryAvailability { get; private set; } = new();
 	public Dictionary<VehicleType, bool> VehicleAvailability { get; private set; } = new();
+	public HashSet<Garage> GaragesMap { get; } = new();
+	public int ActiveGarageId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
-	public int ActiveGarageId { get; set; }
 
 	public SceneResources()
 	{
