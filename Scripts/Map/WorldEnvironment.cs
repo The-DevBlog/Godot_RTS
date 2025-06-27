@@ -60,7 +60,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 			groundMaterial.AlbedoColor = _colorGroundSnow;
 		}
 
-		_groundMesh.MaterialOverride = groundMaterial;
+		// _groundMesh.MaterialOverride = groundMaterial;
 
 	}
 
