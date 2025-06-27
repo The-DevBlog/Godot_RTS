@@ -72,8 +72,8 @@ MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.943224, 0.563384, 0, 1)
 Season = 2
-TimeOfDay = 2
-Weather = 1
+TimeOfDay = 1
+Weather = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
@@ -113,9 +113,6 @@ directional_shadow_max_distance = 50.0
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
 PanSpeed = 40.0
 RotateSpeed = 200.0
-
-[node name="SnowParticles" parent="GameCamera" index="2"]
-visible = false
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
