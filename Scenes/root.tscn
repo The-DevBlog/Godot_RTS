@@ -42,7 +42,7 @@ glow_strength = 1.41
 glow_bloom = 0.08
 glow_blend_mode = 4
 fog_density = 0.0245
-volumetric_fog_density = 0.02
+volumetric_fog_density = 0.01
 adjustment_enabled = true
 adjustment_saturation = 0.77
 
@@ -72,13 +72,15 @@ shader = ExtResource("4_a6f85")
 shader_parameter/ground_color = Color(0.329, 0.486, 0.325, 1)
 shader_parameter/snow_color = Color(0.95, 0.97, 1, 1)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_fu36u")
-shader_parameter/snow_coverage = 0.856
-shader_parameter/snow_threshold = 0.266
-shader_parameter/patch_softness = 0.01
+shader_parameter/snow_coverage = 0.962
+shader_parameter/snow_threshold = 0.316
+shader_parameter/patch_softness = 0.0
+shader_parameter/outline_width = 0.02
+shader_parameter/outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]
 material = SubResource("ShaderMaterial_fu36u")
-size = Vector3(200, 0.5, 200)
+size = Vector3(500, 0.5, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
 size = Vector3(200, 0.5, 200)
@@ -93,7 +95,7 @@ MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.356362, 0.688192, 1, 1)
 Season = 2
-TimeOfDay = 1
+TimeOfDay = 2
 Weather = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
