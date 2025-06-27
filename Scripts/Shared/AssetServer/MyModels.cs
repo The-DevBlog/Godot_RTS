@@ -8,6 +8,7 @@ public class MyModels
     public Dictionary<StructureType, PackedScene> StructurePlaceholders { get; set; }
     public Dictionary<InfantryType, PackedScene> Infantry { get; set; }
     public Dictionary<VehicleType, PackedScene> Vehicles { get; set; }
+    // public Dictionary<
 
     public MyModels()
     {

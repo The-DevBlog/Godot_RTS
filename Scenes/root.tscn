@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=21 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Shared/SceneResources.cs" id="1_qtxxq"]
+[ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
 [ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="3_r3lo5"]
-[ext_resource type="Shader" uid="uid://bbtsm5eqgdr5c" path="res://Shaders/snow.gdshader" id="4_a6f85"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
@@ -52,34 +52,11 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_height = 1.0
 agent_radius = 1.6
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_a6f85"]
-noise_type = 3
-frequency = 0.2489
-fractal_octaves = 10
-fractal_gain = 0.975
-fractal_weighted_strength = 1.0
-domain_warp_frequency = 0.225
-domain_warp_fractal_gain = 0.805
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fu36u"]
-seamless = true
-bump_strength = 32.0
-noise = SubResource("FastNoiseLite_a6f85")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fu36u"]
-render_priority = 0
-shader = ExtResource("4_a6f85")
-shader_parameter/ground_color = Color(0.329, 0.486, 0.325, 1)
-shader_parameter/snow_color = Color(0.95, 0.97, 1, 1)
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_fu36u")
-shader_parameter/snow_coverage = 0.438
-shader_parameter/snow_threshold = 0.181
-shader_parameter/patch_softness = 0.0
-shader_parameter/outline_width = 0.04
-shader_parameter/outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fnbn"]
+albedo_color = Color(0.329412, 0.486275, 0.32549, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]
-material = SubResource("ShaderMaterial_fu36u")
+material = SubResource("StandardMaterial3D_8fnbn")
 size = Vector3(500, 0.5, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
@@ -95,7 +72,7 @@ MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.943224, 0.563384, 0, 1)
 Season = 2
-TimeOfDay = 1
+TimeOfDay = 2
 Weather = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
@@ -104,6 +81,7 @@ script = ExtResource("8_8fnbn")
 _groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
 _rainParticles = NodePath("../GameCamera/RainParticles")
 _snowParticles = NodePath("../GameCamera/SnowParticles")
+_snowMaterialPartial = ExtResource("3_a6f85")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
 transform = Transform3D(1.00472, 0.00224455, -0.00275781, -0.002245, 1.00472, -0.000165073, 0.00275743, 0.000171216, 1.00472, 0, -0.25, 0)
@@ -135,6 +113,9 @@ directional_shadow_max_distance = 50.0
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
 PanSpeed = 40.0
 RotateSpeed = 200.0
+
+[node name="SnowParticles" parent="GameCamera" index="2"]
+visible = false
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
