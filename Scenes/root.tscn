@@ -25,6 +25,7 @@ background_color = Color(5.39064e-06, 0.652982, 0.919254, 1)
 sky = SubResource("Sky_r3lo5")
 ambient_light_source = 1
 ambient_light_color = Color(0.743237, 0.466848, 0.0225394, 1)
+ambient_light_sky_contribution = 0.0
 ambient_light_energy = 4.18
 ssr_enabled = true
 ssao_enabled = true
@@ -39,7 +40,7 @@ sdfgi_probe_bias = 0.65
 glow_enabled = true
 glow_intensity = 8.0
 glow_strength = 1.41
-glow_bloom = 0.08
+glow_bloom = 0.4
 glow_blend_mode = 4
 fog_density = 0.0245
 volumetric_fog_density = 0.01
@@ -72,7 +73,7 @@ MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.943224, 0.563384, 0, 1)
 Season = 2
-TimeOfDay = 1
+TimeOfDay = 3
 Weather = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
@@ -108,11 +109,15 @@ transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 
 light_color = Color(0.88314, 0.923414, 0.999999, 1)
 light_energy = 2.5
 shadow_enabled = true
-directional_shadow_max_distance = 50.0
+shadow_blur = 3.0
+directional_shadow_max_distance = 70.0
 
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
 PanSpeed = 40.0
 RotateSpeed = 200.0
+
+[node name="RainParticles" parent="GameCamera" index="1"]
+visible = false
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
