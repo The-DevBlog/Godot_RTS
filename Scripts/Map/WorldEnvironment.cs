@@ -4,8 +4,8 @@ using MyEnums;
 public partial class WorldEnvironment : Godot.WorldEnvironment
 {
 	[Export] private MeshInstance3D _groundMesh;
-	[Export] private StandardMaterial3D _groundMaterial;
 	[Export] private GpuParticles3D _rainParticles;
+	[Export] private GpuParticles3D _snowParticles;
 	private SceneResources _sceneResources;
 	private Weather _weather;
 	private TimeOfDay _timeOfDay;
@@ -30,6 +30,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		Utils.NullCheck(_weather);
 		Utils.NullCheck(_timeOfDay);
 		Utils.NullExportCheck(_rainParticles);
+		Utils.NullExportCheck(_snowParticles);
 		Utils.NullExportCheck(_groundMesh);
 
 		// 1) Create a new StandardMaterial3D and set its BaseColor:
@@ -83,6 +84,12 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		{
 			_rainParticles.Emitting = true;
 			_rainParticles.Visible = true;
+			Environment.VolumetricFogEnabled = true;
+		}
+		else if (_weather == Weather.Snowy)
+		{
+			_snowParticles.Emitting = true;
+			_snowParticles.Visible = true;
 			Environment.VolumetricFogEnabled = true;
 		}
 		else if (_weather == Weather.Sunny)

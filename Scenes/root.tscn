@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=20 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Shared/SceneResources.cs" id="1_qtxxq"]
@@ -45,8 +45,6 @@ volumetric_fog_density = 0.02
 adjustment_enabled = true
 adjustment_saturation = 0.77
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fnbn"]
-
 [sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
 vertices = PackedVector3Array(-98.25, 0.75, -98.25, -98.25, 0.75, 98.25, 98.25, 0.75, 98.25, 98.25, 0.75, -98.25)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
@@ -75,14 +73,14 @@ Funds = 20000
 TeamColor = Color(0.356362, 0.688192, 1, 1)
 Season = 2
 TimeOfDay = 1
-Weather = 1
+Weather = 2
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
 script = ExtResource("8_8fnbn")
 _groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
-_groundMaterial = SubResource("StandardMaterial3D_8fnbn")
 _rainParticles = NodePath("../GameCamera/RainParticles")
+_snowParticles = NodePath("../GameCamera/SnowParticles")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
 transform = Transform3D(1.00472, 0.00224455, -0.00275781, -0.002245, 1.00472, -0.000165073, 0.00275743, 0.000171216, 1.00472, 0, -0.25, 0)
@@ -113,9 +111,6 @@ directional_shadow_max_distance = 50.0
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
 PanSpeed = 40.0
 RotateSpeed = 200.0
-
-[node name="RainParticles" parent="GameCamera" index="1"]
-script = null
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
