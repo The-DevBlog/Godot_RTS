@@ -89,7 +89,6 @@ size = Vector3(200, 0.5, 200)
 [sub_resource type="ButtonGroup" id="ButtonGroup_a6f85"]
 
 [node name="World" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0656281, 0.0556316, -0.0179749)
 script = ExtResource("1_qtxxq")
 MapSize = Vector2(500, 500)
 Funds = 20000
