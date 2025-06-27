@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://8kxoxyvk5toc"]
 
-[ext_resource type="Shader" path="res://Shaders/snow.gdshader" id="1_d7y5b"]
+[ext_resource type="Shader" uid="uid://bbtsm5eqgdr5c" path="res://Shaders/snow.gdshader" id="1_d7y5b"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a6f85"]
 noise_type = 3

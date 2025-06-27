@@ -15,6 +15,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 	private Color _colorGround = new Color("#547c53");
 	private Color _colorNight = new Color("#7da8ff");
 	private Color _colorDay = new Color("#e1ebff");
+	private Color _colorDusk = new Color("#FFB380");
 
 	public override void _Ready()
 	{
@@ -55,15 +56,26 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 
 	private void InitTimeOfDay()
 	{
+		Vector3 sunRotation = Vector3.Zero;
 		if (_timeOfDay == TimeOfDay.Day)
 		{
+			sunRotation.X = Mathf.DegToRad(33);
 			_sunLight.LightEnergy = 1.75f;
 			_sunLight.LightColor = _colorDay;
 		}
 		else if (_timeOfDay == TimeOfDay.Night)
 		{
+			sunRotation.X = Mathf.DegToRad(33);
 			_sunLight.LightEnergy = 1.0f;
 			_sunLight.LightColor = _colorNight;
+		}
+		else if (_timeOfDay == TimeOfDay.Dusk)
+		{
+			sunRotation.X = Mathf.DegToRad(-150);
+			sunRotation.Y = Mathf.DegToRad(90);
+			_sunLight.LightEnergy = 1.75f;
+			_sunLight.Rotation = sunRotation;
+			_sunLight.LightColor = _colorDusk;
 		}
 	}
 
