@@ -72,7 +72,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		else if (_timeOfDay == TimeOfDay.Dusk)
 		{
 			sunRotation.X = Mathf.DegToRad(-150);
-			sunRotation.Y = Mathf.DegToRad(90);
+			sunRotation.Y = Mathf.DegToRad(110);
 			_sunLight.LightEnergy = 1.75f;
 			_sunLight.Rotation = sunRotation;
 			_sunLight.LightColor = _colorDusk;
