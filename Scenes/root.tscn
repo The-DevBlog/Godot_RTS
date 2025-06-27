@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Shared/SceneResources.cs" id="1_qtxxq"]
@@ -52,14 +52,29 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_height = 1.0
 agent_radius = 1.6
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_a6f85"]
+noise_type = 0
+frequency = 1.0
+fractal_octaves = 10
+fractal_gain = 0.975
+fractal_weighted_strength = 1.0
+domain_warp_enabled = true
+domain_warp_frequency = 0.225
+domain_warp_fractal_gain = 0.805
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fu36u"]
+seamless = true
+noise = SubResource("FastNoiseLite_a6f85")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fu36u"]
 render_priority = 0
 shader = ExtResource("4_a6f85")
 shader_parameter/ground_color = Color(0.329, 0.486, 0.325, 1)
 shader_parameter/snow_color = Color(0.95, 0.97, 1, 1)
-shader_parameter/snow_coverage = 0.5
-shader_parameter/snow_threshold = 0.3
-shader_parameter/noise_scale = 10.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_fu36u")
+shader_parameter/snow_coverage = 0.856
+shader_parameter/snow_threshold = 0.266
+shader_parameter/patch_softness = 0.01
 
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]
 material = SubResource("ShaderMaterial_fu36u")

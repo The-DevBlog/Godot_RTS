@@ -17,7 +17,7 @@ shader_parameter/min_thickness = 0.22
 shader_parameter/max_thickness = 1.5
 
 [sub_resource type="Gradient" id="Gradient_tm8bh"]
-offsets = PackedFloat32Array(0, 0.475877, 1)
+offsets = PackedFloat32Array(0, 0.782895, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_7q1ag"]
@@ -46,7 +46,6 @@ tangential_accel_max = 8.0
 damping_max = 4.0
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_o1ohc")
-color = Color(0.763809, 0.763809, 0.763808, 1)
 color_ramp = SubResource("GradientTexture1D_7q1ag")
 
 [sub_resource type="Curve" id="Curve_gu4b2"]
@@ -69,8 +68,8 @@ section_length = 0.005
 curve = SubResource("Curve_gu4b2")
 
 [sub_resource type="Gradient" id="Gradient_pvcu6"]
-offsets = PackedFloat32Array(0.25974, 0.805195)
-colors = PackedColorArray(1, 1, 1, 1, 0.258824, 0.258824, 0.258824, 0)
+offsets = PackedFloat32Array(0.19697, 0.25974, 0.805195)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.258824, 0.258824, 0.258824, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_hoar5"]
 gradient = SubResource("Gradient_pvcu6")
