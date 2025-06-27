@@ -7,7 +7,6 @@ public partial class VehicleBtn : Button
 	private Signals _signals;
 	private MyModels _models;
 	private SceneResources _sceneResources;
-	private Label _label;
 	private TextureRect _lockTexture;
 	private Color _normalModulate = new Color("#c8c8c8");
 	private Color _hoverModulate = new Color("#ffffff");
@@ -15,22 +14,18 @@ public partial class VehicleBtn : Button
 	public override void _Ready()
 	{
 		_models = AssetServer.Instance.Models;
-		_label = GetNode<Label>("Label");
 		_lockTexture = GetNode<TextureRect>("LockTexture");
 		_sceneResources = SceneResources.Instance;
 		_signals = Signals.Instance;
 
 		if (Vehicle == VehicleType.None) Utils.PrintErr("VehicleType is to set None");
 		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Vehicle.ToString());
-		if (_label == null) Utils.PrintErr("Label not found for unit: " + Vehicle.ToString());
 
 		_signals.UpdateVehicleAvailability += EnableDisableBtns;
 		MouseEntered += OnMouseEnter;
 		MouseExited += OnMouseExit;
 		Pressed += OnUnitSelect;
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
-
-		_label.Text = Vehicle.ToString();
 	}
 
 	private void OnUnitSelect()
