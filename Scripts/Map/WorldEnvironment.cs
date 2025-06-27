@@ -12,7 +12,6 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 	private TimeOfDay _timeOfDay;
 	private Season _season;
 	private DirectionalLight3D _sunLight;
-	// private Color _colorGroundSnow = new Color("#d0d0d0");
 	private Color _colorGround = new Color("#547c53");
 	private Color _colorNight = new Color("#7da8ff");
 	private Color _colorDay = new Color("#e1ebff");
@@ -34,13 +33,6 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		Utils.NullExportCheck(_snowParticles);
 		Utils.NullExportCheck(_groundMesh);
 
-		// 1) Create a new StandardMaterial3D and set its BaseColor:
-		// var groundMat = new StandardMaterial3D();
-		// groundMat.AlbedoColor = _colorGround;
-
-		// // 2) Assign it as an override on the MeshInstance3D:
-		// _groundMesh.MaterialOverride = groundMat;
-
 		InitSeason();
 		InitTimeOfDay();
 		InitWeather();
@@ -48,11 +40,9 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 
 	private void InitSeason()
 	{
-		var groundMaterial = new StandardMaterial3D();
-
-
 		if (_season == Season.Summer)
 		{
+			var groundMaterial = new StandardMaterial3D();
 			groundMaterial.AlbedoColor = _colorGround;
 			_groundMesh.MaterialOverride = groundMaterial;
 		}
@@ -60,7 +50,6 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		{
 			Utils.NullExportCheck(_snowMaterialPartial);
 			_groundMesh.MaterialOverride = _snowMaterialPartial;
-			// groundMaterial.AlbedoColor = _colorGroundSnow;
 		}
 	}
 
