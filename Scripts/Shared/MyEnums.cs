@@ -67,6 +67,7 @@ namespace MyEnums
     {
         None,
         Day,
-        Night
+        Night,
+        Dusk
     }
 }
