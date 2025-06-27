@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfwlldgg06bq6"]
+[gd_scene load_steps=14 format=3 uid="uid://dfwlldgg06bq6"]
 
 [ext_resource type="Script" uid="uid://b20bphvn64xyo" path="res://Scripts/Camera/GameCamera.cs" id="1_npc2i"]
 [ext_resource type="Shader" uid="uid://bsbdr7uqyox1v" path="res://Shaders/outline_shader.gdshader" id="2_ac6r2"]
-[ext_resource type="Script" uid="uid://b61w5d5kdvuvv" path="res://Scripts/Particles/RainParticles.cs" id="3_7q1ag"]
 [ext_resource type="Material" uid="uid://dgkkm0b85qybf" path="res://Assets/Resources/particles_rain.tres" id="3_c64dr"]
+[ext_resource type="Material" uid="uid://be08eff8iujsx" path="res://Assets/Resources/particles_snow.tres" id="4_c64dr"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_ogslg"]
 size = Vector2(2, 2)
@@ -37,6 +37,27 @@ sections = 2
 section_length = 0.005
 curve = SubResource("Curve_gu4b2")
 
+[sub_resource type="Gradient" id="Gradient_pvcu6"]
+offsets = PackedFloat32Array(0.19697, 0.25974, 0.805195)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.258824, 0.258824, 0.258824, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hoar5"]
+gradient = SubResource("Gradient_pvcu6")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_em1et"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_hoar5")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_i6p0a"]
+material = SubResource("StandardMaterial3D_em1et")
+size = Vector2(0.25, 0.25)
+
 [node name="GameCamera" type="Node3D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_npc2i")
 PanSpeedBoost = 3.0
@@ -65,4 +86,14 @@ trail_enabled = true
 trail_lifetime = 0.02
 process_material = ExtResource("3_c64dr")
 draw_pass_1 = SubResource("RibbonTrailMesh_o1ohc")
-script = ExtResource("3_7q1ag")
+
+[node name="SnowParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.86221, 13.306)
+visible = false
+amount = 4000
+lifetime = 3.5
+randomness = 0.5
+visibility_aabb = AABB(-10, -0.66, -10, 20, 8, 20)
+trail_lifetime = 0.02
+process_material = ExtResource("4_c64dr")
+draw_pass_1 = SubResource("QuadMesh_i6p0a")

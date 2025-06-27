@@ -47,4 +47,27 @@ namespace MyEnums
         Upgrade7,
         Upgrade8,
     }
+
+    public enum Weather
+    {
+        None,
+        Rainy,
+        Snowy,
+        Sunny
+    }
+
+    public enum Season
+    {
+        None,
+        Winter,
+        Summer
+    }
+
+    public enum TimeOfDay
+    {
+        None,
+        Day,
+        Night,
+        Dusk
+    }
 }

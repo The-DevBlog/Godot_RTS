@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=21 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Shared/SceneResources.cs" id="1_qtxxq"]
+[ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
 [ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="3_r3lo5"]
@@ -41,7 +42,7 @@ glow_strength = 1.41
 glow_bloom = 0.08
 glow_blend_mode = 4
 fog_density = 0.0245
-volumetric_fog_density = 0.02
+volumetric_fog_density = 0.01
 adjustment_enabled = true
 adjustment_saturation = 0.77
 
@@ -51,27 +52,36 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_height = 1.0
 agent_radius = 1.6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckhy6"]
-render_priority = -1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fnbn"]
 albedo_color = Color(0.329412, 0.486275, 0.32549, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_or46v"]
-material = SubResource("StandardMaterial3D_ckhy6")
-size = Vector3(200, 0.5, 200)
+material = SubResource("StandardMaterial3D_8fnbn")
+size = Vector3(500, 0.5, 500)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
 size = Vector3(200, 0.5, 200)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_8fnbn"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_a6f85"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_qtxxq")
 MapSize = Vector2(500, 500)
 Funds = 20000
-TeamColor = Color(0.356362, 0.688192, 1, 1)
-RainyWeather = true
+TeamColor = Color(0.943224, 0.563384, 0, 1)
+Season = 2
+TimeOfDay = 1
+Weather = 3
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
 script = ExtResource("8_8fnbn")
+_groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
+_rainParticles = NodePath("../GameCamera/RainParticles")
+_snowParticles = NodePath("../GameCamera/SnowParticles")
+_snowMaterialPartial = ExtResource("3_a6f85")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
 transform = Transform3D(1.00472, 0.00224455, -0.00275781, -0.002245, 1.00472, -0.000165073, 0.00275743, 0.000171216, 1.00472, 0, -0.25, 0)
@@ -87,6 +97,7 @@ collision_mask = 2
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
+transform = Transform3D(1, -6.99458e-11, 9.31323e-10, -1.94404e-11, 1, 2.91038e-11, 0, 0, 1, -0.0211984, 0.0331759, -0.0255852)
 mesh = SubResource("BoxMesh_or46v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
@@ -108,6 +119,12 @@ RotateSpeed = 200.0
 [node name="Control" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer/NinePatchRect/MarginContainer" index="1" node_paths=PackedStringArray("GameCamera")]
 GameCamera = NodePath("../../../../../../../../GameCamera")
 
+[node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer/BtnContainer" index="0"]
+button_group = SubResource("ButtonGroup_8fnbn")
+
+[node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer/BtnContainer" index="0"]
+button_group = SubResource("ButtonGroup_a6f85")
+
 [node name="Units" type="Node3D" parent="."]
 
 [node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
@@ -126,4 +143,5 @@ visible = false
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
 
+[editable path="GameCamera"]
 [editable path="CommandUI"]
