@@ -1903,13 +1903,15 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="SelectedUnitsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer" node_paths=PackedStringArray("_spacer")]
+[node name="SelectedUnitsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer" node_paths=PackedStringArray("_spacer", "_grid", "_selectedUnitPlaceholder")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.72
 script = ExtResource("28_nk0xl")
 _spacer = NodePath("../Spacer")
+_grid = NodePath("NinePatchRect/MarginContainer/GridContainer")
+_selectedUnitPlaceholder = NodePath("NinePatchRect/MarginContainer/GridContainer/SelectedUnitPlaceholder")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer"]
 layout_mode = 2
@@ -1936,13 +1938,44 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
-columns = 3
+columns = 4
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(85, 85)
+[node name="SelectedUnitPlaceholder" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/MarginContainer/GridContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 65)
 layout_mode = 2
 size_flags_horizontal = 3
-texture = SubResource("CompressedTexture2D_f4wsv")
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/MarginContainer/GridContainer/SelectedUnitPlaceholder"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -19.0
+offset_bottom = 19.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/MarginContainer/GridContainer/SelectedUnitPlaceholder/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_7aoqs")
+text = "1"
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/MarginContainer/GridContainer/SelectedUnitPlaceholder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("25_pdtk1")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect"]
