@@ -73,7 +73,7 @@ MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.943224, 0.563384, 0, 1)
 Season = 1
-TimeOfDay = 3
+TimeOfDay = 1
 Weather = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
