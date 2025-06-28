@@ -818,7 +818,6 @@ text = "0
 "
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -1307,6 +1306,7 @@ texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
 [node name="VehicleOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
