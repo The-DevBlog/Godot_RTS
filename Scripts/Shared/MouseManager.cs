@@ -7,7 +7,7 @@ public partial class MouseManager : Control
 {
 	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
-	private HashSet<Unit> _prevSelectedUnits;
+	private HashSet<Unit> _selectedUnits;
 	private GlobalResources _resources;
 	private Signals _signals;
 	private Camera3D _camera;
@@ -24,7 +24,7 @@ public partial class MouseManager : Control
 		_resources = GlobalResources.Instance;
 		_signals = Signals.Instance;
 		_signals.DeselectAllUnits += OnDeselectAllUnits;
-		_prevSelectedUnits = new HashSet<Unit>();
+		_selectedUnits = new HashSet<Unit>();
 
 		if (_camera == null)
 			Utils.PrintErr("Camera3D not found.");
@@ -32,7 +32,7 @@ public partial class MouseManager : Control
 
 	public override void _Process(double delta)
 	{
-		_isAnySelected = _prevSelectedUnits.Count > 0;
+		_isAnySelected = _selectedUnits.Count > 0;
 		HandleMouseInput();
 	}
 
@@ -66,6 +66,9 @@ public partial class MouseManager : Control
 		// 2) Released right now? end drag or treat as click:
 		else if (Input.IsActionJustReleased("mb_primary"))
 		{
+			if (_dragActive)
+				_signals.EmitSelectUnits(_selectedUnits.ToArray());
+
 			Vector2 mousePosition = GetViewport().GetMousePosition();
 
 			bool isHit = SelectSingleUnit(mousePosition);
@@ -118,12 +121,14 @@ public partial class MouseManager : Control
 
 		if (collider != null && collider.IsInGroup(Group.Units.ToString()))
 		{
-			foreach (Unit u in _prevSelectedUnits)
+			foreach (Unit u in _selectedUnits)
 				u.Selected = false;
 
 			Unit unit = FindAncestor<Unit>(collider);
 			unit.Selected = true;
-			_prevSelectedUnits = new HashSet<Unit>() { unit };
+			_selectedUnits = new HashSet<Unit>() { unit };
+
+			_signals.EmitSelectUnits(_selectedUnits.ToArray());
 
 			return true;
 		}
@@ -282,11 +287,13 @@ public partial class MouseManager : Control
 
 		GD.Print("Deselect all units");
 
-		foreach (Unit unit in _prevSelectedUnits)
+		foreach (Unit unit in _selectedUnits)
 			unit.Selected = false;
 
-		_prevSelectedUnits = new HashSet<Unit>();
+		_selectedUnits = new HashSet<Unit>();
 		_dragActive = false;
+
+		_signals.EmitSelectUnits(_selectedUnits.ToArray());
 	}
 
 	// Marks units as selected or unselected.
@@ -295,7 +302,7 @@ public partial class MouseManager : Control
 	{
 		var selectedUnits = new HashSet<Unit>(units);
 
-		foreach (Unit unit in _prevSelectedUnits)
+		foreach (Unit unit in _selectedUnits)
 		{
 			if (!selectedUnits.Contains(unit))
 				unit.Selected = false;
@@ -303,10 +310,10 @@ public partial class MouseManager : Control
 
 		foreach (Unit unit in selectedUnits)
 		{
-			if (!_prevSelectedUnits.Contains(unit))
+			if (!_selectedUnits.Contains(unit))
 				unit.Selected = true;
 		}
 
-		_prevSelectedUnits = selectedUnits;
+		_selectedUnits = selectedUnits;
 	}
 }

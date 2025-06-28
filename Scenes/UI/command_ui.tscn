@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=52 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cophn5nkcbwwy" path="res://Assets/Textures/UI/Units/TankGen2.png" id="25_pdtk1"]
 [ext_resource type="Script" uid="uid://do3p3enwhoxf7" path="res://Scripts/UI/UpgradeBtn.cs" id="26_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://ccsu7dho1ek3j" path="res://Assets/Textures/UI/Upgrades/upgrade.png" id="26_fgwrq"]
+[ext_resource type="Script" uid="uid://d44qfn1sk4ld" path="res://Scripts/UI/SelectedUnits.cs" id="28_nk0xl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cg0vo"]
 bg_color = Color(0.14902, 0.137255, 0.133333, 1)
@@ -1902,11 +1903,13 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="SelectedUnitsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer"]
+[node name="SelectedUnitsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer" node_paths=PackedStringArray("_spacer")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.72
+script = ExtResource("28_nk0xl")
+_spacer = NodePath("../Spacer")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer"]
 layout_mode = 2
