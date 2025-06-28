@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1cphojpsoil3"
-path="res://.godot/imported/Reactor.png-900353f8142a909d99b045e3792faef1.ctex"
+uid="uid://d10ftqaw1f7c2"
+path="res://.godot/imported/Artillery.png-9d8f7f7e70c01ed62a59fd8f97393656.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Textures/UI/Structures/Reactor.png"
-dest_files=["res://.godot/imported/Reactor.png-900353f8142a909d99b045e3792faef1.ctex"]
+source_file="res://Assets/Textures/UI/Units/Artillery.png"
+dest_files=["res://.godot/imported/Artillery.png-9d8f7f7e70c01ed62a59fd8f97393656.ctex"]
 
 [params]
 

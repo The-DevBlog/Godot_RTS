@@ -63,18 +63,18 @@ size = Vector3(500, 0.5, 500)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7qj"]
 size = Vector3(200, 0.5, 200)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_8fnbn"]
-
 [sub_resource type="ButtonGroup" id="ButtonGroup_a6f85"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_qtxxq")
 MapSize = Vector2(500, 500)
 Funds = 20000
 TeamColor = Color(0.943224, 0.563384, 0, 1)
-Season = 2
-TimeOfDay = 3
-Weather = 1
+Season = 1
+TimeOfDay = 1
+Weather = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
@@ -124,11 +124,14 @@ visible = false
 [node name="Control" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer/NinePatchRect/MarginContainer" index="1" node_paths=PackedStringArray("GameCamera")]
 GameCamera = NodePath("../../../../../../../../GameCamera")
 
-[node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer/BtnContainer" index="0"]
-button_group = SubResource("ButtonGroup_8fnbn")
-
-[node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer/BtnContainer" index="0"]
+[node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/StructureCountContainer/ConstructionCountContainer/BtnContainer" index="0"]
 button_group = SubResource("ButtonGroup_a6f85")
+
+[node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/StructureCountContainer/BarracksCountContainer/BtnContainer" index="0"]
+button_group = SubResource("ButtonGroup_a6f85")
+
+[node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer/BtnContainer" index="0"]
+button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="Units" type="Node3D" parent="."]
 

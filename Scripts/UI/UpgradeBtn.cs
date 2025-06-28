@@ -34,7 +34,6 @@ public partial class UpgradeBtn : Button
 	private Color _normalModulate = new Color("#c8c8c8");
 	private Color _hoverModulate = new Color("#ffffff");
 	private Color _disabledModulate = new Color("#262626");
-	private Label _label;
 	private TextureRect _lockTexture;
 
 	public override void _Ready()
@@ -42,16 +41,13 @@ public partial class UpgradeBtn : Button
 		if (Upgrade == UpgradeType.None)
 			Utils.PrintErr("Upgrade type is set to none");
 
-		_label = GetNode<Label>("Label");
 		_lockTexture = GetNode<TextureRect>("LockTexture");
 		_sceneResources = SceneResources.Instance;
 
 		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Upgrade.ToString());
-		if (_label == null) Utils.PrintErr("Label not found for unit: " + Upgrade.ToString());
 
 
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
-		_label.Text = Upgrade.ToString();
 
 		MouseEntered += OnMouseEnter;
 		MouseExited += OnMouseExit;

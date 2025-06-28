@@ -12,6 +12,7 @@ public partial class Signals : Node
 	[Signal] public delegate void OnBuildOptionsBtnHoverEventHandler(StructureBase structure, Unit unit);
 	[Signal] public delegate void OnUpgradeBtnHoverEventHandler(UpgradeType upgrade);
 	[Signal] public delegate void AddStructureEventHandler(int structureId);
+	[Signal] public delegate void SelectUnitsEventHandler(Unit[] units);
 	[Signal] public delegate void BuildVehicleEventHandler(Vehicle vehicle);
 	[Signal] public delegate void BuildInfantryEventHandler(Infantry infantry);
 	[Signal] public delegate void UpdateEnergyColorEventHandler();
@@ -27,6 +28,12 @@ public partial class Signals : Node
 	}
 
 	public void EmitUpdateNavigationMap(NavigationRegion3D region) => EmitSignal(SignalName.UpdateNavigationMap, region);
+
+	public void EmitSelectUnits(Unit[] units)
+	{
+		GD.Print("Select Units: " + units.Length);
+		EmitSignal(SignalName.SelectUnits, units);
+	}
 
 	public void EmitUpdateEnergy(int energy)
 	{
