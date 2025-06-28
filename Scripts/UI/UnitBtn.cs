@@ -11,7 +11,7 @@ public partial class UnitBtn : Button
 	private TextureRect _lockTexture;
 	private Color _normalModulate = new Color("#c8c8c8");
 	private Color _hoverModulate = new Color("#ffffff");
-	private Color _disabledModulate = new Color("#262626");
+	private Color _disabledModulate = new Color("#737373");
 	public override void _Ready()
 	{
 		_models = AssetServer.Instance.Models;

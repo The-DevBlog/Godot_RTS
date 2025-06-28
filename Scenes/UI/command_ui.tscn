@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=51 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -18,11 +18,13 @@
 [ext_resource type="Texture2D" uid="uid://5h1464w3edvs" path="res://Assets/Textures/UI/Icons/Upgrades.png" id="14_fgwrq"]
 [ext_resource type="ButtonGroup" uid="uid://cgu07ex6k0lcq" path="res://Scenes/UI/BarracskBtnGroup.tres" id="16_fgwrq"]
 [ext_resource type="ButtonGroup" uid="uid://2ma2h5f8y74t" path="res://Scenes/UI/GarageBtnGroup.tres" id="17_nk0xl"]
+[ext_resource type="Texture2D" uid="uid://ccen5vy624ii3" path="res://Assets/Textures/UI/Units/Infantry.png" id="19_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock.png" id="20_pdtk1"]
-[ext_resource type="Texture2D" uid="uid://btmpvy1w1f6f2" path="res://Assets/Textures/UI/Units/Tank.png" id="22_7aoqs"]
-[ext_resource type="Script" uid="uid://sg8srpsrhu2" path="res://Scripts/UI/InfantryBtn.cs" id="22_pdtk1"]
+[ext_resource type="Texture2D" uid="uid://6hic02xo80re" path="res://Assets/Textures/UI/Units/TankGen1.png" id="21_bfyu0"]
+[ext_resource type="Script" uid="uid://bgaox57tum2un" path="res://Scripts/UI/UnitBtn.cs" id="21_fgwrq"]
+[ext_resource type="Texture2D" uid="uid://d10ftqaw1f7c2" path="res://Assets/Textures/UI/Units/Artillery.png" id="23_bfyu0"]
 [ext_resource type="Script" uid="uid://cga2nsbs0066d" path="res://Scripts/UI/VehicleBtn.cs" id="23_pdtk1"]
-[ext_resource type="Texture2D" uid="uid://d0rtyy0y34mqo" path="res://Assets/Textures/UI/Units/TankGen2.png" id="25_pdtk1"]
+[ext_resource type="Texture2D" uid="uid://cophn5nkcbwwy" path="res://Assets/Textures/UI/Units/TankGen2.png" id="25_pdtk1"]
 [ext_resource type="Script" uid="uid://do3p3enwhoxf7" path="res://Scripts/UI/UpgradeBtn.cs" id="26_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://ccsu7dho1ek3j" path="res://Assets/Textures/UI/Upgrades/upgrade.png" id="26_fgwrq"]
 
@@ -102,32 +104,23 @@ texture = SubResource("CompressedTexture2D_bfyu0")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlv7r"]
 texture = SubResource("CompressedTexture2D_bfyu0")
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tlv7r"]
-load_path = "res://.godot/imported/Infantry.png-bdb22657a57964eea6355eae7969e571.ctex"
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pdtk1"]
-texture = SubResource("CompressedTexture2D_tlv7r")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f4wsv"]
-texture = ExtResource("22_7aoqs")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c22w8"]
-texture = ExtResource("22_7aoqs")
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l1kts"]
-texture = ExtResource("22_7aoqs")
+texture = ExtResource("19_fgwrq")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8e5iw"]
-texture = ExtResource("22_7aoqs")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bfyu0"]
-texture = ExtResource("22_7aoqs")
+texture = ExtResource("21_bfyu0")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ktso"]
-texture = ExtResource("22_7aoqs")
+texture = ExtResource("23_bfyu0")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sjux"]
+texture = ExtResource("25_pdtk1")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pyy5"]
 texture = ExtResource("26_fgwrq")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f4wsv"]
+load_path = "res://.godot/imported/TankGen2.png-6d236013ed8ff081a2f645146b298ee6.ctex"
 
 [node name="CommandUI" type="Control" node_paths=PackedStringArray("UIContainer", "MiniMapContainer", "ConstructionOptionsContainer", "UnitOptionsContainer", "VehicleOptionsContainer", "UpgradeOptionsContainer", "ConstructionInstanceBtnPlaceholder", "ConstructionCountContainer", "BarracksInstanceBtnPlaceholder", "BarracksCountContainer", "GarageInstanceBtnPlaceholder", "GarageCountContainer", "InfoPopupContainer", "UpgradeInfoPopupContainer", "InfoPopupLabelName", "InfoPopupLabelCost", "InfoPopupLabelBuildTime", "InfoPopupLabelEnergy", "InfoPopupLabelHP", "InfoPopupLabelDPS", "InfoPopupLabelSpeed", "UpgradeInfoPopupLabelName", "UpgradeInfoPopupLabelDescription", "UpgradeInfoPopupLabelCost", "UpgradeInfoPopupLabelBuildTime")]
 layout_mode = 3
@@ -825,6 +818,7 @@ text = "0
 "
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -962,20 +956,35 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Btn1" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer"]
+[node name="InfantryBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/Btn1"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/InfantryBtn"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/InfantryBtn"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -985,20 +994,35 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer"]
+[node name="InfantryBtn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/Btn2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/InfantryBtn2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/InfantryBtn2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1008,20 +1032,35 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="Btn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer"]
+[node name="InfantryBtn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/Btn3"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/InfantryBtn3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer/InfantryBtn3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1035,20 +1074,35 @@ expand_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Btn1" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2"]
+[node name="InfantryBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/Btn1"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/InfantryBtn"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/InfantryBtn"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1058,20 +1112,35 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2"]
+[node name="InfantryBtn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/Btn2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/InfantryBtn2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/InfantryBtn2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1081,20 +1150,35 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="Btn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2"]
+[node name="InfantryBtn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/Btn3"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/InfantryBtn3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer2/InfantryBtn3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1108,20 +1192,35 @@ expand_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Btn1" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3"]
+[node name="InfantryBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/Btn1"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/InfantryBtn"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/InfantryBtn"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1131,20 +1230,35 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3"]
+[node name="InfantryBtn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/Btn2"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/InfantryBtn2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/InfantryBtn2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1154,20 +1268,35 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="Btn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3"]
+[node name="InfantryBtn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/hover = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_pdtk1")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pdtk1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l1kts")
 disabled = true
-script = ExtResource("22_pdtk1")
+script = ExtResource("21_fgwrq")
 Infantry = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/Btn3"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/InfantryBtn3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/InfantryOptionsContainer/VBoxContainer/HBoxContainer3/InfantryBtn3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1178,7 +1307,6 @@ texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
 [node name="VehicleOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -1198,13 +1326,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_f4wsv")
-theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
 disabled = true
 script = ExtResource("23_pdtk1")
 Vehicle = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/TankGen1Btn"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
 
 [node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/TankGen1Btn"]
 layout_mode = 1
@@ -1216,30 +1359,7 @@ grow_vertical = 2
 texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
-[node name="TankGen2Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_bfyu0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_bfyu0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_bfyu0")
-theme_override_styles/normal = SubResource("StyleBoxTexture_bfyu0")
-disabled = true
-script = ExtResource("23_pdtk1")
-Vehicle = 2
-
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/TankGen2Btn"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("20_pdtk1")
-expand_mode = 2
-
-[node name="ArtilleryBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer"]
+[node name="Artillery" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -1252,7 +1372,60 @@ disabled = true
 script = ExtResource("23_pdtk1")
 Vehicle = 3
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/ArtilleryBtn"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/Artillery"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/Artillery"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
+[node name="TankGen2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8sjux")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8sjux")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8sjux")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8sjux")
+disabled = true
+script = ExtResource("23_pdtk1")
+Vehicle = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/TankGen2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/TankGen2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1266,41 +1439,33 @@ expand_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ArtilleryBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2"]
+[node name="TankGen1Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_6ktso")
-theme_override_styles/hover = SubResource("StyleBoxTexture_6ktso")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_6ktso")
-theme_override_styles/normal = SubResource("StyleBoxTexture_6ktso")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
 disabled = true
 script = ExtResource("23_pdtk1")
-Vehicle = 3
+Vehicle = 1
 
-[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/ArtilleryBtn"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/TankGen1Btn"]
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("20_pdtk1")
-expand_mode = 2
-
-[node name="TankGen1Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_krnp2")
-theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
-theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
-disabled = true
-script = ExtResource("23_pdtk1")
-Vehicle = 1
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
 
 [node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/TankGen1Btn"]
 layout_mode = 1
@@ -1317,15 +1482,68 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
 disabled = true
 script = ExtResource("23_pdtk1")
 Vehicle = 1
 
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/TankGen1Btn2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
 [node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/TankGen1Btn2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_pdtk1")
+expand_mode = 2
+
+[node name="TankGen1Btn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_krnp2")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
+disabled = true
+script = ExtResource("23_pdtk1")
+Vehicle = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/TankGen1Btn3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/TankGen1Btn3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1344,13 +1562,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
 disabled = true
 script = ExtResource("23_pdtk1")
 Vehicle = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3/TankGen1Btn"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
 
 [node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3/TankGen1Btn"]
 layout_mode = 1
@@ -1367,13 +1600,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
 disabled = true
 script = ExtResource("23_pdtk1")
 Vehicle = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3/TankGen1Btn2"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
 
 [node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3/TankGen1Btn2"]
 layout_mode = 1
@@ -1390,13 +1638,28 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/disabled = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/hover = SubResource("StyleBoxTexture_c22w8")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_l1kts")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8e5iw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
 disabled = true
 script = ExtResource("23_pdtk1")
 Vehicle = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3/TankGen1Btn3"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_w801c")
+region_rect = Rect2(708, 55, 20, 21)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
 
 [node name="LockTexture" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer3/TankGen1Btn3"]
 layout_mode = 1
@@ -1675,7 +1938,7 @@ columns = 3
 custom_minimum_size = Vector2(85, 85)
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect"]
@@ -1701,19 +1964,19 @@ size_flags_vertical = 3
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer"]
@@ -1730,19 +1993,19 @@ size_flags_vertical = 3
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer"]
@@ -1759,19 +2022,19 @@ size_flags_vertical = 3
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [node name="TextureRect3" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/VBoxContainer/MarginContainer3/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_f4wsv")
 expand_mode = 1
 
 [connection signal="pressed" from="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/TabsContainer/MarginContainer/HBoxContainer/ConstructionContainer/ConstructionBtn" to="." method="OnConstructionBtnPressed"]
