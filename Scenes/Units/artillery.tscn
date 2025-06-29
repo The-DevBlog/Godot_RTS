@@ -1,14 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnk0x7l6d7sjt"]
+[gd_scene load_steps=6 format=3 uid="uid://cnk0x7l6d7sjt"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Vehicle.cs" id="1_r00e8"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_a2hf6"]
 [ext_resource type="PackedScene" uid="uid://buxx3yidow5ae" path="res://Assets/Models/Units/Artillery/Artillery.gltf" id="3_ebj34"]
+[ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_3ggea"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_wc2c5"]
 height = 1.5
 radius = 1.2
 
-[node name="Artillery" type="CharacterBody3D" groups=["units"]]
+[node name="Artillery" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar") groups=["units"]]
 script = ExtResource("1_r00e8")
 VehicleType = 3
 Speed = 6
@@ -17,6 +18,7 @@ DPS = 20
 Cost = 600
 BuildTime = 5
 Acceleration = 5
+_healthbar = NodePath("Healthbar")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -31,8 +33,11 @@ transform = Transform3D(1.07393, 0, 0, 0, 0.922693, 0, 0, 0, 1.94258, 0, 0.77931
 visible = false
 billboard = 1
 no_depth_test = true
-render_priority = 5
+render_priority = 1
 texture = ExtResource("3_a2hf6")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("4_3ggea")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.27929, 0)

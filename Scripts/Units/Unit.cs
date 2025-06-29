@@ -10,11 +10,13 @@ public partial class Unit : CharacterBody3D
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
+	[Export] private Node3D _healthbar;
 	private float _movementDelta;
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;
 	private Sprite3D _selectBorder;
 	private bool _selected = false;
+	private Camera3D _cam;
 	public bool Selected
 	{
 		get => _selected;
@@ -40,6 +42,7 @@ public partial class Unit : CharacterBody3D
 		_selectBorder.Visible = false;
 
 		_targetPosition = Vector3.Zero;
+		_cam = GetViewport().GetCamera3D();
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
 		if (DPS == 0) Utils.PrintErr("No DPS Assigned to unit");
@@ -47,11 +50,37 @@ public partial class Unit : CharacterBody3D
 		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
+		Utils.NullExportCheck(_healthbar);
+	}
+
+	public override void _Process(double delta)
+	{
+		// ScaleHealthbar();
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		MoveUnit();
+	}
+
+	// scales the healthbar based on distance to camera
+	private void ScaleHealthbar()
+	{
+		float desiredHeightPx = 32f;
+
+		// 1) distance
+		float d = GlobalPosition.DistanceTo(_cam.GlobalPosition);
+		// 2) vertical FOV in radians
+		float vfov = _cam.Fov * (Mathf.Pi / 180f);
+		// 3) voxels per pixel
+		float viewportH = GetViewport().GetVisibleRect().Size.Y;
+		float worldPerPx = 2f * d * Mathf.Tan(vfov * 0.5f) / viewportH;
+		// 4) apply only to Y
+		_healthbar.Scale = new Vector3(
+			_healthbar.Scale.X,
+			desiredHeightPx * worldPerPx,
+			_healthbar.Scale.Z
+		);
 	}
 
 	private void MoveUnit()
