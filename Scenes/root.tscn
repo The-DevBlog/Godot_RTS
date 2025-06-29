@@ -74,9 +74,9 @@ script = ExtResource("1_qtxxq")
 MapSize = Vector2(1000, 1000)
 Funds = 10000
 TeamColor = Color(0.943224, 0.563384, 0, 1)
-Season = 1
+Season = 2
 TimeOfDay = 1
-Weather = 2
+Weather = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")

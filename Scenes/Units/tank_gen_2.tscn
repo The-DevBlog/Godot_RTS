@@ -39,4 +39,4 @@ texture = ExtResource("3_r3h8b")
 avoidance_enabled = true
 
 [node name="Healthbar" parent="." instance=ExtResource("4_yir8a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9243, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9174, 0)
