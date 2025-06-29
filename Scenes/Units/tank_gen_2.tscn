@@ -9,7 +9,7 @@
 height = 1.0
 radius = 1.2
 
-[node name="TankGen2" type="CharacterBody3D" groups=["units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar") groups=["units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
 VehicleType = 2
@@ -19,6 +19,7 @@ DPS = 50
 Cost = 750
 BuildTime = 8
 Acceleration = 8
+_healthbar = NodePath("Healthbar")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -30,6 +31,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.311906, 0)
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 render_priority = 1
@@ -39,4 +41,4 @@ texture = ExtResource("3_r3h8b")
 avoidance_enabled = true
 
 [node name="Healthbar" parent="." instance=ExtResource("4_yir8a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9174, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82261, 0)

@@ -12,7 +12,7 @@ public partial class Healthbar : Sprite3D
 
 	public override void _Process(double delta)
 	{
-		ScaleHealthbar();
+		// ScaleHealthbar();
 	}
 
 	private void ScaleHealthbar()
