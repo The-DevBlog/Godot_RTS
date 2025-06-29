@@ -34,7 +34,7 @@ transform = Transform3D(0.759, 0, 0, 0, 0.759, 0, 0, 0, 0.759, 0, 0.402411, 0)
 visible = false
 billboard = 1
 no_depth_test = true
-render_priority = 5
+render_priority = 1
 texture = ExtResource("3_ppujx")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
