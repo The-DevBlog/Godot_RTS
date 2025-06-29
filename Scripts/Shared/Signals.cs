@@ -19,12 +19,12 @@ public partial class Signals : Node
 	[Signal] public delegate void UpdateInfantryAvailabilityEventHandler();
 	[Signal] public delegate void UpdateVehicleAvailabilityEventHandler();
 	[Signal] public delegate void UpdateUpgradesAvailabilityEventHandler();
-	private SceneResources _sceneResources;
+	private TeamResources _sceneResources;
 
 	public override void _Ready()
 	{
 		Instance = this;
-		_sceneResources = SceneResources.Instance;
+		_sceneResources = TeamResources.Instance;
 	}
 
 	public void EmitUpdateNavigationMap(NavigationRegion3D region) => EmitSignal(SignalName.UpdateNavigationMap, region);

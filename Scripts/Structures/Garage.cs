@@ -4,7 +4,7 @@ using MyEnums;
 public partial class Garage : StructureBase
 {
 	public int Id { get; private set; }
-	private SceneResources _sceneResources = SceneResources.Instance;
+	private TeamResources _sceneResources = TeamResources.Instance;
 	private Signals _signals = Signals.Instance;
 
 	public override void _Ready()

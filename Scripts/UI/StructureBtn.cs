@@ -5,7 +5,7 @@ public partial class StructureBtn : Button
 {
 	[Export] public StructureType Structure { get; set; }
 	private GlobalResources _globalResources;
-	private SceneResources _sceneResources;
+	private TeamResources _sceneResources;
 	private Signals _signals;
 	private StructureBasePlaceholder _placeholder;
 	private StructureBase _structure;
@@ -15,7 +15,7 @@ public partial class StructureBtn : Button
 	public override void _Ready()
 	{
 		_globalResources = GlobalResources.Instance;
-		_sceneResources = SceneResources.Instance;
+		_sceneResources = TeamResources.Instance;
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();

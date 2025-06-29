@@ -8,7 +8,7 @@ public partial class InfoContainerLabels : HBoxContainer
 	// how fast the displayed funds move (units per second)
 	[Export] public float FundsAnimSpeed = 600.0f;
 
-	private SceneResources _sceneResources;
+	private TeamResources _sceneResources;
 	private Signals _signals;
 
 	// the funds value we're currently showing
@@ -18,7 +18,7 @@ public partial class InfoContainerLabels : HBoxContainer
 
 	public override void _Ready()
 	{
-		_sceneResources = SceneResources.Instance;
+		_sceneResources = TeamResources.Instance;
 
 		Utils.NullExportCheck(EnergyLabel);
 		Utils.NullExportCheck(FundsLabel);

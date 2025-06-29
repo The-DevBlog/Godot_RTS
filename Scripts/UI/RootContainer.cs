@@ -30,14 +30,14 @@ public partial class RootContainer : Control
 	[Export] public Label UpgradeInfoPopupLabelCost { get; set; }
 	[Export] public Label UpgradeInfoPopupLabelBuildTime { get; set; }
 	private GlobalResources _globalResources;
-	private SceneResources _sceneResources;
+	private TeamResources _sceneResources;
 	private Signals _signals;
 	private Color normalColor = new Color("#c8c8c8");
 	private Color hoverColor = new Color("#ffffff");
 	public override void _Ready()
 	{
 		_globalResources = GlobalResources.Instance;
-		_sceneResources = SceneResources.Instance;
+		_sceneResources = TeamResources.Instance;
 		_signals = Signals.Instance;
 		_signals.AddStructure += AddGarageOrBarracksInstanceBtn;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;

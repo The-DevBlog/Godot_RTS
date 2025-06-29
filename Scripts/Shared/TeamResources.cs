@@ -3,9 +3,9 @@ using Godot;
 using MyEnums;
 
 [Tool]
-public partial class SceneResources : Node3D
+public partial class TeamResources : Node3D
 {
-	public static SceneResources Instance { get; set; }
+	public static TeamResources Instance { get; set; }
 	[Export] public int Funds { get; set; }
 	[Export] public Color TeamColor;
 
@@ -21,7 +21,7 @@ public partial class SceneResources : Node3D
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
 
-	public SceneResources()
+	public TeamResources()
 	{
 		MaxStructureCount = 8;
 

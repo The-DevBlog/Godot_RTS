@@ -6,7 +6,7 @@ public partial class InfantryBtn : Button
 	[Export] public InfantryType Infantry { get; set; }
 	private Signals _signals;
 	private MyModels _models;
-	private SceneResources _sceneResources;
+	private TeamResources _sceneResources;
 	private Unit _unit;
 	private TextureRect _lockTexture;
 	private Color _normalModulate = new Color("#c8c8c8");
@@ -16,7 +16,7 @@ public partial class InfantryBtn : Button
 	{
 		_models = AssetServer.Instance.Models;
 		_lockTexture = GetNode<TextureRect>("LockTexture");
-		_sceneResources = SceneResources.Instance;
+		_sceneResources = TeamResources.Instance;
 		_signals = Signals.Instance;
 
 		if (Infantry == InfantryType.None) Utils.PrintErr("InfantryType is to set None");

@@ -6,7 +6,7 @@ public partial class VehicleBtn : Button
     [Export] public VehicleType Vehicle { get; set; }
     private Signals _signals;
     private MyModels _models;
-    private SceneResources _sceneResources;
+    private TeamResources _sceneResources;
     private TextureRect _lockTexture;
     private Color _normalModulate = new Color("#c8c8c8");
     private Color _hoverModulate = new Color("#ffffff");
@@ -15,7 +15,7 @@ public partial class VehicleBtn : Button
     {
         _models = AssetServer.Instance.Models;
         _lockTexture = GetNode<TextureRect>("LockTexture");
-        _sceneResources = SceneResources.Instance;
+        _sceneResources = TeamResources.Instance;
         _signals = Signals.Instance;
 
         if (Vehicle == VehicleType.None) Utils.PrintErr("VehicleType is to set None");
