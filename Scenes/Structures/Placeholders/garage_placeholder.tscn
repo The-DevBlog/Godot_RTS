@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cquq6ty2k8cbm"]
+[gd_scene load_steps=9 format=3 uid="uid://cquq6ty2k8cbm"]
 
 [ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_1l7fw"]
-[ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/Emissive_yellow.tres" id="3_buljm"]
+[ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/emissive_yellow.tres" id="3_buljm"]
 [ext_resource type="PackedScene" uid="uid://dtxo5ku40nsbh" path="res://Scenes/Inherited/garage.tscn" id="3_ifhu8"]
-[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="6_alkuy"]
+[ext_resource type="Shader" path="res://Shaders/structure_placement_validity_grid.gdshader" id="6_alkuy"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_a5y2n"]
 
@@ -78,42 +78,6 @@ transform = Transform3D(0.00121658, -0.0826707, 0.055108, 1.17384, 0.000103476, 
 mesh = SubResource("BoxMesh_a5y2n")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("3_buljm")
-
-[node name="Lights" type="Node3D" parent="."]
-visible = false
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.0480989, 1.74214, 3.07827)
-light_color = Color(0.846419, 0.637212, 0.154263, 1)
-light_energy = 8.0
-light_specular = 2.202
-light_bake_mode = 1
-spot_range = 1.401
-spot_attenuation = 2.15
-spot_angle = 92.07
-spot_angle_attenuation = 1.23115
-
-[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, 0.558171, 1.74214, 3.07827)
-light_color = Color(0.846419, 0.637212, 0.154263, 1)
-light_energy = 8.0
-light_specular = 2.202
-light_bake_mode = 1
-spot_range = 1.401
-spot_attenuation = 2.15
-spot_angle = 92.07
-spot_angle_attenuation = 1.23115
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, -0.435388, 0.900243, 0, -0.900243, -0.435388, -0.539438, 1.74214, 3.07827)
-light_color = Color(0.846419, 0.637212, 0.154263, 1)
-light_energy = 8.0
-light_specular = 2.202
-light_bake_mode = 1
-spot_range = 1.401
-spot_attenuation = 2.15
-spot_angle = 92.07
-spot_angle_attenuation = 1.23115
 
 [node name="Garage" parent="." instance=ExtResource("3_ifhu8")]
 
