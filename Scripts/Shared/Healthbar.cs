@@ -12,6 +12,11 @@ public partial class Healthbar : Sprite3D
 
 	public override void _Process(double delta)
 	{
+		ScaleHealthbar();
+	}
+
+	private void ScaleHealthbar()
+	{
 		// 1) distance
 		float d = GlobalPosition.DistanceTo(_cam.GlobalPosition);
 		// 2) vertical FOV in radians
