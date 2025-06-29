@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://p6omv7jvueob"]
 
 [ext_resource type="Script" uid="uid://bkso8d0vavnh6" path="res://Scripts/Structures/Barracks.cs" id="1_1gvql"]
-[ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="3_1gvql"]
+[ext_resource type="LightmapGIData" uid="uid://40btsfjxtfkf" path="res://Assets/Models/Structures/Barracks/barracks.lmbake" id="2_1gvql"]
 [ext_resource type="PackedScene" uid="uid://bmi5o5g1ocs7s" path="res://Scenes/Inherited/barracks.tscn" id="4_474wx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
@@ -121,10 +121,9 @@ skeleton = NodePath("../..")
 
 [node name="LightmapGI" type="LightmapGI" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00540209)
-visible = false
 supersampling = true
 generate_probes_subdiv = 1
-light_data = ExtResource("3_1gvql")
+light_data = ExtResource("2_1gvql")
 
 [node name="Barracks" parent="." instance=ExtResource("4_474wx")]
 

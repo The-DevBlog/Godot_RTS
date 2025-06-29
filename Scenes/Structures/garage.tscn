@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c6nban7o7nbxp"]
 
 [ext_resource type="Script" uid="uid://20dx5umr5120" path="res://Scripts/Structures/Garage.cs" id="1_7ea3r"]
-[ext_resource type="LightmapGIData" uid="uid://b1hljixws3r0x" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="2_7ea3r"]
+[ext_resource type="LightmapGIData" uid="uid://bg0dwombwqivu" path="res://Assets/Models/Structures/Garage/garage.lmbake" id="2_7ea3r"]
 [ext_resource type="Material" uid="uid://cto12tp0cdjmp" path="res://Assets/Resources/emissive_yellow.tres" id="4_7ea3r"]
 [ext_resource type="PackedScene" uid="uid://dtxo5ku40nsbh" path="res://Scenes/Inherited/garage.tscn" id="5_71xs8"]
 
@@ -24,12 +24,6 @@ Model = NodePath("Garage")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00505364, 1.73916, 0.0871179)
 shape = SubResource("BoxShape3D_s1wbf")
-
-[node name="LightmapGI" type="LightmapGI" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00278473, 0.0306797, -0.00540209)
-supersampling = true
-generate_probes_subdiv = 1
-light_data = ExtResource("2_7ea3r")
 
 [node name="EmissiveLights" type="Node3D" parent="."]
 
@@ -117,5 +111,8 @@ spot_angle_attenuation = 1.23115
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114316, 1.73916, 0.256559)
 shape = SubResource("BoxShape3D_7ea3r")
+
+[node name="LightmapGI" type="LightmapGI" parent="."]
+light_data = ExtResource("2_7ea3r")
 
 [editable path="Garage"]
