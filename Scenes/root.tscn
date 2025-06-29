@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=22 format=3 uid="uid://dylxy21qgcxxv"]
 
+[ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Shared/SceneResources.cs" id="1_qtxxq"]
 [ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
@@ -70,13 +71,16 @@ size = Vector3(200, 0.5, 200)
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
 [node name="World" type="Node3D"]
-script = ExtResource("1_qtxxq")
+script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Funds = 10000
-TeamColor = Color(0.943224, 0.563384, 0, 1)
 Season = 2
-TimeOfDay = 1
+TimeOfDay = 3
 Weather = 3
+
+[node name="TeamResources" type="Node3D" parent="."]
+script = ExtResource("1_qtxxq")
+Funds = 25000
+TeamColor = Color(0.377312, 0.684157, 0.625501, 1)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")

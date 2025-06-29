@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 using MyEnums;
@@ -7,12 +6,9 @@ using MyEnums;
 public partial class SceneResources : Node3D
 {
 	public static SceneResources Instance { get; set; }
-	[Export] public Vector2 MapSize { get; set; }
 	[Export] public int Funds { get; set; }
 	[Export] public Color TeamColor;
-	[Export] public Season Season { get; set; }
-	[Export] public TimeOfDay TimeOfDay { get; set; }
-	[Export] public Weather Weather { get; set; }
+
 	public int Energy { get; set; }
 	public int EnergyConsumed { get; set; }
 	public int MaxStructureCount; // max structure count for garage and barracks
@@ -47,11 +43,7 @@ public partial class SceneResources : Node3D
 
 		Utils.NullExportCheck(TeamColor);
 
-		if (MapSize == Vector2.Zero) Utils.PrintErr("MapSize is not set");
 		if (Funds == 0) Utils.PrintErr("No Funds Assigned");
-		if (Weather == Weather.None) Utils.PrintErr("Weather is set to None.");
-		if (Season == Season.None) Utils.PrintErr("Season is set to None.");
-		if (TimeOfDay == TimeOfDay.None) Utils.PrintErr("TimeOfDay is set to None.");
 	}
 
 	public void AddStructure(StructureType structure)

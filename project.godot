@@ -16,7 +16,6 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
 [autoload]
 
-GlobalResources="*res://Scripts/Shared/GlobalResources.cs"
 Signals="*res://Scripts/Shared/Signals.cs"
 AssetServer="*res://Scripts/Shared/AssetServer/AssetServer.cs"
 MouseManager="*res://Scripts/Shared/MouseManager.cs"
