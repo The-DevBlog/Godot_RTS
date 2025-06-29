@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cbo8dfsqdorde"]
+[gd_scene load_steps=53 format=3 uid="uid://cbo8dfsqdorde"]
 
 [ext_resource type="Script" uid="uid://b11jmptmup7kk" path="res://Scripts/UI/RootContainer.cs" id="1_k4jei"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_7aoqs"]
@@ -20,11 +20,9 @@
 [ext_resource type="ButtonGroup" uid="uid://2ma2h5f8y74t" path="res://Scenes/UI/GarageBtnGroup.tres" id="17_nk0xl"]
 [ext_resource type="Texture2D" uid="uid://ccen5vy624ii3" path="res://Assets/Textures/UI/Units/Infantry.png" id="19_fgwrq"]
 [ext_resource type="Texture2D" uid="uid://cou68s2pcaofy" path="res://Assets/Textures/UI/Icons/Lock.png" id="20_pdtk1"]
-[ext_resource type="Texture2D" uid="uid://6hic02xo80re" path="res://Assets/Textures/UI/Units/TankGen1.png" id="21_bfyu0"]
+[ext_resource type="Texture2D" uid="uid://bomnjm3htwfgs" path="res://Assets/Textures/UI/Units/TankGen1.png" id="21_bfyu0"]
 [ext_resource type="Script" uid="uid://bgaox57tum2un" path="res://Scripts/UI/UnitBtn.cs" id="21_fgwrq"]
-[ext_resource type="Texture2D" uid="uid://d10ftqaw1f7c2" path="res://Assets/Textures/UI/Units/Artillery.png" id="23_bfyu0"]
 [ext_resource type="Script" uid="uid://cga2nsbs0066d" path="res://Scripts/UI/VehicleBtn.cs" id="23_pdtk1"]
-[ext_resource type="Texture2D" uid="uid://cophn5nkcbwwy" path="res://Assets/Textures/UI/Units/TankGen2.png" id="25_pdtk1"]
 [ext_resource type="Script" uid="uid://do3p3enwhoxf7" path="res://Scripts/UI/UpgradeBtn.cs" id="26_bfyu0"]
 [ext_resource type="Texture2D" uid="uid://ccsu7dho1ek3j" path="res://Assets/Textures/UI/Upgrades/upgrade.png" id="26_fgwrq"]
 [ext_resource type="Script" uid="uid://d44qfn1sk4ld" path="res://Scripts/UI/SelectedUnits.cs" id="28_nk0xl"]
@@ -111,14 +109,23 @@ texture = ExtResource("19_fgwrq")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8e5iw"]
 texture = ExtResource("21_bfyu0")
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fgwrq"]
+load_path = "res://.godot/imported/Artillery.png-9d8f7f7e70c01ed62a59fd8f97393656.ctex"
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6ktso"]
-texture = ExtResource("23_bfyu0")
+texture = SubResource("CompressedTexture2D_fgwrq")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6ktso"]
+load_path = "res://.godot/imported/TankGen2.png-6d236013ed8ff081a2f645146b298ee6.ctex"
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8sjux"]
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_6ktso")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pyy5"]
 texture = ExtResource("26_fgwrq")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nk0xl"]
+load_path = "res://.godot/imported/TankGen2.png-6d236013ed8ff081a2f645146b298ee6.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_f4wsv"]
 load_path = "res://.godot/imported/TankGen2.png-6d236013ed8ff081a2f645146b298ee6.ctex"
@@ -819,6 +826,7 @@ text = "0
 "
 
 [node name="ConstructionOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -1307,7 +1315,6 @@ texture = ExtResource("20_pdtk1")
 expand_mode = 2
 
 [node name="VehicleOptionsContainer" type="MarginContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -1965,17 +1972,19 @@ theme_override_constants/margin_right = 5
 
 [node name="Label" type="Label" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/MarginContainer/GridContainer/SelectedUnitPlaceholder/MarginContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 6
 theme_override_fonts/font = ExtResource("2_7aoqs")
 text = "1"
 
 [node name="TextureRect" type="TextureRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect/MarginContainer/GridContainer/SelectedUnitPlaceholder"]
+self_modulate = Color(0.783523, 0.783523, 0.783523, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("25_pdtk1")
+texture = SubResource("CompressedTexture2D_nk0xl")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/SelectedUnitsContainer/NinePatchRect"]
