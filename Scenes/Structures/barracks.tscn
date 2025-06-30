@@ -21,6 +21,7 @@ material = SubResource("StandardMaterial3D_ymdpg")
 
 [node name="Barracks" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_1gvql")
+StructureType = 1
 HP = 750
 Energy = -15
 Cost = 750

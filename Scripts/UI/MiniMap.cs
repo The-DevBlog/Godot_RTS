@@ -14,19 +14,19 @@ public partial class MiniMap : Control
     private Vector2 _worldMax;
     private Camera3D _camera;
     private GlobalResources _globalResources;
-    private TeamResources _sceneResources;
+    private Player _player;
 
     public override void _Ready()
     {
         Utils.NullExportCheck(GameCamera);
 
         _globalResources = GlobalResources.Instance;
-        _sceneResources = TeamResources.Instance;
+        _player = PlayerManager.Instance.LocalPlayer;
         _mapSize = _globalResources.MapSize;
         _worldMin = -_mapSize / 2;
         _worldMax = _mapSize / 2;
         _camera = GetViewport().GetCamera3D();
-        _friendlyUnitsColor = _sceneResources.TeamColor;
+        _friendlyUnitsColor = _player.Color;
     }
 
     public override void _Process(double delta)

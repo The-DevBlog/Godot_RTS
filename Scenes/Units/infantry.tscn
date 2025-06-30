@@ -29,6 +29,7 @@ shape = SubResource("CylinderShape3D_2fp7d")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.656905, 0, 0, 0, 0.782324, 0, 0, 0, 0.904, 0, 1.01809, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 render_priority = 5

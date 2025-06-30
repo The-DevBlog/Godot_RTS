@@ -15,6 +15,7 @@ size = Vector3(9.31105, 3.47281, 9.90435)
 
 [node name="Garage" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_7ea3r")
+StructureType = 3
 HP = 1000
 Energy = -30
 Cost = 1250

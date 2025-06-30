@@ -6,7 +6,7 @@ public partial class InfantryBtn : Button
 	[Export] public InfantryType Infantry { get; set; }
 	private Signals _signals;
 	private MyModels _models;
-	private TeamResources _sceneResources;
+	private Player _player;
 	private Unit _unit;
 	private TextureRect _lockTexture;
 	private Color _normalModulate = new Color("#c8c8c8");
@@ -16,13 +16,12 @@ public partial class InfantryBtn : Button
 	{
 		_models = AssetServer.Instance.Models;
 		_lockTexture = GetNode<TextureRect>("LockTexture");
-		_sceneResources = TeamResources.Instance;
-		_signals = Signals.Instance;
+		_player = PlayerManager.Instance.LocalPlayer;
 
 		if (Infantry == InfantryType.None) Utils.PrintErr("InfantryType is to set None");
 		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Infantry.ToString());
 
-		_signals.UpdateInfantryAvailability += EnableDisableBtns;
+		_player.UpdateInfantryAvailability += EnableDisableBtns;
 		MouseEntered += OnMouseEnter;
 		MouseExited += OnMouseExit;
 		Pressed += OnUnitSelect;
@@ -34,15 +33,15 @@ public partial class InfantryBtn : Button
 		var unit = _models.Infantry[Infantry];
 		Infantry infantryInstance = unit.Instantiate<Infantry>();
 
-		bool enoughFunds = _sceneResources.Funds >= infantryInstance.Cost;
+		bool enoughFunds = _player.Funds >= infantryInstance.Cost;
 		if (!enoughFunds)
 		{
 			GD.Print("Not enough funds!");
 			return;
 		}
 
-		_signals.EmitBuildInfantry(infantryInstance);
-		_signals.EmitUpdateFunds(-infantryInstance.Cost);
+		_player.EmitBuildInfantry(infantryInstance);
+		_player.UpdateFunds(-infantryInstance.Cost);
 	}
 
 
@@ -71,7 +70,7 @@ public partial class InfantryBtn : Button
 
 	private void EnableDisableBtns()
 	{
-		Disabled = !_sceneResources.InfantryAvailability[Infantry];
+		Disabled = !_player.InfantryAvailability[Infantry];
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 		_lockTexture.Visible = Disabled;
 	}

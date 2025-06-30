@@ -8,7 +8,7 @@ public partial class InfoContainerLabels : HBoxContainer
 	// how fast the displayed funds move (units per second)
 	[Export] public float FundsAnimSpeed = 600.0f;
 
-	private TeamResources _sceneResources;
+	private Player _player;
 	private Signals _signals;
 
 	// the funds value we're currently showing
@@ -18,19 +18,19 @@ public partial class InfoContainerLabels : HBoxContainer
 
 	public override void _Ready()
 	{
-		_sceneResources = TeamResources.Instance;
+		_player = PlayerManager.Instance.LocalPlayer;
 
 		Utils.NullExportCheck(EnergyLabel);
 		Utils.NullExportCheck(FundsLabel);
 
 		// initialize both display & target to the starting scene funds
-		_displayFunds = _sceneResources.Funds;
+		_displayFunds = _player.Funds;
 		_targetFunds = _displayFunds;
 		FundsLabel.Text = $"${_displayFunds}";
 
 		_signals = Signals.Instance;
-		_signals.UpdateEnergy += UpdateEnergy;
-		_signals.UpdateFunds += OnUpdateFunds;
+		_player.OnUpdateEnergy += UpdateEnergy;
+		_player.OnUpdateFunds += UpdateFunds;
 	}
 
 	public override void _Process(double delta)
@@ -45,15 +45,16 @@ public partial class InfoContainerLabels : HBoxContainer
 		FundsLabel.Text = $"${_displayFunds}";
 	}
 
-	private void UpdateEnergy()
+	private void UpdateEnergy(int amount)
 	{
-		EnergyLabel.Text = $"{_sceneResources.EnergyConsumed}/{_sceneResources.Energy}";
+		GD.Print("Updating energy label to " + _player.EnergyConsumed + "/" + _player.Energy);
+		EnergyLabel.Text = $"{_player.EnergyConsumed}/{_player.Energy}";
 	}
 
-	private void OnUpdateFunds()
+	private void UpdateFunds(int amount)
 	{
 		// whenever the real funds change, update the target
-		_targetFunds = _sceneResources.Funds;
+		_targetFunds = _player.Funds;
 		// (the Process loop will animate _displayFunds → _targetFunds)
 	}
 }

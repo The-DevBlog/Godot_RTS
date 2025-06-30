@@ -4,26 +4,24 @@ using MyEnums;
 public partial class Garage : StructureBase
 {
 	public int Id { get; private set; }
-	private TeamResources _sceneResources = TeamResources.Instance;
+	private Player _player = PlayerManager.Instance.LocalPlayer;
 	private Signals _signals = Signals.Instance;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		int garageCount = _sceneResources.StructureCount[StructureType.Garage];
+		int garageCount = _player.StructureCount[StructureType.Garage];
 		Id = garageCount;
-
-		if (Id == 0)
-			Activate();
 	}
 
-	public void Activate() => _signals.BuildVehicle += BuildVehicle;
+	public void Activate() => _player.BuildVehicle += BuildVehicle;
 
-	public void Deactivate() => _signals.BuildVehicle -= BuildVehicle;
+	public void Deactivate() => _player.BuildVehicle -= BuildVehicle;
 
 	private void BuildVehicle(Vehicle vehicle)
 	{
+		GD.Print("BUilding vehcile");
 		var sceneRoot = GetTree().CurrentScene;
 		sceneRoot.AddChild(vehicle);
 

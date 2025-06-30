@@ -4,23 +4,20 @@ using MyEnums;
 public partial class Barracks : StructureBase
 {
 	public int Id { get; private set; }
-	private TeamResources _sceneResources = TeamResources.Instance;
 	private Signals _signals = Signals.Instance;
+	private Player _player => PlayerManager.Instance.LocalPlayer;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		int barracksCount = _sceneResources.StructureCount[StructureType.Barracks];
+		int barracksCount = _player.StructureCount[StructureType.Barracks];
 		Id = barracksCount;
-
-		if (Id == 0)
-			Activate();
 	}
 
-	public void Activate() => _signals.BuildInfantry += BuildInfantry;
+	public void Activate() => _player.BuildInfantry += BuildInfantry;
 
-	public void Deactivate() => _signals.BuildInfantry -= BuildInfantry;
+	public void Deactivate() => _player.BuildInfantry -= BuildInfantry;
 
 	private void BuildInfantry(Infantry infantry)
 	{

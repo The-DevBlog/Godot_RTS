@@ -6,7 +6,7 @@ public partial class VehicleBtn : Button
     [Export] public VehicleType Vehicle { get; set; }
     private Signals _signals;
     private MyModels _models;
-    private TeamResources _sceneResources;
+    private Player _player;
     private TextureRect _lockTexture;
     private Color _normalModulate = new Color("#c8c8c8");
     private Color _hoverModulate = new Color("#ffffff");
@@ -15,13 +15,13 @@ public partial class VehicleBtn : Button
     {
         _models = AssetServer.Instance.Models;
         _lockTexture = GetNode<TextureRect>("LockTexture");
-        _sceneResources = TeamResources.Instance;
+        _player = PlayerManager.Instance.LocalPlayer;
         _signals = Signals.Instance;
 
         if (Vehicle == VehicleType.None) Utils.PrintErr("VehicleType is to set None");
         if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Vehicle.ToString());
 
-        _signals.UpdateVehicleAvailability += EnableDisableBtns;
+        _player.UpdateVehicleAvailability += EnableDisableBtns;
         MouseEntered += OnMouseEnter;
         MouseExited += OnMouseExit;
         Pressed += OnUnitSelect;
@@ -33,15 +33,15 @@ public partial class VehicleBtn : Button
         var unit = _models.Vehicles[Vehicle];
         Vehicle vehicleInstance = unit.Instantiate<Vehicle>();
 
-        bool enoughFunds = _sceneResources.Funds >= vehicleInstance.Cost;
+        bool enoughFunds = _player.Funds >= vehicleInstance.Cost;
         if (!enoughFunds)
         {
             GD.Print("Not enough funds!");
             return;
         }
 
-        _signals.EmitBuildVehicle(vehicleInstance);
-        _signals.EmitUpdateFunds(-vehicleInstance.Cost);
+        _player.EmitBuildVehicle(vehicleInstance);
+        _player.UpdateFunds(-vehicleInstance.Cost);
     }
 
     private void OnMouseEnter()
@@ -69,7 +69,7 @@ public partial class VehicleBtn : Button
 
     private void EnableDisableBtns()
     {
-        Disabled = !_sceneResources.VehicleAvailability[Vehicle];
+        Disabled = !_player.VehicleAvailability[Vehicle];
         SelfModulate = Disabled ? _disabledModulate : _normalModulate;
         _lockTexture.Visible = Disabled;
     }
