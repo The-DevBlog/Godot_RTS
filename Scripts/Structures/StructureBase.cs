@@ -3,7 +3,7 @@ using MyEnums;
 
 public partial class StructureBase : StaticBody3D, ICostProvider
 {
-	public Player Player { get; set; }
+	[Export] public Player Player { get; set; }
 	[Export] public StructureType StructureType { get; set; }
 	[Export] public int HP { get; set; }
 	[Export] public int Energy { get; set; }
@@ -11,12 +11,10 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 	[Export] public int BuildTime { get; set; }
 	[Export] public Node3D Model;
 	public Area3D Area { get; private set; }
-	private Player _player;
 
 	public override void _Ready()
 	{
 		Area = GetNode<Area3D>("Area3D");
-		_player = PlayerManager.Instance.LocalPlayer;
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to structure");
 		if (Energy == 0) Utils.PrintErr("No Energy Assigned to structure");
@@ -25,10 +23,17 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 		if (StructureType == StructureType.None) Utils.PrintErr("StructureType is not set for structure");
 		if (Model == null) Utils.PrintErr("Model is not assigned for structure: " + StructureType);
 
+		Utils.NullExportCheck(Player);
 		Utils.NullExportCheck(Model);
 		Utils.NullExportCheck(Area);
 
-		SetTeamColor(_player.Color);
+		if (Player == null)
+		{
+			Player = PlayerManager.Instance.LocalPlayer;
+		}
+
+		GD.Print("Structure owner: " + Player.Name + ", Id: " + Player.Id);
+		SetTeamColor(Player.Color);
 	}
 
 	public void SetTeamColor(Color color)

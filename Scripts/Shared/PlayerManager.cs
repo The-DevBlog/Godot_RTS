@@ -20,7 +20,7 @@ public partial class PlayerManager : Node
 	// Called from each Player._EnterTree()
 	public void RegisterPlayer(Player p)
 	{
-		_players[p.PlayerId] = p;
+		_players[p.Id] = p;
 		if (p.IsHuman && LocalPlayer == null)
 			LocalPlayer = p;
 	}

@@ -63,8 +63,8 @@ public partial class StructureBtn : Button
 		tempCheck.QueueFree();
 
 		// Create the placement placeholder
-		_placeholder = _models.StructurePlaceholders[Structure]
-			.Instantiate<StructureBasePlaceholder>();
+		_placeholder = _models.StructurePlaceholders[Structure].Instantiate<StructureBasePlaceholder>();
+		_placeholder.Player = _player;
 		GlobalResources.Instance.IsPlacingStructure = true;
 		_scene.AddChild(_placeholder);
 		ReleaseFocus();

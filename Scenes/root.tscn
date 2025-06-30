@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
+[ext_resource type="PackedScene" uid="uid://deexst56o0ban" path="res://Scenes/Structures/reactor.tscn" id="13_20eh2"]
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Players/Player.cs" id="13_lwnbm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
@@ -154,10 +155,30 @@ visible = false
 
 [node name="Player1" type="Node3D" parent="."]
 script = ExtResource("13_lwnbm")
-PlayerId = 1
+Id = 1
 IsHuman = true
-Color = Color(0.205265, 0.491377, 0.760792, 1)
+Color = Color(1, 1, 1, 1)
 Funds = 15000
+
+[node name="Player2" type="Node3D" parent="."]
+script = ExtResource("13_lwnbm")
+Id = 2
+Color = Color(0.517409, 0.491151, 1.92523e-07, 1)
+Funds = 50000
+
+[node name="Player3" type="Node3D" parent="."]
+script = ExtResource("13_lwnbm")
+Id = 3
+Color = Color(0.608996, 0.164267, 1, 1)
+Funds = 50000
+
+[node name="Reactor" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("13_20eh2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5837, 0, -71.001)
+Player = NodePath("../Player3")
+
+[node name="Reactor2" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("13_20eh2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.4684, 0, -62.5368)
+Player = NodePath("../Player2")
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]

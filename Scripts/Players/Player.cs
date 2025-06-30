@@ -5,7 +5,7 @@ using MyEnums;
 
 public partial class Player : Node3D
 {
-	[Export] public int PlayerId { get; set; }    // e.g. 1, 2, 3...
+	[Export] public int Id { get; set; }    // e.g. 1, 2, 3...
 	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
 	[Export] public Color Color { get; set; }
 	[Export] public int Funds { get; private set; }
@@ -35,7 +35,6 @@ public partial class Player : Node3D
 	public int ActiveGarageId { get; set; } = 0;
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
-	// private Signals _signals;
 
 	public override void _EnterTree()
 	{
@@ -44,10 +43,7 @@ public partial class Player : Node3D
 		PlayerManager.Instance.RegisterPlayer(this);
 
 		Utils.NullExportCheck(Color);
-		if (Funds == 0) Utils.PrintErr("Funds not set for player " + PlayerId);
-
-		// _signals = Signals.Instance;
-		// OnUpdateEnergy += UpdateEnergy;
+		if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
 
 		MaxStructureCount = 8;
 
@@ -71,7 +67,7 @@ public partial class Player : Node3D
 
 	public void UpdateFunds(int amount)
 	{
-		GD.Print("Updating funds for player " + PlayerId + ": " + amount);
+		GD.Print("Updating funds for player " + Id + ": " + amount);
 
 		Funds += amount;
 
@@ -79,7 +75,7 @@ public partial class Player : Node3D
 	}
 	public void UpdateEnergy(int amount)
 	{
-		GD.Print("Updating energy for player " + PlayerId + ": " + amount);
+		GD.Print("Updating energy for player " + Id + ": " + amount);
 
 		if (amount > 0)
 			Energy += amount;
@@ -106,7 +102,7 @@ public partial class Player : Node3D
 
 		if (!TrySpendFunds(cost))
 		{
-			GD.Print($"Player {PlayerId}: not enough funds ({Funds}) for cost {cost}");
+			GD.Print($"Player {Id}: not enough funds ({Funds}) for cost {cost}");
 			temp.QueueFree();
 			return null;
 		}
