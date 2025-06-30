@@ -143,6 +143,11 @@ public partial class StructureBtn : Button
 			finalXform.Origin
 		);
 
+		GameManager.Instance.RequestSpawnStructure(
+			Structure,     // your StructureType enum
+			finalXform     // world transform (includes position & rotation)
+		);
+
 		if (structure == null)
 			return;
 
@@ -151,6 +156,9 @@ public partial class StructureBtn : Button
 
 		// Notify other systems
 		Player player = PlayerManager.Instance.LocalPlayer;
+
+		// player.UpdateEnergy(25);
+		// player.UpdateFunds(-500);
 
 		player.UpdateEnergy(structure.Energy);
 		player.UpdateFunds(-structure.Cost);
