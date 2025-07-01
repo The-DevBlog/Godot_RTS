@@ -43,6 +43,10 @@ public partial class Player : Node3D
 		PlayerManager.Instance.RegisterPlayer(this);
 
 		Utils.NullExportCheck(Color);
+
+		if (Color == default)
+			Color = new Color(Colors.Red);
+
 		if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
 
 		MaxStructureCount = 8;
@@ -107,7 +111,10 @@ public partial class Player : Node3D
 			return null;
 		}
 
-		parent.AddChild(temp);
+		// give it a sane name:
+		temp.Name = $"{scene.ResourceName}_{Multiplayer.GetUniqueId()}_{GetInstanceId()}";
+
+		parent.AddChild(temp, true);
 		temp.GlobalPosition = pos;
 
 		// tag the instance

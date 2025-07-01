@@ -143,11 +143,6 @@ public partial class StructureBtn : Button
 			finalXform.Origin
 		);
 
-		GameManager.Instance.RequestSpawnStructure(
-			Structure,     // your StructureType enum
-			finalXform     // world transform (includes position & rotation)
-		);
-
 		if (structure == null)
 			return;
 
