@@ -114,8 +114,8 @@ public partial class Player : Node3D
 		// give it a sane name:
 		temp.Name = $"{scene.ResourceName}_{Multiplayer.GetUniqueId()}_{GetInstanceId()}";
 
-		parent.AddChild(temp, true);
 		temp.GlobalPosition = pos;
+		parent.AddChild(temp, true);
 
 		// tag the instance
 		if (temp is Unit u)
