@@ -9,6 +9,7 @@ public partial class GlobalResources : Node3D
 	[Export] public Season Season { get; set; }
 	[Export] public TimeOfDay TimeOfDay { get; set; }
 	[Export] public Weather Weather { get; set; }
+	[Export] public MultiplayerSpawner MultiplayerSpawner { get; set; }
 	public bool IsPlacingStructure { get; set; }
 	public bool IsHoveringUI { get; set; }
 

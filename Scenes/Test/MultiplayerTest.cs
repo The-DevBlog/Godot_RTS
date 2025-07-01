@@ -38,7 +38,7 @@ public partial class MultiplayerTest : Node2D
 	private void AddPlayer(long id = 1)
 	{
 		GD.Print($"Adding player with ID: {id}");
-		var player = _scene.Instantiate();
+		var player = _scene.Instantiate(); ;
 		player.Name = id.ToString();
 		CallDeferred("add_child", player);
 	}

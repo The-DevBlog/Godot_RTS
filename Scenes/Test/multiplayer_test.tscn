@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cytp0j20cvvea"]
+[gd_scene load_steps=3 format=3 uid="uid://cc5mq5yxr5un3"]
 
 [ext_resource type="Script" uid="uid://dk5n28v2vs0dp" path="res://Scenes/Test/MultiplayerTest.cs" id="1_17re5"]
-[ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="2_6bvuc"]
+[ext_resource type="PackedScene" uid="uid://cnbydbthcwdo6" path="res://Scenes/player.tscn" id="2_6bvuc"]
 
 [node name="MultiplayerTest" type="Node2D"]
 script = ExtResource("1_17re5")

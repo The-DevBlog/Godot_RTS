@@ -11,9 +11,12 @@ public partial class StructureBtn : Button
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
+	private MultiplayerSpawner _spawner;
 
 	public override void _Ready()
 	{
+		_spawner = GlobalResources.Instance.MultiplayerSpawner;
+
 		// Grab the local Player from the PlayerManager
 		_player = PlayerManager.Instance.LocalPlayer;
 		if (_player == null)
@@ -93,6 +96,7 @@ public partial class StructureBtn : Button
 		}
 	}
 
+
 	private void PlaceStructure()
 	{
 		if (GlobalResources.Instance.IsHoveringUI)
@@ -104,7 +108,7 @@ public partial class StructureBtn : Button
 		if (_placeholder == null || !_placeholder.ValidPlacement)
 			return;
 
-		// Raycast to find ground hit
+		// 1) Raycast & find navRegion
 		var groundBody = _placeholder.GetHoveredMapBase(out Vector3 hitPos);
 		if (groundBody == null)
 		{
@@ -113,16 +117,11 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		// Find nearest NavigationRegion3D
 		NavigationRegion3D navRegion = null;
 		Node walker = groundBody;
 		while (walker != null)
 		{
-			if (walker is NavigationRegion3D nr)
-			{
-				navRegion = nr;
-				break;
-			}
+			if (walker is NavigationRegion3D nr) { navRegion = nr; break; }
 			walker = walker.GetParent();
 		}
 		if (navRegion == null)
@@ -132,33 +131,162 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		// Capture final transform then cleanup placeholder
+		// 2) Capture final transform & cleanup placeholder
 		var finalXform = _placeholder.GlobalTransform;
 		CancelStructure();
 
-		// Delegate creation & bookkeeping to Player
-		var structure = _player.SpawnEntity<StructureBase>(
-			navRegion,
-			_models.Structures[Structure],
-			finalXform.Origin
-		);
-
-		if (structure == null)
+		// 3) Figure out which entry in the spawner’s Auto Spawn List this is
+		string scenePath = _models.Structures[Structure].ResourcePath;
+		int sceneIdx = -1;
+		for (int i = 0; i < _spawner.GetSpawnableSceneCount(); i++)
+		{
+			if (_spawner.GetSpawnableScene(i) == scenePath)
+			{
+				sceneIdx = i;
+				break;
+			}
+		}
+		if (sceneIdx < 0)
+		{
+			GD.PrintErr($"Structure scene not registered in spawner: {scenePath}");
 			return;
+		}
 
-		structure.GlobalTransform = finalXform;
-		_signals.EmitUpdateNavigationMap(navRegion);
+		// 4) Pack everything into one Variant array
+		var data = new Godot.Collections.Array {
+			sceneIdx,                 // which PackedScene to load
+			navRegion.GetPath(),      // where to parent
+			finalXform.Origin,        // position
+			finalXform.Basis.GetRotationQuaternion() // rotation
+		};
 
-		// Notify other systems
-		Player player = PlayerManager.Instance.LocalPlayer;
+		Node spawnedNode = null;
 
-		// player.UpdateEnergy(25);
-		// player.UpdateFunds(-500);
+		// 5) Only the server actually spawns & replicates
+		if (Multiplayer.IsServer())
+		{
+			spawnedNode = _spawner.Spawn(data);
+		}
+		else
+		{
+			_spawner.RpcId(1, "Spawn", data);
+			// client UI can optimistically update, or wait for the server's spawn callback
+		}
 
-		player.UpdateEnergy(structure.Energy);
-		player.UpdateFunds(-structure.Cost);
-		player.AddStructure(structure);
+		// 6) Update HUD if we have a local instance
+		if (spawnedNode is StructureBase structure)
+		{
+			var me = PlayerManager.Instance.LocalPlayer;
+			me.UpdateEnergy(structure.Energy);
+			me.UpdateFunds(-structure.Cost);
+			me.AddStructure(structure);
+
+			// And if you need navmesh rebuild immediately on the server:
+			if (Multiplayer.IsServer())
+				_signals.EmitUpdateNavigationMap(navRegion);
+		}
 	}
+
+	// private void PlaceStructure()
+	// {
+	// 	if (GlobalResources.Instance.IsHoveringUI)
+	// 	{
+	// 		CancelStructure();
+	// 		return;
+	// 	}
+
+	// 	if (_placeholder == null || !_placeholder.ValidPlacement)
+	// 		return;
+
+	// 	// Raycast to find ground hit
+	// 	var groundBody = _placeholder.GetHoveredMapBase(out Vector3 hitPos);
+	// 	if (groundBody == null)
+	// 	{
+	// 		GD.PrintErr("PlaceStructure: Mouse not over map. Cancelling.");
+	// 		CancelStructure();
+	// 		return;
+	// 	}
+
+	// 	// Find nearest NavigationRegion3D
+	// 	NavigationRegion3D navRegion = null;
+	// 	Node walker = groundBody;
+	// 	while (walker != null)
+	// 	{
+	// 		if (walker is NavigationRegion3D nr)
+	// 		{
+	// 			navRegion = nr;
+	// 			break;
+	// 		}
+	// 		walker = walker.GetParent();
+	// 	}
+	// 	if (navRegion == null)
+	// 	{
+	// 		GD.PrintErr("PlaceStructure: No NavigationRegion3D parent found.");
+	// 		CancelStructure();
+	// 		return;
+	// 	}
+
+	// 	var finalXform = _placeholder.GlobalTransform;
+	// 	CancelStructure();
+
+	// 	// Delegate creation & bookkeeping to Player
+	// 	var structure = _player.SpawnEntity<StructureBase>(
+	// 		navRegion,
+	// 		_models.Structures[Structure],
+	// 		finalXform.Origin
+	// 	);
+
+	// 	// pack up: [sceneIndex, regionPath, pos, rotQuat]
+	// 	int sceneIdx = _spawner.GetSpawnableSceneIndex(
+	// 		_models.Structures[Structure].ResourcePath
+	// 	);
+	// 	var data = new Godot.Collections.Array {
+	// 	sceneIdx,
+	// 	navRegion.GetPath(),
+	// 	finalXform.Origin,
+	// 	finalXform.Basis.GetRotationQuaternion()
+	// };
+
+	// 	if (Multiplayer.IsServer())
+	// 	{
+	// 		// Host: spawn locally & replicate
+	// 		_spawner.Spawn(data);
+	// 	}
+	// 	else
+	// 	{
+	// 		// Client: ask the server (peer 1) to spawn for everyone
+	// 		_spawner.RpcId(1, "Spawn", data);
+	// 	}
+
+	// 	// update your HUD immediately…
+	// 	var me = PlayerManager.Instance.LocalPlayer;
+	// 	me.UpdateEnergy(structure.Energy);
+	// 	me.UpdateFunds(-structure.Cost);
+
+	// 	// // Capture final transform then cleanup placeholder
+	// 	// var finalXform = _placeholder.GlobalTransform;
+	// 	// CancelStructure();
+
+	// 	// // Delegate creation & bookkeeping to Player
+	// 	// var structure = _player.SpawnEntity<StructureBase>(
+	// 	// 	navRegion,
+	// 	// 	_models.Structures[Structure],
+	// 	// 	finalXform.Origin
+	// 	// );
+
+	// 	// if (structure == null)
+	// 	// 	return;
+
+	// 	// structure.GlobalTransform = finalXform;
+	// 	// _signals.EmitUpdateNavigationMap(navRegion);
+
+	// 	// // Notify other systems
+	// 	// Player player = PlayerManager.Instance.LocalPlayer;
+
+	// 	// player.UpdateEnergy(structure.Energy);
+	// 	// player.UpdateFunds(-structure.Cost);
+	// 	// player.AddStructure(structure);
+	// }
 
 	private void CancelStructure()
 	{

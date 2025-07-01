@@ -35,7 +35,6 @@ public partial class Player : Node3D
 	public int ActiveGarageId { get; set; } = 0;
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
-
 	public override void _EnterTree()
 	{
 		base._EnterTree();
@@ -115,7 +114,14 @@ public partial class Player : Node3D
 		temp.Name = $"{scene.ResourceName}_{Multiplayer.GetUniqueId()}_{GetInstanceId()}";
 
 		temp.GlobalPosition = pos;
-		parent.AddChild(temp, true);
+
+		// var model = _models.Structures[StructureType.Reactor].ResourcePath;
+		// var rp = _multiplayerSpawner.GetSpawnableScene(_models.Structures[StructureType.Reactor]);
+		// var index = _multiplayerSpawner.GetSpawnableSceneIndex(_models.Structures[Structure].ResourcePath);
+		// _spawner.Spawn(index);
+
+		// _multiplayerSpawner.Spawn()
+		// parent.AddChild(temp, true);
 
 		// tag the instance
 		if (temp is Unit u)
