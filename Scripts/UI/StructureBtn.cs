@@ -163,6 +163,7 @@ public partial class StructureBtn : Button
 		Node spawnedNode = null;
 
 		// 5) Only the server actually spawns & replicates
+		// TODO: Will this work with single player? 
 		if (Multiplayer.IsServer())
 		{
 			spawnedNode = _spawner.Spawn(data);
