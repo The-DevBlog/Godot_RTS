@@ -137,10 +137,12 @@ public partial class StructureBtn : Button
 
 		var spawner = GlobalResources.Instance.MultiplayerSpawner;
 		var parent = spawner.GetNode<Node3D>(spawner.SpawnPath);
-		GD.Print("parent: " + parent.GetPath());
 		parent.AddChild(structure, true);
 
-		var player = PlayerManager.Instance.LocalPlayer;
+		int callerId = Multiplayer.GetRemoteSenderId();
+		GD.Print("Caller id: " + callerId);
+		var player = PlayerManager.Instance.GetPlayer(callerId);
+
 		player.UpdateEnergy(structure.Energy);
 		player.UpdateFunds(-structure.Cost);
 		player.AddStructure(structure);
