@@ -11,9 +11,14 @@ public partial class StructureBtn : Button
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
+	private PlayerManager _playerManager;
+	private MultiplayerSpawner _multiplayerSpawner;
 
 	public override void _Ready()
 	{
+		_multiplayerSpawner = GlobalResources.Instance.MultiplayerSpawner;
+		// _multiplayerSpawner.SpawnFunction = new Callable(this, nameof(CustomSpawn));
+
 		// Grab the local Player from the PlayerManager
 		_player = PlayerManager.Instance.LocalPlayer;
 		if (_player == null)
@@ -23,6 +28,7 @@ public partial class StructureBtn : Button
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
 		_scene = GetTree().CurrentScene as Node3D;
+		_playerManager = PlayerManager.Instance;
 
 		Pressed += OnStructureSelect;
 		MouseEntered += OnBtnEnter;
@@ -40,7 +46,7 @@ public partial class StructureBtn : Button
 		// Cancel if already placing
 		if (_placeholder != null)
 		{
-			CancelStructure();
+			CancelPlaceholder();
 			return;
 		}
 
@@ -77,7 +83,7 @@ public partial class StructureBtn : Button
 
 		if (Input.IsActionJustPressed("mb_secondary"))
 		{
-			CancelStructure();
+			CancelPlaceholder();
 			return;
 		}
 
@@ -97,23 +103,60 @@ public partial class StructureBtn : Button
 	{
 		if (GlobalResources.Instance.IsHoveringUI)
 		{
-			CancelStructure();
+			CancelPlaceholder();
 			return;
 		}
 
 		if (_placeholder == null || !_placeholder.ValidPlacement)
 			return;
 
+		var navRegion = GetNavigationRegion();
+
+		// Capture final transform then cleanup placeholder
+		var finalXform = _placeholder.GlobalTransform;
+		CancelPlaceholder();
+
+		_signals.EmitUpdateNavigationMap(navRegion);
+
+		var spawnData = new Godot.Collections.Dictionary {
+			{ "transform", finalXform },
+		};
+
+		if (!Multiplayer.IsServer())
+			Rpc(nameof(ServerSpawnStructure), finalXform);
+		else
+			ServerSpawnStructure(finalXform);
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	private void ServerSpawnStructure(Transform3D finalXform)
+	{
+		var structureScene = _models.Structures[Structure];
+		StructureBase structure = structureScene.Instantiate<StructureBase>();
+		structure.GlobalTransform = finalXform;
+
+		var spawner = GlobalResources.Instance.MultiplayerSpawner;
+		var parent = spawner.GetNode<Node3D>(spawner.SpawnPath);
+		GD.Print("parent: " + parent.GetPath());
+		parent.AddChild(structure, true);
+
+		var player = PlayerManager.Instance.LocalPlayer;
+		player.UpdateEnergy(structure.Energy);
+		player.UpdateFunds(-structure.Cost);
+		player.AddStructure(structure);
+	}
+
+	private NavigationRegion3D GetNavigationRegion()
+	{
 		// Raycast to find ground hit
 		var groundBody = _placeholder.GetHoveredMapBase(out Vector3 hitPos);
 		if (groundBody == null)
 		{
 			GD.PrintErr("PlaceStructure: Mouse not over map. Cancelling.");
-			CancelStructure();
-			return;
+			CancelPlaceholder();
+			return null;
 		}
 
-		// Find nearest NavigationRegion3D
 		NavigationRegion3D navRegion = null;
 		Node walker = groundBody;
 		while (walker != null)
@@ -128,39 +171,15 @@ public partial class StructureBtn : Button
 		if (navRegion == null)
 		{
 			GD.PrintErr("PlaceStructure: No NavigationRegion3D parent found.");
-			CancelStructure();
-			return;
+			CancelPlaceholder(); // TODO: Do I need this here?
+			return null;
 		}
 
-		// Capture final transform then cleanup placeholder
-		var finalXform = _placeholder.GlobalTransform;
-		CancelStructure();
-
-		// Delegate creation & bookkeeping to Player
-		var structure = _player.SpawnEntity<StructureBase>(
-			navRegion,
-			_models.Structures[Structure],
-			finalXform.Origin
-		);
-
-		if (structure == null)
-			return;
-
-		structure.GlobalTransform = finalXform;
-		_signals.EmitUpdateNavigationMap(navRegion);
-
-		// Notify other systems
-		Player player = PlayerManager.Instance.LocalPlayer;
-
-		// player.UpdateEnergy(25);
-		// player.UpdateFunds(-500);
-
-		player.UpdateEnergy(structure.Energy);
-		player.UpdateFunds(-structure.Cost);
-		player.AddStructure(structure);
+		return navRegion;
 	}
 
-	private void CancelStructure()
+
+	private void CancelPlaceholder()
 	{
 		GlobalResources.Instance.IsPlacingStructure = false;
 		if (_placeholder == null) return;

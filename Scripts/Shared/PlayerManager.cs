@@ -4,6 +4,7 @@ using Godot;
 public partial class PlayerManager : Node
 {
 	public static PlayerManager Instance { get; private set; }
+	public Player Authority { get; set; }
 
 	// All players by ID
 	private readonly Dictionary<int, Player> _players = new();

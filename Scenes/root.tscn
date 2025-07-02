@@ -71,12 +71,13 @@ size = Vector3(200, 0.5, 200)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
-[node name="World" type="Node3D"]
+[node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner")]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
 Season = 2
 TimeOfDay = 3
 Weather = 3
+MultiplayerSpawner = NodePath("MultiplayerSpawner")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
