@@ -23,6 +23,8 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 		if (StructureType == StructureType.None) Utils.PrintErr("StructureType is not set for structure");
 		if (Model == null) Utils.PrintErr("Model is not assigned for structure: " + StructureType);
 
+		Player = PlayerManager.Instance.LocalPlayer;
+
 		Utils.NullExportCheck(Player);
 		Utils.NullExportCheck(Model);
 		Utils.NullExportCheck(Area);

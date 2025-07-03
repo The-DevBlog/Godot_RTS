@@ -40,7 +40,7 @@ public partial class Player : Node3D
 	{
 		base._EnterTree();
 
-		PlayerManager.Instance.RegisterPlayer(this);
+		// PlayerManager.Instance.RegisterPlayer(this);
 
 		Utils.NullExportCheck(Color);
 
@@ -62,12 +62,12 @@ public partial class Player : Node3D
 
 	}
 
-	public bool TrySpendFunds(int cost)
-	{
-		if (Funds < cost) return false;
-		Funds -= cost;
-		return true;
-	}
+	// public bool TrySpendFunds(int cost)
+	// {
+	// 	if (Funds < cost) return false;
+	// 	Funds -= cost;
+	// 	return true;
+	// }
 
 	public void UpdateFunds(int amount)
 	{
@@ -99,38 +99,38 @@ public partial class Player : Node3D
 	/// <summary>
 	/// Central spawn helper: checks cost, parents under the scene, tags owner, registers.
 	/// </summary>
-	public T SpawnEntity<T>(Node parent, PackedScene scene, Vector3 pos) where T : Node3D
-	{
-		var temp = scene.Instantiate<T>();
-		int cost = (temp as ICostProvider)?.Cost ?? 0;  // your structures implement ICostProvider
+	// public T SpawnEntity<T>(Node parent, PackedScene scene, Vector3 pos) where T : Node3D
+	// {
+	// 	var temp = scene.Instantiate<T>();
+	// 	int cost = (temp as ICostProvider)?.Cost ?? 0;  // your structures implement ICostProvider
 
-		if (!TrySpendFunds(cost))
-		{
-			GD.Print($"Player {Id}: not enough funds ({Funds}) for cost {cost}");
-			temp.QueueFree();
-			return null;
-		}
+	// 	if (!TrySpendFunds(cost))
+	// 	{
+	// 		GD.Print($"Player {Id}: not enough funds ({Funds}) for cost {cost}");
+	// 		temp.QueueFree();
+	// 		return null;
+	// 	}
 
-		// give it a sane name:
-		temp.Name = $"{scene.ResourceName}_{Multiplayer.GetUniqueId()}_{GetInstanceId()}";
+	// 	// give it a sane name:
+	// 	temp.Name = $"{scene.ResourceName}_{Multiplayer.GetUniqueId()}_{GetInstanceId()}";
 
-		temp.GlobalPosition = pos;
-		parent.AddChild(temp, true);
+	// 	temp.GlobalPosition = pos;
+	// 	parent.AddChild(temp, true);
 
-		// tag the instance
-		if (temp is Unit u)
-		{
-			u.Player = this;
-			RegisterUnit(u);
-		}
-		else if (temp is StructureBase s)
-		{
-			s.Player = this;
-			RegisterStructure(s);
-		}
+	// 	// tag the instance
+	// 	if (temp is Unit u)
+	// 	{
+	// 		u.Player = this;
+	// 		RegisterUnit(u);
+	// 	}
+	// 	else if (temp is StructureBase s)
+	// 	{
+	// 		s.Player = this;
+	// 		RegisterStructure(s);
+	// 	}
 
-		return temp;
-	}
+	// 	return temp;
+	// }
 
 	public void AddStructure(StructureBase structure)
 	{
@@ -161,6 +161,10 @@ public partial class Player : Node3D
 			UpgradesAvailable = true;
 			EmitSignal(SignalName.UpdateUpgradesAvailability);
 		}
+
+		RegisterStructure(structure);
+		UpdateFunds(-structure.Cost);
+		UpdateEnergy(structure.Energy);
 	}
 
 	public bool MaxStructureCountReached(StructureType structure)

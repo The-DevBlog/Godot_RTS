@@ -4,30 +4,61 @@ using Godot;
 public partial class PlayerManager : Node
 {
 	public static PlayerManager Instance { get; private set; }
+
+	// All connected players, keyed by peer ID
+	private readonly Dictionary<long, Player> _players = new();
+
+	public Player LocalPlayer { get; private set; }
 	public Player Authority { get; set; }
 
-	// All players by ID
-	private readonly Dictionary<int, Player> _players = new();
-
-	// The one your local UI/inputs drive
-	public Player LocalPlayer { get; private set; }
-
-	public override void _EnterTree()
+	public override void _Ready()
 	{
-		base._EnterTree();
 		Instance = this;
+
+		// Immediately create/register *your* Player
+		var meId = Multiplayer.GetUniqueId(); // usually 1 if no network yet
+		var me = InstantiatePlayer(meId);
+		AddPlayer(meId, me);
 	}
 
-	// Called from each Player._EnterTree()
-	public void RegisterPlayer(Player p)
+	private Player InstantiatePlayer(int peerId)
 	{
-		_players[p.Id] = p;
-		if (p.IsHuman && LocalPlayer == null)
-			LocalPlayer = p;
+		var player = /* load or reference your Player PackedScene */
+					  ResourceLoader.Load<PackedScene>("res://Scenes/Player.tscn")
+									.Instantiate<Player>();
+
+		player.Name = peerId.ToString();
+		player.SetMultiplayerAuthority(peerId);
+		AddChild(player);
+		return player;
 	}
 
-	public Player GetPlayer(int id)
-		=> _players.TryGetValue(id, out var p) ? p : null;
 
-	public IEnumerable<Player> GetAllPlayers() => _players.Values;
+	public void AddPlayer(long peerId, Player player)
+	{
+		_players[peerId] = player;
+		if (peerId == Multiplayer.GetUniqueId())
+		{
+			LocalPlayer = player;
+			Authority = player;
+		}
+	}
+
+	public Player GetPlayer(int peerId)
+	{
+		_players.TryGetValue(peerId, out var p);
+		return p;
+	}
+
+	public void RemovePlayer(int peerId)
+	{
+		if (_players.Remove(peerId, out var p))
+			p.QueueFree();
+
+		if (LocalPlayer?.GetMultiplayerAuthority() == peerId)
+			LocalPlayer = null;
+
+		if (Authority?.GetMultiplayerAuthority() == peerId)
+			Authority = null;
+	}
 }
