@@ -53,6 +53,7 @@ public partial class InfoContainerLabels : HBoxContainer
 
 	private void UpdateFunds(int amount)
 	{
+		GD.Print("Updating funds label to " + _player.Funds);
 		// whenever the real funds change, update the target
 		_targetFunds = _player.Funds;
 		// (the Process loop will animate _displayFunds → _targetFunds)

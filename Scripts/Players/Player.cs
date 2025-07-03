@@ -62,20 +62,13 @@ public partial class Player : Node3D
 
 	}
 
-	// public bool TrySpendFunds(int cost)
-	// {
-	// 	if (Funds < cost) return false;
-	// 	Funds -= cost;
-	// 	return true;
-	// }
-
 	public void UpdateFunds(int amount)
 	{
 		GD.Print("Updating funds for player " + Id + ": " + amount);
 
 		Funds += amount;
 
-		EmitSignal(SignalName.OnUpdateFunds);
+		EmitSignal(SignalName.OnUpdateFunds, amount);
 	}
 	public void UpdateEnergy(int amount)
 	{
@@ -95,42 +88,6 @@ public partial class Player : Node3D
 	public void UnregisterUnit(Unit u) => Units.Remove(u);
 	public void RegisterStructure(StructureBase s) => Structures.Add(s);
 	public void UnregisterStructure(StructureBase s) => Structures.Remove(s);
-
-	/// <summary>
-	/// Central spawn helper: checks cost, parents under the scene, tags owner, registers.
-	/// </summary>
-	// public T SpawnEntity<T>(Node parent, PackedScene scene, Vector3 pos) where T : Node3D
-	// {
-	// 	var temp = scene.Instantiate<T>();
-	// 	int cost = (temp as ICostProvider)?.Cost ?? 0;  // your structures implement ICostProvider
-
-	// 	if (!TrySpendFunds(cost))
-	// 	{
-	// 		GD.Print($"Player {Id}: not enough funds ({Funds}) for cost {cost}");
-	// 		temp.QueueFree();
-	// 		return null;
-	// 	}
-
-	// 	// give it a sane name:
-	// 	temp.Name = $"{scene.ResourceName}_{Multiplayer.GetUniqueId()}_{GetInstanceId()}";
-
-	// 	temp.GlobalPosition = pos;
-	// 	parent.AddChild(temp, true);
-
-	// 	// tag the instance
-	// 	if (temp is Unit u)
-	// 	{
-	// 		u.Player = this;
-	// 		RegisterUnit(u);
-	// 	}
-	// 	else if (temp is StructureBase s)
-	// 	{
-	// 		s.Player = this;
-	// 		RegisterStructure(s);
-	// 	}
-
-	// 	return temp;
-	// }
 
 	public void AddStructure(StructureBase structure)
 	{
