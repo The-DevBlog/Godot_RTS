@@ -118,10 +118,6 @@ public partial class StructureBtn : Button
 
 		_signals.EmitUpdateNavigationMap(navRegion);
 
-		// var spawnData = new Godot.Collections.Dictionary {
-		// 	{ "transform", finalXform },
-		// };
-
 		if (!Multiplayer.IsServer())
 			Rpc(nameof(ServerSpawnStructure), finalXform);
 		else
@@ -139,14 +135,7 @@ public partial class StructureBtn : Button
 		var parent = spawner.GetNode<Node3D>(spawner.SpawnPath);
 		parent.AddChild(structure, true);
 
-		// foreach (var p in PlayerManager.Instance.GetAllPlayers())
-		// 	GD.Print("PLayer " + p.Id);
-
-		// GD.Print("Caller id: " + Multiplayer.GetRemoteSenderId());
-
-		// int callerId = Multiplayer.GetRemoteSenderId();
 		var player = PlayerManager.Instance.LocalPlayer;
-		// var player = PlayerManager.Instance.GetPlayer(callerId);
 		player.AddStructure(structure);
 	}
 
