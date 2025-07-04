@@ -55,14 +55,14 @@ public partial class StructureFactory : Node
 		// Capture final transform then cleanup placeholder
 		var finalXform = placeholder.GlobalTransform;
 
-		_signals.EmitUpdateNavigationMap(navRegion);
-
 		if (Multiplayer.IsServer())
 			ServerSpawnStructure(finalXform, (int)placeholder.StructureType);
 		else
 			Rpc(nameof(ServerSpawnStructure), finalXform, (int)placeholder.StructureType);
-	}
 
+		// Rebake the navigation mesh AFTER spawning the structure
+		_signals.EmitUpdateNavigationMap(navRegion);
+	}
 
 	private NavigationRegion3D GetNavigationRegion(StructureBasePlaceholder placeholder)
 	{

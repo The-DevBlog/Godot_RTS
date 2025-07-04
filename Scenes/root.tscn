@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
-[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="12_lwnbm"]
-[ext_resource type="PackedScene" path="res://Scenes/Test/multiplayer_test.tscn" id="14_20eh2"]
+[ext_resource type="PackedScene" uid="uid://bbsgkk0d8imyc" path="res://Scenes/player.tscn" id="12_lwnbm"]
+[ext_resource type="PackedScene" uid="uid://cc5mq5yxr5un3" path="res://Scenes/Test/multiplayer_test.tscn" id="14_20eh2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
 sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
@@ -160,7 +160,7 @@ Color = Color(0.758481, 0.679406, 0.432176, 1)
 [node name="MultiplayerTest" parent="." instance=ExtResource("14_20eh2")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://yd0x5g7600ta", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob")
+_spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob", "uid://yd0x5g7600ta")
 spawn_path = NodePath("../NavigationRegion3D")
 
 [editable path="GameCamera"]
