@@ -54,11 +54,12 @@ public partial class StructureFactory : Node
 
 		_signals.EmitUpdateNavigationMap(navRegion);
 
-		if (!Multiplayer.IsServer())
-			Rpc(nameof(ServerSpawnStructure), finalXform, (int)placeholder.StructureType);
-		else
+		if (Multiplayer.IsServer())
 			ServerSpawnStructure(finalXform, (int)placeholder.StructureType);
+		else
+			Rpc(nameof(ServerSpawnStructure), finalXform, (int)placeholder.StructureType);
 	}
+
 
 	private NavigationRegion3D GetNavigationRegion(StructureBasePlaceholder placeholder)
 	{
