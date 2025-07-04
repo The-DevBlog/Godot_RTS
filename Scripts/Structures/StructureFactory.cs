@@ -24,7 +24,7 @@ public partial class StructureFactory : Node
 		StructureBase structure = _models.Structures[structureType].Instantiate<StructureBase>();
 		if (_player.Funds < structure.Cost)
 		{
-			GD.Print("Not enough funds to place " + structure);
+			GD.Print("Not enough funds for structure: " + structureType);
 			structure.QueueFree();
 			return null;
 		}
@@ -35,7 +35,10 @@ public partial class StructureFactory : Node
 
 		// Check max structures before placement
 		if (_player.MaxStructureCountReached(structureType))
+		{
+			GD.Print("Max structures for type " + structureType + " reached.");
 			return null;
+		}
 
 		StructureBasePlaceholder placeholder = _models.StructurePlaceholders[structureType].Instantiate<StructureBasePlaceholder>();
 		placeholder.Player = _player;
@@ -92,7 +95,7 @@ public partial class StructureFactory : Node
 		structure.GlobalTransform = finalXform;
 
 		var spawner = GlobalResources.Instance.MultiplayerSpawner;
-		var parent = spawner.GetNode<Node3D>(spawner.SpawnPath);
+		NavigationRegion3D parent = spawner.GetNode<NavigationRegion3D>(spawner.SpawnPath);
 		parent.AddChild(structure, true);
 
 		var player = PlayerManager.Instance.LocalPlayer;
