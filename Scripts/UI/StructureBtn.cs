@@ -13,11 +13,12 @@ public partial class StructureBtn : Button
 	private Node3D _scene;
 	private PlayerManager _playerManager;
 	private MultiplayerSpawner _multiplayerSpawner;
+	private StructureFactory _structureFactory;
 
 	public override void _Ready()
 	{
 		_multiplayerSpawner = GlobalResources.Instance.MultiplayerSpawner;
-		// _multiplayerSpawner.SpawnFunction = new Callable(this, nameof(CustomSpawn));
+		_structureFactory = StructureFactory.Instance;
 
 		// Grab the local Player from the PlayerManager
 		_player = PlayerManager.Instance.LocalPlayer;
@@ -59,14 +60,18 @@ public partial class StructureBtn : Button
 			return;
 
 		// Quick cost check (will be re-checked in SpawnStructure)
-		var tempCheck = _models.Structures[Structure].Instantiate<StructureBase>();
-		if (_player.Funds < tempCheck.Cost)
-		{
-			GD.Print("Not enough funds to place " + Structure);
-			tempCheck.QueueFree();
-			return;
-		}
-		tempCheck.QueueFree();
+		// var tempCheck = _models.Structures[Structure].Instantiate<StructureBase>();
+		// if (_player.Funds < tempCheck.Cost)
+		// {
+		// 	GD.Print("Not enough funds to place " + Structure);
+		// 	tempCheck.QueueFree();
+		// 	return;
+		// }
+		// tempCheck.QueueFree();
+		_player.EmitSignal(nameof(_player.DeselectAllUnits));
+
+		_structureFactory.EmitSignal(nameof(_structureFactory.SelectStructure), Structure);
+		// _placeholder = EmitSignal>(nameof(StructureFactory.SelectStructure), Structure);
 
 		// Create the placement placeholder
 		_placeholder = _models.StructurePlaceholders[Structure].Instantiate<StructureBasePlaceholder>();
