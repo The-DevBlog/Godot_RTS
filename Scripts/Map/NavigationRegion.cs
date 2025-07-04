@@ -41,7 +41,7 @@ public partial class NavigationRegion : NavigationRegion3D
 		if (region != this)
 			return;
 
-		GD.Print("Re-baking Navigation Mesh");
 		BakeNavigationMesh();
+		GD.Print("Re-baking Navigation Mesh");
 	}
 }
