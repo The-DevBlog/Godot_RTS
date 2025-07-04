@@ -159,7 +159,7 @@ visible = false
 [node name="MultiplayerTest" parent="." instance=ExtResource("14_20eh2")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://deexst56o0ban")
+_spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp")
 spawn_path = NodePath("../NavigationRegion3D")
 
 [editable path="GameCamera"]

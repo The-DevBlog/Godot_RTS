@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://p6omv7jvueob"]
+[gd_scene load_steps=9 format=3 uid="uid://p6omv7jvueob"]
 
 [ext_resource type="Script" uid="uid://bkso8d0vavnh6" path="res://Scripts/Structures/Barracks.cs" id="1_1gvql"]
 [ext_resource type="LightmapGIData" uid="uid://40btsfjxtfkf" path="res://Assets/Models/Structures/Barracks/barracks.lmbake" id="2_1gvql"]
@@ -18,6 +18,14 @@ emission_energy_multiplier = 10.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_1gvql"]
 material = SubResource("StandardMaterial3D_ymdpg")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1gvql"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Barracks" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_1gvql")
@@ -127,5 +135,8 @@ generate_probes_subdiv = 1
 light_data = ExtResource("2_1gvql")
 
 [node name="Barracks" parent="." instance=ExtResource("4_474wx")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1gvql")
 
 [editable path="Barracks"]
