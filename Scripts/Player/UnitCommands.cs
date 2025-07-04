@@ -3,10 +3,10 @@ using System.Linq;
 using Godot;
 using MyEnums;
 
-public partial class MouseManager : Control
+public partial class UnitCommands : Control
 {
-	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
+	[Export] private Player _player;
 	private HashSet<Unit> _selectedUnits;
 	private GlobalResources _resources;
 	private Camera3D _camera;
@@ -15,16 +15,15 @@ public partial class MouseManager : Control
 	private bool _mouseDown;
 	private bool _dragActive;
 	private bool _isAnySelected;
-	private Player _player;
 
 	public override void _Ready()
 	{
-		Instance = this;
-		_player = PlayerManager.Instance.LocalPlayer;
 		_camera = GetViewport().GetCamera3D();
 		_resources = GlobalResources.Instance;
 		_player.DeselectAllUnits += OnDeselectAllUnits;
 		_selectedUnits = new HashSet<Unit>();
+
+		Utils.NullExportCheck(_player);
 
 		if (_camera == null)
 			Utils.PrintErr("Camera3D not found.");
