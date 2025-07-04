@@ -74,9 +74,9 @@ size = Vector3(200, 0.5, 200)
 [node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner")]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 2
-TimeOfDay = 3
-Weather = 3
+Season = 1
+TimeOfDay = 1
+Weather = 2
 MultiplayerSpawner = NodePath("MultiplayerSpawner")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
@@ -101,7 +101,7 @@ collision_mask = 2
 metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Ground"]
-transform = Transform3D(1, -6.99458e-11, 9.31323e-10, -1.94404e-11, 1, 2.91038e-11, 0, 0, 1, -0.0211984, 0.0331759, -0.0255852)
+transform = Transform3D(1, -6.99458e-11, 9.31323e-10, -1.94404e-11, 1, 2.91038e-11, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_or46v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]

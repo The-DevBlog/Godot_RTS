@@ -34,7 +34,6 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 			Player = PlayerManager.Instance.LocalPlayer;
 		}
 
-		GD.Print("Structure owner: " + Player.Name + ", Id: " + Player.Id);
 		SetTeamColor(Player.Color);
 	}
 

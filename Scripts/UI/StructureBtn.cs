@@ -31,7 +31,7 @@ public partial class StructureBtn : Button
 		_scene = GetTree().CurrentScene as Node3D;
 		_playerManager = PlayerManager.Instance;
 
-		Pressed += OnStructureSelect;
+		Pressed += SelectStructure;
 		MouseEntered += OnBtnEnter;
 		MouseExited += OnBtnExit;
 
@@ -42,7 +42,7 @@ public partial class StructureBtn : Button
 			Utils.PrintErr("Current scene root is not a Node3D.");
 	}
 
-	private void OnStructureSelect()
+	private void SelectStructure()
 	{
 		// Cancel if already placing
 		if (_placeholder != null)
@@ -51,33 +51,16 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		// Deselect existing selections
-		_player.EmitSignal(nameof(_player.DeselectAllUnits));
-		// _signals.EmitSignal(nameof(_player.DeselectAllUnits));
+		_placeholder = _structureFactory.BuildPlaceholder(Structure);
 
-		// Check max structures before placement
-		if (_player.MaxStructureCountReached(Structure))
+		if (_placeholder == null)
+		{
+			Utils.PrintErr($"Failed to create placeholder for structure: {Structure}");
 			return;
+		}
 
-		// Quick cost check (will be re-checked in SpawnStructure)
-		// var tempCheck = _models.Structures[Structure].Instantiate<StructureBase>();
-		// if (_player.Funds < tempCheck.Cost)
-		// {
-		// 	GD.Print("Not enough funds to place " + Structure);
-		// 	tempCheck.QueueFree();
-		// 	return;
-		// }
-		// tempCheck.QueueFree();
-		_player.EmitSignal(nameof(_player.DeselectAllUnits));
-
-		_structureFactory.EmitSignal(nameof(_structureFactory.SelectStructure), Structure);
-		// _placeholder = EmitSignal>(nameof(StructureFactory.SelectStructure), Structure);
-
-		// Create the placement placeholder
-		_placeholder = _models.StructurePlaceholders[Structure].Instantiate<StructureBasePlaceholder>();
-		_placeholder.Player = _player;
-		GlobalResources.Instance.IsPlacingStructure = true;
 		_scene.AddChild(_placeholder);
+
 		ReleaseFocus();
 	}
 
