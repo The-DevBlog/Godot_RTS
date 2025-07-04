@@ -83,4 +83,10 @@ namespace MyEnums
         Team7,
         Team8
     }
+
+    public enum SceneType
+    {
+        None,
+        Root
+    }
 }

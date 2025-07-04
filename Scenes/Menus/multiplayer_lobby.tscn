@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://crau2mk2tql7i"]
+
+[ext_resource type="Script" uid="uid://bm1d74ua5wklg" path="res://Scripts/Menus/MultiplayerLobbyMenu.cs" id="1_ncm0y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m0dv"]
+bg_color = Color(0.486275, 0.486275, 0.486275, 0.509804)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ncm0y")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 200
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8m0dv")
+
+[node name="Button" type="Button" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Enter Game"
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/Button" to="." method="EnterGame"]
