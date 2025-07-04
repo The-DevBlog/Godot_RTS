@@ -98,65 +98,8 @@ public partial class StructureBtn : Button
 		if (_placeholder == null || !_placeholder.ValidPlacement)
 			return;
 
-		var navRegion = GetNavigationRegion();
-
-		// Capture final transform then cleanup placeholder
-		var finalXform = _placeholder.GlobalTransform;
+		_structureFactory.PlaceStructure(_placeholder);
 		CancelPlaceholder();
-
-		_signals.EmitUpdateNavigationMap(navRegion);
-
-		if (!Multiplayer.IsServer())
-			Rpc(nameof(ServerSpawnStructure), finalXform);
-		else
-			ServerSpawnStructure(finalXform);
-	}
-
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-	private void ServerSpawnStructure(Transform3D finalXform)
-	{
-		var structureScene = _models.Structures[Structure];
-		StructureBase structure = structureScene.Instantiate<StructureBase>();
-		structure.GlobalTransform = finalXform;
-
-		var spawner = GlobalResources.Instance.MultiplayerSpawner;
-		var parent = spawner.GetNode<Node3D>(spawner.SpawnPath);
-		parent.AddChild(structure, true);
-
-		var player = PlayerManager.Instance.LocalPlayer;
-		player.AddStructure(structure);
-	}
-
-	private NavigationRegion3D GetNavigationRegion()
-	{
-		// Raycast to find ground hit
-		var groundBody = _placeholder.GetHoveredMapBase(out Vector3 hitPos);
-		if (groundBody == null)
-		{
-			GD.PrintErr("PlaceStructure: Mouse not over map. Cancelling.");
-			CancelPlaceholder();
-			return null;
-		}
-
-		NavigationRegion3D navRegion = null;
-		Node walker = groundBody;
-		while (walker != null)
-		{
-			if (walker is NavigationRegion3D nr)
-			{
-				navRegion = nr;
-				break;
-			}
-			walker = walker.GetParent();
-		}
-		if (navRegion == null)
-		{
-			GD.PrintErr("PlaceStructure: No NavigationRegion3D parent found.");
-			CancelPlaceholder(); // TODO: Do I need this here?
-			return null;
-		}
-
-		return navRegion;
 	}
 
 	private void CancelPlaceholder()
