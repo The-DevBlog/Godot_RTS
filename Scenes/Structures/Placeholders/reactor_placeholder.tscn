@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8r7m4qg1pklt"]
 
 [ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_wlhko"]
-[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_4o8lw"]
+[ext_resource type="Shader" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_4o8lw"]
 [ext_resource type="PackedScene" uid="uid://bbtuet73d1ffo" path="res://Scenes/Inherited/reactor.tscn" id="3_lur7o"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xvr5x"]
@@ -25,6 +25,7 @@ size = Vector2(20, 20)
 [node name="ReactorPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
 script = ExtResource("1_wlhko")
 ValidityGrid = NodePath("ValidityGrid")
+StructureType = 6
 HP = -1
 Energy = -1
 Cost = -1

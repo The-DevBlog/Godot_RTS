@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b4gy8gjkq87cb"]
 
 [ext_resource type="Script" uid="uid://by1wx840g2pjg" path="res://Scripts/Structures/StructureBasePlaceholder.cs" id="1_6ll3j"]
-[ext_resource type="Shader" uid="uid://byjw52fpxbuoa" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_ffudo"]
+[ext_resource type="Shader" path="res://Shaders/structure_placement_validity_grid.gdshader" id="3_ffudo"]
 [ext_resource type="PackedScene" uid="uid://bmi5o5g1ocs7s" path="res://Scenes/Inherited/barracks.tscn" id="4_6y0hw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ffudo"]
@@ -25,6 +25,7 @@ size = Vector3(7.00906, 3.47281, 8.78516)
 [node name="BarracksPlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
 script = ExtResource("1_6ll3j")
 ValidityGrid = NodePath("ValidityGrid")
+StructureType = 1
 HP = -1
 Energy = -1
 Cost = -1

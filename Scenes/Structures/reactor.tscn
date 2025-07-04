@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://deexst56o0ban"]
+[gd_scene load_steps=21 format=3 uid="uid://deexst56o0ban"]
 
 [ext_resource type="Script" uid="uid://bh2nj35j2nfkv" path="res://Scripts/Structures/StructureBase.cs" id="1_q857g"]
 [ext_resource type="Shader" uid="uid://7lpcuflsyhv6" path="res://Shaders/strobes.gdshader" id="3_kwyrb"]
 [ext_resource type="LightmapGIData" uid="uid://b3i3ocddopo57" path="res://Assets/Models/Structures/Reactor/reactor.lmbake" id="3_n7u5k"]
 [ext_resource type="Shader" uid="uid://dvr171p24o3dl" path="res://Shaders/lava.gdshader" id="4_fuk4o"]
-[ext_resource type="Shader" path="res://Shaders/embers.gdshader" id="5_vmpk5"]
+[ext_resource type="Shader" uid="uid://d2kmf2rma73yr" path="res://Shaders/embers.gdshader" id="5_vmpk5"]
 [ext_resource type="PackedScene" uid="uid://bbtuet73d1ffo" path="res://Scenes/Inherited/reactor.tscn" id="6_vmpk5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s1wbf"]
@@ -73,8 +73,17 @@ height = 0.1
 [sub_resource type="BoxShape3D" id="BoxShape3D_vmpk5"]
 size = Vector3(11.944, 5.82309, 7.74637)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vmpk5"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Reactor" type="StaticBody3D" node_paths=PackedStringArray("Model") groups=["structures"]]
 script = ExtResource("1_q857g")
+StructureType = 6
 HP = 500
 Energy = 25
 Cost = 500
@@ -176,5 +185,8 @@ draw_pass_1 = SubResource("SphereMesh_ap7sa")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0154555, 2.8753, 0.00419134)
 shape = SubResource("BoxShape3D_vmpk5")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_vmpk5")
 
 [editable path="Reactor"]

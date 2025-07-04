@@ -1,7 +1,7 @@
 using Godot;
 using MyEnums;
 
-public partial class Unit : CharacterBody3D
+public partial class Unit : CharacterBody3D, ICostProvider
 {
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
@@ -11,6 +11,7 @@ public partial class Unit : CharacterBody3D
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
 	[Export] private Node3D _healthbar;
+	public Player Player { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;

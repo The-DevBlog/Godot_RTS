@@ -25,7 +25,7 @@ public partial class GameCamera : Node3D
 
 		_globalResources = GlobalResources.Instance;
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
-		_mapSize = SceneResources.Instance.MapSize;
+		_mapSize = GlobalResources.Instance.MapSize;
 		_moveTarget = Position;
 		_rotateKeysTarget = RotationDegrees.Y;
 		_zoomTarget = Camera.Position.Z;
@@ -68,9 +68,14 @@ public partial class GameCamera : Node3D
 
 	private void MouseEdgeScroll(double delta)
 	{
-		Vector2 mousePos = GetViewport().GetMousePosition();
-		Vector2 viewportSize = GetViewport().GetVisibleRect().Size;
+		var viewport = GetViewport();
+		Vector2 mousePos = viewport.GetMousePosition();
+		Vector2 viewportSize = viewport.GetVisibleRect().Size;
 		Vector3 scrollDirection = Vector3.Zero;
+
+		// → If the mouse is truly outside the window, bail out
+		if (mousePos.X < 0 || mousePos.X > viewportSize.X || mousePos.Y < 0 || mousePos.Y > viewportSize.Y)
+			return;
 
 		if (mousePos.X < EdgeSize)
 			scrollDirection.X = -1;

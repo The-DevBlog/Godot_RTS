@@ -29,7 +29,7 @@ public static class UpgradeInfoData
 public partial class UpgradeBtn : Button
 {
 	[Export] public UpgradeType Upgrade { get; set; }
-	private SceneResources _sceneResources;
+	private Player _player;
 	private Signals _signals;
 	private Color _normalModulate = new Color("#c8c8c8");
 	private Color _hoverModulate = new Color("#ffffff");
@@ -42,7 +42,7 @@ public partial class UpgradeBtn : Button
 			Utils.PrintErr("Upgrade type is set to none");
 
 		_lockTexture = GetNode<TextureRect>("LockTexture");
-		_sceneResources = SceneResources.Instance;
+		_player = PlayerManager.Instance.LocalPlayer;
 
 		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Upgrade.ToString());
 
@@ -52,7 +52,7 @@ public partial class UpgradeBtn : Button
 		MouseEntered += OnMouseEnter;
 		MouseExited += OnMouseExit;
 		_signals = Signals.Instance;
-		_signals.UpdateUpgradesAvailability += EnableDisableBtns;
+		_player.UpdateUpgradesAvailability += EnableDisableBtns;
 	}
 
 	private void OnMouseEnter()
@@ -73,7 +73,7 @@ public partial class UpgradeBtn : Button
 
 	private void EnableDisableBtns()
 	{
-		Disabled = !_sceneResources.UpgradesAvailable;
+		Disabled = !_player.UpgradesAvailable;
 		SelfModulate = Disabled ? _disabledModulate : _normalModulate;
 		_lockTexture.Visible = Disabled;
 	}

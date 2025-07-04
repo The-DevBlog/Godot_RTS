@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Godot;
 
 public partial class MiniMap : Control
@@ -8,24 +7,26 @@ public partial class MiniMap : Control
     private Color _backgroundColor = new Color("#171717");
     private Color _friendlyUnitsColor;
     private Color _cameraRectColor = Colors.White;
-    private float _defaultHeight = 10f;
+    private float _defaultHeight = 5f;
     private float _baseNearDist = 1.0f;
     private float _baseFarLength = 20.0f;
     private Vector2 _worldMin;
     private Vector2 _worldMax;
     private Camera3D _camera;
-    private SceneResources _sceneResources;
+    private GlobalResources _globalResources;
+    private Player _player;
 
     public override void _Ready()
     {
         Utils.NullExportCheck(GameCamera);
 
-        _mapSize = SceneResources.Instance.MapSize;
+        _globalResources = GlobalResources.Instance;
+        _player = PlayerManager.Instance.LocalPlayer;
+        _mapSize = _globalResources.MapSize;
         _worldMin = -_mapSize / 2;
         _worldMax = _mapSize / 2;
         _camera = GetViewport().GetCamera3D();
-        _sceneResources = SceneResources.Instance;
-        _friendlyUnitsColor = _sceneResources.TeamColor;
+        _friendlyUnitsColor = _player.Color;
     }
 
     public override void _Process(double delta)
@@ -168,8 +169,8 @@ public partial class MiniMap : Control
 
         // FOV in radians
         float fovRad = Mathf.DegToRad(_camera.Fov);
-        float nearWidth = 2f * nearDist * Mathf.Tan(fovRad * 0.5f) * 10.0f;
-        float farWidth = 2f * farDist * Mathf.Tan(fovRad * 0.5f);
+        float nearWidth = 2f * nearDist * Mathf.Tan(fovRad * 0.5f) * 15.0f;
+        float farWidth = 2f * farDist * Mathf.Tan(fovRad * 0.5f) * 2.0f;
 
         // Build trapezoid in camera-local space (negative Y goes 'up' on minimap)
         Vector2[] localCorners =

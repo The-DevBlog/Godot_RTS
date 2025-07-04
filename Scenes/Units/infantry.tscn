@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bghb1rhlctfob"]
+[gd_scene load_steps=6 format=3 uid="uid://bghb1rhlctfob"]
 
 [ext_resource type="Script" uid="uid://cms6k1uocuuv2" path="res://Scripts/Units/Infantry.cs" id="1_2fp7d"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_mhdsq"]
@@ -8,6 +8,14 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2fp7d"]
 height = 1.49316
 radius = 0.584473
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhdsq"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Infantry" type="CharacterBody3D" groups=["units"]]
 script = ExtResource("1_2fp7d")
@@ -29,6 +37,7 @@ shape = SubResource("CylinderShape3D_2fp7d")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.656905, 0, 0, 0, 0.782324, 0, 0, 0, 0.904, 0, 1.01809, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 render_priority = 5
@@ -36,3 +45,6 @@ texture = ExtResource("2_mhdsq")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 avoidance_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_mhdsq")

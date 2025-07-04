@@ -28,6 +28,7 @@ size = Vector2(20, 20)
 [node name="GaragePlaceholder" type="StaticBody3D" node_paths=PackedStringArray("ValidityGrid", "Model")]
 script = ExtResource("1_1l7fw")
 ValidityGrid = NodePath("ValidityGrid")
+StructureType = 3
 HP = -1
 Energy = -1
 Cost = -1

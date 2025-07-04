@@ -9,13 +9,13 @@ public partial class SelectedUnits : MarginContainer
 	[Export] private GridContainer _grid;
 	[Export] private NinePatchRect _selectedUnitPlaceholder;
 	private MyTextures _textures;
-	private Signals _signals;
+	private Player _player;
 
 	public override void _Ready()
 	{
-		_signals = Signals.Instance;
+		_player = PlayerManager.Instance.LocalPlayer;
 		_textures = AssetServer.Instance.Textures;
-		_signals.SelectUnits += ToggleVisibility;
+		_player.SelectUnits += ToggleVisibility;
 
 
 		Utils.NullExportCheck(_spacer);

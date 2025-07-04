@@ -9,21 +9,21 @@ public partial class MouseManager : Control
 	private const float MIN_DRAG_DIST = 10f;
 	private HashSet<Unit> _selectedUnits;
 	private GlobalResources _resources;
-	private Signals _signals;
 	private Camera3D _camera;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
 	private bool _mouseDown;
 	private bool _dragActive;
 	private bool _isAnySelected;
+	private Player _player;
 
 	public override void _Ready()
 	{
 		Instance = this;
+		_player = PlayerManager.Instance.LocalPlayer;
 		_camera = GetViewport().GetCamera3D();
 		_resources = GlobalResources.Instance;
-		_signals = Signals.Instance;
-		_signals.DeselectAllUnits += OnDeselectAllUnits;
+		_player.DeselectAllUnits += OnDeselectAllUnits;
 		_selectedUnits = new HashSet<Unit>();
 
 		if (_camera == null)
@@ -52,7 +52,7 @@ public partial class MouseManager : Control
 			return;
 
 		if (Input.IsActionJustReleased("mb_secondary"))
-			_signals.EmitSignal(nameof(_signals.DeselectAllUnits));
+			_player.EmitSignal(nameof(_player.DeselectAllUnits));
 
 		// 1) Pressed right now? begin potential drag:
 		if (Input.IsActionJustPressed("mb_primary"))
@@ -67,7 +67,7 @@ public partial class MouseManager : Control
 		else if (Input.IsActionJustReleased("mb_primary"))
 		{
 			if (_dragActive)
-				_signals.EmitSelectUnits(_selectedUnits.ToArray());
+				_player.EmitSelectUnits(_selectedUnits.ToArray());
 
 			Vector2 mousePosition = GetViewport().GetMousePosition();
 
@@ -128,7 +128,7 @@ public partial class MouseManager : Control
 			unit.Selected = true;
 			_selectedUnits = new HashSet<Unit>() { unit };
 
-			_signals.EmitSelectUnits(_selectedUnits.ToArray());
+			_player.EmitSelectUnits(_selectedUnits.ToArray());
 
 			return true;
 		}
@@ -293,7 +293,7 @@ public partial class MouseManager : Control
 		_selectedUnits = new HashSet<Unit>();
 		_dragActive = false;
 
-		_signals.EmitSelectUnits(_selectedUnits.ToArray());
+		_player.EmitSelectUnits(_selectedUnits.ToArray());
 	}
 
 	// Marks units as selected or unselected.
