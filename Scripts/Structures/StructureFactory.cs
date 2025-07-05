@@ -13,6 +13,8 @@ public partial class StructureFactory : Node
 		_models = AssetServer.Instance.Models;
 		_player = PlayerManager.Instance.LocalPlayer;
 		_signals = Signals.Instance;
+
+		Utils.NullCheck(_player);
 	}
 
 	public StructureBasePlaceholder BuildPlaceholder(StructureType structureType)
@@ -43,7 +45,7 @@ public partial class StructureFactory : Node
 		StructureBasePlaceholder placeholder = _models.StructurePlaceholders[structureType].Instantiate<StructureBasePlaceholder>();
 		placeholder.Player = _player;
 
-		GlobalResources.Instance.IsPlacingStructure = true;
+		_player.IsPlacingStructure = true;
 
 		return placeholder;
 	}
@@ -93,7 +95,7 @@ public partial class StructureFactory : Node
 		var structureScene = _models.Structures[structureType];
 		StructureBase structure = structureScene.Instantiate<StructureBase>();
 
-		var spawner = GlobalResources.Instance.MultiplayerSpawner;
+		var spawner = Resources.Instance.MultiplayerSpawner;
 		NavigationRegion3D parent = spawner.GetNode<NavigationRegion3D>(spawner.SpawnPath);
 		parent.AddChild(structure, true);
 		structure.GlobalTransform = finalXform;

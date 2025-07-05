@@ -17,18 +17,21 @@ public partial class GameCamera : Node3D
 	private Vector3 _moveTarget;
 	private float _rotateKeysTarget = 0.0f;
 	private float _zoomTarget = 0.0f;
-	private GlobalResources _globalResources;
+	private Player _player;
 
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(Camera);
 
-		_globalResources = GlobalResources.Instance;
+		_player = PlayerManager.Instance.LocalPlayer;
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
-		_mapSize = GlobalResources.Instance.MapSize;
+		_mapSize = Resources.Instance.MapSize;
 		_moveTarget = Position;
 		_rotateKeysTarget = RotationDegrees.Y;
 		_zoomTarget = Camera.Position.Z;
+
+		Utils.NullExportCheck(_zoomPivot);
+		Utils.NullCheck(_player);
 	}
 
 	public override void _Input(InputEvent @event)
@@ -105,7 +108,7 @@ public partial class GameCamera : Node3D
 		_moveTarget += movementDirection * PanSpeed * panSpeedBoost * (float)delta;
 		_rotateKeysTarget += rotateKeys * RotateSpeed * (float)delta;
 
-		if (!GlobalResources.Instance.IsPlacingStructure)
+		if (!_player.IsPlacingStructure)
 			_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
 
 		ClampMoveTarget();

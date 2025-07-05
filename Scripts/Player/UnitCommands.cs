@@ -8,7 +8,7 @@ public partial class UnitCommands : Control
 	private const float MIN_DRAG_DIST = 10f;
 	[Export] private Player _player;
 	private HashSet<Unit> _selectedUnits;
-	private GlobalResources _resources;
+	private Resources _resources;
 	private Camera3D _camera;
 	private Vector2 _dragStart = Vector2.Zero;
 	private Vector2 _dragEnd = Vector2.Zero;
@@ -18,8 +18,9 @@ public partial class UnitCommands : Control
 
 	public override void _Ready()
 	{
+		_resources = Resources.Instance;
+		// _camera = _resources.Camera;
 		_camera = GetViewport().GetCamera3D();
-		_resources = GlobalResources.Instance;
 		_player.DeselectAllUnits += OnDeselectAllUnits;
 		_selectedUnits = new HashSet<Unit>();
 
@@ -47,7 +48,7 @@ public partial class UnitCommands : Control
 
 	private void HandleMouseInput()
 	{
-		if (_resources.IsPlacingStructure)
+		if (_player.IsPlacingStructure)
 			return;
 
 		if (Input.IsActionJustReleased("mb_secondary"))
@@ -103,7 +104,7 @@ public partial class UnitCommands : Control
 
 	private bool SelectSingleUnit(Vector2 mousePosition)
 	{
-		if (_resources.IsHoveringUI)
+		if (_player.IsHoveringUI)
 			return false;
 
 		Vector3 from = _camera.ProjectRayOrigin(mousePosition);
@@ -148,7 +149,7 @@ public partial class UnitCommands : Control
 
 	private void SetTargetPosition(Vector2 mousePos)
 	{
-		if (_resources.IsHoveringUI)
+		if (_player.IsHoveringUI)
 			return;
 
 		Vector3 from = _camera.ProjectRayOrigin(mousePos);

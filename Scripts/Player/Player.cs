@@ -35,6 +35,8 @@ public partial class Player : Node3D
 	public int ActiveGarageId { get; set; } = 0;
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
+	public bool IsPlacingStructure { get; set; }
+	public bool IsHoveringUI { get; set; }
 
 	public override void _EnterTree()
 	{

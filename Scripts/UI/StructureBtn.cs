@@ -11,35 +11,29 @@ public partial class StructureBtn : Button
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
-	private PlayerManager _playerManager;
 	private MultiplayerSpawner _multiplayerSpawner;
 	private StructureFactory _structureFactory;
 
 	public override void _Ready()
 	{
-		_multiplayerSpawner = GlobalResources.Instance.MultiplayerSpawner;
+		_multiplayerSpawner = Resources.Instance.MultiplayerSpawner;
 		_structureFactory = StructureFactory.Instance;
 
 		// Grab the local Player from the PlayerManager
 		_player = PlayerManager.Instance.LocalPlayer;
-		if (_player == null)
-			GD.PrintErr("[StructureBtn] No local player found!");
 
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
 		_scene = GetTree().CurrentScene as Node3D;
-		_playerManager = PlayerManager.Instance;
 
 		Pressed += SelectStructure;
 		MouseEntered += OnBtnEnter;
 		MouseExited += OnBtnExit;
 
-		if (Structure == StructureType.None)
-			Utils.PrintErr($"Structure enum not set on {Name}");
-
-		if (_scene == null)
-			Utils.PrintErr("Current scene root is not a Node3D.");
+		if (_player == null) Utils.PrintErr("[StructureBtn] No local player found!");
+		if (Structure == StructureType.None) Utils.PrintErr($"Structure enum not set on {Name}");
+		if (_scene == null) Utils.PrintErr("Current scene root is not a Node3D.");
 	}
 
 	private void SelectStructure()
@@ -89,7 +83,7 @@ public partial class StructureBtn : Button
 
 	private void PlaceStructure()
 	{
-		if (GlobalResources.Instance.IsHoveringUI)
+		if (_player.IsHoveringUI)
 		{
 			CancelPlaceholder();
 			return;
@@ -104,7 +98,7 @@ public partial class StructureBtn : Button
 
 	private void CancelPlaceholder()
 	{
-		GlobalResources.Instance.IsPlacingStructure = false;
+		_player.IsPlacingStructure = false;
 		if (_placeholder == null) return;
 		_placeholder.Area.AreaEntered -= _placeholder.OnAreaEntered;
 		_placeholder.Area.AreaExited -= _placeholder.OnAreaExited;

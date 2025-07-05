@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
 
-[ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
+[ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/Resources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
@@ -71,13 +71,17 @@ size = Vector3(200, 0.5, 200)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
-[node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner")]
+[node name="World" type="Node3D"]
+
+[node name="SceneScripts" type="Node3D" parent="."]
+
+[node name="Resources" type="Node3D" parent="SceneScripts" node_paths=PackedStringArray("MultiplayerSpawner")]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 2
-TimeOfDay = 3
-Weather = 3
-MultiplayerSpawner = NodePath("MultiplayerSpawner")
+Season = 1
+TimeOfDay = 1
+Weather = 2
+MultiplayerSpawner = NodePath("../../MultiplayerSpawner")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")

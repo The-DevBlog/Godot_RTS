@@ -29,7 +29,7 @@ public partial class RootContainer : Control
 	[Export] public Label UpgradeInfoPopupLabelDescription { get; set; }
 	[Export] public Label UpgradeInfoPopupLabelCost { get; set; }
 	[Export] public Label UpgradeInfoPopupLabelBuildTime { get; set; }
-	private GlobalResources _globalResources;
+	private Resources _resources;
 	private Signals _signals;
 	private Color normalColor = new Color("#c8c8c8");
 	private Color hoverColor = new Color("#ffffff");
@@ -37,12 +37,10 @@ public partial class RootContainer : Control
 	public override void _Ready()
 	{
 		_player = PlayerManager.Instance.LocalPlayer;
-		_globalResources = GlobalResources.Instance;
-		// _sceneResources = Player.Instance;
+		_resources = Resources.Instance;
 		_signals = Signals.Instance;
 		_player.OnAddBarracks += AddBarracksInstanceBtn;
 		_player.OnAddGarage += AddGarageInstanceBtn;
-		// _signals.AddStructure += AddGarageOrBarracksInstanceBtn;
 		_signals.OnBuildOptionsBtnHover += ShowInfoPopup;
 		_signals.OnUpgradeBtnHover += ShowUpgradeInfoPopup;
 		_signals.UpdateEnergyColor += UpdateEnergyColor;
@@ -89,7 +87,7 @@ public partial class RootContainer : Control
 	private void SetIsHoveringUI()
 	{
 		var mousePosition = GetViewport().GetMousePosition();
-		_globalResources.IsHoveringUI = mousePosition.X >= UIContainer.GlobalPosition.X;
+		_player.IsHoveringUI = mousePosition.X >= UIContainer.GlobalPosition.X;
 	}
 
 	private void SetupButtons(Enum group)

@@ -20,7 +20,7 @@ public partial class NavigationRegion : NavigationRegion3D
 
 	private void ResizeGroundToMapSize()
 	{
-		Vector2 mapSize = GlobalResources.Instance.MapSize;
+		Vector2 mapSize = Resources.Instance.MapSize;
 
 		// Resize PlaneMesh (only works if GroundMesh.Mesh is a PlaneMesh)
 		if (GroundMesh.Mesh is BoxMesh plane)

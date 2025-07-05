@@ -7,7 +7,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 	[Export] private GpuParticles3D _rainParticles;
 	[Export] private GpuParticles3D _snowParticles;
 	[Export] private ShaderMaterial _snowMaterialPartial;
-	private GlobalResources _globalResources;
+	private Resources _globalResources;
 	private Weather _weather;
 	private TimeOfDay _timeOfDay;
 	private Season _season;
@@ -19,7 +19,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 
 	public override void _Ready()
 	{
-		_globalResources = GlobalResources.Instance;
+		_globalResources = Resources.Instance;
 
 		_season = _globalResources.Season;
 		_weather = _globalResources.Weather;

@@ -13,14 +13,14 @@ public partial class MiniMap : Control
     private Vector2 _worldMin;
     private Vector2 _worldMax;
     private Camera3D _camera;
-    private GlobalResources _globalResources;
+    private Resources _globalResources;
     private Player _player;
 
     public override void _Ready()
     {
         Utils.NullExportCheck(GameCamera);
 
-        _globalResources = GlobalResources.Instance;
+        _globalResources = Resources.Instance;
         _player = PlayerManager.Instance.LocalPlayer;
         _mapSize = _globalResources.MapSize;
         _worldMin = -_mapSize / 2;
