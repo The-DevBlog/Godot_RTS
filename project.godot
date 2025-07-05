@@ -19,9 +19,9 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 PlayerManager="*res://Scripts/Shared/PlayerManager.cs"
 Signals="*res://Scripts/Shared/Signals.cs"
 AssetServer="*res://Scripts/Shared/AssetServer/AssetServer.cs"
-MouseManager="*res://Scripts/Shared/MouseManager.cs"
 GlobalResources="*res://Scripts/Shared/GlobalResources.cs"
 StructureFactory="*res://Scripts/Structures/StructureFactory.cs"
+MouseManager="*res://Scripts/Shared/MouseManager.cs"
 
 [display]
 

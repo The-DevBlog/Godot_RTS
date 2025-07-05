@@ -40,6 +40,10 @@ public partial class Player : Node3D
 	{
 		base._EnterTree();
 
+		// TODO: Remove these hard coded values
+		Color = new Color("0083fa");
+		Funds = 50000;
+
 		// PlayerManager.Instance.RegisterPlayer(this);
 
 		Utils.NullExportCheck(Color);
