@@ -21,6 +21,7 @@ Signals="*res://Scripts/Shared/Signals.cs"
 AssetServer="*res://Scripts/Shared/AssetServer/AssetServer.cs"
 GlobalResources="*res://Scripts/Shared/GlobalResources.cs"
 StructureFactory="*res://Scripts/Structures/StructureFactory.cs"
+MouseManager="*res://Scripts/Shared/MouseManager.cs"
 
 [display]
 

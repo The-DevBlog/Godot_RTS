@@ -74,9 +74,9 @@ size = Vector3(200, 0.5, 200)
 [node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner")]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 1
-TimeOfDay = 1
-Weather = 2
+Season = 2
+TimeOfDay = 3
+Weather = 3
 MultiplayerSpawner = NodePath("MultiplayerSpawner")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
@@ -155,7 +155,9 @@ visible = false
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
 
 [node name="Player1" parent="." instance=ExtResource("12_lwnbm")]
-Color = Color(0.758481, 0.679406, 0.432176, 1)
+visible = false
+Color = Color(0, 0.515311, 0.97941, 1)
+Funds = 30000
 
 [node name="MultiplayerTest" parent="." instance=ExtResource("14_20eh2")]
 
