@@ -87,6 +87,7 @@ namespace MyEnums
     public enum SceneType
     {
         None,
-        Root
+        Root,
+        Player
     }
 }

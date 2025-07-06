@@ -6,7 +6,6 @@ using MyEnums;
 public partial class UnitCommands : Player
 {
 	private const float MIN_DRAG_DIST = 10f;
-	[Export] private Player _player;
 	private HashSet<Unit> _selectedUnits;
 	private Resources _resources;
 	private Camera3D _camera;
@@ -26,20 +25,13 @@ public partial class UnitCommands : Player
 		_camera = _resources.Camera;
 		Utils.NullCheck(_camera);
 
-		// _camera = GetViewport().GetCamera3D();
 		_selectedUnits = new HashSet<Unit>();
-		// _player = PlayerManager.Instance.LocalPlayer;
 
-		// Utils.NullCheck(_player);
-		// Utils.NullCheck(_camera);
-		// Utils.NullCheck(_resources);
-		// Utils.NullCheck(_selectedUnits);
+		Utils.NullCheck(_camera);
+		Utils.NullCheck(_resources);
 
-		// // _player.DeselectAllUnits += OnDeselectAllUnits;
-		// DeselectAllUnits += OnDeselectAllUnits;
+		DeselectAllUnits += OnDeselectAllUnits;
 
-		// if (_camera == null)
-		// 	Utils.PrintErr("Camera3D not found.");
 		GD.Print("UnitCommands _Ready() completed");
 	}
 
@@ -66,13 +58,11 @@ public partial class UnitCommands : Player
 
 	private void HandleMouseInput()
 	{
-		// if (_player.IsPlacingStructure)
 		if (IsPlacingStructure)
 			return;
 
 		if (Input.IsActionJustReleased("mb_secondary"))
-			_player.EmitSignal(nameof(DeselectAllUnits));
-		// _player.EmitSignal(nameof(_player.DeselectAllUnits));
+			EmitSignal(nameof(DeselectAllUnits));
 
 		// 1) Pressed right now? begin potential drag:
 		if (Input.IsActionJustPressed("mb_primary"))

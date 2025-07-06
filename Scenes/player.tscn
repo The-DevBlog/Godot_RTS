@@ -3,16 +3,17 @@
 [ext_resource type="Script" uid="uid://cwmksjh5v33rb" path="res://Scripts/Player/Player.cs" id="1_v0iea"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Player/UnitCommands.cs" id="2_cvnsp"]
 
-[node name="Control" type="Control"]
+[node name="Player" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_v0iea")
 
-[node name="UnitCommands" type="Control" parent="."]
+[node name="UnitCommands" type="Control" parent="." node_paths=PackedStringArray("_player")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_cvnsp")
+_player = NodePath("..")

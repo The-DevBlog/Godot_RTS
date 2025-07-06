@@ -9,6 +9,7 @@ public class MyScenes
         Scenes = new Dictionary<SceneType, string>
         {
             [SceneType.Root] = "res://Scenes/root.tscn",
+            [SceneType.Player] = "res://Scenes/player.tscn",
         };
     }
 }

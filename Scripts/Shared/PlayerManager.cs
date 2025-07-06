@@ -13,23 +13,7 @@ public partial class PlayerManager : Node
 
 	public override void _EnterTree()
 	{
-		// if (Instance != null)
-		// {
-		// 	Utils.PrintErr("Multiple PlayerManager instances detected! This should not happen.");
-		// 	return;
-		// }
-
-		// Instance = this;
-	}
-
-	public override void _Ready()
-	{
 		Instance = this;
-
-		// Immediately create/register *your* Player
-		// var meId = Multiplayer.GetUniqueId(); // usually 1 if no network yet
-		// var me = InstantiatePlayer(meId);
-		// AddPlayer(meId, me);
 	}
 
 	public void AddLocalPlayer()
@@ -72,7 +56,7 @@ public partial class PlayerManager : Node
 	private Player InstantiatePlayer(int peerId)
 	{
 		var player = /* load or reference your Player PackedScene */
-					  ResourceLoader.Load<PackedScene>("res://Scenes/Player.tscn")
+					  ResourceLoader.Load<PackedScene>("res://Scenes/player.tscn")
 									.Instantiate<Player>();
 
 		player.Name = peerId.ToString();
