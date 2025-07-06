@@ -158,12 +158,13 @@ theme_override_constants/separation = 40
 [node name="AddPlayerButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_wceur")
 text = "Add Player"
 
 [node name="PlayerList" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 6
 theme_override_constants/separation = 20
 
 [node name="PlayerContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList"]
@@ -221,7 +222,7 @@ popup/item_3/id = 3
 
 [node name="LaunchButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_styles/normal = SubResource("StyleBoxFlat_wceur")
 text = "Launch Game"
