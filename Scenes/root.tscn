@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/Resources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
+[ext_resource type="Script" uid="uid://cje1x122yykgi" path="res://Scripts/Structures/StructureFactory.cs" id="2_lwnbm"]
 [ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
@@ -81,7 +82,8 @@ Camera = NodePath("GameCamera/CameraZoomPivot/Camera3D")
 
 [node name="SceneScripts" type="Node3D" parent="."]
 
-[node name="Resources" type="Node3D" parent="SceneScripts"]
+[node name="StructureFactory" type="Node3D" parent="SceneScripts"]
+script = ExtResource("2_lwnbm")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")

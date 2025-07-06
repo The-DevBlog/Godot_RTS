@@ -7,14 +7,22 @@ public partial class StructureFactory : Node
 	private Player _player;
 	private MyModels _models;
 	private Signals _signals;
-	public override void _Ready()
+
+	public override void _EnterTree()
 	{
 		Instance = this;
+	}
+
+	public override void _Ready()
+	{
+		// Instance = this;
 		_models = AssetServer.Instance.Models;
 		_player = PlayerManager.Instance.LocalPlayer;
 		_signals = Signals.Instance;
 
 		Utils.NullCheck(_player);
+		Utils.NullCheck(_models);
+		Utils.NullCheck(_signals);
 	}
 
 	public StructureBasePlaceholder BuildPlaceholder(StructureType structureType)

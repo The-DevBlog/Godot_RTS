@@ -10,10 +10,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_v0iea")
 
-[node name="UnitCommands" type="Control" parent="." node_paths=PackedStringArray("_player")]
+[node name="UnitCommands" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_cvnsp")
-_player = NodePath("..")
