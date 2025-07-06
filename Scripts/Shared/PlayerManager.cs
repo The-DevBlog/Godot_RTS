@@ -11,31 +11,38 @@ public partial class PlayerManager : Node
 	public Player LocalPlayer { get; private set; }
 	public Player Authority { get; set; }
 
+	public override void _EnterTree()
+	{
+		// if (Instance != null)
+		// {
+		// 	Utils.PrintErr("Multiple PlayerManager instances detected! This should not happen.");
+		// 	return;
+		// }
+
+		// Instance = this;
+	}
+
 	public override void _Ready()
 	{
 		Instance = this;
 
 		// Immediately create/register *your* Player
+		// var meId = Multiplayer.GetUniqueId(); // usually 1 if no network yet
+		// var me = InstantiatePlayer(meId);
+		// AddPlayer(meId, me);
+	}
+
+	public void AddLocalPlayer()
+	{
 		var meId = Multiplayer.GetUniqueId(); // usually 1 if no network yet
 		var me = InstantiatePlayer(meId);
 		AddPlayer(meId, me);
 	}
 
-	private Player InstantiatePlayer(int peerId)
-	{
-		var player = /* load or reference your Player PackedScene */
-					  ResourceLoader.Load<PackedScene>("res://Scenes/Player.tscn")
-									.Instantiate<Player>();
-
-		player.Name = peerId.ToString();
-		player.SetMultiplayerAuthority(peerId);
-		AddChild(player);
-		return player;
-	}
-
-
 	public void AddPlayer(long peerId, Player player)
 	{
+		GD.Print($"Adding player with peer ID: {peerId}");
+
 		_players[peerId] = player;
 		if (peerId == Multiplayer.GetUniqueId())
 		{
@@ -60,5 +67,17 @@ public partial class PlayerManager : Node
 
 		if (Authority?.GetMultiplayerAuthority() == peerId)
 			Authority = null;
+	}
+
+	private Player InstantiatePlayer(int peerId)
+	{
+		var player = /* load or reference your Player PackedScene */
+					  ResourceLoader.Load<PackedScene>("res://Scenes/Player.tscn")
+									.Instantiate<Player>();
+
+		player.Name = peerId.ToString();
+		player.SetMultiplayerAuthority(peerId);
+		AddChild(player);
+		return player;
 	}
 }

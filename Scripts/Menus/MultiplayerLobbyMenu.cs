@@ -3,10 +3,10 @@ using MyEnums;
 
 public partial class MultiplayerLobbyMenu : Control
 {
-	[Export] public string NextScenePath = "res://Scenes/root.tscn";
 	private MyScenes _scenes;
 	public override void _Ready()
 	{
+		GD.Print("MultiplayerLobbyMenu _Ready()");
 		_scenes = AssetServer.Instance.Scenes;
 	}
 

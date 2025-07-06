@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 using MyEnums;
 
-public partial class UnitCommands : Control
+public partial class UnitCommands : Player
 {
 	private const float MIN_DRAG_DIST = 10f;
 	[Export] private Player _player;
@@ -18,16 +18,29 @@ public partial class UnitCommands : Control
 
 	public override void _Ready()
 	{
+		GD.Print("UnitCommands _Ready() called");
+
 		_resources = Resources.Instance;
-		// _camera = _resources.Camera;
-		_camera = GetViewport().GetCamera3D();
-		_player.DeselectAllUnits += OnDeselectAllUnits;
+		Utils.NullCheck(_resources);
+
+		_camera = _resources.Camera;
+		Utils.NullCheck(_camera);
+
+		// _camera = GetViewport().GetCamera3D();
 		_selectedUnits = new HashSet<Unit>();
+		// _player = PlayerManager.Instance.LocalPlayer;
 
-		Utils.NullExportCheck(_player);
+		// Utils.NullCheck(_player);
+		// Utils.NullCheck(_camera);
+		// Utils.NullCheck(_resources);
+		// Utils.NullCheck(_selectedUnits);
 
-		if (_camera == null)
-			Utils.PrintErr("Camera3D not found.");
+		// // _player.DeselectAllUnits += OnDeselectAllUnits;
+		// DeselectAllUnits += OnDeselectAllUnits;
+
+		// if (_camera == null)
+		// 	Utils.PrintErr("Camera3D not found.");
+		GD.Print("UnitCommands _Ready() completed");
 	}
 
 	public override void _Process(double delta)
@@ -37,6 +50,11 @@ public partial class UnitCommands : Control
 	}
 
 	public override void _Draw()
+	{
+		DrawDragSelectRect();
+	}
+
+	private void DrawDragSelectRect()
 	{
 		if (!_dragActive)
 			return;
@@ -48,11 +66,13 @@ public partial class UnitCommands : Control
 
 	private void HandleMouseInput()
 	{
-		if (_player.IsPlacingStructure)
+		// if (_player.IsPlacingStructure)
+		if (IsPlacingStructure)
 			return;
 
 		if (Input.IsActionJustReleased("mb_secondary"))
-			_player.EmitSignal(nameof(_player.DeselectAllUnits));
+			_player.EmitSignal(nameof(DeselectAllUnits));
+		// _player.EmitSignal(nameof(_player.DeselectAllUnits));
 
 		// 1) Pressed right now? begin potential drag:
 		if (Input.IsActionJustPressed("mb_primary"))
@@ -67,7 +87,8 @@ public partial class UnitCommands : Control
 		else if (Input.IsActionJustReleased("mb_primary"))
 		{
 			if (_dragActive)
-				_player.EmitSelectUnits(_selectedUnits.ToArray());
+				EmitSelectUnits(_selectedUnits.ToArray());
+			// _player.EmitSelectUnits(_selectedUnits.ToArray());
 
 			Vector2 mousePosition = GetViewport().GetMousePosition();
 
@@ -104,7 +125,8 @@ public partial class UnitCommands : Control
 
 	private bool SelectSingleUnit(Vector2 mousePosition)
 	{
-		if (_player.IsHoveringUI)
+		if (IsHoveringUI)
+			// if (_player.IsHoveringUI)
 			return false;
 
 		Vector3 from = _camera.ProjectRayOrigin(mousePosition);
@@ -128,7 +150,8 @@ public partial class UnitCommands : Control
 			unit.Selected = true;
 			_selectedUnits = new HashSet<Unit>() { unit };
 
-			_player.EmitSelectUnits(_selectedUnits.ToArray());
+			// _player.EmitSelectUnits(_selectedUnits.ToArray());
+			EmitSelectUnits(_selectedUnits.ToArray());
 
 			return true;
 		}
@@ -149,7 +172,8 @@ public partial class UnitCommands : Control
 
 	private void SetTargetPosition(Vector2 mousePos)
 	{
-		if (_player.IsHoveringUI)
+		// if (_player.IsHoveringUI)
+		if (IsHoveringUI)
 			return;
 
 		Vector3 from = _camera.ProjectRayOrigin(mousePos);
@@ -293,7 +317,8 @@ public partial class UnitCommands : Control
 		_selectedUnits = new HashSet<Unit>();
 		_dragActive = false;
 
-		_player.EmitSelectUnits(_selectedUnits.ToArray());
+		EmitSelectUnits(_selectedUnits.ToArray());
+		// _player.EmitSelectUnits(_selectedUnits.ToArray());
 	}
 
 	// Marks units as selected or unselected.

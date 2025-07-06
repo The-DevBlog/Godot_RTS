@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Godot;
 using MyEnums;
 
-public partial class Player : Node3D
+public partial class Player : Control
 {
 	[Export] public int Id { get; set; }    // e.g. 1, 2, 3...
 	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
