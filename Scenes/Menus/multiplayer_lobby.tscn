@@ -170,11 +170,12 @@ theme_override_constants/separation = 20
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_12y25")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer" node_paths=PackedStringArray("_colorOptionButton")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer" node_paths=PackedStringArray("_colorOptionButton", "_teamOptionButton")]
 layout_mode = 2
 theme_override_constants/separation = 20
 script = ExtResource("3_x1b4t")
 _colorOptionButton = NodePath("ColorOptionButton")
+_teamOptionButton = NodePath("TeamOptionButton")
 
 [node name="PlayerLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
@@ -204,6 +205,8 @@ text = "$7500"
 
 [node name="TeamOptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_8m0dv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8m0dv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8m0dv")
 selected = 0
 item_count = 4
