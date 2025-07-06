@@ -18,8 +18,7 @@ public partial class LobbyMenu : Control
 
 	private void AddPlayer()
 	{
-		PanelContainer newPlayer = (PanelContainer)_playerContainer.Duplicate((int)DuplicateFlags.UseInstantiation);
-		// newPlayer.MakeSubresourcesUnique();
+		PanelContainer newPlayer = (PanelContainer)_playerContainer.Duplicate();
 		newPlayer.Name = $"Player{_playerList.GetChildCount() + 1}";
 		newPlayer.GetNode<Label>("HBoxContainer/PlayerLabel").Text = $"Player {_playerList.GetChildCount() + 1}";
 		_playerList.AddChild(newPlayer);
