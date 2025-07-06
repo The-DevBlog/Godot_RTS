@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://crau2mk2tql7i"]
+[gd_scene load_steps=12 format=3 uid="uid://crau2mk2tql7i"]
 
-[ext_resource type="Script" uid="uid://bm1d74ua5wklg" path="res://Scripts/Menus/MultiplayerLobbyMenu.cs" id="1_ncm0y"]
+[ext_resource type="Script" uid="uid://bm1d74ua5wklg" path="res://Scripts/Menus/LobbyMenu/LobbyMenu.cs" id="1_ncm0y"]
 [ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_8m0dv"]
+[ext_resource type="Script" uid="uid://jae43usw2h2e" path="res://Scripts/Menus/LobbyMenu/PlayerContainer.cs" id="3_x1b4t"]
 
 [sub_resource type="Theme" id="Theme_x1b4t"]
 default_font = ExtResource("2_8m0dv")
@@ -66,12 +67,12 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1m0a"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yw17h"]
 content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
-bg_color = Color(0.314107, 0.565896, 0.70063, 1)
+bg_color = Color(0.819608, 0.247059, 0.294118, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -98,7 +99,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqx0g"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m0dv"]
 content_margin_left = 10.0
 content_margin_top = 10.0
 content_margin_right = 10.0
@@ -114,7 +115,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("_playerList", "_playerContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,6 +123,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ncm0y")
+_playerList = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList")
+_playerContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -159,71 +162,59 @@ size_flags_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_wceur")
 text = "Add Player"
 
-[node name="PlayerContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_12y25")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer"]
+[node name="PlayerList" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="PlayerLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer/HBoxContainer"]
+[node name="PlayerContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_12y25")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer" node_paths=PackedStringArray("_colorOptionButton")]
+layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("3_x1b4t")
+_colorOptionButton = NodePath("ColorOptionButton")
+
+[node name="PlayerLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_kawp7")
 text = "Player 1"
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer/HBoxContainer"]
+[node name="ColorOptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
-item_count = 3
-popup/item_0/text = "Blue"
+theme_override_styles/focus = SubResource("StyleBoxFlat_yw17h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yw17h")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yw17h")
+selected = 0
+item_count = 4
+popup/item_0/text = "red"
 popup/item_0/id = 0
 popup/item_1/text = "Green"
 popup/item_1/id = 1
-popup/item_2/text = "Red"
+popup/item_2/text = "blue"
 popup/item_2/id = 2
+popup/item_3/text = "orange"
+popup/item_3/id = 3
 
-[node name="ColorButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_a1m0a")
-text = "color"
-
-[node name="FundsLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer/HBoxContainer"]
+[node name="FundsLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_iqw6m")
 text = "$7500"
 
-[node name="TeamButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer/HBoxContainer"]
+[node name="TeamOptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_oqx0g")
-text = "Team 1"
-
-[node name="PlayerContainer2" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_12y25")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="PlayerLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer2/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_kawp7")
-text = "Player 2"
-
-[node name="ColorButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer2/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_a1m0a")
-text = "color"
-
-[node name="FundsLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer2/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_iqw6m")
-text = "$7500"
-
-[node name="TeamButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerContainer2/HBoxContainer"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_oqx0g")
-text = "Team 1"
+theme_override_styles/normal = SubResource("StyleBoxFlat_8m0dv")
+selected = 0
+item_count = 4
+popup/item_0/text = "Team 1"
+popup/item_0/id = 0
+popup/item_1/text = "Team 2"
+popup/item_1/id = 1
+popup/item_2/text = "Team 3"
+popup/item_2/id = 2
+popup/item_3/text = "Team 4"
+popup/item_3/id = 3
 
 [node name="LaunchButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -232,4 +223,6 @@ size_flags_vertical = 10
 theme_override_styles/normal = SubResource("StyleBoxFlat_wceur")
 text = "Launch Game"
 
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/AddPlayerButton" to="." method="AddPlayer"]
+[connection signal="item_selected" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer/ColorOptionButton" to="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer" method="ChangeColor"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LaunchButton" to="." method="EnterGame"]
