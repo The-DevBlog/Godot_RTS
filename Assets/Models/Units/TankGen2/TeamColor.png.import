@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b638cfwroohss"
-path.s3tc="res://.godot/imported/Head.png-bf06470cccbc4078dd7ea25c4bbd2032.s3tc.ctex"
+uid="uid://v7vvcwyffct7"
+path.s3tc="res://.godot/imported/TeamColor.png-b68d39e5abf5e90683673f96678fa4ef.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Models/Units/TankGen2/Head.png"
-dest_files=["res://.godot/imported/Head.png-bf06470cccbc4078dd7ea25c4bbd2032.s3tc.ctex"]
+source_file="res://Assets/Models/Units/TankGen2/TeamColor.png"
+dest_files=["res://.godot/imported/TeamColor.png-b68d39e5abf5e90683673f96678fa4ef.s3tc.ctex"]
 
 [params]
 

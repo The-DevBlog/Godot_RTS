@@ -29,15 +29,10 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 		Utils.NullExportCheck(Model);
 		Utils.NullExportCheck(Area);
 
-		if (Player == null)
-		{
-			Player = PlayerManager.Instance.LocalPlayer;
-		}
-
 		SetTeamColor(Player.Color);
 	}
 
-	public void SetTeamColor(Color color)
+	private void SetTeamColor(Color color)
 	{
 		foreach (Node child in Model.GetChildren())
 		{

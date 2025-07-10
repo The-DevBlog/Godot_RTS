@@ -17,7 +17,7 @@ properties/1/replication_mode = 1
 height = 1.01123
 radius = 1.35645
 
-[node name="TankNew" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar") groups=["units"]]
+[node name="TankNew" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar", "Model") groups=["units"]]
 script = ExtResource("1_1pd0a")
 VehicleType = 3
 Speed = 5
@@ -27,9 +27,11 @@ Cost = 1000
 BuildTime = 10
 Acceleration = 5
 _healthbar = NodePath("Healthbar")
+Model = NodePath("TankNew")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(1.135, 0, 0, 0, 1.135, 0, 0, 0, 1.135, 0, 0.47361, 0)
+visible = false
 billboard = 1
 no_depth_test = true
 render_priority = 1

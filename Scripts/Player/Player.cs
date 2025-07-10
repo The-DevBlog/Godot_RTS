@@ -43,8 +43,9 @@ public partial class Player : Control
 		base._EnterTree();
 
 		// TODO: Remove these hard coded values
-		// Color = new Color("0083fa");
-		Color = new Color("#4b99b8");
+		// Color = new Color("0083fa");    
+		Color = new Color("#2a72bb");
+		// Color = new Color(Colors.Brown);
 		Funds = 50000;
 
 		// PlayerManager.Instance.RegisterPlayer(this);

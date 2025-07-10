@@ -11,6 +11,7 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
 	[Export] private Node3D _healthbar;
+	[Export] private Node3D Model;
 	public Player Player { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
@@ -45,13 +46,20 @@ public partial class Unit : CharacterBody3D, ICostProvider
 		_targetPosition = Vector3.Zero;
 		_cam = GetViewport().GetCamera3D();
 
+		Player = PlayerManager.Instance.LocalPlayer;
+
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
 		if (DPS == 0) Utils.PrintErr("No DPS Assigned to unit");
 		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");
 		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
+
+		Utils.NullCheck(Player);
 		Utils.NullExportCheck(_healthbar);
+		Utils.NullExportCheck(Model);
+
+		SetTeamColor(Player.Color);
 	}
 
 	public override void _Process(double delta)
@@ -131,5 +139,31 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	{
 		_targetPosition = worldPos;
 		_navigationAgent.TargetPosition = worldPos;
+	}
+
+	private void SetTeamColor(Color color)
+	{
+		foreach (Node child in Model.GetChildren())
+		{
+			if (child is MeshInstance3D mesh)
+			{
+				// Get the current material on surface 0
+				var originalMaterial = mesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
+				if (originalMaterial == null)
+				{
+					Utils.PrintErr("Material on surface 0 is null.");
+					continue;
+				}
+
+				// Duplicate the material to avoid affecting all instances
+				ShaderMaterial matInstance = (ShaderMaterial)originalMaterial.Duplicate();
+
+				// Set the uniform parameter
+				matInstance.SetShaderParameter("team_color", color);
+
+				// Assign it back to the mesh
+				mesh.SetSurfaceOverrideMaterial(0, matInstance);
+			}
+		}
 	}
 }

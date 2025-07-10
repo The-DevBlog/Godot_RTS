@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bb7n5bwlm2wq1"
-path.s3tc="res://.godot/imported/Body.png-25fae66b243c43d6cfc0c716d8ca9a56.s3tc.ctex"
+uid="uid://dxu8py76gnugd"
+path.s3tc="res://.godot/imported/BaseColor.png-700b3ba94a323cb1484a5c5751555974.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Models/Units/TankGen2/Body.png"
-dest_files=["res://.godot/imported/Body.png-25fae66b243c43d6cfc0c716d8ca9a56.s3tc.ctex"]
+source_file="res://Assets/Models/Units/TankGen2/BaseColor.png"
+dest_files=["res://.godot/imported/BaseColor.png-700b3ba94a323cb1484a5c5751555974.s3tc.ctex"]
 
 [params]
 
