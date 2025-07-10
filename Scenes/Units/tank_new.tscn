@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://clwe4fxswp86c"]
+
+[ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Vehicle.cs" id="1_1pd0a"]
+[ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_1pd0a"]
+[ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="3_vmewp"]
+[ext_resource type="PackedScene" uid="uid://hcqjxq6owx8o" path="res://Scenes/Inherited/Units/tank_new.tscn" id="4_p06bq"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8gux8"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1pd0a"]
+height = 1.01123
+radius = 1.35645
+
+[node name="TankNew" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar") groups=["units"]]
+script = ExtResource("1_1pd0a")
+VehicleType = 3
+Speed = 5
+HP = 500
+DPS = 100
+Cost = 1000
+BuildTime = 10
+Acceleration = 5
+_healthbar = NodePath("Healthbar")
+
+[node name="SelectBorder" type="Sprite3D" parent="."]
+transform = Transform3D(1.135, 0, 0, 0, 1.135, 0, 0, 0, 1.135, 0, 0.47361, 0)
+billboard = 1
+no_depth_test = true
+render_priority = 1
+texture = ExtResource("2_1pd0a")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[node name="Healthbar" parent="." instance=ExtResource("3_vmewp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06887, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8gux8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.569121, 0)
+shape = SubResource("CylinderShape3D_1pd0a")
+
+[node name="TankNew" parent="." instance=ExtResource("4_p06bq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0559472)

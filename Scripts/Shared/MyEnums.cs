@@ -32,6 +32,7 @@ namespace MyEnums
         None,
         TankGen1,
         TankGen2,
+        TankNew,
         Artillery,
     }
 

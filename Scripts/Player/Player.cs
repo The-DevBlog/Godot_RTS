@@ -43,7 +43,8 @@ public partial class Player : Control
 		base._EnterTree();
 
 		// TODO: Remove these hard coded values
-		Color = new Color("0083fa");
+		// Color = new Color("0083fa");
+		Color = new Color("#4b99b8");
 		Funds = 50000;
 
 		// PlayerManager.Instance.RegisterPlayer(this);
@@ -51,7 +52,7 @@ public partial class Player : Control
 		Utils.NullExportCheck(Color);
 
 		if (Color == default)
-			Color = new Color(Colors.Red);
+			Color = new Color("#4b99b8");
 
 		if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
 

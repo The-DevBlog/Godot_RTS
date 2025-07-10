@@ -1378,7 +1378,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_6ktso")
 theme_override_styles/normal = SubResource("StyleBoxTexture_6ktso")
 disabled = true
 script = ExtResource("23_pdtk1")
-Vehicle = 3
+Vehicle = 4
 
 [node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer/Artillery"]
 show_behind_parent = true
@@ -1458,7 +1458,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_8e5iw")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8e5iw")
 disabled = true
 script = ExtResource("23_pdtk1")
-Vehicle = 1
+Vehicle = 3
 
 [node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/VehicleOptionsContainer/VBoxContainer/HBoxContainer2/TankGen1Btn"]
 show_behind_parent = true
