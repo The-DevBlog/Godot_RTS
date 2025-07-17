@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b5o8k040cd7l5"]
+
+[ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="1_1cqv0"]
+
+[resource]
+default_font = ExtResource("1_1cqv0")

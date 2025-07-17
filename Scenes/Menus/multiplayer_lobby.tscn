@@ -1,55 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://crau2mk2tql7i"]
+[gd_scene load_steps=10 format=3 uid="uid://crau2mk2tql7i"]
 
 [ext_resource type="Script" uid="uid://bm1d74ua5wklg" path="res://Scripts/Menus/LobbyMenu/LobbyMenu.cs" id="1_ncm0y"]
-[ext_resource type="FontFile" uid="uid://c5ksnv2iagshb" path="res://Assets/Fonts/ep-boxi.bold.otf" id="2_8m0dv"]
+[ext_resource type="Theme" uid="uid://b5o8k040cd7l5" path="res://Assets/Themes/UI/theme_menu_txt.tres" id="2_wceur"]
+[ext_resource type="StyleBox" uid="uid://civxs0da571p2" path="res://Assets/Themes/UI/theme_menu_stylebox.tres" id="3_12y25"]
 [ext_resource type="Script" uid="uid://jae43usw2h2e" path="res://Scripts/Menus/LobbyMenu/PlayerContainer.cs" id="3_x1b4t"]
-
-[sub_resource type="Theme" id="Theme_x1b4t"]
-default_font = ExtResource("2_8m0dv")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4i1p"]
-bg_color = Color(0.174028, 0.174028, 0.174028, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wceur"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
-bg_color = Color(0.289742, 0.289741, 0.289741, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_12y25"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
-bg_color = Color(0.290196, 0.290196, 0.290196, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[ext_resource type="StyleBox" uid="uid://cjojiuntxl62b" path="res://Assets/Themes/UI/btn_stylebox.tres" id="4_kawp7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kawp7"]
 content_margin_left = 10.0
@@ -115,7 +70,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="Control" type="Control" node_paths=PackedStringArray("_playerList", "_playerContainer")]
+[node name="MultiplayerLobbyMenu" type="Control" node_paths=PackedStringArray("_playerList", "_playerContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -140,8 +95,8 @@ theme_override_constants/margin_bottom = 200
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
-theme = SubResource("Theme_x1b4t")
-theme_override_styles/panel = SubResource("StyleBoxFlat_h4i1p")
+theme = ExtResource("2_wceur")
+theme_override_styles/panel = ExtResource("3_12y25")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
@@ -159,7 +114,7 @@ theme_override_constants/separation = 40
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_wceur")
+theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Add Player"
 
 [node name="PlayerList" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
@@ -169,7 +124,7 @@ theme_override_constants/separation = 20
 
 [node name="PlayerContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_12y25")
+theme_override_styles/panel = ExtResource("4_kawp7")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer" node_paths=PackedStringArray("_colorOptionButton", "_teamOptionButton")]
 layout_mode = 2
@@ -224,7 +179,7 @@ popup/item_3/id = 3
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
-theme_override_styles/normal = SubResource("StyleBoxFlat_wceur")
+theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Launch Game"
 
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/AddPlayerButton" to="." method="AddPlayer"]

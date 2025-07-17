@@ -31,6 +31,7 @@ public partial class MultiplayerTest : Control
 		Multiplayer.PeerDisconnected += RemovePlayerFromGame;
 
 		LocalPlayer = _playerScene.Instantiate<Player>();
+		_playerManager.LocalPlayer = LocalPlayer;
 
 		Hide();
 		AddPlayerToGame(1);
@@ -43,6 +44,7 @@ public partial class MultiplayerTest : Control
 
 		Multiplayer.MultiplayerPeer = clientPeer;
 		LocalPlayer = _playerScene.Instantiate<Player>();
+		_playerManager.LocalPlayer = LocalPlayer;
 
 		Hide();
 	}

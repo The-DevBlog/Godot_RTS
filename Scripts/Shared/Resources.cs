@@ -21,7 +21,7 @@ public partial class Resources : Node3D
 		// Add the local player
 		_playerManager = PlayerManager.Instance;
 		Utils.NullCheck(_playerManager);
-		_playerManager.AddLocalPlayer();
+		// _playerManager.AddLocalPlayer();
 
 		if (MapSize == Vector2.Zero) Utils.PrintErr("MapSize is not set");
 		if (Weather == Weather.None) Utils.PrintErr("Weather is set to None.");

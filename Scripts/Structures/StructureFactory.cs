@@ -64,16 +64,16 @@ public partial class StructureFactory : Node
 
 		// Capture final transform then cleanup placeholder
 		var finalXform = placeholder.GlobalTransform;
+		var player = PlayerManager.Instance.LocalPlayer;
 
 		if (Multiplayer.IsServer())
-			ServerSpawnStructure(finalXform, (int)placeholder.StructureType);
+			ServerSpawnStructure(player.Id, finalXform, (int)placeholder.StructureType);
 		else
-			Rpc(nameof(ServerSpawnStructure), finalXform, (int)placeholder.StructureType);
+			RpcId(1, nameof(ServerSpawnStructure), player.Id, finalXform, (int)placeholder.StructureType);
 
-		var structureScene = _models.Structures[placeholder.StructureType];
-		StructureBase structure = structureScene.Instantiate<StructureBase>();
-		var player = PlayerManager.Instance.LocalPlayer;
-		player.AddStructure(structure);
+		// var structureScene = _models.Structures[placeholder.StructureType];
+		// StructureBase structure = structureScene.Instantiate<StructureBase>();
+		// player.AddStructure(structure);
 
 		// Rebake the navigation mesh AFTER spawning the structure
 		_signals.EmitUpdateNavigationMap(navRegion);
@@ -102,8 +102,14 @@ public partial class StructureFactory : Node
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-	private StructureBase ServerSpawnStructure(Transform3D finalXform, int structureTypeInt)
+	private void ServerSpawnStructure(long playerId, Transform3D finalXform, int structureTypeInt)
 	{
+		if (!Multiplayer.IsServer())
+		{
+			// GD.PrintErr("ServerSpawnStructure called on non-server peer.");
+			return;
+		}
+
 		var structureType = (StructureType)structureTypeInt;
 		var structureScene = _models.Structures[structureType];
 		StructureBase structure = structureScene.Instantiate<StructureBase>();
@@ -114,8 +120,7 @@ public partial class StructureFactory : Node
 		structure.GlobalTransform = finalXform;
 
 		// var player = PlayerManager.Instance.LocalPlayer;
+		// var player = PlayerManager.Instance.GetPlayer((int)playerId);
 		// player.AddStructure(structure);
-
-		return structure;
 	}
 }
