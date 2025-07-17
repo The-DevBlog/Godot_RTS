@@ -70,6 +70,11 @@ public partial class StructureFactory : Node
 		else
 			Rpc(nameof(ServerSpawnStructure), finalXform, (int)placeholder.StructureType);
 
+		var structureScene = _models.Structures[placeholder.StructureType];
+		StructureBase structure = structureScene.Instantiate<StructureBase>();
+		var player = PlayerManager.Instance.LocalPlayer;
+		player.AddStructure(structure);
+
 		// Rebake the navigation mesh AFTER spawning the structure
 		_signals.EmitUpdateNavigationMap(navRegion);
 	}
@@ -97,7 +102,7 @@ public partial class StructureFactory : Node
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-	private void ServerSpawnStructure(Transform3D finalXform, int structureTypeInt)
+	private StructureBase ServerSpawnStructure(Transform3D finalXform, int structureTypeInt)
 	{
 		var structureType = (StructureType)structureTypeInt;
 		var structureScene = _models.Structures[structureType];
@@ -108,7 +113,9 @@ public partial class StructureFactory : Node
 		parent.AddChild(structure, true);
 		structure.GlobalTransform = finalXform;
 
-		var player = PlayerManager.Instance.LocalPlayer;
-		player.AddStructure(structure);
+		// var player = PlayerManager.Instance.LocalPlayer;
+		// player.AddStructure(structure);
+
+		return structure;
 	}
 }

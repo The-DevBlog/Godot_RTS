@@ -142,7 +142,24 @@ button_group = SubResource("ButtonGroup_a6f85")
 [node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/StructureCountContainer/GarageCountContainer/BtnContainer" index="0"]
 button_group = SubResource("ButtonGroup_fu36u")
 
+[node name="Shaders" type="Node3D" parent="."]
+
+[node name="PixelatedShader" parent="Shaders" instance=ExtResource("6_ckhy6")]
+visible = false
+
+[node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
+
+[node name="MultiplayerHUD" parent="." node_paths=PackedStringArray("_playersSpawnNode") instance=ExtResource("14_20eh2")]
+_playersSpawnNode = NodePath("../Players")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob", "uid://yd0x5g7600ta")
+spawn_path = NodePath("../NavigationRegion3D")
+
+[node name="Players" type="Node3D" parent="."]
+
 [node name="Units" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
 transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 2.04756, 0, -2.01788)
@@ -152,19 +169,6 @@ transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551
 
 [node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
 transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, -0.468336, 0, -1.5761)
-
-[node name="Shaders" type="Node3D" parent="."]
-
-[node name="PixelatedShader" parent="Shaders" instance=ExtResource("6_ckhy6")]
-visible = false
-
-[node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
-
-[node name="MultiplayerTest" parent="." instance=ExtResource("14_20eh2")]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob", "uid://yd0x5g7600ta")
-spawn_path = NodePath("../NavigationRegion3D")
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]

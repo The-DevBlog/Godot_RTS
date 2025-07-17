@@ -1,25 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://cytp0j20cvvea"]
+[gd_scene load_steps=2 format=3 uid="uid://cytp0j20cvvea"]
 
 [ext_resource type="Script" uid="uid://dk5n28v2vs0dp" path="res://Scenes/Test/MultiplayerTest.cs" id="1_17re5"]
-[ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="2_6bvuc"]
 
-[node name="MultiplayerTest" type="Node2D"]
+[node name="MultiplayerHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+size_flags_vertical = 0
 script = ExtResource("1_17re5")
-_scene = ExtResource("2_6bvuc")
 
-[node name="Host" type="Button" parent="."]
-offset_left = 3.0
-offset_top = 923.0
-offset_right = 47.0
-offset_bottom = 954.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -66.0
+offset_right = 44.0
+grow_vertical = 0
+
+[node name="Host" type="Button" parent="VBoxContainer"]
+layout_mode = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="."]
-offset_left = 7.0
-offset_top = 962.0
-offset_right = 45.0
-offset_bottom = 993.0
+[node name="Join" type="Button" parent="VBoxContainer"]
+layout_mode = 2
 text = "Join"
 
-[connection signal="pressed" from="Host" to="." method="OnHostPressed"]
-[connection signal="pressed" from="Join" to="." method="OnJoinPressed"]
+[connection signal="pressed" from="VBoxContainer/Host" to="." method="OnHostPressed"]
+[connection signal="pressed" from="VBoxContainer/Join" to="." method="OnJoinPressed"]

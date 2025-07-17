@@ -6,6 +6,7 @@ public partial class Garage : StructureBase
 	public int Id { get; private set; }
 	private Player _player = PlayerManager.Instance.LocalPlayer;
 	private Signals _signals = Signals.Instance;
+	private Node3D _unitSpawn;
 
 	public override void _Ready()
 	{
@@ -13,6 +14,9 @@ public partial class Garage : StructureBase
 
 		int garageCount = _player.StructureCount[StructureType.Garage];
 		Id = garageCount;
+		_unitSpawn = GetTree().Root.GetNodeOrNull<Node3D>("World/Units");
+
+		Utils.NullCheck(_unitSpawn);
 	}
 
 	public void Activate() => _player.BuildVehicle += BuildVehicle;
@@ -21,9 +25,16 @@ public partial class Garage : StructureBase
 
 	private void BuildVehicle(Vehicle vehicle)
 	{
-		GD.Print("BUilding vehcile");
-		var sceneRoot = GetTree().CurrentScene;
-		sceneRoot.AddChild(vehicle);
+		GD.Print("Building " + vehicle.Name);
+
+		GD.Print("GARAGE: " + _unitSpawn);
+		if (_unitSpawn == null)
+		{
+			Utils.PrintErr("Unit spawn node not found in the scene tree.");
+			return;
+		}
+
+		_unitSpawn.AddChild(vehicle);
 
 		// how far in front of the garage you want to spawn:
 		float spawnDistance = 6f;

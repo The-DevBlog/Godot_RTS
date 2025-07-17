@@ -1,40 +1,67 @@
 using Godot;
+using MyEnums;
 
-public partial class MultiplayerTest : Node2D
+public partial class MultiplayerTest : Control
 {
+	public Player LocalPlayer { get; private set; }
+	public PackedScene _playerScene;
 	[Export] private PackedScene _scene = new PackedScene();
+	[Export] private Node3D _playersSpawnNode;
 	private ENetMultiplayerPeer _peer = new ENetMultiplayerPeer();
 	private PlayerManager _playerManager;
+	private const int ServerPort = 8080;
+	private const string ServerIP = "127.0.0.1";
 	public override void _Ready()
 	{
 		_playerManager = PlayerManager.Instance;
+		_playerScene = GD.Load<PackedScene>(AssetServer.Instance.Scenes.Scenes[SceneType.Player]);
+
+		Utils.NullExportCheck(_playersSpawnNode);
 	}
 
 	public void OnHostPressed()
 	{
-		_peer.CreateServer(135);
-		Multiplayer.MultiplayerPeer = _peer;
-		Multiplayer.PeerConnected += AddPlayer;
-		AddPlayer();
+		GD.Print("Starting host!");
+
+		var serverPeer = new ENetMultiplayerPeer();
+		serverPeer.CreateServer(ServerPort);
+
+		Multiplayer.MultiplayerPeer = serverPeer;
+		Multiplayer.PeerConnected += AddPlayerToGame;
+		Multiplayer.PeerDisconnected += RemovePlayerFromGame;
+
+		LocalPlayer = _playerScene.Instantiate<Player>();
+
+		Hide();
+		AddPlayerToGame(1);
 	}
 
 	public void OnJoinPressed()
 	{
-		_peer.CreateClient("localhost", 135);
-		Multiplayer.MultiplayerPeer = _peer;
+		var clientPeer = new ENetMultiplayerPeer();
+		clientPeer.CreateClient(ServerIP, ServerPort);
+
+		Multiplayer.MultiplayerPeer = clientPeer;
+		LocalPlayer = _playerScene.Instantiate<Player>();
+
+		Hide();
 	}
 
-	private void AddPlayer(long id = 1)
+	private void AddPlayerToGame(long id)
 	{
-		GD.Print($"Adding player with ID: {id}");
+		GD.Print($"Player {id} has joined the game!");
 
-		Player player = _scene.Instantiate() as Player; // assuming your scene is a Player
-		player.Name = id.ToString();
+		var newPlayer = _playerScene.Instantiate<Player>();
+		newPlayer.Id = (int)id;
+		newPlayer.Name = id.ToString();
+		_playersSpawnNode.AddChild(newPlayer, true);
+	}
 
-		// VERY IMPORTANT: set multiplayer authority
-		player.SetMultiplayerAuthority((int)id);
+	private void RemovePlayerFromGame(long id)
+	{
+		GD.Print($"Player {id} has left the game!");
 
-		_playerManager.AddPlayer(id, player);
-		CallDeferred("add_child", player);
+		if (_playersSpawnNode.HasNode(id.ToString()))
+			_playersSpawnNode.GetNode(id.ToString()).QueueFree();
 	}
 }
