@@ -17,7 +17,7 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar", "Model") groups=["units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar") groups=["units"]]
 script = ExtResource("1_eb2nj")
 VehicleType = 2
 Speed = 8
@@ -27,7 +27,6 @@ Cost = 750
 BuildTime = 8
 Acceleration = 8
 _healthbar = NodePath("Healthbar")
-Model = NodePath("TankGen2")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

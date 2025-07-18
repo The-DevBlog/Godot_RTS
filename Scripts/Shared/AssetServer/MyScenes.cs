@@ -10,6 +10,8 @@ public class MyScenes
         {
             [SceneType.Root] = "res://Scenes/root.tscn",
             [SceneType.Player] = "res://Scenes/player.tscn",
+            [SceneType.LobbyMenu] = "res://Scenes/Menus/multiplayer_lobby.tscn",
+            [SceneType.MainMenu] = "res://Scenes/Menus/main_menu.tscn",
         };
     }
 }

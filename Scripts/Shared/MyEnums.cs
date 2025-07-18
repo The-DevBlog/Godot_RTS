@@ -89,6 +89,8 @@ namespace MyEnums
     {
         None,
         Root,
-        Player
+        Player,
+        LobbyMenu,
+        MainMenu
     }
 }

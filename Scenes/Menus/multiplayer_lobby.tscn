@@ -70,7 +70,7 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[node name="MultiplayerLobbyMenu" type="Control" node_paths=PackedStringArray("_playerList", "_playerContainer")]
+[node name="MultiplayerLobbyMenu" type="Control" node_paths=PackedStringArray("_playerList", "_playerContainer", "_lobbyContainer", "_hostJoinContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -78,8 +78,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ncm0y")
-_playerList = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList")
-_playerContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer")
+_playerList = NodePath("MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList")
+_playerContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer")
+_lobbyContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/LobbyContainer")
+_hostJoinContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HostJoinContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -106,39 +108,40 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+[node name="LobbyContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="AddPlayerButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="AddPlayerButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 2
 theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Add Player"
 
-[node name="PlayerList" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PlayerList" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer"]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_constants/separation = 20
 
-[node name="PlayerContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList"]
+[node name="PlayerContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList"]
 layout_mode = 2
 theme_override_styles/panel = ExtResource("4_kawp7")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer" node_paths=PackedStringArray("_colorOptionButton", "_teamOptionButton")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer" node_paths=PackedStringArray("_colorOptionButton", "_teamOptionButton")]
 layout_mode = 2
 theme_override_constants/separation = 20
 script = ExtResource("3_x1b4t")
 _colorOptionButton = NodePath("ColorOptionButton")
 _teamOptionButton = NodePath("TeamOptionButton")
 
-[node name="PlayerLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
+[node name="PlayerLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_kawp7")
 text = "Player 1"
 
-[node name="ColorOptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
+[node name="ColorOptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxFlat_yw17h")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yw17h")
@@ -154,12 +157,12 @@ popup/item_2/id = 2
 popup/item_3/text = "orange"
 popup/item_3/id = 3
 
-[node name="FundsLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
+[node name="FundsLabel" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_iqw6m")
 text = "$7500"
 
-[node name="TeamOptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer"]
+[node name="TeamOptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxFlat_8m0dv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8m0dv")
@@ -175,13 +178,62 @@ popup/item_2/id = 2
 popup/item_3/text = "Team 4"
 popup/item_3/id = 3
 
-[node name="LaunchButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="BtnBack" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 10
+theme_override_styles/normal = ExtResource("4_kawp7")
+text = "Back"
+
+[node name="BtnLaunchGame" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
 size_flags_vertical = 10
 theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Launch Game"
 
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/AddPlayerButton" to="." method="AddPlayer"]
-[connection signal="item_selected" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer/ColorOptionButton" to="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerList/PlayerContainer/HBoxContainer" method="ChangeColor"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/LaunchButton" to="." method="EnterGame"]
+[node name="HostJoinContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+alignment = 1
+
+[node name="BtnHost" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/hover = ExtResource("4_kawp7")
+theme_override_styles/pressed = ExtResource("4_kawp7")
+theme_override_styles/normal = ExtResource("4_kawp7")
+text = "Host
+"
+
+[node name="BtnJoin" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/hover = ExtResource("4_kawp7")
+theme_override_styles/pressed = ExtResource("4_kawp7")
+theme_override_styles/normal = ExtResource("4_kawp7")
+text = "join"
+
+[node name="BtnBack" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/hover = ExtResource("4_kawp7")
+theme_override_styles/pressed = ExtResource("4_kawp7")
+theme_override_styles/normal = ExtResource("4_kawp7")
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/AddPlayerButton" to="." method="AddPlayer"]
+[connection signal="item_selected" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer/ColorOptionButton" to="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer" method="ChangeColor"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnBack" to="." method="OnBackToHostJoinPressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnLaunchGame" to="." method="OnLaunchGame"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer/BtnHost" to="." method="OnHostPressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer/BtnJoin" to="." method="OnJoinPressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/BtnBack" to="." method="OnBackToMainMenuPressed"]

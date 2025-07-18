@@ -149,8 +149,7 @@ visible = false
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
 
-[node name="MultiplayerHUD" parent="." node_paths=PackedStringArray("_playersSpawnNode") instance=ExtResource("14_20eh2")]
-_playersSpawnNode = NodePath("../Players")
+[node name="MultiplayerHUD" parent="." instance=ExtResource("14_20eh2")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob", "uid://yd0x5g7600ta")

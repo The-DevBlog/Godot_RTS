@@ -1,15 +1,22 @@
 using Godot;
-using System;
+using MyEnums;
 
 public partial class MainMenu : Control
 {
-	// Called when the node enters the scene tree for the first time.
+	private MyScenes _scenes;
 	public override void _Ready()
 	{
+		_scenes = AssetServer.Instance.Scenes;
+		Utils.NullCheck(_scenes);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void OnSinglePlayerPressed()
 	{
+
+	}
+
+	private void OnMultiplayerPressed()
+	{
+		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.LobbyMenu]);
 	}
 }
