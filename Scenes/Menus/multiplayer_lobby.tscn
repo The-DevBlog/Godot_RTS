@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://crau2mk2tql7i"]
+[gd_scene load_steps=11 format=3 uid="uid://crau2mk2tql7i"]
 
 [ext_resource type="Script" uid="uid://bm1d74ua5wklg" path="res://Scripts/Menus/LobbyMenu/LobbyMenu.cs" id="1_ncm0y"]
 [ext_resource type="Theme" uid="uid://b5o8k040cd7l5" path="res://Assets/Themes/UI/theme_menu_txt.tres" id="2_wceur"]
@@ -70,6 +70,17 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wceur"]
+properties/0/path = NodePath("PlayerContainer/HBoxContainer/TeamOptionButton:selected")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("PlayerContainer/HBoxContainer/ColorOptionButton:selected")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("PlayerContainer/HBoxContainer:_selectedColor")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="MultiplayerLobbyMenu" type="Control" node_paths=PackedStringArray("_playerList", "_playerContainer", "_lobbyContainer", "_hostJoinContainer")]
 layout_mode = 3
 anchors_preset = 15
@@ -126,6 +137,7 @@ size_flags_vertical = 6
 theme_override_constants/separation = 20
 
 [node name="PlayerContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = ExtResource("4_kawp7")
 
@@ -177,6 +189,9 @@ popup/item_2/text = "Team 3"
 popup/item_2/id = 2
 popup/item_3/text = "Team 4"
 popup/item_3/id = 3
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList"]
+replication_config = SubResource("SceneReplicationConfig_wceur")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer"]
 layout_mode = 2
@@ -230,8 +245,10 @@ theme_override_styles/pressed = ExtResource("4_kawp7")
 theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Back"
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList")
+
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/AddPlayerButton" to="." method="AddPlayer"]
-[connection signal="item_selected" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer/ColorOptionButton" to="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList/PlayerContainer/HBoxContainer" method="ChangeColor"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnBack" to="." method="OnBackToHostJoinPressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnLaunchGame" to="." method="OnLaunchGame"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer/BtnHost" to="." method="OnHostPressed"]

@@ -5,6 +5,7 @@ public partial class PlayerContainer : HBoxContainer
 {
 	[Export] private OptionButton _colorOptionButton;
 	[Export] private OptionButton _teamOptionButton;
+	[Export] private Color _selectedColor;
 	private Dictionary<int, Color> _colors;
 	public override void _Ready()
 	{
@@ -21,6 +22,13 @@ public partial class PlayerContainer : HBoxContainer
 
 		RemoveOptionCheckbox(_colorOptionButton);
 		RemoveOptionCheckbox(_teamOptionButton);
+
+		_colorOptionButton.ItemSelected += idx =>
+		{
+			ChangeColor((int)idx);
+			// SetColor((int)idx);
+			// Rpc(nameof(SetColor), idx);
+		};
 	}
 
 	private void RemoveOptionCheckbox(OptionButton optionButton)
@@ -37,12 +45,29 @@ public partial class PlayerContainer : HBoxContainer
 		}
 	}
 
+	// [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	// private void SetColor(int idx)
+	// {
+	// 	_colorOptionButton.Selected = idx;
+
+	// 	// update the UI locally
+	// 	var shared = _colorOptionButton.GetThemeStylebox("normal") as StyleBoxFlat;
+	// 	var style = shared?.Duplicate() as StyleBoxFlat ?? new StyleBoxFlat();
+	// 	style.BgColor = _colors[idx];
+
+	// 	_colorOptionButton.AddThemeStyleboxOverride("normal", style);
+	// 	_colorOptionButton.AddThemeStyleboxOverride("hover", style);
+	// 	_colorOptionButton.AddThemeStyleboxOverride("focus", style);
+	// }
+
 	private void ChangeColor(int idx)
 	{
 		var shared = _colorOptionButton.GetThemeStylebox("normal") as StyleBoxFlat;
 
 		var style = shared?.Duplicate() as StyleBoxFlat ?? new StyleBoxFlat();
-		style.BgColor = _colors[idx];
+		_selectedColor = _colors[idx];
+		style.BgColor = _selectedColor;
+		// style.BgColor = _colors[idx];
 
 		_colorOptionButton.AddThemeStyleboxOverride("normal", style);
 		_colorOptionButton.AddThemeStyleboxOverride("hover", style);
