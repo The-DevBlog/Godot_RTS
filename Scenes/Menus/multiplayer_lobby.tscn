@@ -78,7 +78,6 @@ theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Launch Game"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer"]
-_spawnable_scenes = PackedStringArray("uid://qk3hrbatu5xm")
 spawn_path = NodePath("../PlayerList")
 
 [node name="HostJoinContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
