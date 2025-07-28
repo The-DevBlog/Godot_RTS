@@ -90,6 +90,7 @@ namespace MyEnums
         None,
         Root,
         Player,
+        PlayerContainer,
         LobbyMenu,
         MainMenu
     }

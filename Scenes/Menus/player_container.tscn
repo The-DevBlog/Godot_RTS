@@ -1,0 +1,128 @@
+[gd_scene load_steps=8 format=3 uid="uid://qk3hrbatu5xm"]
+
+[ext_resource type="StyleBox" uid="uid://cjojiuntxl62b" path="res://Assets/Themes/UI/btn_stylebox.tres" id="1_na13k"]
+[ext_resource type="Script" uid="uid://jae43usw2h2e" path="res://Scripts/Menus/LobbyMenu/PlayerContainer.cs" id="2_nsg5l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kawp7"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yw17h"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.819608, 0.247059, 0.294118, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqw6m"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m0dv"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_na13k"]
+
+[node name="PlayerContainer" type="PanelContainer" node_paths=PackedStringArray("PlayerIdLabel", "_fundsLabel", "_colorOptionButton", "_teamOptionButton")]
+theme_override_styles/panel = ExtResource("1_na13k")
+script = ExtResource("2_nsg5l")
+PlayerIdLabel = NodePath("HBoxContainer/PlayerIdLabel")
+_fundsLabel = NodePath("HBoxContainer/FundsLabel")
+_colorOptionButton = NodePath("HBoxContainer/ColorOptionButton")
+_teamOptionButton = NodePath("HBoxContainer/TeamOptionButton")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayerIdLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_kawp7")
+text = "Player 1"
+
+[node name="ColorOptionButton" type="OptionButton" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_yw17h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yw17h")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yw17h")
+selected = 0
+item_count = 4
+popup/item_0/text = "red"
+popup/item_0/id = 0
+popup/item_1/text = "Green"
+popup/item_1/id = 1
+popup/item_2/text = "blue"
+popup/item_2/id = 2
+popup/item_3/text = "orange"
+popup/item_3/id = 3
+
+[node name="FundsLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_iqw6m")
+text = "$7500"
+
+[node name="TeamOptionButton" type="OptionButton" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_8m0dv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8m0dv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_8m0dv")
+selected = 0
+item_count = 4
+popup/item_0/text = "Team 1"
+popup/item_0/id = 0
+popup/item_1/text = "Team 2"
+popup/item_1/id = 1
+popup/item_2/text = "Team 3"
+popup/item_2/id = 2
+popup/item_3/text = "Team 4"
+popup/item_3/id = 3
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+root_path = NodePath("../HBoxContainer")
+replication_config = SubResource("SceneReplicationConfig_na13k")

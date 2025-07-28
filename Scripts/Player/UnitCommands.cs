@@ -37,8 +37,8 @@ public partial class UnitCommands : Player
 
 	public override void _Process(double delta)
 	{
-		_isAnySelected = _selectedUnits.Count > 0;
-		HandleMouseInput();
+		// _isAnySelected = _selectedUnits.Count > 0;
+		// HandleMouseInput();
 	}
 
 	public override void _Draw()

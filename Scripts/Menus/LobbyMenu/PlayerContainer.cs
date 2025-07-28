@@ -1,8 +1,10 @@
 using Godot;
 using System.Collections.Generic;
 
-public partial class PlayerContainer : HBoxContainer
+public partial class PlayerContainer : PanelContainer
 {
+	[Export] public Label PlayerIdLabel;
+	[Export] public Label _fundsLabel;
 	[Export] private OptionButton _colorOptionButton;
 	[Export] private OptionButton _teamOptionButton;
 	[Export] private Color _selectedColor;
@@ -17,7 +19,9 @@ public partial class PlayerContainer : HBoxContainer
 			{ 3, new Color("#a26f2a") }, // Orange
 		};
 
+		Utils.NullExportCheck(PlayerIdLabel);
 		Utils.NullExportCheck(_colorOptionButton);
+		Utils.NullExportCheck(_fundsLabel);
 		Utils.NullExportCheck(_teamOptionButton);
 
 		RemoveOptionCheckbox(_colorOptionButton);
