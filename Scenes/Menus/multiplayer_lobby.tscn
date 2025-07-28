@@ -119,7 +119,6 @@ text = "Back"
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/AddPlayerButton" to="." method="AddPlayer"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnLeave" to="." method="OnLeaveLobbyPressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnLaunchGame" to="." method="OnLaunchGame"]
-[connection signal="spawned" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/MultiplayerSpawner" to="." method="OnPlayerSpawn"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer/BtnHost" to="." method="OnHostPressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer/BtnJoin" to="." method="OnJoinPressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/BtnBack" to="." method="OnBackToMainMenuPressed"]
