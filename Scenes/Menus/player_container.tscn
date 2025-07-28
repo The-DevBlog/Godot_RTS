@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bf63flta524y8"]
+[gd_scene load_steps=8 format=3 uid="uid://bf63flta524y8"]
 
 [ext_resource type="StyleBox" uid="uid://cjojiuntxl62b" path="res://Assets/Themes/UI/btn_stylebox.tres" id="1_na13k"]
 [ext_resource type="Script" uid="uid://jae43usw2h2e" path="res://Scripts/Menus/LobbyMenu/PlayerContainer.cs" id="2_nsg5l"]
@@ -67,6 +67,8 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_na13k"]
+
 [node name="PlayerContainer" type="PanelContainer" node_paths=PackedStringArray("PlayerIdLabel", "_fundsLabel", "_colorOptionButton", "_teamOptionButton")]
 theme_override_styles/panel = ExtResource("1_na13k")
 script = ExtResource("2_nsg5l")
@@ -82,7 +84,6 @@ theme_override_constants/separation = 20
 [node name="PlayerIdLabel" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_kawp7")
-text = "Player 1"
 
 [node name="ColorOptionButton" type="OptionButton" parent="HBoxContainer"]
 layout_mode = 2
@@ -120,3 +121,6 @@ popup/item_2/text = "Team 3"
 popup/item_2/id = 2
 popup/item_3/text = "Team 4"
 popup/item_3/id = 3
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="HBoxContainer"]
+replication_config = SubResource("SceneReplicationConfig_na13k")

@@ -63,12 +63,12 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BtnBack" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer"]
+[node name="BtnLeave" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 10
 theme_override_styles/normal = ExtResource("4_kawp7")
-text = "Back"
+text = "Leave"
 
 [node name="BtnLaunchGame" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer"]
 layout_mode = 2
@@ -78,6 +78,7 @@ theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Launch Game"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="MarginContainer/PanelContainer/MarginContainer/LobbyContainer"]
+_spawnable_scenes = PackedStringArray("uid://bf63flta524y8")
 spawn_path = NodePath("../PlayerList")
 
 [node name="HostJoinContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
@@ -115,7 +116,7 @@ theme_override_styles/normal = ExtResource("4_kawp7")
 text = "Back"
 
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/AddPlayerButton" to="." method="AddPlayer"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnBack" to="." method="OnBackToHostJoinPressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnLeave" to="." method="OnLeaveLobbyPressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/LobbyContainer/HBoxContainer/BtnLaunchGame" to="." method="OnLaunchGame"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer/BtnHost" to="." method="OnHostPressed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/MarginContainer/HostJoinContainer/VBoxContainer/BtnJoin" to="." method="OnJoinPressed"]

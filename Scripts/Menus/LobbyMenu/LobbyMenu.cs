@@ -176,6 +176,7 @@ public partial class LobbyMenu : Control
 
 		// Hook connection signal
 		Multiplayer.PeerConnected += AddPlayer;
+		Multiplayer.PeerDisconnected += RemovePlayer;
 
 		// Spawn the host player (peer 1)
 		AddPlayer(Multiplayer.GetUniqueId());
@@ -196,29 +197,46 @@ public partial class LobbyMenu : Control
 		// 3) Tweak the row’s label & name
 		playerContainer.Name = $"Player{id}";
 
-		// playerContainer.GetNode<Label>("HBoxContainer/PlayerLabel").Text = $"Player {id}";
-
 		// 4) Add it under the watched node (_playerList_, your Spawn Path)
-		_playerList.AddChild(playerContainer);
+		_playerList.AddChild(playerContainer, true);
+		playerContainer.PlayerIdLabel.Text = $"Player {id}";
+
+		GD.Print($"Player {id} has joined the game!");
 	}
+
+	private void RemovePlayer(long id)
+	{
+		if (!Multiplayer.IsServer())
+			return;
+
+		var name = $"Player{id}";
+		if (_playerList.HasNode(name))
+			_playerList.GetNode<Node>(name).QueueFree();
+
+		GD.Print($"Player {id} has left the game!");
+	}
+
 	private void OnJoinPressed()
 	{
 		_hostJoinContainer.Hide();
 		_lobbyContainer.Show();
 
 		// Connect to ENet server as client
-		var clientPeer = new ENetMultiplayerPeer();
-		clientPeer.CreateClient(ServerIP, ServerPort);
-		Multiplayer.MultiplayerPeer = clientPeer;
+		var _clientPeer = new ENetMultiplayerPeer();
+		_clientPeer.CreateClient(ServerIP, ServerPort);
+		Multiplayer.MultiplayerPeer = _clientPeer;
 		// Server will spawn us via the spawner
 
 		AddPlayer(Multiplayer.GetUniqueId());
 	}
 
-	private void OnBackToHostJoinPressed()
+	private void OnLeaveLobbyPressed()
 	{
 		_hostJoinContainer.Show();
 		_lobbyContainer.Hide();
+
+		Multiplayer.MultiplayerPeer.Close();
+		Multiplayer.MultiplayerPeer = null;
 	}
 
 	private void OnBackToMainMenuPressed()
