@@ -1,138 +1,3 @@
-// using Godot;
-// using MyEnums;
-
-// public partial class LobbyMenu : Control
-// {
-// 	public Player LocalPlayer { get; private set; }
-// 	public PackedScene _playerScene;
-// 	[Export] private VBoxContainer _playerList;
-// 	[Export] private PanelContainer _playerContainer;
-// 	[Export] private VBoxContainer _lobbyContainer;
-// 	[Export] private VBoxContainer _hostJoinContainer;
-// 	[Export] private MultiplayerSpawner _multiplayerSpawner;
-// 	private PlayerManager _playerManager;
-// 	private const int ServerPort = 8080;
-// 	private const string ServerIP = "127.0.0.1";
-// 	private MyScenes _scenes;
-// 	public override void _Ready()
-// 	{
-// 		_scenes = AssetServer.Instance.Scenes;
-// 		_playerManager = PlayerManager.Instance;
-// 		_playerScene = GD.Load<PackedScene>(_scenes.Scenes[SceneType.Player]);
-
-// 		Utils.NullCheck(_scenes);
-// 		Utils.NullExportCheck(_playerContainer);
-// 		Utils.NullExportCheck(_playerList);
-// 		Utils.NullExportCheck(_lobbyContainer);
-// 		Utils.NullExportCheck(_hostJoinContainer);
-// 		Utils.NullExportCheck(_multiplayerSpawner);
-// 	}
-
-// 	private void OnLaunchGame()
-// 	{
-// 		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
-// 	}
-
-// 	private void OnHostPressed()
-// 	{
-// 		_hostJoinContainer.Hide();
-// 		_lobbyContainer.Show();
-
-// 		var serverPeer = new ENetMultiplayerPeer();
-// 		serverPeer.CreateServer(ServerPort);
-
-// 		Multiplayer.MultiplayerPeer = serverPeer;
-// 		Multiplayer.PeerConnected += AddPlayer;
-// 		// Multiplayer.PeerDisconnected += RemovePlayerFromGame;
-
-// 		LocalPlayer = _playerScene.Instantiate<Player>();
-// 		_playerManager.LocalPlayer = LocalPlayer;
-
-// 		AddPlayer(Multiplayer.GetUniqueId());
-// 		// AddPlayerToLobby(Multiplayer.GetUniqueId());
-// 		// Rpc(nameof(AddPlayerToLobby), Multiplayer.GetUniqueId());
-// 	}
-
-// 	private void AddPlayer(long id)
-// 	{
-// 		// var newPlayer = playerContainer.Instantiate<Player>();
-
-// 		// GD.Print($"Player {id} has joined the game!");
-
-// 		var newPlayer = _playerScene.Instantiate<Player>();
-// 		newPlayer.Id = (int)id;
-// 		newPlayer.Name = id.ToString();
-// 		_playerManager.PlayersToAdd[id] = newPlayer;
-
-// 		_multiplayerSpawner.Spawn();
-
-
-// 		// var playerContainer = _scenes.Scenes[SceneType.PlayerContainer];
-// 		// var playerContainer = GD.Load<PackedScene>(_scenes.Scenes[SceneType.PlayerContainer]);
-// 		// var row = (PanelContainer)playerContainer.Instantiate();
-// 		// row.Name = $"Player{id}";
-// 		// row.GetNode<Label>("HBoxContainer/PlayerLabel").Text = $"Player {id}";
-// 		// row.Show();
-// 		// _playerList.AddChild(row);
-
-// 		// var row = (PanelContainer)playerContainer.In
-
-
-// 		// _playersSpawnNode.AddChild(newPlayer, true);
-
-// 		// // 1) show the new player on this host’s UI
-// 		// AddPlayerToLobby(id);
-
-// 		// // 2) broadcast to everyone else
-// 		// Rpc(nameof(AddPlayerToLobby), id);
-
-// 		// // 3) now “catch up” the new client by sending them all prior players
-// 		// foreach (var kv in _playerManager.PlayersToAdd)
-// 		// {
-// 		// 	long existingId = kv.Key;
-// 		// 	if (existingId == id) continue;
-// 		// 	// send only to the newcomer
-// 		// 	RpcId(id, nameof(AddPlayerToLobby), existingId);
-// 		// }
-
-// 		// GD.Print("Connected players: ", _playerManager.PlayersToAdd.Count);
-// 	}
-
-// 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-// 	private void AddPlayerToLobby(long id)
-// 	{
-// 		PanelContainer row = (PanelContainer)_playerContainer.Duplicate();
-// 		row.Name = $"Player{id}";
-// 		row.GetNode<Label>("HBoxContainer/PlayerLabel").Text = $"Player {id}";
-// 		row.Show();
-// 		_playerList.AddChild(row);
-// 	}
-
-// 	private void OnJoinPressed()
-// 	{
-// 		_hostJoinContainer.Hide();
-// 		_lobbyContainer.Show();
-
-// 		var clientPeer = new ENetMultiplayerPeer();
-// 		clientPeer.CreateClient(ServerIP, ServerPort);
-
-// 		Multiplayer.MultiplayerPeer = clientPeer;
-// 		LocalPlayer = _playerScene.Instantiate<Player>();
-// 		_playerManager.LocalPlayer = LocalPlayer;
-// 	}
-
-// 	private void OnBackToHostJoinPressed()
-// 	{
-// 		_hostJoinContainer.Show();
-// 		_lobbyContainer.Hide();
-// 	}
-
-// 	private void OnBackToMainMenuPressed()
-// 	{
-// 		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.MainMenu]);
-// 	}
-// }
-
 using Godot;
 using MyEnums;
 
@@ -185,34 +50,12 @@ public partial class LobbyMenu : Control
 		AddPlayer(Multiplayer.GetUniqueId());
 	}
 
-	// private void AddPlayer(long id)
-	// {
-	// 	// Only the host actually creates the UI row
-	// 	if (!Multiplayer.IsServer())
-	// 		return;
-
-	// 	// 1) Instantiate the PanelContainer scene (the one you added in the editor)
-	// 	PlayerContainer playerContainer = _playerContainerScene.Instantiate<PlayerContainer>();
-
-	// 	// 2) Assign authority to the new peer so replication works
-	// 	playerContainer.SetMultiplayerAuthority((int)id);
-
-	// 	// 3) Tweak the row’s label & name
-	// 	playerContainer.Name = $"Player{id}";
-	// 	// playerContainer.PlayerIdLabel.Text = $"Player {id}";
-	// 	playerContainer.PlayerId = (int)id;
-
-	// 	// 4) Add it under the watched node (_playerList_, your Spawn Path)
-	// 	_playerList.AddChild(playerContainer, true);
-
-	// 	GD.Print($"Player {id} has joined the game!");
-	// }
-
 	private void AddPlayer(long id)
 	{
 		if (!Multiplayer.IsServer()) return;
+
 		// this will call OnPlayerSpawn(id) on server+clients
-		_multiplayerSpawner.Spawn((Variant)id);
+		_multiplayerSpawner.Spawn(id);
 	}
 
 	private Node OnPlayerSpawn(Variant data)
@@ -246,8 +89,8 @@ public partial class LobbyMenu : Control
 		var _clientPeer = new ENetMultiplayerPeer();
 		_clientPeer.CreateClient(ServerIP, ServerPort);
 		Multiplayer.MultiplayerPeer = _clientPeer;
-		// Server will spawn us via the spawner
 
+		// Server will spawn us via the spawner
 		AddPlayer(Multiplayer.GetUniqueId());
 	}
 
