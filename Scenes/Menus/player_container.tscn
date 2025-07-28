@@ -122,5 +122,5 @@ popup/item_2/id = 2
 popup/item_3/text = "Team 4"
 popup/item_3/id = 3
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="HBoxContainer"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_na13k")

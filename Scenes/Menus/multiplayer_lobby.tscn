@@ -5,7 +5,7 @@
 [ext_resource type="StyleBox" uid="uid://civxs0da571p2" path="res://Assets/Themes/UI/theme_menu_stylebox.tres" id="3_12y25"]
 [ext_resource type="StyleBox" uid="uid://cjojiuntxl62b" path="res://Assets/Themes/UI/btn_stylebox.tres" id="4_kawp7"]
 
-[node name="MultiplayerLobbyMenu" type="Control" node_paths=PackedStringArray("_playerList", "_lobbyContainer", "_hostJoinContainer")]
+[node name="MultiplayerLobbyMenu" type="Control" node_paths=PackedStringArray("_playerList", "_lobbyContainer", "_hostJoinContainer", "_multiplayerSpawner")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,7 @@ script = ExtResource("1_ncm0y")
 _playerList = NodePath("MarginContainer/PanelContainer/MarginContainer/LobbyContainer/PlayerList")
 _lobbyContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/LobbyContainer")
 _hostJoinContainer = NodePath("MarginContainer/PanelContainer/MarginContainer/HostJoinContainer")
+_multiplayerSpawner = NodePath("MarginContainer/PanelContainer/MarginContainer/LobbyContainer/MultiplayerSpawner")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -139,10 +139,11 @@ using MyEnums;
 public partial class LobbyMenu : Control
 {
 	[Export] private VBoxContainer _playerList;
-	[Export] private PackedScene _playerContainerScene;
 	[Export] private VBoxContainer _lobbyContainer;
 	[Export] private VBoxContainer _hostJoinContainer;
+	[Export] private MultiplayerSpawner _multiplayerSpawner;
 	private PlayerManager _playerManager;
+	private PackedScene _playerContainerScene;
 	private MyScenes _scenes;
 	private const int ServerPort = 8080;
 	private const string ServerIP = "127.0.0.1";
@@ -159,9 +160,11 @@ public partial class LobbyMenu : Control
 		// Null checks for exported nodes
 		Utils.NullCheck(_scenes);
 		Utils.NullExportCheck(_playerList);
-		// Utils.NullExportCheck(_playerContainerScene);
+		Utils.NullExportCheck(_multiplayerSpawner);
 		Utils.NullExportCheck(_lobbyContainer);
 		Utils.NullExportCheck(_hostJoinContainer);
+
+		_multiplayerSpawner.SpawnFunction = new Callable(this, nameof(OnPlayerSpawn));
 	}
 
 	private void OnHostPressed()
@@ -182,26 +185,44 @@ public partial class LobbyMenu : Control
 		AddPlayer(Multiplayer.GetUniqueId());
 	}
 
+	// private void AddPlayer(long id)
+	// {
+	// 	// Only the host actually creates the UI row
+	// 	if (!Multiplayer.IsServer())
+	// 		return;
+
+	// 	// 1) Instantiate the PanelContainer scene (the one you added in the editor)
+	// 	PlayerContainer playerContainer = _playerContainerScene.Instantiate<PlayerContainer>();
+
+	// 	// 2) Assign authority to the new peer so replication works
+	// 	playerContainer.SetMultiplayerAuthority((int)id);
+
+	// 	// 3) Tweak the row’s label & name
+	// 	playerContainer.Name = $"Player{id}";
+	// 	// playerContainer.PlayerIdLabel.Text = $"Player {id}";
+	// 	playerContainer.PlayerId = (int)id;
+
+	// 	// 4) Add it under the watched node (_playerList_, your Spawn Path)
+	// 	_playerList.AddChild(playerContainer, true);
+
+	// 	GD.Print($"Player {id} has joined the game!");
+	// }
+
 	private void AddPlayer(long id)
 	{
-		// Only the host actually creates the UI row
-		if (!Multiplayer.IsServer())
-			return;
+		if (!Multiplayer.IsServer()) return;
+		// this will call OnPlayerSpawn(id) on server+clients
+		_multiplayerSpawner.Spawn((Variant)id);
+	}
 
-		// 1) Instantiate the PanelContainer scene (the one you added in the editor)
-		PlayerContainer playerContainer = _playerContainerScene.Instantiate<PlayerContainer>();
-
-		// 2) Assign authority to the new peer so replication works
-		playerContainer.SetMultiplayerAuthority((int)id);
-
-		// 3) Tweak the row’s label & name
-		playerContainer.Name = $"Player{id}";
-
-		// 4) Add it under the watched node (_playerList_, your Spawn Path)
-		_playerList.AddChild(playerContainer, true);
-		playerContainer.PlayerIdLabel.Text = $"Player {id}";
-
-		GD.Print($"Player {id} has joined the game!");
+	private Node OnPlayerSpawn(Variant data)
+	{
+		int id = (int)(long)data;                   // pull your peer ID back out
+		var pc = _playerContainerScene.Instantiate<PlayerContainer>();
+		pc.Name = $"Player{id}";
+		pc.SetMultiplayerAuthority(id);             // authority on the root node
+		pc.PlayerId = id;                           // exported int, watched by your synchronizer
+		return pc;
 	}
 
 	private void RemovePlayer(long id)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public partial class PlayerContainer : PanelContainer
 {
+	[Export] public int PlayerId;
 	[Export] public Label PlayerIdLabel;
 	[Export] public Label _fundsLabel;
 	[Export] private OptionButton _colorOptionButton;
@@ -33,6 +34,8 @@ public partial class PlayerContainer : PanelContainer
 			// SetColor((int)idx);
 			// Rpc(nameof(SetColor), idx);
 		};
+
+		PlayerIdLabel.Text = $"Player {PlayerId}";
 	}
 
 	private void RemoveOptionCheckbox(OptionButton optionButton)
@@ -48,21 +51,6 @@ public partial class PlayerContainer : PanelContainer
 				popup.SetItemAsRadioCheckable(i, false);
 		}
 	}
-
-	// [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-	// private void SetColor(int idx)
-	// {
-	// 	_colorOptionButton.Selected = idx;
-
-	// 	// update the UI locally
-	// 	var shared = _colorOptionButton.GetThemeStylebox("normal") as StyleBoxFlat;
-	// 	var style = shared?.Duplicate() as StyleBoxFlat ?? new StyleBoxFlat();
-	// 	style.BgColor = _colors[idx];
-
-	// 	_colorOptionButton.AddThemeStyleboxOverride("normal", style);
-	// 	_colorOptionButton.AddThemeStyleboxOverride("hover", style);
-	// 	_colorOptionButton.AddThemeStyleboxOverride("focus", style);
-	// }
 
 	private void ChangeColor(int idx)
 	{
