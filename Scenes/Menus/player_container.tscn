@@ -71,6 +71,9 @@ corner_radius_bottom_left = 3
 properties/0/path = NodePath("HBoxContainer/ColorOptionButton:selected")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath("HBoxContainer/TeamOptionButton:selected")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="PlayerContainer" type="PanelContainer" node_paths=PackedStringArray("PlayerIdLabel", "_fundsLabel", "_colorOptionButton", "_teamOptionButton")]
 theme_override_styles/panel = ExtResource("1_na13k")
@@ -91,6 +94,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_kawp7")
 [node name="ColorOptionButton" type="OptionButton" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxFlat_yw17h")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_yw17h")
 theme_override_styles/hover = SubResource("StyleBoxFlat_yw17h")
 theme_override_styles/normal = SubResource("StyleBoxFlat_yw17h")
 selected = 0
@@ -112,6 +116,7 @@ text = "$7500"
 [node name="TeamOptionButton" type="OptionButton" parent="HBoxContainer"]
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxFlat_8m0dv")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_8m0dv")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8m0dv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_8m0dv")
 selected = 0

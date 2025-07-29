@@ -63,7 +63,7 @@ public partial class LobbyMenu : Control
 		int id = (int)(long)data;                   // pull your peer ID back out
 		var pc = _playerContainerScene.Instantiate<PlayerContainer>();
 		pc.Name = $"Player{id}";
-		pc.SetMultiplayerAuthority(id);             // authority on the root node
+		pc.SetMultiplayerAuthority(1);             // authority given to server
 		pc.PlayerId = id;                           // exported int, watched by your synchronizer
 		return pc;
 	}

@@ -10,6 +10,7 @@ public partial class PlayerContainer : PanelContainer
 	[Export] private OptionButton _teamOptionButton;
 	[Export] private Color _selectedColor;
 	private Dictionary<int, Color> _colors;
+
 	public override void _Ready()
 	{
 		_colors = new()
@@ -30,12 +31,29 @@ public partial class PlayerContainer : PanelContainer
 
 		_colorOptionButton.ItemSelected += idx =>
 		{
+			// then locally apply it too:
 			ChangeColor((int)idx);
-			// SetColor((int)idx);
-			// Rpc(nameof(SetColor), idx);
 		};
 
+		// Disable changeable properties if not server
+		if (!Multiplayer.IsServer())
+		{
+			_colorOptionButton.Disabled = true;
+			_teamOptionButton.Disabled = true;
+		}
+
 		PlayerIdLabel.Text = $"Player {PlayerId}";
+	}
+
+	private void ChangeColor(int idx)
+	{
+		var shared = _colorOptionButton.GetThemeStylebox("normal") as StyleBoxFlat;
+		var style = shared?.Duplicate() as StyleBoxFlat ?? new StyleBoxFlat();
+
+		style.BgColor = _colors[idx];
+		_colorOptionButton.AddThemeStyleboxOverride("normal", style);
+		_colorOptionButton.AddThemeStyleboxOverride("hover", style);
+		_colorOptionButton.AddThemeStyleboxOverride("focus", style);
 	}
 
 	private void RemoveOptionCheckbox(OptionButton optionButton)
@@ -50,19 +68,5 @@ public partial class PlayerContainer : PanelContainer
 			if (popup.IsItemRadioCheckable(i))
 				popup.SetItemAsRadioCheckable(i, false);
 		}
-	}
-
-	private void ChangeColor(int idx)
-	{
-		var shared = _colorOptionButton.GetThemeStylebox("normal") as StyleBoxFlat;
-
-		var style = shared?.Duplicate() as StyleBoxFlat ?? new StyleBoxFlat();
-		_selectedColor = _colors[idx];
-		style.BgColor = _selectedColor;
-		// style.BgColor = _colors[idx];
-
-		_colorOptionButton.AddThemeStyleboxOverride("normal", style);
-		_colorOptionButton.AddThemeStyleboxOverride("hover", style);
-		_colorOptionButton.AddThemeStyleboxOverride("focus", style);
 	}
 }
