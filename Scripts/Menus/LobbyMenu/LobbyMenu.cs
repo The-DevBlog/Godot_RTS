@@ -64,7 +64,7 @@ public partial class LobbyMenu : Control
 		var pc = _playerContainerScene.Instantiate<PlayerContainer>();
 		pc.Name = $"Player{id}";
 		pc.SetMultiplayerAuthority(1);             // authority given to server
-		pc.PlayerId = id;                           // exported int, watched by your synchronizer
+		pc.PlayerId = id;                          // exported int, watched by your synchronizer
 		return pc;
 	}
 
