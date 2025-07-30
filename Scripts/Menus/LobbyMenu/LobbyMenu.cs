@@ -94,6 +94,11 @@ public partial class LobbyMenu : Control
 		AddPlayer(Multiplayer.GetUniqueId());
 	}
 
+	private void OnLaunchGamePressed()
+	{
+		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
+	}
+
 	private void OnLeaveLobbyPressed()
 	{
 		_hostJoinContainer.Show();

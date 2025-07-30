@@ -22,11 +22,13 @@ public partial class PlayerContainer : PanelContainer
 
 	// Replicated color property
 	private Color _playerColor = new Color("#d13f4b");
-
 	private Dictionary<int, Color> _colors;
+	private PlayerManager _playerManager;
 
 	public override void _Ready()
 	{
+		_playerManager = PlayerManager.Instance;
+
 		// Initialize the available colors
 		_colors = new()
 		{
@@ -91,9 +93,27 @@ public partial class PlayerContainer : PanelContainer
 		}
 	}
 
+	private void OnReadyUpPressed(bool toggledOn)
+	{
+		if (!Multiplayer.IsServer())
+			return;
+
+		if (!toggledOn)
+		{
+			_playerManager.UnstagePlayer(PlayerId);
+			return;
+		}
+
+		Player newPlayer = new Player(PlayerId, PlayerColor, 25000, true);
+		_playerManager.StagePlayer(newPlayer);
+	}
+
 	// Resets the ready-up state for a player if any of his settings are changed
 	private void ResetReadyUp(int idx)
 	{
 		_readyupBtn.SetPressedNoSignal(false);
+
+		if (Multiplayer.IsServer())
+			_playerManager.UnstagePlayer(PlayerId);
 	}
 }

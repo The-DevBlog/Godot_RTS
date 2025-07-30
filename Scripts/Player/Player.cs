@@ -9,19 +9,6 @@ public partial class Player : Control
 	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
 	[Export] public Color Color { get; set; }
 	[Export] public int Funds { get; private set; }
-
-	[Signal] public delegate void OnUpdateEnergyEventHandler(int amount);
-	[Signal] public delegate void OnUpdateFundsEventHandler(int amount);
-	[Signal] public delegate void BuildVehicleEventHandler(Vehicle vehicle);
-	[Signal] public delegate void OnAddBarracksEventHandler(int barracksCount);
-	[Signal] public delegate void OnAddGarageEventHandler(int garageCount);
-	[Signal] public delegate void UpdateInfantryAvailabilityEventHandler();
-	[Signal] public delegate void UpdateVehicleAvailabilityEventHandler();
-	[Signal] public delegate void UpdateUpgradesAvailabilityEventHandler();
-	[Signal] public delegate void BuildInfantryEventHandler(Infantry infantry);
-	[Signal] public delegate void DeselectAllUnitsEventHandler();
-	[Signal] public delegate void SelectUnitsEventHandler(Unit[] units);
-
 	public int MaxStructureCount; // max structure count for garage and barracks
 	public Dictionary<StructureType, int> StructureCount { get; } = new();
 	public int Energy { get; private set; }
@@ -37,6 +24,25 @@ public partial class Player : Control
 	public bool UpgradesAvailable { get; set; }
 	public bool IsPlacingStructure { get; set; }
 	public bool IsHoveringUI { get; set; }
+	[Signal] public delegate void OnUpdateEnergyEventHandler(int amount);
+	[Signal] public delegate void OnUpdateFundsEventHandler(int amount);
+	[Signal] public delegate void BuildVehicleEventHandler(Vehicle vehicle);
+	[Signal] public delegate void OnAddBarracksEventHandler(int barracksCount);
+	[Signal] public delegate void OnAddGarageEventHandler(int garageCount);
+	[Signal] public delegate void UpdateInfantryAvailabilityEventHandler();
+	[Signal] public delegate void UpdateVehicleAvailabilityEventHandler();
+	[Signal] public delegate void UpdateUpgradesAvailabilityEventHandler();
+	[Signal] public delegate void BuildInfantryEventHandler(Infantry infantry);
+	[Signal] public delegate void DeselectAllUnitsEventHandler();
+	[Signal] public delegate void SelectUnitsEventHandler(Unit[] units);
+
+	public Player(int id, Color color, int funds, bool isHuman = false)
+	{
+		Id = id;
+		Color = color;
+		Funds = funds;
+		IsHuman = isHuman;
+	}
 
 	public override void _EnterTree()
 	{

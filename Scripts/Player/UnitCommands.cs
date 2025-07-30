@@ -15,6 +15,10 @@ public partial class UnitCommands : Player
 	private bool _dragActive;
 	private bool _isAnySelected;
 
+	public UnitCommands(int id, Color color, int funds, bool isHuman = false) : base(id, color, funds, isHuman)
+	{
+	}
+
 	public override void _Ready()
 	{
 		GD.Print("UnitCommands _Ready() called");

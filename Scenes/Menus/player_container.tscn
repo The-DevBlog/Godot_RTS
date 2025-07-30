@@ -138,3 +138,4 @@ replication_config = SubResource("SceneReplicationConfig_na13k")
 
 [connection signal="item_selected" from="HBoxContainer/ColorOptionButton" to="." method="ResetReadyUp"]
 [connection signal="item_selected" from="HBoxContainer/TeamOptionButton" to="." method="ResetReadyUp"]
+[connection signal="toggled" from="HBoxContainer/PanelContainer/ReadyUpContainer/BtnReadyUp" to="." method="OnReadyUpPressed"]
