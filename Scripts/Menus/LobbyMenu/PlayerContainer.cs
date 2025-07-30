@@ -78,8 +78,6 @@ public partial class PlayerContainer : PanelContainer
 		_colorOptionButton.AddThemeStyleboxOverride("normal", style);
 		_colorOptionButton.AddThemeStyleboxOverride("hover", style);
 		_colorOptionButton.AddThemeStyleboxOverride("focus", style);
-
-		// ResetReadyUp();
 	}
 
 	private void RemoveOptionCheckbox(OptionButton optionButton)
