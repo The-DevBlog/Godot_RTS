@@ -5,8 +5,7 @@ public partial class PlayerManager : Node
 {
 	public static PlayerManager Instance { get; private set; }
 
-	private readonly Dictionary<long, Player> _players = new();
-	private Dictionary<int, Player> _playersToAdd = new();
+	private Dictionary<int, Player> _stagedPlayers = new();
 
 	public Player LocalPlayer { get; set; }
 	public Player Authority { get; set; }
@@ -18,15 +17,37 @@ public partial class PlayerManager : Node
 
 	public void StagePlayer(Player player)
 	{
-		_playersToAdd[player.Id] = player;
+		_stagedPlayers[player.Id] = player;
 		GD.Print($"Player {player.Id} staged");
 	}
 
 	public void UnstagePlayer(int playerId)
 	{
-		if (_playersToAdd.ContainsKey(playerId))
-			_playersToAdd.Remove(playerId);
+		if (_stagedPlayers.ContainsKey(playerId))
+			_stagedPlayers.Remove(playerId);
 
 		GD.Print($"Player {playerId} unstaged");
+	}
+
+	public void SpawnPlayers()
+	{
+		var spawner = GetNode<MultiplayerSpawner>("MultiplayerSpawner2");
+		if (spawner == null)
+		{
+			Utils.PrintErr("MultiplayerSpawner2 not found!");
+			return;
+		}
+
+		foreach (var kv in _stagedPlayers)
+		{
+			Player player = kv.Value;
+
+			// pack the initial data into a VariantArray
+			var args = new Godot.Collections.Array { (long)player.Id, player.Color, player.Funds, player.Team };
+
+			spawner.Spawn(args);
+		}
+
+		_stagedPlayers.Clear();
 	}
 }

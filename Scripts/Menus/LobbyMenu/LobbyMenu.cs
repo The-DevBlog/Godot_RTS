@@ -96,6 +96,16 @@ public partial class LobbyMenu : Control
 
 	private void OnLaunchGamePressed()
 	{
+		if (!Multiplayer.IsServer())
+			return;
+
+		Rpc(nameof(RpcLaunchGame));
+		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
+	}
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	private void RpcLaunchGame()
+	{
 		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
 	}
 

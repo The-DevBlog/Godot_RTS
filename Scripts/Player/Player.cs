@@ -9,6 +9,7 @@ public partial class Player : Control
 	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
 	[Export] public Color Color { get; set; }
 	[Export] public int Funds { get; private set; }
+	[Export] public int Team;
 	public int MaxStructureCount; // max structure count for garage and barracks
 	public Dictionary<StructureType, int> StructureCount { get; } = new();
 	public int Energy { get; private set; }
