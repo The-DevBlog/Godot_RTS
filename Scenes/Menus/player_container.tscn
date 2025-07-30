@@ -2,6 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://cjojiuntxl62b" path="res://Assets/Themes/UI/btn_stylebox.tres" id="1_na13k"]
 [ext_resource type="Script" uid="uid://jae43usw2h2e" path="res://Scripts/Menus/LobbyMenu/PlayerContainer.cs" id="2_nsg5l"]
+[ext_resource type="StyleBox" uid="uid://4pcynsrutw5s" path="res://Assets/Themes/UI/stylebox.tres" id="3_nsg5l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kawp7"]
 content_margin_left = 10.0
@@ -51,22 +52,6 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8m0dv"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.172549, 0.172549, 0.172549, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_na13k"]
 properties/0/path = NodePath("HBoxContainer/ColorOptionButton:selected")
 properties/0/spawn = true
@@ -74,12 +59,16 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("HBoxContainer/TeamOptionButton:selected")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("HBoxContainer/PanelContainer/ReadyUpContainer/BtnReadyUp:button_pressed")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
-[node name="PlayerContainer" type="PanelContainer" node_paths=PackedStringArray("PlayerIdLabel", "_fundsLabel", "_colorOptionButton", "_teamOptionButton")]
+[node name="PlayerContainer" type="PanelContainer" node_paths=PackedStringArray("PlayerIdLabel", "_fundsLabel", "_readyupBtn", "_colorOptionButton", "_teamOptionButton")]
 theme_override_styles/panel = ExtResource("1_na13k")
 script = ExtResource("2_nsg5l")
 PlayerIdLabel = NodePath("HBoxContainer/PlayerIdLabel")
 _fundsLabel = NodePath("HBoxContainer/FundsLabel")
+_readyupBtn = NodePath("HBoxContainer/PanelContainer/ReadyUpContainer/BtnReadyUp")
 _colorOptionButton = NodePath("HBoxContainer/ColorOptionButton")
 _teamOptionButton = NodePath("HBoxContainer/TeamOptionButton")
 
@@ -115,10 +104,10 @@ text = "$7500"
 
 [node name="TeamOptionButton" type="OptionButton" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxFlat_8m0dv")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_8m0dv")
-theme_override_styles/hover = SubResource("StyleBoxFlat_8m0dv")
-theme_override_styles/normal = SubResource("StyleBoxFlat_8m0dv")
+theme_override_styles/focus = ExtResource("3_nsg5l")
+theme_override_styles/disabled = ExtResource("3_nsg5l")
+theme_override_styles/hover = ExtResource("3_nsg5l")
+theme_override_styles/normal = ExtResource("3_nsg5l")
 selected = 0
 item_count = 4
 popup/item_0/text = "Team 1"
@@ -130,5 +119,22 @@ popup/item_2/id = 2
 popup/item_3/text = "Team 4"
 popup/item_3/id = 3
 
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_nsg5l")
+
+[node name="ReadyUpContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/ReadyUpContainer"]
+layout_mode = 2
+text = "Ready"
+
+[node name="BtnReadyUp" type="CheckButton" parent="HBoxContainer/PanelContainer/ReadyUpContainer"]
+layout_mode = 2
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_na13k")
+
+[connection signal="item_selected" from="HBoxContainer/ColorOptionButton" to="." method="ResetReadyUp"]
+[connection signal="item_selected" from="HBoxContainer/TeamOptionButton" to="." method="ResetReadyUp"]
