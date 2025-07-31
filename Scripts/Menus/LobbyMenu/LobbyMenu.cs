@@ -37,16 +37,13 @@ public partial class LobbyMenu : Control
 		_hostJoinContainer.Hide();
 		_lobbyContainer.Show();
 
-		// Start ENet server
 		var serverPeer = new ENetMultiplayerPeer();
 		serverPeer.CreateServer(ServerPort);
-		Multiplayer.MultiplayerPeer = serverPeer;
 
-		// Hook connection signal
+		Multiplayer.MultiplayerPeer = serverPeer;
 		Multiplayer.PeerConnected += AddPlayer;
 		Multiplayer.PeerDisconnected += RemovePlayer;
 
-		// Spawn the host player (peer 1)
 		AddPlayer(Multiplayer.GetUniqueId());
 	}
 
@@ -96,11 +93,19 @@ public partial class LobbyMenu : Control
 
 	private void OnLaunchGamePressed()
 	{
+		GD.Print("Launching game...");
+
 		if (!Multiplayer.IsServer())
 			return;
 
+		_playerManager.Authority = _playerManager.LocalPlayer;
+		// var spawner = GetNode<MultiplayerSpawner>("PlayerSpawner");
+
 		Rpc(nameof(RpcLaunchGame));
 		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
+
+		// _playerManager.SpawnPlayers();
+		GD.Print("Game launched successfully!");
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]

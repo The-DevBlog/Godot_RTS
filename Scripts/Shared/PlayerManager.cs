@@ -4,11 +4,9 @@ using Godot;
 public partial class PlayerManager : Node
 {
 	public static PlayerManager Instance { get; private set; }
-
-	private Dictionary<int, Player> _stagedPlayers = new();
-
 	public Player LocalPlayer { get; set; }
 	public Player Authority { get; set; }
+	private Dictionary<int, Player> _stagedPlayers = new();
 
 	public override void _EnterTree()
 	{
@@ -31,10 +29,16 @@ public partial class PlayerManager : Node
 
 	public void SpawnPlayers()
 	{
-		var spawner = GetNode<MultiplayerSpawner>("MultiplayerSpawner2");
-		if (spawner == null)
+		if (!Multiplayer.IsServer())
+			return;
+
+		GD.Print("In SpawnPlayers()");
+
+		var sceneRoot = GetTree().CurrentScene;
+		var playerSpawner = sceneRoot.GetNode<MultiplayerSpawner>("PlayerSpawner");
+		if (playerSpawner == null)
 		{
-			Utils.PrintErr("MultiplayerSpawner2 not found!");
+			Utils.PrintErr("PlayerSpawner not found!");
 			return;
 		}
 
@@ -45,7 +49,9 @@ public partial class PlayerManager : Node
 			// pack the initial data into a VariantArray
 			var args = new Godot.Collections.Array { (long)player.Id, player.Color, player.Funds, player.Team };
 
-			spawner.Spawn(args);
+			// spawner.Spawn(args);
+			playerSpawner.Spawn(args);
+			GD.Print("Spawned player: " + player.Id);
 		}
 
 		_stagedPlayers.Clear();

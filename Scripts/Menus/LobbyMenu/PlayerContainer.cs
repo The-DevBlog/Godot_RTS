@@ -19,8 +19,6 @@ public partial class PlayerContainer : PanelContainer
 			ApplyColor(_playerColor);
 		}
 	}
-
-	// Replicated color property
 	private Color _playerColor = new Color("#d13f4b");
 	private Dictionary<int, Color> _colors;
 	private PlayerManager _playerManager;

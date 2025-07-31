@@ -70,7 +70,7 @@ size = Vector3(200, 0.5, 200)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
-[node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner", "Camera")]
+[node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner", "Camera", "PlayerSpawner")]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
 Season = 2
@@ -78,6 +78,7 @@ TimeOfDay = 2
 Weather = 1
 MultiplayerSpawner = NodePath("MultiplayerSpawner")
 Camera = NodePath("GameCamera/CameraZoomPivot/Camera3D")
+PlayerSpawner = NodePath("PlayerSpawner")
 
 [node name="SceneScripts" type="Node3D" parent="."]
 
@@ -152,7 +153,7 @@ visible = false
 _spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob", "uid://yd0x5g7600ta")
 spawn_path = NodePath("../NavigationRegion3D")
 
-[node name="MultiplayerSpawner2" type="MultiplayerSpawner" parent="."]
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 unique_name_in_owner = true
 spawn_path = NodePath("../Players")
 
