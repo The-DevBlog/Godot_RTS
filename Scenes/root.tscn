@@ -155,6 +155,7 @@ spawn_path = NodePath("../NavigationRegion3D")
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
 unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://d3fl0iqleq7ij")
 spawn_path = NodePath("../Players")
 
 [node name="Players" type="Node3D" parent="."]

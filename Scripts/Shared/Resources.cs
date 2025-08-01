@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using MyEnums;
 
@@ -34,19 +33,16 @@ public partial class Resources : Node3D
 		Utils.NullExportCheck(MultiplayerSpawner);
 		Utils.NullExportCheck(PlayerSpawner);
 
+		PlayerSpawner.SpawnFunction = new Callable(this, nameof(OnPlayerSpawned));
+		// PlayerSpawner.Spawned += OnPlayerSpawned;
 		PlayerManager.Instance.SpawnPlayers();
-		PlayerSpawner.Spawned += OnPlayerSpawned;
 
 		GD.Print("Resources _EnterTree() completed");
 	}
 
-	// public override void _Ready()
-	// {
-	// }
-
-	// private void OnPlayerSpawned(Node node)
 	private void OnPlayerSpawned(Node spawnedNode)
 	{
+		GD.Print("RUN");
 		// cast to your actual player scene type
 		if (spawnedNode is not Player player)
 			return;
@@ -54,7 +50,10 @@ public partial class Resources : Node3D
 		// the server already set authority + initial data on spawn,
 		// now each peer can pick out their own local player:
 		if (player.Id == Multiplayer.GetUniqueId())
+		{
+			GD.Print($"Setting local player: {player.Id}");
 			PlayerManager.Instance.LocalPlayer = player;
+		}
 
 		GD.Print($"Player spawned: {player.Id}");
 		// GD.Print($"Player spawned: {node.Name}");
