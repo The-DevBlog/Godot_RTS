@@ -41,7 +41,8 @@ public partial class Resources : Node3D
 		// {
 		// 	GD.Print($"[{Multiplayer.GetUniqueId()}] Spawned a node named {newNode.Name}");
 		// };
-		_playerManager.SpawnPlayers(_playerSpawnNode, _playerSpawner);
+		// _playerManager.SpawnPlayers(_playerSpawnNode, _playerSpawner);
+		_playerManager.SpawnPlayers();
 
 		GD.Print("Resources _EnterTree() completed");
 	}
