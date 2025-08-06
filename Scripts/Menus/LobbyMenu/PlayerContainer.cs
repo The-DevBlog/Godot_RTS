@@ -100,7 +100,14 @@ public partial class PlayerContainer : PanelContainer
 			return;
 		}
 
-		Player newPlayer = new Player(PlayerId, PlayerColor, 25000, true);
+		Player newPlayer = new Player()
+		{
+			Id = PlayerId,
+			Color = PlayerColor,
+			Funds = 25000,
+			IsHuman = true
+		};
+
 		_playerManager.StagePlayer(newPlayer);
 	}
 

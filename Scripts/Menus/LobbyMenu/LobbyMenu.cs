@@ -20,7 +20,8 @@ public partial class LobbyMenu : Control
 		// Load scenes and manager
 		_scenes = AssetServer.Instance.Scenes;
 		_playerManager = PlayerManager.Instance;
-		_playerContainerScene = GD.Load<PackedScene>(_scenes.Scenes[SceneType.PlayerContainer]);
+		_playerContainerScene = _scenes.Scenes[SceneType.PlayerContainer];
+
 
 		// Null checks for exported nodes
 		Utils.NullCheck(_scenes);
@@ -102,7 +103,8 @@ public partial class LobbyMenu : Control
 		// var spawner = GetNode<MultiplayerSpawner>("PlayerSpawner");
 
 		Rpc(nameof(RpcLaunchGame));
-		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
+		GetTree().ChangeSceneToPacked(_scenes.Scenes[SceneType.Root]);
+		// GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
 
 		// _playerManager.SpawnPlayers();
 		GD.Print("Game launched successfully!");
@@ -111,7 +113,8 @@ public partial class LobbyMenu : Control
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
 	private void RpcLaunchGame()
 	{
-		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
+		GetTree().ChangeSceneToPacked(_scenes.Scenes[SceneType.Root]);
+		// GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.Root]);
 	}
 
 	private void OnLeaveLobbyPressed()
@@ -125,6 +128,7 @@ public partial class LobbyMenu : Control
 
 	private void OnBackToMainMenuPressed()
 	{
-		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.MainMenu]);
+		GetTree().ChangeSceneToPacked(_scenes.Scenes[SceneType.MainMenu]);
+		// GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.MainMenu]);
 	}
 }

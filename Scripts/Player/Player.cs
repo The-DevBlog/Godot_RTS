@@ -5,10 +5,10 @@ using MyEnums;
 
 public partial class Player : Control
 {
-	[Export] public int Id { get; set; }    // e.g. 1, 2, 3...
-	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
+	[Export] public int Id { get; set; }
+	[Export] public bool IsHuman { get; set; }
 	[Export] public Color Color { get; set; }
-	[Export] public int Funds { get; private set; }
+	[Export] public int Funds { get; set; }
 	[Export] public int Team;
 	public int MaxStructureCount; // max structure count for garage and barracks
 	public Dictionary<StructureType, int> StructureCount { get; } = new();
@@ -37,13 +37,13 @@ public partial class Player : Control
 	[Signal] public delegate void DeselectAllUnitsEventHandler();
 	[Signal] public delegate void SelectUnitsEventHandler(Unit[] units);
 
-	public Player(int id, Color color, int funds, bool isHuman = false)
-	{
-		Id = id;
-		Color = color;
-		Funds = funds;
-		IsHuman = isHuman;
-	}
+	// public Player(int id, Color color, int funds, bool isHuman = false)
+	// {
+	// 	Id = id;
+	// 	Color = color;
+	// 	Funds = funds;
+	// 	IsHuman = isHuman;
+	// }
 
 	public override void _EnterTree()
 	{

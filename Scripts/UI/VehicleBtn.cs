@@ -30,7 +30,7 @@ public partial class VehicleBtn : Button
 
     private void OnUnitSelect()
     {
-        var unit = _models.Vehicles[Vehicle];
+        PackedScene unit = _models.Vehicles[Vehicle];
         Vehicle vehicleInstance = unit.Instantiate<Vehicle>();
 
         bool enoughFunds = _player.Funds >= vehicleInstance.Cost;

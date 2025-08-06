@@ -14,7 +14,8 @@ public partial class MultiplayerTest : Control
 	public override void _Ready()
 	{
 		_playerManager = PlayerManager.Instance;
-		_playerScene = GD.Load<PackedScene>(AssetServer.Instance.Scenes.Scenes[SceneType.Player]);
+		_playerScene = AssetServer.Instance.Scenes.Scenes[SceneType.Player];
+		// _playerScene = GD.Load<PackedScene>(AssetServer.Instance.Scenes.Scenes[SceneType.Player]);
 
 		Utils.NullExportCheck(_playersSpawnNode);
 	}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using MyEnums;
 
 public partial class PlayerManager : Node
 {
@@ -7,10 +8,13 @@ public partial class PlayerManager : Node
 	public Player LocalPlayer { get; set; }
 	public Player Authority { get; set; }
 	private Dictionary<int, Player> _stagedPlayers = new();
+	// private MyScenes _scenes;
 
 	public override void _EnterTree()
 	{
 		Instance = this;
+		// _scenes = AssetServer.Instance.Scenes;
+		// Utils.NullCheck(_scenes);
 	}
 
 	public void StagePlayer(Player player)
@@ -27,31 +31,45 @@ public partial class PlayerManager : Node
 		GD.Print($"Player {playerId} unstaged");
 	}
 
-	public void SpawnPlayers()
+	public void SpawnPlayers(Node3D playerSpawnNode, MultiplayerSpawner playerSpawner)
 	{
 		if (!Multiplayer.IsServer())
 			return;
 
 		GD.Print("In SpawnPlayers()");
 
-		var sceneRoot = GetTree().CurrentScene;
-		var playerSpawner = sceneRoot.GetNode<MultiplayerSpawner>("PlayerSpawner");
-		if (playerSpawner == null)
-		{
-			Utils.PrintErr("PlayerSpawner not found!");
-			return;
-		}
+		// var sceneRoot = GetTree().CurrentScene;
+		// var playerSpawner = sceneRoot.GetNodeOrNull<MultiplayerSpawner>("PlayerSpawner");
+		// if (playerSpawner == null)
+		// {
+		// 	Utils.PrintErr("PlayerSpawner not found!");
+		// 	return;
+		// }
 
 		foreach (var kv in _stagedPlayers)
 		{
-			Player player = kv.Value;
+			Player playerInfo = kv.Value;
 
-			// pack the initial data into a VariantArray
-			var args = new Godot.Collections.Array { (long)player.Id, player.Color, player.Funds, player.Team };
+			PackedScene playerScene = AssetServer.Instance.Scenes.Scenes[SceneType.Player];
+			Player player = playerScene.Instantiate<Player>();
 
-			// spawner.Spawn(args);
-			playerSpawner.Spawn(args);
-			GD.Print("Spawned player: " + player.Id);
+			player.Name = "Player_" + playerInfo.Id;
+			player.Id = playerInfo.Id;
+			player.Color = playerInfo.Color;
+			player.Funds = playerInfo.Funds;
+			player.Team = playerInfo.Team;
+
+			// playerSpawnNode.AddChild(player);
+
+			var args = new Godot.Collections.Array {
+				(long)kv.Value.Id,
+				kv.Value.Color,
+				kv.Value.Funds,
+				kv.Value.Team
+			};
+			playerSpawner.Spawn(args);   // <— this drives the replication
+
+			GD.Print("Spawned player: " + playerInfo.Id);
 		}
 
 		_stagedPlayers.Clear();

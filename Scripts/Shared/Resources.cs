@@ -10,7 +10,8 @@ public partial class Resources : Node3D
 	[Export] public Weather Weather { get; set; }
 	[Export] public MultiplayerSpawner MultiplayerSpawner { get; set; }
 	[Export] public Camera3D Camera { get; private set; }
-	[Export] public MultiplayerSpawner PlayerSpawner { get; private set; }
+	[Export] private MultiplayerSpawner _playerSpawner;
+	[Export] private Node3D _playerSpawnNode;
 	private PlayerManager _playerManager;
 
 	public override void _EnterTree()
@@ -31,11 +32,16 @@ public partial class Resources : Node3D
 
 		Utils.NullExportCheck(Camera);
 		Utils.NullExportCheck(MultiplayerSpawner);
-		Utils.NullExportCheck(PlayerSpawner);
+		Utils.NullExportCheck(_playerSpawner);
+		Utils.NullExportCheck(_playerSpawnNode);
 
-		PlayerSpawner.SpawnFunction = new Callable(this, nameof(OnPlayerSpawned));
-		// PlayerSpawner.Spawned += OnPlayerSpawned;
-		PlayerManager.Instance.SpawnPlayers();
+		_playerSpawner.SpawnFunction = new Callable(this, nameof(OnPlayerSpawned));
+		// _playerSpawner.Spawned += OnPlayerSpawned;
+		// _playerSpawner.Spawned += (Node newNode) =>
+		// {
+		// 	GD.Print($"[{Multiplayer.GetUniqueId()}] Spawned a node named {newNode.Name}");
+		// };
+		_playerManager.SpawnPlayers(_playerSpawnNode, _playerSpawner);
 
 		GD.Print("Resources _EnterTree() completed");
 	}

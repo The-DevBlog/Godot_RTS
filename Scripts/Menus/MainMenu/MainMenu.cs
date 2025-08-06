@@ -17,6 +17,7 @@ public partial class MainMenu : Control
 
 	private void OnMultiplayerPressed()
 	{
-		GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.LobbyMenu]);
+		GetTree().ChangeSceneToPacked(_scenes.Scenes[SceneType.LobbyMenu]);
+		// GetTree().ChangeSceneToFile(_scenes.Scenes[SceneType.LobbyMenu]);
 	}
 }
