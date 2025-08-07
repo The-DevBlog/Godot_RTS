@@ -21,7 +21,7 @@ public partial class MiniMap : Control
         Utils.NullExportCheck(GameCamera);
 
         _globalResources = GlobalResources.Instance;
-        _player = PlayerManager.Instance.LocalPlayer;
+        _player = PlayerManager.Instance.HumanPlayer;
         _mapSize = _globalResources.MapSize;
         _worldMin = -_mapSize / 2;
         _worldMax = _mapSize / 2;

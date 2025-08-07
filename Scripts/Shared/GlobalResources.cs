@@ -9,7 +9,6 @@ public partial class GlobalResources : Node3D
     [Export] public Season Season { get; set; }
     [Export] public TimeOfDay TimeOfDay { get; set; }
     [Export] public Weather Weather { get; set; }
-    [Export] public MultiplayerSpawner MultiplayerSpawner { get; set; }
     public bool IsPlacingStructure { get; set; }
     public bool IsHoveringUI { get; set; }
 
@@ -22,6 +21,5 @@ public partial class GlobalResources : Node3D
         if (Weather == Weather.None) Utils.PrintErr("Weather is set to None.");
         if (Season == Season.None) Utils.PrintErr("Season is set to None.");
         if (TimeOfDay == TimeOfDay.None) Utils.PrintErr("TimeOfDay is set to None.");
-        Utils.NullExportCheck(MultiplayerSpawner);
     }
 }

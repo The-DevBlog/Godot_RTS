@@ -5,7 +5,7 @@ using MyEnums;
 
 public partial class Player : Node3D
 {
-	[Export] public int Id { get; set; }    // e.g. 1, 2, 3...
+	[Export] public int Id { get; set; }
 	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
 	[Export] public Color Color { get; set; }
 	[Export] public int Funds { get; private set; }
@@ -36,20 +36,49 @@ public partial class Player : Node3D
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
 
-	public override void _EnterTree()
-	{
-		base._EnterTree();
+	// public override void _EnterTree()
+	// {
+	// 	base._EnterTree();
 
+	// 	// TODO: Remove these hard coded values
+	// 	// Color = new Color("0083fa");
+	// 	// Funds = 50000;
+
+	// 	// PlayerManager.Instance.RegisterPlayer(this);
+
+	// 	// Utils.NullExportCheck(Color);
+
+	// 	// if (Color == default)
+	// 	// 	Color = new Color(Colors.Red);
+
+	// 	if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
+
+	// 	MaxStructureCount = 8;
+
+	// 	foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))
+	// 		StructureCount[s] = 0;
+
+	// 	foreach (var unit in InfantryType.GetValues<InfantryType>())
+	// 		InfantryAvailability[unit] = false;
+
+	// 	foreach (var vehicle in VehicleType.GetValues<VehicleType>())
+	// 		VehicleAvailability[vehicle] = false;
+
+	// }
+
+	public override void _Ready()
+	{
+		PlayerManager.Instance.RegisterPlayer(this);
 		// TODO: Remove these hard coded values
-		Color = new Color("0083fa");
-		Funds = 50000;
+		// Color = new Color("0083fa");
+		// Funds = 50000;
 
 		// PlayerManager.Instance.RegisterPlayer(this);
 
 		Utils.NullExportCheck(Color);
 
-		if (Color == default)
-			Color = new Color(Colors.Red);
+		// if (Color == default)
+		// 	Color = new Color(Colors.Red);
 
 		if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
 
@@ -63,6 +92,10 @@ public partial class Player : Node3D
 
 		foreach (var vehicle in VehicleType.GetValues<VehicleType>())
 			VehicleAvailability[vehicle] = false;
+
+
+		GD.Print("Player funds: " + Funds);
+		GD.Print("Player color: " + Color);
 
 	}
 

@@ -12,18 +12,15 @@ public partial class StructureBtn : Button
 	private Camera3D _camera;
 	private Node3D _scene;
 	private PlayerManager _playerManager;
-	private MultiplayerSpawner _multiplayerSpawner;
 	private StructureFactory _structureFactory;
 
 	public override void _Ready()
 	{
-		_multiplayerSpawner = GlobalResources.Instance.MultiplayerSpawner;
 		_structureFactory = StructureFactory.Instance;
 
-		// Grab the local Player from the PlayerManager
-		_player = PlayerManager.Instance.LocalPlayer;
+		_player = PlayerManager.Instance.HumanPlayer;
 		if (_player == null)
-			GD.PrintErr("[StructureBtn] No local player found!");
+			GD.PrintErr("[StructureBtn] No human player found!");
 
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
@@ -51,7 +48,7 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		_placeholder = _structureFactory.BuildPlaceholder(Structure);
+		_placeholder = _structureFactory.BuildPlaceholder(_player, Structure);
 
 		if (_placeholder == null)
 		{

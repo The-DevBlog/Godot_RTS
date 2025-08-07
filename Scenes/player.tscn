@@ -4,7 +4,3 @@
 
 [node name="Player1" type="Node3D"]
 script = ExtResource("1_v0iea")
-Id = 1
-IsHuman = true
-Color = Color(1, 1, 1, 1)
-Funds = 15000

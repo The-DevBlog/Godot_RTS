@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=22 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
-[ext_resource type="PackedScene" uid="uid://cytp0j20cvvea" path="res://Scenes/Test/multiplayer_test.tscn" id="14_20eh2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
 sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
@@ -71,15 +70,18 @@ size = Vector3(200, 0.5, 200)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
-[sub_resource type="PackedScene" id="PackedScene_lwnbm"]
-
-[node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner")]
+[node name="World" type="Node3D"]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 2
-TimeOfDay = 3
-Weather = 3
-MultiplayerSpawner = NodePath("MultiplayerSpawner")
+Season = 1
+TimeOfDay = 1
+Weather = 2
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
+Color = Color(0.281537, 0.616528, 0, 1)
+Funds = 30000
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
@@ -155,18 +157,6 @@ transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923
 visible = false
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
-
-[node name="Player1" parent="." instance=ExtResource("12_lwnbm")]
-visible = false
-Color = Color(0, 0.515311, 0.97941, 1)
-Funds = 30000
-
-[node name="MultiplayerTest" parent="." instance=ExtResource("14_20eh2")]
-_scene = SubResource("PackedScene_lwnbm")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob", "uid://yd0x5g7600ta")
-spawn_path = NodePath("../NavigationRegion3D")
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]

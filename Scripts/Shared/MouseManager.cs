@@ -20,7 +20,7 @@ public partial class MouseManager : Control
 	public override void _Ready()
 	{
 		Instance = this;
-		_player = PlayerManager.Instance.LocalPlayer;
+		_player = PlayerManager.Instance.HumanPlayer;
 		_camera = GetViewport().GetCamera3D();
 		_resources = GlobalResources.Instance;
 		_player.DeselectAllUnits += OnDeselectAllUnits;

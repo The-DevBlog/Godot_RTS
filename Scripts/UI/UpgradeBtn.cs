@@ -42,7 +42,7 @@ public partial class UpgradeBtn : Button
 			Utils.PrintErr("Upgrade type is set to none");
 
 		_lockTexture = GetNode<TextureRect>("LockTexture");
-		_player = PlayerManager.Instance.LocalPlayer;
+		_player = PlayerManager.Instance.HumanPlayer;
 
 		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Upgrade.ToString());
 

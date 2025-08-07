@@ -15,7 +15,7 @@ public partial class VehicleBtn : Button
     {
         _models = AssetServer.Instance.Models;
         _lockTexture = GetNode<TextureRect>("LockTexture");
-        _player = PlayerManager.Instance.LocalPlayer;
+        _player = PlayerManager.Instance.HumanPlayer;
         _signals = Signals.Instance;
 
         if (Vehicle == VehicleType.None) Utils.PrintErr("VehicleType is to set None");

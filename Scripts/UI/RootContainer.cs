@@ -36,7 +36,7 @@ public partial class RootContainer : Control
 	private Player _player;
 	public override void _Ready()
 	{
-		_player = PlayerManager.Instance.LocalPlayer;
+		_player = PlayerManager.Instance.HumanPlayer;
 		_globalResources = GlobalResources.Instance;
 		// _sceneResources = Player.Instance;
 		_signals = Signals.Instance;

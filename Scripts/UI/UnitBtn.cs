@@ -16,7 +16,7 @@ public partial class UnitBtn : Button
 	{
 		_models = AssetServer.Instance.Models;
 		_lockTexture = GetNode<TextureRect>("LockTexture");
-		_player = PlayerManager.Instance.LocalPlayer;
+		_player = PlayerManager.Instance.HumanPlayer;
 		_signals = Signals.Instance;
 
 		if (Infantry == InfantryType.None) Utils.PrintErr("InfantryType is to set None");

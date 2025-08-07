@@ -18,7 +18,7 @@ public partial class InfoContainerLabels : HBoxContainer
 
 	public override void _Ready()
 	{
-		_player = PlayerManager.Instance.LocalPlayer;
+		_player = PlayerManager.Instance.HumanPlayer;
 
 		Utils.NullExportCheck(EnergyLabel);
 		Utils.NullExportCheck(FundsLabel);

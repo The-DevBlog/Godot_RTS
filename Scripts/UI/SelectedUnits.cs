@@ -13,7 +13,7 @@ public partial class SelectedUnits : MarginContainer
 
 	public override void _Ready()
 	{
-		_player = PlayerManager.Instance.LocalPlayer;
+		_player = PlayerManager.Instance.HumanPlayer;
 		_textures = AssetServer.Instance.Textures;
 		_player.SelectUnits += ToggleVisibility;
 
