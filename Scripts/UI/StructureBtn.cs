@@ -14,19 +14,46 @@ public partial class StructureBtn : Button
 	private PlayerManager _playerManager;
 	private StructureFactory _structureFactory;
 
+	// public override void _Ready()
+	// {
+	// 	_structureFactory = StructureFactory.Instance;
+
+	// 	_player = PlayerManager.Instance.HumanPlayer;
+	// 	if (_player == null)
+	// 		GD.PrintErr("[StructureBtn] No human player found!");
+
+	// 	_signals = Signals.Instance;
+	// 	_models = AssetServer.Instance.Models;
+	// 	_camera = GetViewport().GetCamera3D();
+	// 	_scene = GetTree().CurrentScene as Node3D;
+	// 	_playerManager = PlayerManager.Instance;
+
+	// 	Pressed += SelectStructure;
+	// 	MouseEntered += OnBtnEnter;
+	// 	MouseExited += OnBtnExit;
+
+	// 	if (Structure == StructureType.None)
+	// 		Utils.PrintErr($"Structure enum not set on {Name}");
+
+	// 	if (_scene == null)
+	// 		Utils.PrintErr("Current scene root is not a Node3D.");
+	// }
+
+
 	public override void _Ready()
 	{
 		_structureFactory = StructureFactory.Instance;
+		_playerManager = PlayerManager.Instance;
 
-		_player = PlayerManager.Instance.HumanPlayer;
-		if (_player == null)
-			GD.PrintErr("[StructureBtn] No human player found!");
+		if (_playerManager.HumanPlayer != null)
+			_player = _playerManager.HumanPlayer;
+		else
+			_playerManager.HumanPlayerReady += OnHumanPlayerReady;
 
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
 		_scene = GetTree().CurrentScene as Node3D;
-		_playerManager = PlayerManager.Instance;
 
 		Pressed += SelectStructure;
 		MouseEntered += OnBtnEnter;
@@ -37,6 +64,11 @@ public partial class StructureBtn : Button
 
 		if (_scene == null)
 			Utils.PrintErr("Current scene root is not a Node3D.");
+	}
+
+	private void OnHumanPlayerReady(Player player)
+	{
+		_player = player;
 	}
 
 	private void SelectStructure()

@@ -5,7 +5,6 @@ using MyEnums;
 
 public partial class MouseManager : Control
 {
-	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
 	private HashSet<Unit> _selectedUnits;
 	private GlobalResources _resources;
@@ -15,19 +14,31 @@ public partial class MouseManager : Control
 	private bool _mouseDown;
 	private bool _dragActive;
 	private bool _isAnySelected;
+	private PlayerManager _playerManager;
 	private Player _player;
 
 	public override void _Ready()
 	{
-		Instance = this;
-		_player = PlayerManager.Instance.HumanPlayer;
+		_selectedUnits = new HashSet<Unit>();
+		_playerManager = PlayerManager.Instance;
+		// _player = PlayerManager.Instance.HumanPlayer;
 		_camera = GetViewport().GetCamera3D();
 		_resources = GlobalResources.Instance;
-		_player.DeselectAllUnits += OnDeselectAllUnits;
-		_selectedUnits = new HashSet<Unit>();
 
 		if (_camera == null)
 			Utils.PrintErr("Camera3D not found.");
+
+		// Utils.NullCheck(_player);
+		Utils.NullCheck(_selectedUnits);
+		Utils.NullCheck(_resources);
+		Utils.NullCheck(_camera);
+
+		if (_playerManager.HumanPlayer != null)
+			_player = _playerManager.HumanPlayer;
+		else
+			_playerManager.HumanPlayerReady += OnHumanPlayerReady;
+
+		// PlayerManager.Instance.Connect(PlayerManager.SignalName.HumanPlayerReady, new Callable(this, nameof(OnHumanPlayerReady)));
 	}
 
 	public override void _Process(double delta)
@@ -45,6 +56,17 @@ public partial class MouseManager : Control
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: true);
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
 	}
+
+	private void OnHumanPlayerReady(Player player)
+	{
+		GD.Print("Human player is ready: " + player.Name);
+		_player = player;
+
+		Utils.NullCheck(_player);
+
+		_player.DeselectAllUnits += OnDeselectAllUnits;
+	}
+
 
 	private void HandleMouseInput()
 	{

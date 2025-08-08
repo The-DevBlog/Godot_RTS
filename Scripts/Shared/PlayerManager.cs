@@ -49,6 +49,20 @@ public partial class PlayerManager : Node
 	// Convenience pointer to your one human player
 	public Player HumanPlayer { get; private set; }
 
+	[Signal] public delegate void HumanPlayerReadyEventHandler(Player player);
+
+	public void RegisterPlayer(Player p)
+	{
+		Players.Add(p);
+		if (p.IsHuman && HumanPlayer == null)
+		{
+			HumanPlayer = p;
+			EmitSignal(SignalName.HumanPlayerReady, p);
+		}
+
+		GD.Print($"Registered player: {p.Name} (ID: {p.Id})");
+	}
+
 	// public override void _Ready()
 	// {
 	// GD.Print("PlayerManager ready");
@@ -78,15 +92,15 @@ public partial class PlayerManager : Node
 		Instance = this;
 	}
 
-	public void RegisterPlayer(Player p)
-	{
-		GD.Print($"Registering player: {p.Name} (ID: {p.Id})");
-		Players.Add(p);
-		if (p.IsHuman)
-			HumanPlayer = p;
+	// public void RegisterPlayer(Player p)
+	// {
+	// 	GD.Print($"Registering player: {p.Name} (ID: {p.Id})");
+	// 	Players.Add(p);
+	// 	if (p.IsHuman)
+	// 		HumanPlayer = p;
 
-		GD.Print($"Registered player: {p.Name} (ID: {p.Id})");
-	}
+	// 	GD.Print($"Registered player: {p.Name} (ID: {p.Id})");
+	// }
 
 	public Player GetPlayerById(int id) =>
 		Players.FirstOrDefault(p => p.Id == id);
