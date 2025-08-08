@@ -21,24 +21,20 @@ public partial class MouseManager : Control
 	{
 		_selectedUnits = new HashSet<Unit>();
 		_playerManager = PlayerManager.Instance;
-		// _player = PlayerManager.Instance.HumanPlayer;
+		_playerManager.WhenHumanPlayerReady(player =>
+		{
+			_player = player;
+			_player.DeselectAllUnits += OnDeselectAllUnits;
+		});
 		_camera = GetViewport().GetCamera3D();
 		_resources = GlobalResources.Instance;
 
 		if (_camera == null)
 			Utils.PrintErr("Camera3D not found.");
 
-		// Utils.NullCheck(_player);
 		Utils.NullCheck(_selectedUnits);
 		Utils.NullCheck(_resources);
 		Utils.NullCheck(_camera);
-
-		if (_playerManager.HumanPlayer != null)
-			_player = _playerManager.HumanPlayer;
-		else
-			_playerManager.HumanPlayerReady += OnHumanPlayerReady;
-
-		// PlayerManager.Instance.Connect(PlayerManager.SignalName.HumanPlayerReady, new Callable(this, nameof(OnHumanPlayerReady)));
 	}
 
 	public override void _Process(double delta)
@@ -56,17 +52,6 @@ public partial class MouseManager : Control
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f, 0.3f), filled: true);
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
 	}
-
-	private void OnHumanPlayerReady(Player player)
-	{
-		GD.Print("Human player is ready: " + player.Name);
-		_player = player;
-
-		Utils.NullCheck(_player);
-
-		_player.DeselectAllUnits += OnDeselectAllUnits;
-	}
-
 
 	private void HandleMouseInput()
 	{

@@ -81,7 +81,8 @@ Weather = 2
 [node name="Players" type="Node" parent="."]
 
 [node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
-Color = Color(0.281537, 0.616528, 0, 1)
+IsHuman = true
+Color = Color(0.132957, 0.530671, 0.907711, 1)
 Funds = 30000
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]

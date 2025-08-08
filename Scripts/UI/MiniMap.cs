@@ -21,12 +21,23 @@ public partial class MiniMap : Control
         Utils.NullExportCheck(GameCamera);
 
         _globalResources = GlobalResources.Instance;
-        _player = PlayerManager.Instance.HumanPlayer;
+        PlayerManager playerManager = PlayerManager.Instance;
+
+        playerManager.WhenHumanPlayerReady(player =>
+        {
+            _player = player;
+            _friendlyUnitsColor = _player.Color;
+        });
+
         _mapSize = _globalResources.MapSize;
         _worldMin = -_mapSize / 2;
         _worldMax = _mapSize / 2;
         _camera = GetViewport().GetCamera3D();
-        _friendlyUnitsColor = _player.Color;
+    }
+
+    private void OnHumanPlayerReady(Player player)
+    {
+        _player = player;
     }
 
     public override void _Process(double delta)
