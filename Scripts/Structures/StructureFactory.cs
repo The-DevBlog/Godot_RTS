@@ -3,12 +3,10 @@ using MyEnums;
 
 public partial class StructureFactory : Node
 {
-	public static StructureFactory Instance { get; private set; }
 	private MyModels _models;
 	private Signals _signals;
 	public override void _Ready()
 	{
-		Instance = this;
 		_models = AssetServer.Instance.Models;
 		_signals = Signals.Instance;
 	}

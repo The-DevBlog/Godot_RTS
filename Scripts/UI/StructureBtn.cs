@@ -11,15 +11,15 @@ public partial class StructureBtn : Button
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
-	private PlayerManager _playerManager;
 	private StructureFactory _structureFactory;
 
 	public override void _Ready()
 	{
-		_structureFactory = StructureFactory.Instance;
-		_playerManager = PlayerManager.Instance;
+		_structureFactory = GetNode<StructureFactory>("/root/World/Managers/StructureFactory");
+		Utils.NullCheck(_structureFactory);
 
-		_playerManager.WhenHumanPlayerReady(player =>
+		var playerManager = PlayerManager.Instance;
+		playerManager.WhenHumanPlayerReady(player =>
 		{
 			_player = player;
 		});

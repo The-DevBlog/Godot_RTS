@@ -38,4 +38,13 @@ public static class Utils
             PrintErr($"'{paramName}' is null", frame);
         }
     }
+
+    public static void PrintTree(Node node, string indent = "")
+    {
+        GD.Print(indent + node.Name);
+        foreach (Node child in node.GetChildren())
+        {
+            PrintTree(child, indent + "  ");
+        }
+    }
 }
