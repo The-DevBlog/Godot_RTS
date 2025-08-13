@@ -75,26 +75,31 @@ size = Vector3(200, 0.5, 200)
 [node name="World" type="Node3D"]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 1
-TimeOfDay = 1
-Weather = 2
+Season = 2
+TimeOfDay = 3
+Weather = 3
 
 [node name="Players" type="Node" parent="."]
 
 [node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
 Color = Color(0.764235, 0.426826, 9.62615e-07, 1)
-Funds = 30003
+Funds = 30000
 
-[node name="Node" type="Node" parent="."]
+[node name="Bot" parent="Players" instance=ExtResource("12_lwnbm")]
+IsHuman = false
+Color = Color(0.352951, 0.461727, 1, 1)
+Funds = 30000
 
-[node name="MouseManager" type="Control" parent="Node"]
+[node name="Managers" type="Node" parent="."]
+
+[node name="MouseManager" type="Control" parent="Managers"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("13_lwnbm")
 
-[node name="StructureFactory" type="Node" parent="Node"]
+[node name="StructureFactory" type="Node" parent="Managers"]
 script = ExtResource("2_lwnbm")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
