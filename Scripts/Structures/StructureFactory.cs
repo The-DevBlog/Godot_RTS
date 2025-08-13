@@ -85,20 +85,4 @@ public partial class StructureFactory : Node
 
 		return navRegion;
 	}
-
-	// [Rpc(MultiplayerApi.RpcMode.AnyPeer)]
-	// private void ServerSpawnStructure(Transform3D finalXform, int structureTypeInt)
-	// {
-	// 	var structureType = (StructureType)structureTypeInt;
-	// 	var structureScene = _models.Structures[structureType];
-	// 	StructureBase structure = structureScene.Instantiate<StructureBase>();
-
-	// 	// var spawner = GlobalResources.Instance.MultiplayerSpawner;
-	// 	NavigationRegion3D parent = spawner.GetNode<NavigationRegion3D>(spawner.SpawnPath);
-	// 	parent.AddChild(structure, true);
-	// 	structure.GlobalTransform = finalXform;
-
-	// 	var player = PlayerManager.Instance.LocalPlayer;
-	// 	player.AddStructure(structure);
-	// }
 }
