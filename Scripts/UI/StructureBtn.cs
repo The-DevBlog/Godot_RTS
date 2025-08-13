@@ -69,6 +69,7 @@ public partial class StructureBtn : Button
 	private void OnHumanPlayerReady(Player player)
 	{
 		_player = player;
+		GD.Print("[StructureBtn] Human player ready:", _player.Name);
 	}
 
 	private void SelectStructure()

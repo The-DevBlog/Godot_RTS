@@ -36,49 +36,11 @@ public partial class Player : Node3D
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
 
-	// public override void _EnterTree()
-	// {
-	// 	base._EnterTree();
-
-	// 	// TODO: Remove these hard coded values
-	// 	// Color = new Color("0083fa");
-	// 	// Funds = 50000;
-
-	// 	// PlayerManager.Instance.RegisterPlayer(this);
-
-	// 	// Utils.NullExportCheck(Color);
-
-	// 	// if (Color == default)
-	// 	// 	Color = new Color(Colors.Red);
-
-	// 	if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
-
-	// 	MaxStructureCount = 8;
-
-	// 	foreach (StructureType s in StructureType.GetValues(typeof(StructureType)))
-	// 		StructureCount[s] = 0;
-
-	// 	foreach (var unit in InfantryType.GetValues<InfantryType>())
-	// 		InfantryAvailability[unit] = false;
-
-	// 	foreach (var vehicle in VehicleType.GetValues<VehicleType>())
-	// 		VehicleAvailability[vehicle] = false;
-
-	// }
-
 	public override void _Ready()
 	{
 		PlayerManager.Instance.RegisterPlayer(this);
-		// TODO: Remove these hard coded values
-		// Color = new Color("0083fa");
-		// Funds = 50000;
-
-		// PlayerManager.Instance.RegisterPlayer(this);
 
 		Utils.NullExportCheck(Color);
-
-		// if (Color == default)
-		// 	Color = new Color(Colors.Red);
 
 		if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
 

@@ -89,6 +89,7 @@ public partial class PlayerManager : Node
 
 	public override void _Ready()
 	{
+		GD.Print("[PlayerManager] _Ready called");
 		Instance = this;
 	}
 

@@ -4,3 +4,4 @@
 
 [node name="Player1" type="Node3D"]
 script = ExtResource("1_v0iea")
+IsHuman = true

@@ -18,14 +18,25 @@ public partial class MiniMap : Control
 
     public override void _Ready()
     {
+        GD.Print("[MiniMap] _Ready called");
         Utils.NullExportCheck(GameCamera);
 
+        PlayerManager playerManager = PlayerManager.Instance;
+        if (playerManager.HumanPlayer != null)
+            _player = playerManager.HumanPlayer;
+        else
+        {
+            playerManager.HumanPlayerReady += OnHumanPlayerReady;
+        }
+
+        Utils.NullCheck(_player);
+
         _globalResources = GlobalResources.Instance;
-        _player = PlayerManager.Instance.HumanPlayer;
         _mapSize = _globalResources.MapSize;
         _worldMin = -_mapSize / 2;
         _worldMax = _mapSize / 2;
         _camera = GetViewport().GetCamera3D();
+
         _friendlyUnitsColor = _player.Color;
     }
 
@@ -56,6 +67,11 @@ public partial class MiniMap : Control
         {
             NavigateToPostition();
         }
+    }
+
+    private void OnHumanPlayerReady(Player player)
+    {
+        _player = player;
     }
 
     // Jump camera position to the clicked point on the minimap

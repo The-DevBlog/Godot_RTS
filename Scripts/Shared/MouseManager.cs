@@ -14,31 +14,29 @@ public partial class MouseManager : Control
 	private bool _mouseDown;
 	private bool _dragActive;
 	private bool _isAnySelected;
-	private PlayerManager _playerManager;
 	private Player _player;
 
 	public override void _Ready()
 	{
 		_selectedUnits = new HashSet<Unit>();
-		_playerManager = PlayerManager.Instance;
-		// _player = PlayerManager.Instance.HumanPlayer;
 		_camera = GetViewport().GetCamera3D();
 		_resources = GlobalResources.Instance;
 
 		if (_camera == null)
 			Utils.PrintErr("Camera3D not found.");
 
-		// Utils.NullCheck(_player);
 		Utils.NullCheck(_selectedUnits);
 		Utils.NullCheck(_resources);
 		Utils.NullCheck(_camera);
 
-		if (_playerManager.HumanPlayer != null)
-			_player = _playerManager.HumanPlayer;
+		PlayerManager playerManager = PlayerManager.Instance;
+		if (playerManager.HumanPlayer != null)
+		{
+			_player = playerManager.HumanPlayer;
+			_player.DeselectAllUnits += OnDeselectAllUnits;
+		}
 		else
-			_playerManager.HumanPlayerReady += OnHumanPlayerReady;
-
-		// PlayerManager.Instance.Connect(PlayerManager.SignalName.HumanPlayerReady, new Callable(this, nameof(OnHumanPlayerReady)));
+			playerManager.HumanPlayerReady += OnHumanPlayerReady;
 	}
 
 	public override void _Process(double delta)
@@ -59,12 +57,8 @@ public partial class MouseManager : Control
 
 	private void OnHumanPlayerReady(Player player)
 	{
-		GD.Print("Human player is ready: " + player.Name);
 		_player = player;
-
-		Utils.NullCheck(_player);
-
-		_player.DeselectAllUnits += OnDeselectAllUnits;
+		// _player.DeselectAllUnits += OnDeselectAllUnits;
 	}
 
 
@@ -74,7 +68,10 @@ public partial class MouseManager : Control
 			return;
 
 		if (Input.IsActionJustReleased("mb_secondary"))
+		{
+			GD.Print("Deselecting all units");
 			_player.EmitSignal(nameof(_player.DeselectAllUnits));
+		}
 
 		// 1) Pressed right now? begin potential drag:
 		if (Input.IsActionJustPressed("mb_primary"))

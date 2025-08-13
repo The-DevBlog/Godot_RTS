@@ -4,17 +4,12 @@ public partial class InfoContainerLabels : HBoxContainer
 {
 	[Export] public Label EnergyLabel { get; set; }
 	[Export] public Label FundsLabel { get; set; }
-
-	// how fast the displayed funds move (units per second)
-	[Export] public float FundsAnimSpeed = 600.0f;
-
+	[Export] public float FundsAnimationSpeed = 600.0f;
 	private Player _player;
 	private Signals _signals;
-
-	// the funds value we're currently showing
-	private int _displayFunds;
-	// the actual funds we want to get to
-	private int _targetFunds;
+	private float _displayFundsFloat; // funds used for calculating the display value. Float is used for smooth animation
+	private int _displayFunds; // the funds value we're currently showing
+	private int _targetFunds; // the actual funds we want to get to 
 
 	public override void _Ready()
 	{
@@ -25,6 +20,7 @@ public partial class InfoContainerLabels : HBoxContainer
 
 		// initialize both display & target to the starting scene funds
 		_displayFunds = _player.Funds;
+		_displayFundsFloat = _player.Funds;
 		_targetFunds = _displayFunds;
 		FundsLabel.Text = $"${_displayFunds}";
 
@@ -38,11 +34,14 @@ public partial class InfoContainerLabels : HBoxContainer
 		if (_displayFunds == _targetFunds)
 			return;
 
-		// step _displayFunds toward the target at FundsAnimSpeed units/sec
-		int step = (int)(FundsAnimSpeed * delta);
-		_displayFunds = (int)Mathf.MoveToward(_displayFunds, _targetFunds, step);
+		_displayFundsFloat = Mathf.MoveToward(_displayFundsFloat, _targetFunds, FundsAnimationSpeed * (float)delta);
+		int newDisplay = Mathf.RoundToInt(_displayFundsFloat);
 
-		FundsLabel.Text = $"${_displayFunds}";
+		if (newDisplay != _displayFunds)
+		{
+			_displayFunds = newDisplay;
+			FundsLabel.Text = $"${_displayFunds}";
+		}
 	}
 
 	private void UpdateEnergy(int amount)
@@ -54,8 +53,6 @@ public partial class InfoContainerLabels : HBoxContainer
 	private void UpdateFunds(int amount)
 	{
 		GD.Print("Updating funds label to " + _player.Funds);
-		// whenever the real funds change, update the target
 		_targetFunds = _player.Funds;
-		// (the Process loop will animate _displayFunds → _targetFunds)
 	}
 }
