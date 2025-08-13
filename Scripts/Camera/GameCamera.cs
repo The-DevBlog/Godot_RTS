@@ -25,7 +25,7 @@ public partial class GameCamera : Node3D
 
 		_globalResources = GlobalResources.Instance;
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
-		_mapSize = GlobalResources.Instance.MapSize;
+		_mapSize = _globalResources.MapSize;
 		_moveTarget = Position;
 		_rotateKeysTarget = RotationDegrees.Y;
 		_zoomTarget = Camera.Position.Z;

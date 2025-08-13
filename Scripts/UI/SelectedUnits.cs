@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Godot;
 using MyEnums;
 
@@ -13,10 +12,13 @@ public partial class SelectedUnits : MarginContainer
 
 	public override void _Ready()
 	{
-		_player = PlayerManager.Instance.HumanPlayer;
+		PlayerManager.Instance.WhenHumanPlayerReady(player =>
+		{
+			_player = player;
+		});
+
 		_textures = AssetServer.Instance.Textures;
 		_player.SelectUnits += ToggleVisibility;
-
 
 		Utils.NullExportCheck(_spacer);
 		Utils.NullExportCheck(_grid);

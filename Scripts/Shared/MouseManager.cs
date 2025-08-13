@@ -58,9 +58,7 @@ public partial class MouseManager : Control
 	private void OnHumanPlayerReady(Player player)
 	{
 		_player = player;
-		// _player.DeselectAllUnits += OnDeselectAllUnits;
 	}
-
 
 	private void HandleMouseInput()
 	{

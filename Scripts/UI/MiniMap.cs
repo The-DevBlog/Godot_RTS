@@ -36,7 +36,6 @@ public partial class MiniMap : Control
         _worldMin = -_mapSize / 2;
         _worldMax = _mapSize / 2;
         _camera = GetViewport().GetCamera3D();
-
         _friendlyUnitsColor = _player.Color;
     }
 

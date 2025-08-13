@@ -15,6 +15,7 @@ public partial class GlobalResources : Node3D
     public override void _EnterTree()
     {
         base._EnterTree();  // **must** call this first
+        GD.Print("GlobalResources _EnterTree called");
         Instance = this;
 
         if (MapSize == Vector2.Zero) Utils.PrintErr("MapSize is not set");

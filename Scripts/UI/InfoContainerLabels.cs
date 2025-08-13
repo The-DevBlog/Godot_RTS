@@ -13,7 +13,10 @@ public partial class InfoContainerLabels : HBoxContainer
 
 	public override void _Ready()
 	{
-		_player = PlayerManager.Instance.HumanPlayer;
+		PlayerManager.Instance.WhenHumanPlayerReady(player =>
+		{
+			_player = player;
+		});
 
 		Utils.NullExportCheck(EnergyLabel);
 		Utils.NullExportCheck(FundsLabel);
