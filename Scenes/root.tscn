@@ -76,7 +76,7 @@ size = Vector3(200, 0.5, 200)
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
 Season = 2
-TimeOfDay = 3
+TimeOfDay = 1
 Weather = 3
 
 [node name="Players" type="Node" parent="."]
