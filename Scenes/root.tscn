@@ -182,5 +182,9 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.37825, 0, -15.4148)
 Player = NodePath("../Players/Human")
 
+[node name="Reactor2" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_imcog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.29817, 0, -15.1307)
+Player = NodePath("../Players/Bot")
+
 [editable path="GameCamera"]
 [editable path="CommandUI"]
