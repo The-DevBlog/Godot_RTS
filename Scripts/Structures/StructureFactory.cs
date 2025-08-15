@@ -44,7 +44,7 @@ public partial class StructureFactory : Node
 		return placeholder;
 	}
 
-	public void PlaceStructure(StructureBasePlaceholder placeholder)
+	public void PlaceStructure(StructureBasePlaceholder placeholder, Player player)
 	{
 		var navRegion = GetNavigationRegion(placeholder);
 
@@ -58,7 +58,7 @@ public partial class StructureFactory : Node
 		navRegion.AddChild(structure, true);
 		structure.GlobalTransform = finalXform;
 
-		placeholder.Player.AddStructure(structure);
+		player.UpdateFunds(-structure.Cost);
 
 		// Rebake the navigation mesh AFTER spawning the structure
 		_signals.EmitUpdateNavigationMap(navRegion);

@@ -86,9 +86,7 @@ public partial class StructureBtn : Button
 		}
 
 		if (@event is InputEventMouseButton mb && mb.Pressed)
-		{
 			RotatePlaceholder(mb.ButtonIndex == MouseButton.WheelUp ? 90f : -90f);
-		}
 	}
 
 	private void PlaceStructure()
@@ -102,7 +100,7 @@ public partial class StructureBtn : Button
 		if (_placeholder == null || !_placeholder.ValidPlacement)
 			return;
 
-		_structureFactory.PlaceStructure(_placeholder);
+		_structureFactory.PlaceStructure(_placeholder, _player);
 		CancelPlaceholder();
 	}
 

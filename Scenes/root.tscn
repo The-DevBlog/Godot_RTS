@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=25 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
+[ext_resource type="PackedScene" uid="uid://deexst56o0ban" path="res://Scenes/Structures/reactor.tscn" id="15_imcog"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
 sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
@@ -75,9 +76,9 @@ size = Vector3(200, 0.5, 200)
 [node name="World" type="Node3D"]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 2
+Season = 1
 TimeOfDay = 1
-Weather = 3
+Weather = 2
 
 [node name="Players" type="Node" parent="."]
 
@@ -176,6 +177,10 @@ transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923
 visible = false
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
+
+[node name="Reactor" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_imcog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.37825, 0, -15.4148)
+Player = NodePath("../Players/Human")
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]

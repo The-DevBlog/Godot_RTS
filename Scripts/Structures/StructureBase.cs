@@ -28,6 +28,10 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 		Utils.NullExportCheck(Area);
 
 		SetTeamColor(Player.Color);
+
+		// register the structure if its not a placeholder
+		if (this is not StructureBasePlaceholder)
+			Player.AddStructure(this);
 	}
 
 	public void Init(Player player)

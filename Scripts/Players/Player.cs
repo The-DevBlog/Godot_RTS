@@ -58,7 +58,6 @@ public partial class Player : Node3D
 
 		GD.Print("Player funds: " + Funds);
 		GD.Print("Player color: " + Color);
-
 	}
 
 	public void UpdateFunds(int amount)
@@ -69,6 +68,7 @@ public partial class Player : Node3D
 
 		EmitSignal(SignalName.OnUpdateFunds, amount);
 	}
+
 	public void UpdateEnergy(int amount)
 	{
 		GD.Print("Updating energy for player " + Id + ": " + amount);
@@ -118,8 +118,9 @@ public partial class Player : Node3D
 			EmitSignal(SignalName.UpdateUpgradesAvailability);
 		}
 
+		// update the cost in the structure factory, not here
+		// we dont want to update the cost for existing startup structures
 		RegisterStructure(structure);
-		UpdateFunds(-structure.Cost);
 		UpdateEnergy(structure.Energy);
 	}
 
@@ -152,4 +153,14 @@ public partial class Player : Node3D
 		GD.Print("Select Units: " + units.Length);
 		EmitSignal(SignalName.SelectUnits, units);
 	}
+
+	// Initialize startup energy (if any)
+	// private void InitEnergy()
+	// {
+	// 	foreach (var kv in StructureCount)
+	// 	{
+	// 		int count = kv.Value;
+	// 		// StructureBase structure = kv.Key;
+	// 	}
+	// }
 }
