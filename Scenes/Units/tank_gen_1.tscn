@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://yd0x5g7600ta"]
 
 [ext_resource type="PackedScene" uid="uid://det35bvks422e" path="res://Assets/Models/Units/TankGen1/TankGen1.gltf" id="1_1wg10"]
-[ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Vehicle.cs" id="1_icixe"]
+[ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_icixe"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_ppujx"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_5xwgm"]
 

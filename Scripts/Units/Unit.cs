@@ -3,6 +3,7 @@ using MyEnums;
 
 public partial class Unit : CharacterBody3D, ICostProvider
 {
+	[Export] public int Team { get; set; }
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
 	[Export] public int DPS { get; set; }
@@ -34,7 +35,9 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	public override void _Ready()
 	{
 		AddToGroup(Group.Units.ToString());
+
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
+		Utils.NullExportCheck(_navigationAgent);
 		_navigationAgent.AvoidanceEnabled = true;
 		_navigationAgent.DebugEnabled = DebugEnabled;
 		_navigationAgent.VelocityComputed += OnVelocityComputed;
@@ -51,12 +54,9 @@ public partial class Unit : CharacterBody3D, ICostProvider
 		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
-		Utils.NullExportCheck(_healthbar);
-	}
+		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 
-	public override void _Process(double delta)
-	{
-		// ScaleHealthbar();
+		Utils.NullExportCheck(_healthbar);
 	}
 
 	public override void _PhysicsProcess(double delta)

@@ -164,12 +164,15 @@ button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
 transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 2.04756, 0, -2.01788)
+Team = 1
 
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.30124, 0.0109811, -1.92637)
+Team = 1
 
 [node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
 transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, -0.468336, 0, -1.5761)
+Team = 1
 
 [node name="Shaders" type="Node3D" parent="."]
 
