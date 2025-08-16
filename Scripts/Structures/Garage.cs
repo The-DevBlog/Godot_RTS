@@ -4,20 +4,19 @@ using MyEnums;
 public partial class Garage : StructureBase
 {
 	public int Id { get; private set; }
-	private Player _player = PlayerManager.Instance.LocalPlayer;
 	private Signals _signals = Signals.Instance;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		int garageCount = _player.StructureCount[StructureType.Garage];
+		int garageCount = Player.StructureCount[StructureType.Garage];
 		Id = garageCount;
 	}
 
-	public void Activate() => _player.BuildVehicle += BuildVehicle;
+	public void Activate() => Player.BuildVehicle += BuildVehicle;
 
-	public void Deactivate() => _player.BuildVehicle -= BuildVehicle;
+	public void Deactivate() => Player.BuildVehicle -= BuildVehicle;
 
 	private void BuildVehicle(Vehicle vehicle)
 	{

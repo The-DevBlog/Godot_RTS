@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using MyEnums;
 
@@ -42,7 +43,10 @@ public partial class UpgradeBtn : Button
 			Utils.PrintErr("Upgrade type is set to none");
 
 		_lockTexture = GetNode<TextureRect>("LockTexture");
-		_player = PlayerManager.Instance.LocalPlayer;
+		PlayerManager.Instance.WhenHumanPlayerReady(player =>
+		{
+			_player = player;
+		});
 
 		if (_lockTexture == null) Utils.PrintErr("LockTexture not found for unit: " + Upgrade.ToString());
 

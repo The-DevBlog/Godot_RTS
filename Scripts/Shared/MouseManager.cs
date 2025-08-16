@@ -5,7 +5,6 @@ using MyEnums;
 
 public partial class MouseManager : Control
 {
-	public static MouseManager Instance { get; private set; }
 	private const float MIN_DRAG_DIST = 10f;
 	private HashSet<Unit> _selectedUnits;
 	private GlobalResources _resources;
@@ -19,15 +18,25 @@ public partial class MouseManager : Control
 
 	public override void _Ready()
 	{
-		Instance = this;
-		_player = PlayerManager.Instance.LocalPlayer;
+		_selectedUnits = new HashSet<Unit>();
 		_camera = GetViewport().GetCamera3D();
 		_resources = GlobalResources.Instance;
-		_player.DeselectAllUnits += OnDeselectAllUnits;
-		_selectedUnits = new HashSet<Unit>();
 
 		if (_camera == null)
 			Utils.PrintErr("Camera3D not found.");
+
+		Utils.NullCheck(_selectedUnits);
+		Utils.NullCheck(_resources);
+		Utils.NullCheck(_camera);
+
+		PlayerManager playerManager = PlayerManager.Instance;
+		if (playerManager.HumanPlayer != null)
+		{
+			_player = playerManager.HumanPlayer;
+			_player.DeselectAllUnits += OnDeselectAllUnits;
+		}
+		else
+			playerManager.HumanPlayerReady += OnHumanPlayerReady;
 	}
 
 	public override void _Process(double delta)
@@ -46,13 +55,21 @@ public partial class MouseManager : Control
 		DrawRect(rect, new Color(0.2f, 0.6f, 1.0f), filled: false, width: 2);
 	}
 
+	private void OnHumanPlayerReady(Player player)
+	{
+		_player = player;
+	}
+
 	private void HandleMouseInput()
 	{
 		if (_resources.IsPlacingStructure)
 			return;
 
 		if (Input.IsActionJustReleased("mb_secondary"))
+		{
+			GD.Print("Deselecting all units");
 			_player.EmitSignal(nameof(_player.DeselectAllUnits));
+		}
 
 		// 1) Pressed right now? begin potential drag:
 		if (Input.IsActionJustPressed("mb_primary"))

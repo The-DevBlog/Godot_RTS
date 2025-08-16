@@ -36,9 +36,13 @@ public partial class RootContainer : Control
 	private Player _player;
 	public override void _Ready()
 	{
-		_player = PlayerManager.Instance.LocalPlayer;
+		GD.Print("RootContainer _Ready called");
 		_globalResources = GlobalResources.Instance;
-		// _sceneResources = Player.Instance;
+		PlayerManager.Instance.WhenHumanPlayerReady(player =>
+		{
+			_player = player;
+		});
+
 		_signals = Signals.Instance;
 		_player.OnAddBarracks += AddBarracksInstanceBtn;
 		_player.OnAddGarage += AddGarageInstanceBtn;
@@ -72,8 +76,6 @@ public partial class RootContainer : Control
 		Utils.NullExportCheck(UpgradeInfoPopupLabelDescription);
 		Utils.NullExportCheck(UpgradeInfoPopupLabelCost);
 		Utils.NullExportCheck(UpgradeInfoPopupLabelBuildTime);
-
-
 
 		SetupButtons(Group.StructureBtns);
 

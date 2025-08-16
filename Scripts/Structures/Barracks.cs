@@ -5,19 +5,18 @@ public partial class Barracks : StructureBase
 {
 	public int Id { get; private set; }
 	private Signals _signals = Signals.Instance;
-	private Player _player => PlayerManager.Instance.LocalPlayer;
 
 	public override void _Ready()
 	{
 		base._Ready();
 
-		int barracksCount = _player.StructureCount[StructureType.Barracks];
+		int barracksCount = Player.StructureCount[StructureType.Barracks];
 		Id = barracksCount;
 	}
 
-	public void Activate() => _player.BuildInfantry += BuildInfantry;
+	public void Activate() => Player.BuildInfantry += BuildInfantry;
 
-	public void Deactivate() => _player.BuildInfantry -= BuildInfantry;
+	public void Deactivate() => Player.BuildInfantry -= BuildInfantry;
 
 	private void BuildInfantry(Infantry infantry)
 	{

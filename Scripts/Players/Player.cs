@@ -5,7 +5,7 @@ using MyEnums;
 
 public partial class Player : Node3D
 {
-	[Export] public int Id { get; set; }    // e.g. 1, 2, 3...
+	[Export] public int Id { get; set; }
 	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
 	[Export] public Color Color { get; set; }
 	[Export] public int Funds { get; private set; }
@@ -36,20 +36,11 @@ public partial class Player : Node3D
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
 
-	public override void _EnterTree()
+	public override void _Ready()
 	{
-		base._EnterTree();
-
-		// TODO: Remove these hard coded values
-		Color = new Color("0083fa");
-		Funds = 50000;
-
-		// PlayerManager.Instance.RegisterPlayer(this);
+		PlayerManager.Instance.RegisterPlayer(this);
 
 		Utils.NullExportCheck(Color);
-
-		if (Color == default)
-			Color = new Color(Colors.Red);
 
 		if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
 
@@ -64,6 +55,9 @@ public partial class Player : Node3D
 		foreach (var vehicle in VehicleType.GetValues<VehicleType>())
 			VehicleAvailability[vehicle] = false;
 
+
+		GD.Print("Player funds: " + Funds);
+		GD.Print("Player color: " + Color);
 	}
 
 	public void UpdateFunds(int amount)
@@ -74,6 +68,7 @@ public partial class Player : Node3D
 
 		EmitSignal(SignalName.OnUpdateFunds, amount);
 	}
+
 	public void UpdateEnergy(int amount)
 	{
 		GD.Print("Updating energy for player " + Id + ": " + amount);
@@ -123,8 +118,9 @@ public partial class Player : Node3D
 			EmitSignal(SignalName.UpdateUpgradesAvailability);
 		}
 
+		// update the cost in the structure factory, not here
+		// we dont want to update the cost for existing startup structures
 		RegisterStructure(structure);
-		UpdateFunds(-structure.Cost);
 		UpdateEnergy(structure.Energy);
 	}
 
@@ -157,4 +153,14 @@ public partial class Player : Node3D
 		GD.Print("Select Units: " + units.Length);
 		EmitSignal(SignalName.SelectUnits, units);
 	}
+
+	// Initialize startup energy (if any)
+	// private void InitEnergy()
+	// {
+	// 	foreach (var kv in StructureCount)
+	// 	{
+	// 		int count = kv.Value;
+	// 		// StructureBase structure = kv.Key;
+	// 	}
+	// }
 }

@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=25 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
+[ext_resource type="Script" uid="uid://cje1x122yykgi" path="res://Scripts/Structures/StructureFactory.cs" id="2_lwnbm"]
 [ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
 [ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
@@ -12,7 +13,8 @@
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
-[ext_resource type="PackedScene" uid="uid://cytp0j20cvvea" path="res://Scenes/Test/multiplayer_test.tscn" id="14_20eh2"]
+[ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
+[ext_resource type="PackedScene" uid="uid://deexst56o0ban" path="res://Scenes/Structures/reactor.tscn" id="15_imcog"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
 sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
@@ -71,15 +73,35 @@ size = Vector3(200, 0.5, 200)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
-[sub_resource type="PackedScene" id="PackedScene_lwnbm"]
-
-[node name="World" type="Node3D" node_paths=PackedStringArray("MultiplayerSpawner")]
+[node name="World" type="Node3D"]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 2
-TimeOfDay = 3
-Weather = 3
-MultiplayerSpawner = NodePath("MultiplayerSpawner")
+Season = 1
+TimeOfDay = 1
+Weather = 2
+
+[node name="Players" type="Node" parent="."]
+
+[node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
+Color = Color(0.764235, 0.426826, 9.62615e-07, 1)
+Funds = 30000
+
+[node name="Bot" parent="Players" instance=ExtResource("12_lwnbm")]
+IsHuman = false
+Color = Color(0.352951, 0.461727, 1, 1)
+Funds = 30000
+
+[node name="Managers" type="Node" parent="."]
+
+[node name="MouseManager" type="Control" parent="Managers"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_lwnbm")
+
+[node name="StructureFactory" type="Node" parent="Managers"]
+script = ExtResource("2_lwnbm")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
@@ -156,17 +178,13 @@ visible = false
 
 [node name="FPSCounter" parent="." instance=ExtResource("8_r3lo5")]
 
-[node name="Player1" parent="." instance=ExtResource("12_lwnbm")]
-visible = false
-Color = Color(0, 0.515311, 0.97941, 1)
-Funds = 30000
+[node name="Reactor" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_imcog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.37825, 0, -15.4148)
+Player = NodePath("../Players/Human")
 
-[node name="MultiplayerTest" parent="." instance=ExtResource("14_20eh2")]
-_scene = SubResource("PackedScene_lwnbm")
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://deexst56o0ban", "uid://p6omv7jvueob", "uid://c6nban7o7nbxp", "uid://bsqwqnw4t18r4", "uid://cnk0x7l6d7sjt", "uid://bghb1rhlctfob", "uid://yd0x5g7600ta")
-spawn_path = NodePath("../NavigationRegion3D")
+[node name="Reactor2" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_imcog")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.29817, 0, -15.1307)
+Player = NodePath("../Players/Bot")
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]

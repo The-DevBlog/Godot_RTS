@@ -23,18 +23,20 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 		if (StructureType == StructureType.None) Utils.PrintErr("StructureType is not set for structure");
 		if (Model == null) Utils.PrintErr("Model is not assigned for structure: " + StructureType);
 
-		Player = PlayerManager.Instance.LocalPlayer;
-
 		Utils.NullExportCheck(Player);
 		Utils.NullExportCheck(Model);
 		Utils.NullExportCheck(Area);
 
-		if (Player == null)
-		{
-			Player = PlayerManager.Instance.LocalPlayer;
-		}
-
 		SetTeamColor(Player.Color);
+
+		// register the structure if its not a placeholder
+		if (this is not StructureBasePlaceholder)
+			Player.AddStructure(this);
+	}
+
+	public void Init(Player player)
+	{
+		Player = player;
 	}
 
 	public void SetTeamColor(Color color)
@@ -56,6 +58,8 @@ public partial class StructureBase : StaticBody3D, ICostProvider
 
 				// Set the uniform parameter
 				matInstance.SetShaderParameter("team_color", color);
+
+				GD.Print("Setting team color for structure: " + StructureType + " to " + color);
 
 				// Assign it back to the mesh
 				mesh.SetSurfaceOverrideMaterial(0, matInstance);

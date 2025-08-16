@@ -11,25 +11,23 @@ public partial class StructureBtn : Button
 	private MyModels _models;
 	private Camera3D _camera;
 	private Node3D _scene;
-	private PlayerManager _playerManager;
-	private MultiplayerSpawner _multiplayerSpawner;
 	private StructureFactory _structureFactory;
 
 	public override void _Ready()
 	{
-		_multiplayerSpawner = GlobalResources.Instance.MultiplayerSpawner;
-		_structureFactory = StructureFactory.Instance;
+		_structureFactory = GetNode<StructureFactory>("/root/World/Managers/StructureFactory");
+		Utils.NullCheck(_structureFactory);
 
-		// Grab the local Player from the PlayerManager
-		_player = PlayerManager.Instance.LocalPlayer;
-		if (_player == null)
-			GD.PrintErr("[StructureBtn] No local player found!");
+		var playerManager = PlayerManager.Instance;
+		playerManager.WhenHumanPlayerReady(player =>
+		{
+			_player = player;
+		});
 
 		_signals = Signals.Instance;
 		_models = AssetServer.Instance.Models;
 		_camera = GetViewport().GetCamera3D();
 		_scene = GetTree().CurrentScene as Node3D;
-		_playerManager = PlayerManager.Instance;
 
 		Pressed += SelectStructure;
 		MouseEntered += OnBtnEnter;
@@ -42,6 +40,12 @@ public partial class StructureBtn : Button
 			Utils.PrintErr("Current scene root is not a Node3D.");
 	}
 
+	private void OnHumanPlayerReady(Player player)
+	{
+		_player = player;
+		GD.Print("[StructureBtn] Human player ready:", _player.Name);
+	}
+
 	private void SelectStructure()
 	{
 		// Cancel if already placing
@@ -51,7 +55,7 @@ public partial class StructureBtn : Button
 			return;
 		}
 
-		_placeholder = _structureFactory.BuildPlaceholder(Structure);
+		_placeholder = _structureFactory.BuildPlaceholder(_player, Structure);
 
 		if (_placeholder == null)
 		{
@@ -82,9 +86,7 @@ public partial class StructureBtn : Button
 		}
 
 		if (@event is InputEventMouseButton mb && mb.Pressed)
-		{
 			RotatePlaceholder(mb.ButtonIndex == MouseButton.WheelUp ? 90f : -90f);
-		}
 	}
 
 	private void PlaceStructure()
@@ -98,7 +100,7 @@ public partial class StructureBtn : Button
 		if (_placeholder == null || !_placeholder.ValidPlacement)
 			return;
 
-		_structureFactory.PlaceStructure(_placeholder);
+		_structureFactory.PlaceStructure(_placeholder, _player);
 		CancelPlaceholder();
 	}
 

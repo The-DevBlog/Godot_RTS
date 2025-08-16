@@ -1,64 +1,42 @@
-using System.Collections.Generic;
 using Godot;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class PlayerManager : Node
 {
 	public static PlayerManager Instance { get; private set; }
-
-	// All connected players, keyed by peer ID
-	private readonly Dictionary<long, Player> _players = new();
-
-	public Player LocalPlayer { get; private set; }
-	public Player Authority { get; set; }
-
+	public List<Player> Players { get; } = new(); // Human and bots
+	public Player HumanPlayer { get; private set; }
+	public event Action<Player> HumanPlayerReady;
 	public override void _Ready()
 	{
+		GD.Print("[PlayerManager] _Ready called");
 		Instance = this;
-
-		// Immediately create/register *your* Player
-		var meId = Multiplayer.GetUniqueId(); // usually 1 if no network yet
-		var me = InstantiatePlayer(meId);
-		AddPlayer(meId, me);
 	}
 
-	private Player InstantiatePlayer(int peerId)
+	/// <summary>
+	/// Called by Player when it’s ready.
+	/// </summary>
+	public void RegisterPlayer(Player p)
 	{
-		var player = /* load or reference your Player PackedScene */
-					  ResourceLoader.Load<PackedScene>("res://Scenes/Player.tscn")
-									.Instantiate<Player>();
-
-		player.Name = peerId.ToString();
-		player.SetMultiplayerAuthority(peerId);
-		AddChild(player);
-		return player;
-	}
-
-
-	public void AddPlayer(long peerId, Player player)
-	{
-		_players[peerId] = player;
-		if (peerId == Multiplayer.GetUniqueId())
+		Players.Add(p);
+		if (p.IsHuman)
 		{
-			LocalPlayer = player;
-			Authority = player;
+			HumanPlayer = p;
+			HumanPlayerReady?.Invoke(p);
 		}
+
+		GD.Print($"Registered player: {p.Name} (ID: {p.Id})");
 	}
 
-	public Player GetPlayer(int peerId)
+	public void WhenHumanPlayerReady(Action<Player> cb)
 	{
-		_players.TryGetValue(peerId, out var p);
-		return p;
+		if (HumanPlayer != null)
+			cb(HumanPlayer);
+		else
+			HumanPlayerReady += cb;
 	}
 
-	public void RemovePlayer(int peerId)
-	{
-		if (_players.Remove(peerId, out var p))
-			p.QueueFree();
-
-		if (LocalPlayer?.GetMultiplayerAuthority() == peerId)
-			LocalPlayer = null;
-
-		if (Authority?.GetMultiplayerAuthority() == peerId)
-			Authority = null;
-	}
+	public Player GetPlayerById(int id) => Players.FirstOrDefault(p => p.Id == id);
 }
