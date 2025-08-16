@@ -23,6 +23,7 @@ VehicleType = 3
 Speed = 6
 HP = 200
 DPS = 20
+Range = 100
 Cost = 600
 BuildTime = 5
 Acceleration = 5

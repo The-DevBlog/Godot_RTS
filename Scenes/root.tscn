@@ -1,12 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cje1x122yykgi" path="res://Scripts/Structures/StructureFactory.cs" id="2_lwnbm"]
 [ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
-[ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
-[ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="3_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
@@ -162,17 +160,15 @@ button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="Units" type="Node3D" parent="."]
 
-[node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
-transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 2.04756, 0, -2.01788)
+[node name="TankGen2_1" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.1272, 0, 0)
 Team = 1
+FireRate = 1.0
 
-[node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.30124, 0.0109811, -1.92637)
-Team = 1
-
-[node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
-transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, -0.468336, 0, -1.5761)
-Team = 1
+[node name="TankGen2_2" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.00769, 0, 0)
+Team = 2
+FireRate = 1.0
 
 [node name="Shaders" type="Node3D" parent="."]
 

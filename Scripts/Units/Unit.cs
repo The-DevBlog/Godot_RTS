@@ -7,11 +7,14 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
 	[Export] public int DPS { get; set; }
+	[Export] public int Range { get; set; }
+	[Export] public float FireRate { get; set; }
 	[Export] public int Cost { get; set; }
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
-	[Export] private Node3D _healthbar;
+	[Export] private Node3D _healthbar { get; set; }
+	[Export] private CombatSystem _combatSystem;
 	public Player Player { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
@@ -50,38 +53,26 @@ public partial class Unit : CharacterBody3D, ICostProvider
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
 		if (DPS == 0) Utils.PrintErr("No DPS Assigned to unit");
+		if (Range == 0) Utils.PrintErr("No Range Assigned to unit");
+		if (FireRate == 0) Utils.PrintErr("No FireRate Assigned to unit");
 		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");
 		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 
+		Utils.NullExportCheck(_combatSystem);
 		Utils.NullExportCheck(_healthbar);
+
+		_combatSystem.Attack += (shooter, dps) =>
+		{
+			GD.Print($"Unit {Name} received attack from {shooter.Name} with {dps} damage.");
+		};
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		MoveUnit();
-	}
-
-	// scales the healthbar based on distance to camera
-	private void ScaleHealthbar()
-	{
-		float desiredHeightPx = 32f;
-
-		// 1) distance
-		float d = GlobalPosition.DistanceTo(_cam.GlobalPosition);
-		// 2) vertical FOV in radians
-		float vfov = _cam.Fov * (Mathf.Pi / 180f);
-		// 3) voxels per pixel
-		float viewportH = GetViewport().GetVisibleRect().Size.Y;
-		float worldPerPx = 2f * d * Mathf.Tan(vfov * 0.5f) / viewportH;
-		// 4) apply only to Y
-		_healthbar.Scale = new Vector3(
-			_healthbar.Scale.X,
-			desiredHeightPx * worldPerPx,
-			_healthbar.Scale.Z
-		);
 	}
 
 	private void MoveUnit()
