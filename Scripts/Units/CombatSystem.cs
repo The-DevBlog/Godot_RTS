@@ -34,8 +34,8 @@ public partial class CombatSystem : Node
 	public override void _PhysicsProcess(double delta)
 	{
 		// TODO: Remove. For debugging only.
-		if (_unit.Team == 2)
-			return;
+		// if (_unit.Team == 2)
+		// 	return;
 
 		FaceTowardsTarget((float)delta);
 		TryAttack(delta);
