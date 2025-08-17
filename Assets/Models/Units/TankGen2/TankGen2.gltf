@@ -3,6 +3,9 @@
 		"generator":"Khronos glTF Blender I/O v4.3.47",
 		"version":"2.0"
 	},
+	"extensionsUsed":[
+		"KHR_materials_emissive_strength"
+	],
 	"scene":0,
 	"scenes":[
 		{
@@ -102,6 +105,30 @@
 				"metallicFactor":0,
 				"roughnessFactor":0.5
 			}
+		},
+		{
+			"doubleSided":true,
+			"emissiveFactor":[
+				1,
+				0,
+				0.01599631831049919
+			],
+			"extensions":{
+				"KHR_materials_emissive_strength":{
+					"emissiveStrength":2
+				}
+			},
+			"name":"TailLightsMaterial",
+			"pbrMetallicRoughness":{
+				"baseColorFactor":[
+					1,
+					0,
+					0.01599631831049919,
+					1
+				],
+				"metallicFactor":0,
+				"roughnessFactor":0.5
+			}
 		}
 	],
 	"meshes":[
@@ -157,7 +184,7 @@
 						"TEXCOORD_0":14
 					},
 					"indices":15,
-					"material":0
+					"material":1
 				}
 			]
 		},
