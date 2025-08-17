@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=10 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
 [ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_yir8a"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="5_k7ata"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="6_k2jx1"]
+[ext_resource type="AudioStream" uid="uid://cpt6iaoobv32n" path="res://Assets/Audio/TankAttack.wav" id="7_15mll"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
 height = 1.0
@@ -24,7 +25,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 script = ExtResource("1_eb2nj")
 VehicleType = 2
 Speed = 8
-HP = 200
+HP = 100
 DPS = 100
 Range = 30
 Cost = 750
@@ -67,3 +68,8 @@ _unit = NodePath("../..")
 script = ExtResource("6_k2jx1")
 _unit = NodePath("../..")
 _healthbar = NodePath("../../Healthbar")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
+stream = ExtResource("7_15mll")

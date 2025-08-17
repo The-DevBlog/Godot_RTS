@@ -14,6 +14,7 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
 	[Export] private CombatSystem _combatSystem;
+	public int CurrentHP { get; set; }
 	public Player Player { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
@@ -61,6 +62,8 @@ public partial class Unit : CharacterBody3D, ICostProvider
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 
 		Utils.NullExportCheck(_combatSystem);
+
+		CurrentHP = HP;
 	}
 
 	public override void _PhysicsProcess(double delta)

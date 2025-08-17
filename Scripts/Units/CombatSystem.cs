@@ -11,15 +11,19 @@ public partial class CombatSystem : Node
     private Unit _currentTarget;
     private float _fireRateTimer;
     private string UnitsGroup = MyEnums.Group.Units.ToString();
+    private AudioStreamPlayer3D _attackSound;
     [Signal] public delegate void OnAttackEventHandler(Unit target, int dps);
 
     public override void _Ready()
     {
         Utils.NullExportCheck(_unit);
 
-        _hp = _unit.HP;
+        _hp = _unit.CurrentHP;
         _dps = _unit.DPS;
         _range = _unit.Range;
+
+        _attackSound = GetNode<AudioStreamPlayer3D>("../../Audio/Attack");
+        Utils.NullCheck(_attackSound);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -35,7 +39,10 @@ public partial class CombatSystem : Node
     private void TryAttack(double delta)
     {
         if (!IsInstanceValid(_currentTarget))
+        {
+            _currentTarget = null;
             return;
+        }
 
         // Ensure target it still in range
         Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition;
@@ -53,6 +60,7 @@ public partial class CombatSystem : Node
         _fireRateTimer = _unit.FireRate;
 
         EmitSignal(SignalName.OnAttack, _currentTarget, _dps);
+        _attackSound.Play();
     }
 
     private Unit GetNearestEnemyInRange()
@@ -70,7 +78,7 @@ public partial class CombatSystem : Node
         {
             if (n == _unit || n == null) continue;
             if (n is not Unit other) continue;
-            if (other.HP <= 0) continue;           // skip dead
+            if (other.CurrentHP <= 0) continue;           // skip dead
             if (other.Team == myTeam) continue;    // skip friendlies
 
             Vector3 d = other.GlobalPosition - myPos;

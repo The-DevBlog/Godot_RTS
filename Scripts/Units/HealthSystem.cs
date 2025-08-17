@@ -13,10 +13,7 @@ public partial class HealthSystem : Node
 		Utils.NullExportCheck(_unit);
 		Utils.NullExportCheck(_healthbar);
 
-		_currentHP = _unit.HP;
-		_maxHP = _unit.HP;
 		_combatSystem = GetNode<CombatSystem>("../CombatSystem");
-
 		Utils.NullCheck(_combatSystem);
 
 		_combatSystem.OnAttack += TakeDamage;
@@ -29,7 +26,15 @@ public partial class HealthSystem : Node
 
 		GD.Print($"Unit {target.Name} took {dmg} damage from {_unit.Name}.");
 
-		_currentHP -= dmg;
-		progressBar.Value = (float)_currentHP / _maxHP * progressBar.MaxValue;
+		target.CurrentHP -= dmg;
+
+		progressBar.Value = (float)target.CurrentHP / target.HP * progressBar.MaxValue;
+
+		// Check for death
+		if (target.CurrentHP <= 0)
+		{
+			GD.Print($"{target.Name} has been destroyed!");
+			target.QueueFree();
+		}
 	}
 }
