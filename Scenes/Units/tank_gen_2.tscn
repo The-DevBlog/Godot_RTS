@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=37 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
 [ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
@@ -24,6 +24,12 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mfhdj"]
+random_pitch = 1.5
+random_volume_offset_db = 0.8
+streams_count = 1
+stream_0/stream = ExtResource("7_mfhdj")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smbrw"]
 transparency = 1
@@ -148,8 +154,9 @@ script = ExtResource("1_eb2nj")
 VehicleType = 2
 Speed = 8
 HP = 100
-DPS = 100
-Range = 30
+DPS = 20
+Range = 15
+FireRate = 1.0
 Cost = 750
 BuildTime = 8
 Acceleration = 8
@@ -194,7 +201,7 @@ _healthbar = NodePath("../../Healthbar")
 [node name="Audio" type="Node" parent="."]
 
 [node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
-stream = ExtResource("7_mfhdj")
+stream = SubResource("AudioStreamRandomizer_mfhdj")
 
 [node name="MuzzleFlash" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.0145259, 0.735564, -2.16345)
@@ -236,7 +243,7 @@ draw_pass_1 = SubResource("QuadMesh_fvnnt")
 material_override = SubResource("StandardMaterial3D_07m4p")
 emitting = false
 amount = 20
-lifetime = 0.3
+lifetime = 0.2
 one_shot = true
 explosiveness = 0.7
 randomness = 1.0
