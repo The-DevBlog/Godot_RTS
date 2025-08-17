@@ -189,9 +189,10 @@ replication_config = SubResource("SceneReplicationConfig_yir8a")
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
+[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer")]
 script = ExtResource("5_k7ata")
 _unit = NodePath("../..")
+_animationPlayer = NodePath("../../Model/AnimationPlayer")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_healthbar")]
 script = ExtResource("6_k2jx1")
@@ -250,3 +251,5 @@ randomness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_uh2bm")
 draw_pass_1 = SubResource("QuadMesh_cocvn")
+
+[editable path="Model"]

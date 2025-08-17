@@ -6,6 +6,7 @@ public partial class CombatSystem : Node
 	[Export] private Unit _unit;
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec)
 	[Export] private float TurnSpeedDeg = 180f;     // tank yaw speed (deg/sec)
+	[Export] private AnimationPlayer _animationPlayer;
 	private int _hp;
 	private int _dps;
 	private int _range;
@@ -19,6 +20,7 @@ public partial class CombatSystem : Node
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(_unit);
+		Utils.NullExportCheck(_animationPlayer);
 
 		_hp = _unit.CurrentHP;
 		_dps = _unit.DPS;
@@ -74,6 +76,9 @@ public partial class CombatSystem : Node
 		{
 			particles.Restart();
 		}
+
+		// animation
+		_animationPlayer.Play("FireAnimation");
 	}
 
 	private Unit GetNearestEnemyInRange()
