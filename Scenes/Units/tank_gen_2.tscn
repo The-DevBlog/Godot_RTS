@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://djsa3anxcvbst" path="res://Assets/Textures/MuzzleFlash.png" id="5_k2jx1"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="5_k7ata"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="6_k2jx1"]
-[ext_resource type="AudioStream" uid="uid://cpt6iaoobv32n" path="res://Assets/Audio/TankAttack.wav" id="7_15mll"]
+[ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="7_mfhdj"]
 [ext_resource type="ArrayMesh" uid="uid://gv6m7q3rqdu5" path="res://Assets/MuzzlePlane.obj" id="9_mfhdj"]
 [ext_resource type="Texture2D" uid="uid://brscwxgt8w15i" path="res://Assets/Textures/MuzzleFlashCone.png" id="10_kavk7"]
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/MuzzleCone.obj" id="11_pw7cq"]
@@ -194,7 +194,7 @@ _healthbar = NodePath("../../Healthbar")
 [node name="Audio" type="Node" parent="."]
 
 [node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
-stream = ExtResource("7_15mll")
+stream = ExtResource("7_mfhdj")
 
 [node name="MuzzleFlash" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.0145259, 0.735564, -2.16345)

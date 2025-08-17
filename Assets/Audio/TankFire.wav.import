@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://cpt6iaoobv32n"
-path="res://.godot/imported/TankAttack.wav-ae9aaa0c204a27842c45d53d37054bfb.sample"
+uid="uid://bmgh1pq1odwwk"
+path="res://.godot/imported/TankFire.wav-f628f1b153c0bfa4c1b8c49b7bcb8aa3.sample"
 
 [deps]
 
-source_file="res://Assets/Audio/TankAttack.wav"
-dest_files=["res://.godot/imported/TankAttack.wav-ae9aaa0c204a27842c45d53d37054bfb.sample"]
+source_file="res://Assets/Audio/TankFire.wav"
+dest_files=["res://.godot/imported/TankFire.wav-f628f1b153c0bfa4c1b8c49b7bcb8aa3.sample"]
 
 [params]
 
