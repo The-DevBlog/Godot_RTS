@@ -29,6 +29,7 @@ public partial class HealthSystem : Node
 
 		GD.Print($"Unit {target.Name} took {dmg} damage from {_unit.Name}.");
 
-		progressBar.Value -= 10;
+		_currentHP -= dmg;
+		progressBar.Value = (float)_currentHP / _maxHP * progressBar.MaxValue;
 	}
 }
