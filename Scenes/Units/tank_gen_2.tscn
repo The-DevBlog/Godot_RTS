@@ -188,10 +188,9 @@ _unit = NodePath("../..")
 _animationPlayer = NodePath("../../Model/AnimationPlayer")
 _turretYaw = NodePath("../../Model/Tank/Turret")
 
-[node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_healthbar")]
+[node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("6_k2jx1")
 _unit = NodePath("../..")
-_healthbar = NodePath("../../Healthbar")
 
 [node name="Audio" type="Node" parent="."]
 
