@@ -7,6 +7,7 @@ public partial class CombatSystem : Node
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec)
 	[Export] private float TurnSpeedDeg = 180f;     // tank yaw speed (deg/sec)
 	[Export] private AnimationPlayer _animationPlayer;
+	[Export] private Node3D _turretYaw;
 	private int _hp;
 	private int _dps;
 	private int _range;
@@ -21,6 +22,7 @@ public partial class CombatSystem : Node
 	{
 		Utils.NullExportCheck(_unit);
 		Utils.NullExportCheck(_animationPlayer);
+		Utils.NullExportCheck(_turretYaw);
 
 		_hp = _unit.CurrentHP;
 		_dps = _unit.DPS;
@@ -39,7 +41,7 @@ public partial class CombatSystem : Node
 		// if (_unit.Team == 2)
 		// 	return;
 
-		FaceTowardsTarget((float)delta);
+		FaceTarget((float)delta);
 		TryAttack(delta);
 	}
 
@@ -112,29 +114,74 @@ public partial class CombatSystem : Node
 		return best;
 	}
 
-	private void FaceTowardsTarget(float delta)
+	// private void FaceTowardsTarget(float delta)
+	// {
+	// 	_currentTarget = GetNearestEnemyInRange();
+	// 	if (!IsInstanceValid(_currentTarget))
+	// 		return;
+
+	// 	Vector3 myPos = _unit.GlobalPosition;
+	// 	Vector3 dir = _currentTarget.GlobalPosition - myPos;
+	// 	dir.Y = 0;
+
+	// 	if (dir.LengthSquared() < 1e-6f) return;
+
+	// 	// Desired yaw (Godot: yaw around +Y; forward is -Z)
+	// 	float targetYaw = Mathf.Atan2(-dir.X, -dir.Z);   // <- note the minus signs
+	// 	float currentYaw = _unit.Rotation.Y;
+
+	// 	// Step-limited turn toward the target yaw
+	// 	float maxStep = Mathf.DegToRad(TurnSpeedDeg) * delta;
+	// 	float deltaYaw = targetYaw - currentYaw;
+	// 	while (deltaYaw > Mathf.Pi) deltaYaw -= Mathf.Tau;
+	// 	while (deltaYaw < -Mathf.Pi) deltaYaw += Mathf.Tau;
+	// 	float step = Mathf.Clamp(deltaYaw, -maxStep, maxStep);
+
+	// 	_unit.Rotation = new Vector3(0f, currentYaw + step, 0f);
+	// }
+	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;
+	private static float ClampAngle(float a, float min, float max) => Mathf.Clamp(WrapAngle(a), min, max);
+	private void FaceTarget(float dt)
 	{
 		_currentTarget = GetNearestEnemyInRange();
 		if (!IsInstanceValid(_currentTarget))
 			return;
 
-		Vector3 myPos = _unit.GlobalPosition;
-		Vector3 dir = _currentTarget.GlobalPosition - myPos;
-		dir.Y = 0;
+		// --- YAW (around +Y on the turret pivot) ---
+		// Work in world space, then convert to local yaw relative to the hull.
+		Vector3 tPos = _turretYaw.GlobalPosition;
+		Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
+		toTarget.Y = 0f;
+		if (toTarget.LengthSquared() < 1e-6f) return;
 
-		if (dir.LengthSquared() < 1e-6f) return;
+		// Godot forward is -Z; this matches your earlier Atan2.
+		float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
 
-		// Desired yaw (Godot: yaw around +Y; forward is -Z)
-		float targetYaw = Mathf.Atan2(-dir.X, -dir.Z);   // <- note the minus signs
-		float currentYaw = _unit.Rotation.Y;
+		// Hull’s world yaw (assuming _unit is the hull/root)
+		float hullYawWorld = _unit.GlobalRotation.Y;
 
-		// Step-limited turn toward the target yaw
-		float maxStep = Mathf.DegToRad(TurnSpeedDeg) * delta;
-		float deltaYaw = targetYaw - currentYaw;
-		while (deltaYaw > Mathf.Pi) deltaYaw -= Mathf.Tau;
-		while (deltaYaw < -Mathf.Pi) deltaYaw += Mathf.Tau;
-		float step = Mathf.Clamp(deltaYaw, -maxStep, maxStep);
+		// Desired turret yaw *relative to the hull*
+		float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
 
-		_unit.Rotation = new Vector3(0f, currentYaw + step, 0f);
+		float currentLocalYaw = _turretYaw.Rotation.Y;
+		float maxStepYaw = Mathf.DegToRad(TurnSpeedDeg) * dt;
+		float yawDelta = ClampAngle(desiredLocalYaw - currentLocalYaw, -maxStepYaw, maxStepYaw);
+		_turretYaw.Rotation = new Vector3(_turretYaw.Rotation.X, currentLocalYaw + yawDelta, _turretYaw.Rotation.Z);
+
+		// // --- PITCH (optional; rotate around local X on BarrelPitch) ---
+		// if (_barrelPitch != null)
+		// {
+		//     // Aim using the barrel pivot’s local space so X is the correct pitch axis.
+		//     Vector3 localDir = _barrelPitch.ToLocal(_currentTarget.GlobalPosition);
+		//     // With -Z as forward, this gives positive pitch when aiming up.
+		//     float desiredPitch = Mathf.Atan2(localDir.Y, -localDir.Z);
+
+		//     float currentPitch = _barrelPitch.Rotation.X;
+		//     float maxStepPitch = Mathf.DegToRad(PitchSpeedDeg) * dt;
+		//     float clampedTarget = Mathf.Clamp(desiredPitch,
+		//         Mathf.DegToRad(MinPitchDeg), Mathf.DegToRad(MaxPitchDeg));
+		//     float pitchDelta = ClampAngle(clampedTarget - currentPitch, -maxStepPitch, maxStepPitch);
+		//     _barrelPitch.Rotation = new Vector3(currentPitch + pitchDelta, _barrelPitch.Rotation.Y, _barrelPitch.Rotation.Z);
+		// }
 	}
 }

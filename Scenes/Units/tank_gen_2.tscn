@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=36 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
 [ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
@@ -16,14 +16,6 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
 height = 1.0
 radius = 1.2
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yir8a"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mfhdj"]
 random_pitch = 1.5
@@ -131,11 +123,11 @@ curve = SubResource("Curve_4b1um")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uh2bm"]
 particle_flag_align_y = true
 emission_shape = 1
-emission_sphere_radius = 0.2
+emission_sphere_radius = 0.6
 direction = Vector3(0, 0, 1)
-spread = 10.0
+spread = 50.0
 initial_velocity_min = 5.0
-initial_velocity_max = 10.0
+initial_velocity_max = 30.0
 gravity = Vector3(0, 0, 0)
 damping_min = 0.5
 damping_max = 0.8
@@ -146,7 +138,7 @@ color = Color(5, 3, 1, 1)
 alpha_curve = SubResource("CurveTexture_mbwrp")
 
 [sub_resource type="QuadMesh" id="QuadMesh_cocvn"]
-size = Vector2(0.2, 1)
+size = Vector2(0.15, 0.5)
 
 [node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("_combatSystem") groups=["units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -170,6 +162,10 @@ shape = SubResource("CylinderShape3D_ebj34")
 [node name="Model" parent="." instance=ExtResource("2_mkm1s")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.311906, 0)
 
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/Tank/Turret/Barrel" index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.16579, 4.19214, -20.9805)
+remote_path = NodePath("../../../../../MuzzleFlash")
+
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
 visible = false
@@ -184,15 +180,13 @@ avoidance_enabled = true
 [node name="Healthbar" parent="." instance=ExtResource("4_yir8a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82261, 0)
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_yir8a")
-
 [node name="Systems" type="Node" parent="."]
 
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer")]
+[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer", "_turretYaw")]
 script = ExtResource("5_k7ata")
 _unit = NodePath("../..")
 _animationPlayer = NodePath("../../Model/AnimationPlayer")
+_turretYaw = NodePath("../../Model/Tank/Turret")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_healthbar")]
 script = ExtResource("6_k2jx1")
@@ -205,7 +199,7 @@ _healthbar = NodePath("../../Healthbar")
 stream = SubResource("AudioStreamRandomizer_mfhdj")
 
 [node name="MuzzleFlash" type="Node3D" parent="."]
-transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -0.0145259, 0.735564, -2.16345)
+transform = Transform3D(-0.1, 0, -8.74228e-09, 0, 0.1, 0, 8.74228e-09, 0, -0.1, -0.016579, 0.73112, -2.09805)
 
 [node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash"]
 material_override = SubResource("StandardMaterial3D_smbrw")
