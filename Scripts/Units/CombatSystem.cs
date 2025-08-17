@@ -11,7 +11,7 @@ public partial class CombatSystem : Node
     private Unit _currentTarget;
     private float _fireRateTimer;
     private string UnitsGroup = MyEnums.Group.Units.ToString();
-    [Signal] public delegate void AttackEventHandler(Unit target, int dps);
+    [Signal] public delegate void OnAttackEventHandler(Unit target, int dps);
 
     public override void _Ready()
     {
@@ -27,7 +27,6 @@ public partial class CombatSystem : Node
         // TODO: Remove. For debugging only.
         if (_unit.Team == 2)
             return;
-
 
         FaceTowardsTarget((float)delta);
         TryAttack(delta);
@@ -53,7 +52,7 @@ public partial class CombatSystem : Node
 
         _fireRateTimer = _unit.FireRate;
 
-        EmitSignal(SignalName.Attack, _currentTarget, _dps);
+        EmitSignal(SignalName.OnAttack, _currentTarget, _dps);
     }
 
     private Unit GetNearestEnemyInRange()

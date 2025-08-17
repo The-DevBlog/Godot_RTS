@@ -13,7 +13,6 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
-	[Export] private Node3D _healthbar { get; set; }
 	[Export] private CombatSystem _combatSystem;
 	public Player Player { get; set; }
 	private float _movementDelta;
@@ -62,12 +61,6 @@ public partial class Unit : CharacterBody3D, ICostProvider
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 
 		Utils.NullExportCheck(_combatSystem);
-		Utils.NullExportCheck(_healthbar);
-
-		_combatSystem.Attack += (shooter, dps) =>
-		{
-			GD.Print($"Unit {Name} received attack from {shooter.Name} with {dps} damage.");
-		};
 	}
 
 	public override void _PhysicsProcess(double delta)
