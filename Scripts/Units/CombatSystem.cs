@@ -112,7 +112,7 @@ public partial class CombatSystem : Node
 		return best;
 	}
 
-	private void FaceTowardsTarget(float dt)
+	private void FaceTowardsTarget(float delta)
 	{
 		_currentTarget = GetNearestEnemyInRange();
 		if (!IsInstanceValid(_currentTarget))
@@ -129,7 +129,7 @@ public partial class CombatSystem : Node
 		float currentYaw = _unit.Rotation.Y;
 
 		// Step-limited turn toward the target yaw
-		float maxStep = Mathf.DegToRad(TurnSpeedDeg) * dt;
+		float maxStep = Mathf.DegToRad(TurnSpeedDeg) * delta;
 		float deltaYaw = targetYaw - currentYaw;
 		while (deltaYaw > Mathf.Pi) deltaYaw -= Mathf.Tau;
 		while (deltaYaw < -Mathf.Pi) deltaYaw += Mathf.Tau;
