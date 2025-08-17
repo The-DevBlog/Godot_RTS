@@ -17,7 +17,7 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="TankGen1" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar") groups=["units"]]
+[node name="TankGen1" type="CharacterBody3D" groups=["units"]]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 script = ExtResource("1_icixe")
 VehicleType = 1
@@ -28,7 +28,6 @@ Range = 40
 Cost = 500
 BuildTime = 5
 Acceleration = 6
-_healthbar = NodePath("Healthbar")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

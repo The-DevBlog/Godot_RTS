@@ -1,3 +1,4 @@
+
 using Godot;
 
 public partial class CombatSystem : Node
@@ -12,6 +13,7 @@ public partial class CombatSystem : Node
 	private float _fireRateTimer;
 	private string UnitsGroup = MyEnums.Group.Units.ToString();
 	private AudioStreamPlayer3D _attackSound;
+	private Node3D _muzzleFlashParticles;
 	[Signal] public delegate void OnAttackEventHandler(Unit target, int dps);
 
 	public override void _Ready()
@@ -24,6 +26,9 @@ public partial class CombatSystem : Node
 
 		_attackSound = GetNode<AudioStreamPlayer3D>("../../Audio/Attack");
 		Utils.NullCheck(_attackSound);
+
+		_muzzleFlashParticles = GetNode<Node3D>("../../MuzzleFlash");
+		Utils.NullCheck(_muzzleFlashParticles);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -60,7 +65,15 @@ public partial class CombatSystem : Node
 		_fireRateTimer = _unit.FireRate;
 
 		EmitSignal(SignalName.OnAttack, _currentTarget, _dps);
+
+		// audio
 		_attackSound.Play();
+
+		// vfx
+		foreach (GpuParticles3D particles in _muzzleFlashParticles.GetChildren())
+		{
+			particles.Restart();
+		}
 	}
 
 	private Unit GetNearestEnemyInRange()
