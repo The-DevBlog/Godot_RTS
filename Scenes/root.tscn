@@ -72,11 +72,12 @@ size = Vector3(200, 0.5, 200)
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
 [node name="World" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.189589, -0.2607, 0.164982)
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
 Season = 2
-TimeOfDay = 2
-Weather = 1
+TimeOfDay = 3
+Weather = 3
 
 [node name="Players" type="Node" parent="."]
 
