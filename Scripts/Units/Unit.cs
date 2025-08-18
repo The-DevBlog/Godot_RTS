@@ -1,7 +1,7 @@
 using Godot;
 using MyEnums;
 
-public partial class Unit : CharacterBody3D, ICostProvider
+public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 {
 	[Export] public int Team { get; set; }
 	[Export] public int Speed { get; set; }
@@ -14,6 +14,7 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
 	[Export] private CombatSystem _combatSystem;
+	[Export] private HealthSystem _healthSystem;
 	public int CurrentHP { get; set; }
 	public Player Player { get; set; }
 	private float _movementDelta;
@@ -37,7 +38,7 @@ public partial class Unit : CharacterBody3D, ICostProvider
 
 	public override void _Ready()
 	{
-		AddToGroup(Group.Units.ToString());
+		AddToGroup(Group.units.ToString());
 
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		Utils.NullExportCheck(_navigationAgent);
@@ -62,6 +63,7 @@ public partial class Unit : CharacterBody3D, ICostProvider
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 
 		Utils.NullExportCheck(_combatSystem);
+		Utils.NullExportCheck(_healthSystem);
 
 		CurrentHP = HP;
 	}
@@ -118,5 +120,10 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	{
 		_targetPosition = worldPos;
 		_navigationAgent.TargetPosition = worldPos;
+	}
+
+	public void ApplyDamage(int amount, Vector3 hitPos, Vector3 hitNormal)
+	{
+		_healthSystem.ApplyDamage(amount, hitPos, hitNormal);
 	}
 }

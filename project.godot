@@ -37,6 +37,7 @@ project/assembly_name="Godot_RTS"
 
 structures=""
 units=""
+damageable="Any entity that can receive damage"
 
 [input]
 

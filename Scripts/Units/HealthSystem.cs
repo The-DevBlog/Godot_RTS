@@ -6,7 +6,6 @@ public partial class HealthSystem : Node
 	private ProgressBar _healthbar;
 	private int _currentHP;
 	private int _maxHP;
-	private CombatSystem _combatSystem;
 	private Color _healthbarColorRed;
 	private Color _healthbarColorGreen;
 	private Color _healthbarColorOrange;
@@ -18,36 +17,24 @@ public partial class HealthSystem : Node
 		_healthbar = GetNode<ProgressBar>("../../Healthbar/SubViewport/ProgressBar");
 		Utils.NullCheck(_healthbar);
 
-		_combatSystem = GetNode<CombatSystem>("../CombatSystem");
-		Utils.NullCheck(_combatSystem);
-
 		_healthbarColorGreen = new Color("#5cc154");
 		_healthbarColorRed = new Color("#ff0000");
 		_healthbarColorOrange = new Color("#ff8c00");
-
-		_combatSystem.OnAttack += TakeDamage;
 	}
 
-	private void TakeDamage(Unit target, int dmg)
+	// IDamageable implementation
+	public void ApplyDamage(int amount, Vector3 hitPos, Vector3 hitNormal)
 	{
-		ProgressBar targetHealthbar = target.GetNode<ProgressBar>("Healthbar/SubViewport/ProgressBar");
-		Utils.NullCheck(targetHealthbar);
+		_unit.CurrentHP = Mathf.Max(0, _unit.CurrentHP - amount);
 
-		GD.Print($"Unit {target.Name} took {dmg} damage from {_unit.Name}.");
+		// Move the bar
+		_healthbar.Value = (float)_unit.CurrentHP / _unit.HP * _healthbar.MaxValue;
 
-		target.CurrentHP -= dmg;
+		// Color
+		UpdateHealthbar(_unit, _healthbar);
 
-		targetHealthbar.Value = (float)target.CurrentHP / target.HP * targetHealthbar.MaxValue;
-
-		// Check for death
-		if (target.CurrentHP <= 0)
-		{
-			GD.Print($"{target.Name} has been destroyed!");
-			target.QueueFree();
-		}
-
-		// update healthbar
-		UpdateHealthbar(target, targetHealthbar);
+		if (_unit.CurrentHP <= 0)
+			_unit.QueueFree();
 	}
 
 	private void UpdateHealthbar(Unit unit, ProgressBar bar)

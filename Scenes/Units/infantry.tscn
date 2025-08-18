@@ -17,7 +17,7 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Infantry" type="CharacterBody3D" groups=["units"]]
+[node name="Infantry" type="CharacterBody3D" groups=["damageable", "units"]]
 script = ExtResource("1_2fp7d")
 InfantryType = 1
 Speed = 4

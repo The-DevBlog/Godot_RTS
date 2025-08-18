@@ -17,7 +17,7 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Artillery" type="CharacterBody3D" node_paths=PackedStringArray("_healthbar") groups=["units"]]
+[node name="Artillery" type="CharacterBody3D" groups=["damageable", "units"]]
 script = ExtResource("1_r00e8")
 VehicleType = 3
 Speed = 6
@@ -27,7 +27,6 @@ Range = 100
 Cost = 600
 BuildTime = 5
 Acceleration = 5
-_healthbar = NodePath("Healthbar")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

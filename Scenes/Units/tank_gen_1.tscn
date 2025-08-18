@@ -17,7 +17,7 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="TankGen1" type="CharacterBody3D" groups=["units"]]
+[node name="TankGen1" type="CharacterBody3D" groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 script = ExtResource("1_icixe")
 VehicleType = 1

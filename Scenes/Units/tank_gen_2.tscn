@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=37 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
 [ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://djsa3anxcvbst" path="res://Assets/Textures/MuzzleFlash.png" id="5_k2jx1"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="5_k7ata"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="6_k2jx1"]
+[ext_resource type="PackedScene" uid="uid://drjoj3k3jsmon" path="res://Scenes/Projectiles/projectile.tscn" id="6_kavk7"]
 [ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="7_mfhdj"]
 [ext_resource type="ArrayMesh" uid="uid://gv6m7q3rqdu5" path="res://Assets/MuzzlePlane.obj" id="9_mfhdj"]
 [ext_resource type="Texture2D" uid="uid://brscwxgt8w15i" path="res://Assets/Textures/MuzzleFlashCone.png" id="10_kavk7"]
@@ -140,7 +141,7 @@ alpha_curve = SubResource("CurveTexture_mbwrp")
 [sub_resource type="QuadMesh" id="QuadMesh_cocvn"]
 size = Vector2(0.15, 0.5)
 
-[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("_combatSystem") groups=["units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("_combatSystem", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
 VehicleType = 2
@@ -153,6 +154,7 @@ Cost = 750
 BuildTime = 8
 Acceleration = 8
 _combatSystem = NodePath("Systems/CombatSystem")
+_healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -187,6 +189,7 @@ script = ExtResource("5_k7ata")
 _unit = NodePath("../..")
 _animationPlayer = NodePath("../../Model/AnimationPlayer")
 _turretYaw = NodePath("../../Model/Tank/Turret")
+_projectileScene = ExtResource("6_kavk7")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("6_k2jx1")
