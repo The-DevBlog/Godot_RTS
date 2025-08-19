@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dmrpp7am4my3k"]
+[gd_scene load_steps=39 format=3 uid="uid://dmrpp7am4my3k"]
 
 [ext_resource type="Texture2D" uid="uid://b14crgouxbxh5" path="res://Assets/VFX/Impact/Flare.png" id="1_bv6d7"]
 [ext_resource type="Texture2D" uid="uid://cu4nic81v6883" path="res://Assets/VFX/Impact/Flare02.png" id="2_5ixrt"]
@@ -152,6 +152,45 @@ scale_curve = SubResource("CurveXYZTexture_beu4v")
 color = Color(10, 3, 2, 1)
 alpha_curve = SubResource("CurveTexture_2svnl")
 
+[sub_resource type="Gradient" id="Gradient_5ixrt"]
+colors = PackedColorArray(0.27, 0.27, 0.27, 0.7, 1, 1, 1, 0.1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nlrlp"]
+gradient = SubResource("Gradient_5ixrt")
+
+[sub_resource type="Curve" id="Curve_psjbx"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.669421, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3kx0f"]
+curve = SubResource("Curve_psjbx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_clno6"]
+spread = 35.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, 0.8, 0)
+damping_min = 1.0
+damping_max = 2.0
+scale_min = 0.6
+scale_max = 0.9
+scale_curve = SubResource("CurveTexture_3kx0f")
+color_ramp = SubResource("GradientTexture1D_nlrlp")
+turbulence_enabled = true
+turbulence_noise_scale = 3.0
+turbulence_noise_speed = Vector3(1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgpcw"]
+transparency = 1
+shading_mode = 0
+billboard_mode = 1
+billboard_keep_scale = true
+proximity_fade_enabled = true
+proximity_fade_distance = 0.32
+
+[sub_resource type="QuadMesh" id="QuadMesh_fosto"]
+material = SubResource("StandardMaterial3D_sgpcw")
+
 [node name="VfxImpact" type="Node3D"]
 
 [node name="Flash" type="GPUParticles3D" parent="."]
@@ -194,3 +233,13 @@ explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_46f20")
 draw_pass_1 = SubResource("QuadMesh_nlrlp")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+visible = false
+emitting = false
+amount = 60
+lifetime = 2.0
+one_shot = true
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_clno6")
+draw_pass_1 = SubResource("QuadMesh_fosto")
