@@ -237,7 +237,7 @@ draw_pass_1 = SubResource("QuadMesh_nlrlp")
 [node name="Sparks" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_d74cc")
 emitting = false
-amount = 20
+amount = 50
 lifetime = 0.3
 one_shot = true
 explosiveness = 1.0
