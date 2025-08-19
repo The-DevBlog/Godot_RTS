@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brscwxgt8w15i"
-path.s3tc="res://.godot/imported/MuzzleFlashCone.png-f4ce33226c0000be9425282245c90711.s3tc.ctex"
+uid="uid://d3k2r71q57p1n"
+path.s3tc="res://.godot/imported/PerlinNoiseTiled.png-9724a3257413981402e98e0be5c16921.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Textures/MuzzleFlashCone.png"
-dest_files=["res://.godot/imported/MuzzleFlashCone.png-f4ce33226c0000be9425282245c90711.s3tc.ctex"]
+source_file="res://Assets/Textures/PerlinNoiseTiled.png"
+dest_files=["res://.godot/imported/PerlinNoiseTiled.png-9724a3257413981402e98e0be5c16921.s3tc.ctex"]
 
 [params]
 

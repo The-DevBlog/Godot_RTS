@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://drjoj3k3jsmon"]
 
-[ext_resource type="Script" uid="uid://f8cujj2p6334" path="res://scripts/Projectiles/Projectile.cs" id="1_2re41"]
+[ext_resource type="Script" uid="uid://f8cujj2p6334" path="res://Scripts/Projectiles/Projectile.cs" id="1_2re41"]
 [ext_resource type="PackedScene" uid="uid://dmrpp7am4my3k" path="res://Scenes/VFX/vfx_impact.tscn" id="2_aihi3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_65ub1"]

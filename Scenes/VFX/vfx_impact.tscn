@@ -1,8 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://dmrpp7am4my3k"]
+[gd_scene load_steps=42 format=3 uid="uid://dmrpp7am4my3k"]
 
 [ext_resource type="Texture2D" uid="uid://b14crgouxbxh5" path="res://Assets/VFX/Impact/Flare.png" id="1_bv6d7"]
 [ext_resource type="Texture2D" uid="uid://cu4nic81v6883" path="res://Assets/VFX/Impact/Flare02.png" id="2_5ixrt"]
 [ext_resource type="Texture2D" uid="uid://t8b7umfd2mi" path="res://Assets/VFX/Impact/Circle.png" id="3_nlrlp"]
+[ext_resource type="Shader" uid="uid://bnf64bg5ox3sq" path="res://Shaders/impact_smoke.tres" id="4_nlrlp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vjtd0"]
 transparency = 1
@@ -152,44 +153,53 @@ scale_curve = SubResource("CurveXYZTexture_beu4v")
 color = Color(10, 3, 2, 1)
 alpha_curve = SubResource("CurveTexture_2svnl")
 
-[sub_resource type="Gradient" id="Gradient_5ixrt"]
-colors = PackedColorArray(0.27, 0.27, 0.27, 0.7, 1, 1, 1, 0.1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_nlrlp"]
-gradient = SubResource("Gradient_5ixrt")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7egfm"]
+render_priority = 0
+shader = ExtResource("4_nlrlp")
+shader_parameter/DistanceFade = 0.3
 
 [sub_resource type="Curve" id="Curve_psjbx"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.669421, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.489362, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_3kx0f"]
+[sub_resource type="CurveTexture" id="CurveTexture_nlrlp"]
 curve = SubResource("Curve_psjbx")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_clno6"]
-spread = 35.0
-initial_velocity_min = 2.0
-initial_velocity_max = 4.0
-gravity = Vector3(0, 0.8, 0)
-damping_min = 1.0
-damping_max = 2.0
-scale_min = 0.6
-scale_max = 0.9
+[sub_resource type="Gradient" id="Gradient_nlrlp"]
+colors = PackedColorArray(0, 0, 0, 1, 0.0177324, 0.0177324, 0.0177324, 0.619)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7egfm"]
+gradient = SubResource("Gradient_nlrlp")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_clno6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.325843), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3kx0f"]
+curve = SubResource("Curve_clno6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sgpcw"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 1.0
+emission_ring_cone_angle = 90.0
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(1, 1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+radial_velocity_min = 0.999978
+radial_velocity_max = 1.99998
+gravity = Vector3(0, 0, 0)
+scale_max = 3.0
 scale_curve = SubResource("CurveTexture_3kx0f")
-color_ramp = SubResource("GradientTexture1D_nlrlp")
-turbulence_enabled = true
-turbulence_noise_scale = 3.0
-turbulence_noise_speed = Vector3(1, 1, 1)
+color_ramp = SubResource("GradientTexture1D_7egfm")
+alpha_curve = SubResource("CurveTexture_nlrlp")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sgpcw"]
-transparency = 1
-shading_mode = 0
-billboard_mode = 1
-billboard_keep_scale = true
-proximity_fade_enabled = true
-proximity_fade_distance = 0.32
-
-[sub_resource type="QuadMesh" id="QuadMesh_fosto"]
-material = SubResource("StandardMaterial3D_sgpcw")
+[sub_resource type="SphereMesh" id="SphereMesh_fosto"]
 
 [node name="VfxImpact" type="Node3D"]
 
@@ -214,6 +224,7 @@ process_material = SubResource("ParticleProcessMaterial_d60jn")
 draw_pass_1 = SubResource("QuadMesh_nlrlp")
 
 [node name="Shockwave" type="GPUParticles3D" parent="."]
+visible = false
 material_override = SubResource("StandardMaterial3D_jy2y0")
 emitting = false
 amount = 1
@@ -236,10 +247,10 @@ draw_pass_1 = SubResource("QuadMesh_nlrlp")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 visible = false
+material_override = SubResource("ShaderMaterial_7egfm")
 emitting = false
-amount = 60
-lifetime = 2.0
+amount = 12
 one_shot = true
-fixed_fps = 60
-process_material = SubResource("ParticleProcessMaterial_clno6")
-draw_pass_1 = SubResource("QuadMesh_fosto")
+explosiveness = 0.85
+process_material = SubResource("ParticleProcessMaterial_sgpcw")
+draw_pass_1 = SubResource("SphereMesh_fosto")
