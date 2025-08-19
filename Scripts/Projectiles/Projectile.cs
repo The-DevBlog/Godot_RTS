@@ -3,7 +3,7 @@ using Godot;
 
 public partial class Projectile : Node3D
 {
-	[Export] private float _speed = 800f;
+	[Export] private float _speed = 1250f;
 	[Export] private float _lifetime = 3f;
 	[Export(PropertyHint.Layers3DPhysics)] private uint _hitMask = 1 << 0; // set to "Units" & "World" layers in inspector
 	[Export] private int _team = 0; // so you can ignore friendlies via layers/masks
