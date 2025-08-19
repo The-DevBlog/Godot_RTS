@@ -9,9 +9,9 @@
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="6_k2jx1"]
 [ext_resource type="PackedScene" uid="uid://drjoj3k3jsmon" path="res://Scenes/Projectiles/projectile.tscn" id="6_kavk7"]
 [ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="7_mfhdj"]
-[ext_resource type="ArrayMesh" uid="uid://gv6m7q3rqdu5" path="res://Assets/MuzzlePlane.obj" id="9_mfhdj"]
+[ext_resource type="ArrayMesh" uid="uid://gv6m7q3rqdu5" path="res://Assets/VFX/MuzzlePlane.obj" id="9_mfhdj"]
 [ext_resource type="Texture2D" uid="uid://brscwxgt8w15i" path="res://Assets/Textures/MuzzleFlashCone.png" id="10_kavk7"]
-[ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/MuzzleCone.obj" id="11_pw7cq"]
+[ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlashBeam.png" id="12_xrrag"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
