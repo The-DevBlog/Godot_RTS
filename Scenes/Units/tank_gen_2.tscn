@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=53 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
 [ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
@@ -192,6 +192,39 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
+[sub_resource type="Curve" id="Curve_xrrag"]
+_data = [Vector2(0, 1), 0.0, -2.02475, 0, 0, Vector2(0.984716, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_sd0dm"]
+curve = SubResource("Curve_xrrag")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fl6pk"]
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(1.755, 0.305, 1.605)
+direction = Vector3(0, 8.35, 0)
+spread = 10.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.6
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.02
+color = Color(0.717112, 0.696079, 0.675701, 1)
+alpha_curve = SubResource("CurveTexture_sd0dm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4s7kj"]
+transparency = 1
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_uqx8m"]
+material = SubResource("StandardMaterial3D_4s7kj")
+
 [node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "_combatSystem", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
@@ -317,5 +350,17 @@ script = ExtResource("6_k2jx1")
 _unit = NodePath("../..")
 
 [node name="Death" parent="." instance=ExtResource("15_xrrag")]
+
+[node name="Dust" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0153761, -0.367455, -0.0230999)
+emitting = false
+amount = 5000
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_fl6pk")
+draw_pass_1 = SubResource("QuadMesh_uqx8m")
 
 [editable path="Model"]
