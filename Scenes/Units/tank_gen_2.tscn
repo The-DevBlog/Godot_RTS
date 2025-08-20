@@ -151,13 +151,13 @@ shader_parameter/DistanceFade = 0.3
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.489362, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_3kx0f"]
+[sub_resource type="CurveTexture" id="CurveTexture_pw7cq"]
 curve = SubResource("Curve_smbrw")
 
 [sub_resource type="Gradient" id="Gradient_sd0dm"]
 colors = PackedColorArray(0, 0, 0, 1, 0.0177324, 0.0177324, 0.0177324, 0.619)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_7egfm"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xrrag"]
 gradient = SubResource("Gradient_sd0dm")
 use_hdr = true
 
@@ -165,7 +165,7 @@ use_hdr = true
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.325843), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_16gwn"]
+[sub_resource type="CurveTexture" id="CurveTexture_smbrw"]
 curve = SubResource("Curve_fl6pk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4s7kj"]
@@ -185,9 +185,9 @@ radial_velocity_max = 0.999978
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_max = 0.75
-scale_curve = SubResource("CurveTexture_16gwn")
-color_ramp = SubResource("GradientTexture1D_7egfm")
-alpha_curve = SubResource("CurveTexture_3kx0f")
+scale_curve = SubResource("CurveTexture_smbrw")
+color_ramp = SubResource("GradientTexture1D_xrrag")
+alpha_curve = SubResource("CurveTexture_pw7cq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
@@ -304,6 +304,7 @@ draw_pass_1 = SubResource("QuadMesh_cocvn")
 
 [node name="Smoke" type="GPUParticles3D" parent="MuzzleFlash"]
 material_override = SubResource("ShaderMaterial_xrrag")
+cast_shadow = 0
 emitting = false
 amount = 12
 one_shot = true
