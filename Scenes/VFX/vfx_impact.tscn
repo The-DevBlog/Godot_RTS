@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b14crgouxbxh5" path="res://Assets/VFX/Impact/Flare.png" id="1_bv6d7"]
 [ext_resource type="Texture2D" uid="uid://cu4nic81v6883" path="res://Assets/VFX/Impact/Flare02.png" id="2_5ixrt"]
 [ext_resource type="Texture2D" uid="uid://t8b7umfd2mi" path="res://Assets/VFX/Impact/Circle.png" id="3_nlrlp"]
-[ext_resource type="Shader" uid="uid://bnf64bg5ox3sq" path="res://Shaders/impact_smoke.tres" id="4_nlrlp"]
+[ext_resource type="Shader" uid="uid://v8gqvg44k7mi" path="res://Shaders/impact_smoke.tres" id="4_nlrlp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vjtd0"]
 transparency = 1

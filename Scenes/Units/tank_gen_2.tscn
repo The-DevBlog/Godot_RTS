@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://brscwxgt8w15i" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashCone.png" id="10_kavk7"]
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_xrrag"]
-[ext_resource type="Shader" uid="uid://bnf64bg5ox3sq" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
+[ext_resource type="Shader" uid="uid://v8gqvg44k7mi" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
 height = 1.0
@@ -180,10 +180,11 @@ angle_max = 180.0
 direction = Vector3(1, 1, 0)
 initial_velocity_min = 0.5
 initial_velocity_max = 1.0
-radial_velocity_min = 0.999978
-radial_velocity_max = 1.99998
+radial_velocity_min = 0.499978
+radial_velocity_max = 0.999978
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
+scale_max = 0.75
 scale_curve = SubResource("CurveTexture_16gwn")
 color_ramp = SubResource("GradientTexture1D_7egfm")
 alpha_curve = SubResource("CurveTexture_3kx0f")
@@ -217,6 +218,9 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.311906, 0)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.16579, 4.19214, -20.9805)
 remote_path = NodePath("../../../../../MuzzleFlash")
 
+[node name="ProjectileSpawnPoint" type="Node3D" parent="Model/Tank/Turret/Barrel" index="1"]
+transform = Transform3D(1, 0, 5.68434e-14, 0, 1, 0, -5.68434e-14, 0, 1, -0.13119, 4.25056, -20.9524)
+
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
 visible = false
@@ -233,11 +237,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82261, 0)
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer", "_turretYaw")]
+[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer", "_turretYaw", "_projectileSpawnPoint")]
 script = ExtResource("5_k7ata")
 _unit = NodePath("../..")
 _animationPlayer = NodePath("../../Model/AnimationPlayer")
 _turretYaw = NodePath("../../Model/Tank/Turret")
+_projectileSpawnPoint = NodePath("../../Model/Tank/Turret/Barrel/ProjectileSpawnPoint")
 _projectileScene = ExtResource("6_kavk7")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
