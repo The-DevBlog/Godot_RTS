@@ -13,6 +13,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
+	[Export] public Node3D Death;
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
 	public int CurrentHP { get; set; }
@@ -64,6 +65,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 
 		Utils.NullExportCheck(_combatSystem);
 		Utils.NullExportCheck(_healthSystem);
+		Utils.NullExportCheck(Death);
 
 		CurrentHP = HP;
 	}

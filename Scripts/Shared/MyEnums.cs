@@ -90,4 +90,10 @@ namespace MyEnums
         Team7,
         Team8
     }
+
+    public enum Animations
+    {
+        None,
+        Death
+    }
 }

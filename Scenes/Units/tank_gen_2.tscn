@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=48 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
 [ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
@@ -14,6 +14,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_xrrag"]
 [ext_resource type="Shader" uid="uid://v8gqvg44k7mi" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
+[ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="15_xrrag"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
 height = 1.0
@@ -191,7 +192,7 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("_combatSystem", "_healthSystem") groups=["damageable", "units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "_combatSystem", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
 VehicleType = 2
@@ -203,6 +204,7 @@ FireRate = 1.5
 Cost = 750
 BuildTime = 8
 Acceleration = 8
+Death = NodePath("Death")
 _combatSystem = NodePath("Systems/CombatSystem")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
@@ -313,5 +315,7 @@ _projectileScene = ExtResource("6_kavk7")
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("6_k2jx1")
 _unit = NodePath("../..")
+
+[node name="Death" parent="." instance=ExtResource("15_xrrag")]
 
 [editable path="Model"]

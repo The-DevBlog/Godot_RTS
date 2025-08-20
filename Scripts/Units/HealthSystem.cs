@@ -33,8 +33,16 @@ public partial class HealthSystem : Node
 		// Color
 		UpdateHealthbar(_unit, _healthbar);
 
+		// Death
 		if (_unit.CurrentHP <= 0)
+		{
+			// TODO: Check if these animations are still in the scene!
+			_unit.Death.Reparent(_unit.GetParent());
+			AnimationPlayer deathAnimation = _unit.Death.GetNode<AnimationPlayer>("AnimationPlayer");
+			deathAnimation.Play(MyEnums.Animations.Death.ToString());
+
 			_unit.QueueFree();
+		}
 	}
 
 	private void UpdateHealthbar(Unit unit, ProgressBar bar)
