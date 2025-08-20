@@ -171,6 +171,21 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.4001
 Team = 2
 Range = 40
 
+[node name="TankGen4" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.40019, 0, 4.30009)
+Team = 2
+Range = 40
+
+[node name="TankGen5" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.40019, 0, 8.35195)
+Team = 2
+Range = 40
+
+[node name="TankGen6" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8.40019, 0, -4.55498)
+Team = 2
+Range = 40
+
 [node name="Shaders" type="Node3D" parent="."]
 
 [node name="PixelatedShader" parent="Shaders" instance=ExtResource("6_ckhy6")]

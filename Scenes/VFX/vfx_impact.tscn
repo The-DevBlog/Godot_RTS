@@ -43,6 +43,7 @@ alpha_curve = SubResource("CurveTexture_psjbx")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16gwn"]
 transparency = 1
 cull_mode = 2
+shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("2_5ixrt")
 billboard_mode = 3
@@ -112,6 +113,7 @@ load_path = "res://.godot/imported/Flare.png-150188fbc09f2a03d2c3ea48743050c2.s3
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d74cc"]
 transparency = 1
 cull_mode = 2
+shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = SubResource("CompressedTexture2D_d4210")
 billboard_keep_scale = true
@@ -215,6 +217,7 @@ draw_pass_1 = SubResource("QuadMesh_nlrlp")
 
 [node name="Flare" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_16gwn")
+cast_shadow = 0
 emitting = false
 amount = 1
 lifetime = 0.2
