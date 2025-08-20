@@ -33,6 +33,10 @@ window/vsync/vsync_mode=0
 
 project/assembly_name="Godot_RTS"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg")
+
 [global_group]
 
 structures=""

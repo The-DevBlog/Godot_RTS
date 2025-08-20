@@ -1,4 +1,3 @@
-// Projectile.cs
 using Godot;
 
 public partial class Projectile : Node3D
