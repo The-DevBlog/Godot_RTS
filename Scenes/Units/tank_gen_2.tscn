@@ -235,20 +235,6 @@ avoidance_enabled = true
 [node name="Healthbar" parent="." instance=ExtResource("4_yir8a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82261, 0)
 
-[node name="Systems" type="Node" parent="."]
-
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer", "_turretYaw", "_projectileSpawnPoint")]
-script = ExtResource("5_k7ata")
-_unit = NodePath("../..")
-_animationPlayer = NodePath("../../Model/AnimationPlayer")
-_turretYaw = NodePath("../../Model/Tank/Turret")
-_projectileSpawnPoint = NodePath("../../Model/Tank/Turret/Barrel/ProjectileSpawnPoint")
-_projectileScene = ExtResource("6_kavk7")
-
-[node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
-script = ExtResource("6_k2jx1")
-_unit = NodePath("../..")
-
 [node name="Audio" type="Node3D" parent="."]
 
 [node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
@@ -313,5 +299,19 @@ explosiveness = 0.85
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_4s7kj")
 draw_pass_1 = SubResource("SphereMesh_uqx8m")
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer", "_turretYaw", "_projectileSpawnPoint")]
+script = ExtResource("5_k7ata")
+_unit = NodePath("../..")
+_animationPlayer = NodePath("../../Model/AnimationPlayer")
+_turretYaw = NodePath("../../Model/Tank/Turret")
+_projectileSpawnPoint = NodePath("../../Model/Tank/Turret/Barrel/ProjectileSpawnPoint")
+_projectileScene = ExtResource("6_kavk7")
+
+[node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
+script = ExtResource("6_k2jx1")
+_unit = NodePath("../..")
 
 [editable path="Model"]
