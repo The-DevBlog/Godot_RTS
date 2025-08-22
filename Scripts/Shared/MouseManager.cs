@@ -136,7 +136,7 @@ public partial class MouseManager : Control
 
 		CollisionObject3D collider = (CollisionObject3D)result["collider"];
 
-		if (collider != null && collider.IsInGroup(Group.units.ToString()))
+		if (collider != null && collider.IsInGroup(Group.Units.ToString().ToLower()))
 		{
 			foreach (Unit u in _selectedUnits)
 				u.Selected = false;
@@ -189,7 +189,7 @@ public partial class MouseManager : Control
 
 		// collect selected units
 		var selectedUnits = GetTree()
-			.GetNodesInGroup(Group.units.ToString())
+			.GetNodesInGroup(Group.Units.ToString().ToLower())
 			.OfType<Unit>()
 			.Where(u => u.Selected)
 			.ToArray();

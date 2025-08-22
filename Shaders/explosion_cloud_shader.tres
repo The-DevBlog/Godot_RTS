@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=36 format=3 uid="uid://ddenjyradt65v"]
+[gd_resource type="VisualShader" load_steps=36 format=3 uid="uid://b8ys1t03j6abp"]
 
 [ext_resource type="Texture2D" uid="uid://bsov0oo7atnkt" path="res://Assets/Textures/Explosion/T_VFX_Noise_44xainv.png" id="1_om1ll"]
 [ext_resource type="Texture2D" uid="uid://cigkulvli0q8t" path="res://Assets/Textures/Explosion/T_cloudy_noise_211c.png" id="2_44el0"]

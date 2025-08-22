@@ -77,7 +77,7 @@ public partial class RootContainer : Control
 		Utils.NullExportCheck(UpgradeInfoPopupLabelCost);
 		Utils.NullExportCheck(UpgradeInfoPopupLabelBuildTime);
 
-		SetupButtons(Group.structurebtns);
+		SetupButtons(Group.StructureBtns);
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));

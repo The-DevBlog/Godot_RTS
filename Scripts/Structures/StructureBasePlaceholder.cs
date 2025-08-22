@@ -80,7 +80,7 @@ public partial class StructureBasePlaceholder : StructureBase
 			return null;
 
 		StaticBody3D bodyHit = colObj as StaticBody3D;
-		if (bodyHit == null || !bodyHit.IsInGroup(Group.mapbase.ToString()))
+		if (bodyHit == null || !bodyHit.IsInGroup(Group.MapBase.ToString().ToLower()))
 			return null;
 
 		hitPosition = (Vector3)result["position"];

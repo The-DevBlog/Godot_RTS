@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://brscwxgt8w15i" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashCone.png" id="10_kavk7"]
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_xrrag"]
-[ext_resource type="Shader" uid="uid://v8gqvg44k7mi" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
+[ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="15_xrrag"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
