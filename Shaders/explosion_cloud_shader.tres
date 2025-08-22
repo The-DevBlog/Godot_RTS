@@ -22,11 +22,11 @@ texture = SubResource("NoiseTexture2D_0rwsi")
 texture_type = 1
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_dpbm0"]
-size = Vector2(684, 534)
+size = Vector2(684, 162)
 attached_nodes = PackedInt32Array(2, 3)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_vr74i"]
-size = Vector2(964, 1149)
+size = Vector2(964, 902)
 attached_nodes = PackedInt32Array(4, 9, 11, 5, 8, 6, 19)
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_bcg4m"]
@@ -39,7 +39,7 @@ texture_type = 1
 linked_parent_graph_frame = 17
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_ps2fo"]
-size = Vector2(704, 697)
+size = Vector2(704, 382)
 attached_nodes = PackedInt32Array(15, 14, 18)
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_fd4n6"]
@@ -282,7 +282,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-333.182, -138.274)
 nodes/vertex/0/position = Vector2(740, 280)
 nodes/vertex/2/node = SubResource("VisualShaderNodeInput_bixck")
 nodes/vertex/2/position = Vector2(-220, 240)
