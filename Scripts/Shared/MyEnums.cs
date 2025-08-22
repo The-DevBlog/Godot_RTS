@@ -2,10 +2,10 @@ namespace MyEnums
 {
     public enum Group
     {
-        Units,
-        Structures,
-        StructureBtns,
-        MapBase,
+        units,
+        structures,
+        structurebtns,
+        mapbase,
     }
 
     public enum StructureType

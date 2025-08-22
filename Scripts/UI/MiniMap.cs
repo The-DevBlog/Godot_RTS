@@ -95,7 +95,7 @@ public partial class MiniMap : Control
 
     private void DrawUnits(Vector2 scale)
     {
-        var units = GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString().ToLower());
+        var units = GetTree().GetNodesInGroup(MyEnums.Group.units.ToString());
         foreach (Unit unit in units)
         {
             Vector2 worldPos = new Vector2(unit.GlobalPosition.X, unit.GlobalPosition.Z);
@@ -123,7 +123,7 @@ public partial class MiniMap : Control
     private void DrawStructures(Vector2 scale)
     {
         // Draw structures
-        var structures = GetTree().GetNodesInGroup(MyEnums.Group.Structures.ToString().ToLower());
+        var structures = GetTree().GetNodesInGroup(MyEnums.Group.structures.ToString());
         foreach (StructureBase structure in structures)
         {
             Vector2 worldPos = new Vector2(structure.GlobalPosition.X, structure.GlobalPosition.Z);

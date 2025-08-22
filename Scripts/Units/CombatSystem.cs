@@ -8,7 +8,7 @@ public partial class CombatSystem : Node
     [Export] private float TurnSpeedDeg = 180f;     // tank yaw speed (deg/sec)
     [Export] private AnimationPlayer _animationPlayer;
     [Export] private Node3D _turretYaw;
-    private Node3D _projectileSpawnPoint;
+    [Export] private Node3D _projectileSpawnPoint;
     [Export] private PackedScene _projectileScene;
     private bool _isZeroed;
     private int _hp;
@@ -107,7 +107,7 @@ public partial class CombatSystem : Node
         float bestDistSq = float.MaxValue;
         Unit best = null;
 
-        foreach (Node n in GetTree().GetNodesInGroup(MyEnums.Group.Units.ToString().ToLower()))
+        foreach (Node n in GetTree().GetNodesInGroup(MyEnums.Group.units.ToString()))
         {
             if (n == _unit || n == null) continue;
             if (n is not Unit other) continue;

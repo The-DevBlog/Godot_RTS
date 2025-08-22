@@ -39,7 +39,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 
 	public override void _Ready()
 	{
-		AddToGroup(Group.Units.ToString().ToLower());
+		AddToGroup(Group.units.ToString());
 
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		Utils.NullExportCheck(_navigationAgent);

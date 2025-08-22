@@ -99,8 +99,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("13_lwnbm")
 
-[node name="StructureFactory" type="Node" parent="Managers"]
+[node name="StructureFactory" type="Node" parent="Managers" node_paths=PackedStringArray("_navRegion")]
 script = ExtResource("2_lwnbm")
+_navRegion = NodePath("../../NavigationRegion3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
@@ -118,7 +119,7 @@ GroundMesh = NodePath("Ground/MeshInstance3D")
 GroundCollider = NodePath("Ground/CollisionShape3D")
 metadata/_edit_group_ = true
 
-[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["MapBase"]]
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["mapbase"]]
 collision_layer = 2
 collision_mask = 2
 metadata/_edit_group_ = true
