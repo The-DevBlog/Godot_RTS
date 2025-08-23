@@ -19,6 +19,7 @@ config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 AssetServer="*res://Scripts/Shared/AssetServer/AssetServer.cs"
 PlayerManager="*res://Scripts/Shared/PlayerManager.cs"
 Signals="*res://Scripts/Shared/Signals.cs"
+GlobalResources="*res://Scripts/Shared/GlobalResources.cs"
 
 [display]
 
@@ -32,10 +33,15 @@ window/vsync/vsync_mode=0
 
 project/assembly_name="Godot_RTS"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg")
+
 [global_group]
 
 structures=""
 units=""
+damageable="Any entity that can receive damage"
 
 [input]
 

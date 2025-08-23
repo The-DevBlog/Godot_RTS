@@ -22,6 +22,8 @@ public partial class Garage : StructureBase
 	{
 		GD.Print("BUilding vehcile");
 		var sceneRoot = GetTree().CurrentScene;
+
+		vehicle.Team = Player.Team;
 		sceneRoot.AddChild(vehicle);
 
 		// how far in front of the garage you want to spawn:
@@ -33,15 +35,15 @@ public partial class Garage : StructureBase
 		Vector3 forward = gtf.Basis.Z.Normalized();
 
 		// build a new transform for the vehicle’s origin:
-		var spawnT = gtf;
-		spawnT.Origin += forward * spawnDistance;
+		Transform3D spawnTransform = gtf;
+		spawnTransform.Origin += forward * spawnDistance;
 
 		// now *rotate* the basis 180° around the Y axis so it points backwards:
 		//   Mathf.Pi radians is 180 degrees
-		var flippedBasis = spawnT.Basis.Rotated(Vector3.Up, Mathf.Pi);
-		spawnT.Basis = flippedBasis;
+		var flippedBasis = spawnTransform.Basis.Rotated(Vector3.Up, Mathf.Pi);
+		spawnTransform.Basis = flippedBasis;
 
-		vehicle.GlobalTransform = spawnT;
+		vehicle.GlobalTransform = spawnTransform;
 
 		GD.Print($"Building {vehicle.Name} in Garage {Id}");
 	}

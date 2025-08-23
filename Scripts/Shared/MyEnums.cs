@@ -2,10 +2,10 @@ namespace MyEnums
 {
     public enum Group
     {
-        Units,
-        Structures,
-        StructureBtns,
-        MapBase,
+        units,
+        structures,
+        structurebtns,
+        mapbase,
     }
 
     public enum StructureType
@@ -33,6 +33,12 @@ namespace MyEnums
         TankGen1,
         TankGen2,
         Artillery,
+    }
+
+    public enum ProjectileType
+    {
+        None,
+        Tank,
     }
 
     public enum UpgradeType
@@ -82,5 +88,11 @@ namespace MyEnums
         Team6,
         Team7,
         Team8
+    }
+
+    public enum Animations
+    {
+        None,
+        Death
     }
 }

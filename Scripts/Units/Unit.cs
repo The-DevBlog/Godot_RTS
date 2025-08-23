@@ -1,16 +1,22 @@
 using Godot;
 using MyEnums;
 
-public partial class Unit : CharacterBody3D, ICostProvider
+public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 {
+	[Export] public int Team { get; set; }
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
 	[Export] public int DPS { get; set; }
+	[Export] public int Range { get; set; }
+	[Export] public float FireRate { get; set; }
 	[Export] public int Cost { get; set; }
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
-	[Export] private Node3D _healthbar;
+	[Export] public Node3D Death;
+	[Export] private CombatSystem _combatSystem;
+	[Export] private HealthSystem _healthSystem;
+	public int CurrentHP { get; set; }
 	public Player Player { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
@@ -33,8 +39,10 @@ public partial class Unit : CharacterBody3D, ICostProvider
 
 	public override void _Ready()
 	{
-		AddToGroup(Group.Units.ToString());
+		AddToGroup(Group.units.ToString());
+
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
+		Utils.NullExportCheck(_navigationAgent);
 		_navigationAgent.AvoidanceEnabled = true;
 		_navigationAgent.DebugEnabled = DebugEnabled;
 		_navigationAgent.VelocityComputed += OnVelocityComputed;
@@ -47,41 +55,24 @@ public partial class Unit : CharacterBody3D, ICostProvider
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
 		if (DPS == 0) Utils.PrintErr("No DPS Assigned to unit");
+		if (Range == 0) Utils.PrintErr("No Range Assigned to unit");
+		if (FireRate == 0) Utils.PrintErr("No FireRate Assigned to unit");
 		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");
 		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
-		Utils.NullExportCheck(_healthbar);
-	}
+		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 
-	public override void _Process(double delta)
-	{
-		// ScaleHealthbar();
+		Utils.NullExportCheck(_combatSystem);
+		Utils.NullExportCheck(_healthSystem);
+		Utils.NullExportCheck(Death);
+
+		CurrentHP = HP;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		MoveUnit();
-	}
-
-	// scales the healthbar based on distance to camera
-	private void ScaleHealthbar()
-	{
-		float desiredHeightPx = 32f;
-
-		// 1) distance
-		float d = GlobalPosition.DistanceTo(_cam.GlobalPosition);
-		// 2) vertical FOV in radians
-		float vfov = _cam.Fov * (Mathf.Pi / 180f);
-		// 3) voxels per pixel
-		float viewportH = GetViewport().GetVisibleRect().Size.Y;
-		float worldPerPx = 2f * d * Mathf.Tan(vfov * 0.5f) / viewportH;
-		// 4) apply only to Y
-		_healthbar.Scale = new Vector3(
-			_healthbar.Scale.X,
-			desiredHeightPx * worldPerPx,
-			_healthbar.Scale.Z
-		);
 	}
 
 	private void MoveUnit()
@@ -131,5 +122,10 @@ public partial class Unit : CharacterBody3D, ICostProvider
 	{
 		_targetPosition = worldPos;
 		_navigationAgent.TargetPosition = worldPos;
+	}
+
+	public void ApplyDamage(int amount, Vector3 hitPos, Vector3 hitNormal)
+	{
+		_healthSystem.ApplyDamage(amount, hitPos, hitNormal);
 	}
 }

@@ -77,7 +77,7 @@ public partial class RootContainer : Control
 		Utils.NullExportCheck(UpgradeInfoPopupLabelCost);
 		Utils.NullExportCheck(UpgradeInfoPopupLabelBuildTime);
 
-		SetupButtons(Group.StructureBtns);
+		SetupButtons(Group.structurebtns);
 
 		GetTree().Root.SizeChanged += OnWindowResize;
 		CallDeferred(nameof(OnWindowResize));
@@ -368,7 +368,7 @@ public partial class RootContainer : Control
 
 			InfoPopupLabelName.Text = unit.Name;
 			InfoPopupLabelCost.Text = $"${unit.Cost}";
-			InfoPopupLabelHP.Text = $"{unit.HP}";
+			InfoPopupLabelHP.Text = $"{unit.CurrentHP}";
 			InfoPopupLabelDPS.Text = $"{unit.DPS}";
 			InfoPopupLabelSpeed.Text = $"{unit.Speed}";
 			InfoPopupLabelBuildTime.Text = $"{unit.BuildTime}s";

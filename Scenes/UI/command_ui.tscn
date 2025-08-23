@@ -840,7 +840,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ReactorBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
+[node name="ReactorBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -851,7 +851,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_ly8nf")
 script = ExtResource("10_ly8nf")
 Structure = 6
 
-[node name="ScrapYardBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
+[node name="ScrapYardBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -862,7 +862,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_esy4f")
 script = ExtResource("10_ly8nf")
 Structure = 7
 
-[node name="BarracksBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["StructureBtns"]]
+[node name="BarracksBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -877,7 +877,7 @@ Structure = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GarageBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
+[node name="GarageBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -888,7 +888,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_v0w7p")
 script = ExtResource("10_ly8nf")
 Structure = 3
 
-[node name="SatelliteBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
+[node name="SatelliteBtn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -899,7 +899,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_cg0vo")
 script = ExtResource("10_ly8nf")
 Structure = 8
 
-[node name="ResearchLab" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["StructureBtns"]]
+[node name="ResearchLab" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer2" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -914,7 +914,7 @@ Structure = 5
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
+[node name="Btn" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -925,7 +925,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_cg0vo")
 script = ExtResource("10_ly8nf")
 Structure = 6
 
-[node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
+[node name="Btn2" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")
@@ -936,7 +936,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_tlv7r")
 script = ExtResource("10_ly8nf")
 Structure = 6
 
-[node name="Btn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["StructureBtns"]]
+[node name="Btn3" type="Button" parent="HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/ConstructionOptionsContainer/VBoxContainer/HBoxContainer3" groups=["structurebtns"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_krnp2")

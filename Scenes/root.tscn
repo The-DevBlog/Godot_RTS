@@ -1,12 +1,10 @@
-[gd_scene load_steps=25 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=24 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cje1x122yykgi" path="res://Scripts/Structures/StructureFactory.cs" id="2_lwnbm"]
 [ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
-[ext_resource type="PackedScene" uid="uid://cnk0x7l6d7sjt" path="res://Scenes/Units/artillery.tscn" id="3_ckhy6"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
-[ext_resource type="PackedScene" uid="uid://yd0x5g7600ta" path="res://Scenes/Units/tank_gen_1.tscn" id="3_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
@@ -14,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
+[ext_resource type="PackedScene" uid="uid://dmrpp7am4my3k" path="res://Scenes/VFX/vfx_impact.tscn" id="14_20eh2"]
 [ext_resource type="PackedScene" uid="uid://deexst56o0ban" path="res://Scenes/Structures/reactor.tscn" id="15_imcog"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
@@ -76,18 +75,20 @@ size = Vector3(200, 0.5, 200)
 [node name="World" type="Node3D"]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 1
-TimeOfDay = 1
-Weather = 2
+Season = 2
+TimeOfDay = 3
+Weather = 3
 
 [node name="Players" type="Node" parent="."]
 
 [node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
+Team = 1
 Color = Color(0.764235, 0.426826, 9.62615e-07, 1)
 Funds = 30000
 
 [node name="Bot" parent="Players" instance=ExtResource("12_lwnbm")]
 IsHuman = false
+Team = 2
 Color = Color(0.352951, 0.461727, 1, 1)
 Funds = 30000
 
@@ -100,8 +101,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("13_lwnbm")
 
-[node name="StructureFactory" type="Node" parent="Managers"]
+[node name="StructureFactory" type="Node" parent="Managers" node_paths=PackedStringArray("_navRegion")]
 script = ExtResource("2_lwnbm")
+_navRegion = NodePath("../../NavigationRegion3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
@@ -119,7 +121,7 @@ GroundMesh = NodePath("Ground/MeshInstance3D")
 GroundCollider = NodePath("Ground/CollisionShape3D")
 metadata/_edit_group_ = true
 
-[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["MapBase"]]
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["mapbase"]]
 collision_layer = 2
 collision_mask = 2
 metadata/_edit_group_ = true
@@ -162,14 +164,17 @@ button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="Units" type="Node3D" parent="."]
 
-[node name="Artillery" parent="Units" instance=ExtResource("3_ckhy6")]
-transform = Transform3D(-0.934602, 0, -0.355694, 0, 1, 0, 0.355694, 0, -0.934602, 2.04756, 0, -2.01788)
-
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-0.873551, 0, 0.486732, 0, 1, 0, -0.486732, 0, -0.873551, -3.30124, 0.0109811, -1.92637)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.75528, 0, 0.871063)
+Team = 1
+HP = 1000
+Range = 50
 
-[node name="TankGen1" parent="Units" instance=ExtResource("3_r3lo5")]
-transform = Transform3D(-0.976923, 0, -0.213593, 0, 1, 0, 0.213593, 0, -0.976923, -0.468336, 0, -1.5761)
+[node name="TankGen3" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.246, 0, 0)
+Team = 2
+HP = 1000
+Range = 50
 
 [node name="Shaders" type="Node3D" parent="."]
 
@@ -185,6 +190,9 @@ Player = NodePath("../Players/Human")
 [node name="Reactor2" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_imcog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.29817, 0, -15.1307)
 Player = NodePath("../Players/Bot")
+
+[node name="VfxImpact" parent="." instance=ExtResource("14_20eh2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]

@@ -8,6 +8,7 @@ public class MyModels
     public Dictionary<StructureType, PackedScene> StructurePlaceholders { get; set; }
     public Dictionary<InfantryType, PackedScene> Infantry { get; set; }
     public Dictionary<VehicleType, PackedScene> Vehicles { get; set; }
+    public Dictionary<ProjectileType, PackedScene> Projectiles { get; set; }
 
     public MyModels()
     {
@@ -45,6 +46,11 @@ public class MyModels
             { VehicleType.TankGen1, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
             { VehicleType.TankGen2, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_2.tscn") },
             { VehicleType.Artillery, GD.Load<PackedScene>("res://Scenes/Units/artillery.tscn") },
+        };
+
+        Projectiles = new Dictionary<ProjectileType, PackedScene>
+        {
+            { ProjectileType.Tank, GD.Load<PackedScene>("res://Scenes/Projectiles/projectile.tscn") },
         };
     }
 }

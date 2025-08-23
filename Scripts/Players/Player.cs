@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using Godot;
 using MyEnums;
 
@@ -7,6 +8,7 @@ public partial class Player : Node3D
 {
 	[Export] public int Id { get; set; }
 	[Export] public bool IsHuman { get; set; }    // drive from UI or AI
+	[Export] public int Team { get; set; }
 	[Export] public Color Color { get; set; }
 	[Export] public int Funds { get; private set; }
 
@@ -42,6 +44,7 @@ public partial class Player : Node3D
 
 		Utils.NullExportCheck(Color);
 
+		if (Team == 0) Utils.PrintErr("Player Team not set");
 		if (Funds == 0) Utils.PrintErr("Funds not set for player " + Id);
 
 		MaxStructureCount = 8;

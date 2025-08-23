@@ -3,10 +3,13 @@ using MyEnums;
 
 public partial class StructureFactory : Node
 {
+	[Export] private NavigationRegion3D _navRegion;
 	private MyModels _models;
 	private Signals _signals;
 	public override void _Ready()
 	{
+		Utils.NullExportCheck(_navRegion);
+
 		_models = AssetServer.Instance.Models;
 		_signals = Signals.Instance;
 	}
@@ -46,8 +49,6 @@ public partial class StructureFactory : Node
 
 	public void PlaceStructure(StructureBasePlaceholder placeholder, Player player)
 	{
-		var navRegion = GetNavigationRegion(placeholder);
-
 		// Capture final transform then cleanup placeholder
 		var finalXform = placeholder.GlobalTransform;
 
@@ -55,34 +56,15 @@ public partial class StructureFactory : Node
 		StructureBase structure = structureScene.Instantiate<StructureBase>();
 		structure.Init(placeholder.Player);
 
-		navRegion.AddChild(structure, true);
+		GD.Print("Structure: " + structure);
+		GD.Print("Nav region: " + _navRegion);
+
+		_navRegion.AddChild(structure, true);
 		structure.GlobalTransform = finalXform;
 
 		player.UpdateFunds(-structure.Cost);
 
 		// Rebake the navigation mesh AFTER spawning the structure
-		_signals.EmitUpdateNavigationMap(navRegion);
-	}
-
-	private NavigationRegion3D GetNavigationRegion(StructureBasePlaceholder placeholder)
-	{
-		// Raycast to find ground hit
-		var groundBody = placeholder.GetHoveredMapBase(out Vector3 hitPos);
-		if (groundBody == null)
-			return null;
-
-		NavigationRegion3D navRegion = null;
-		Node walker = groundBody;
-		while (walker != null)
-		{
-			if (walker is NavigationRegion3D nr)
-			{
-				navRegion = nr;
-				break;
-			}
-			walker = walker.GetParent();
-		}
-
-		return navRegion;
+		_signals.EmitUpdateNavigationMap(_navRegion);
 	}
 }
