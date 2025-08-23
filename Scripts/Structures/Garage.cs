@@ -14,13 +14,16 @@ public partial class Garage : StructureBase
 		Id = garageCount;
 	}
 
-	public void Activate() => Player.BuildVehicle += BuildVehicle;
+	public void Activate()
+	{
+		GD.Print($"Activating Garage {Id} for Player {Player.Id}");
+		Player.BuildVehicle += BuildVehicle;
+	}
 
 	public void Deactivate() => Player.BuildVehicle -= BuildVehicle;
 
 	private void BuildVehicle(Vehicle vehicle)
 	{
-		GD.Print("BUilding vehcile");
 		var sceneRoot = GetTree().CurrentScene;
 
 		vehicle.Team = Player.Team;

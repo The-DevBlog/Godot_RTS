@@ -14,7 +14,11 @@ public partial class Barracks : StructureBase
 		Id = barracksCount;
 	}
 
-	public void Activate() => Player.BuildInfantry += BuildInfantry;
+	public void Activate()
+	{
+		GD.Print($"Activating Barracks {Id} for Player {Player.Id}");
+		Player.BuildInfantry += BuildInfantry;
+	}
 
 	public void Deactivate() => Player.BuildInfantry -= BuildInfantry;
 

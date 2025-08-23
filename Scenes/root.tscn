@@ -82,6 +82,7 @@ Weather = 3
 [node name="Players" type="Node" parent="."]
 
 [node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
+Id = 1
 Team = 1
 Color = Color(0.764235, 0.426826, 9.62615e-07, 1)
 Funds = 30000
@@ -170,8 +171,15 @@ Team = 1
 HP = 1000
 Range = 50
 
+[node name="TankGen4" parent="Units" instance=ExtResource("4_dun2r")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11.1901, 0, 0.871063)
+Team = 1
+HP = 1000
+Range = 50
+
 [node name="TankGen3" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.246, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.25462, 0, 0)
+collision_layer = 2
 Team = 2
 HP = 1000
 Range = 50

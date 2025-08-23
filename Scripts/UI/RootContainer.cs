@@ -225,7 +225,7 @@ public partial class RootContainer : Control
 
 	private void SetActiveBarracks(int id)
 	{
-		_player.ActiveBarracksId = --id;
+		_player.ActiveBarracksId = id;
 		foreach (var barracks in _player.BarracksMap)
 		{
 			if (barracks.Id == id)
@@ -237,7 +237,7 @@ public partial class RootContainer : Control
 
 	private void SetActiveGarage(int id)
 	{
-		_player.ActiveGarageId = --id;
+		_player.ActiveGarageId = id;
 		foreach (var garage in _player.GaragesMap)
 		{
 			if (garage.Id == id)
