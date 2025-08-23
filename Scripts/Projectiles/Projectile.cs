@@ -12,7 +12,7 @@ public partial class Projectile : Node3D
     private Vector3 _vel;
     private float _timeLeft;
     private Node _shooter;           // optional reference for attribution
-    private float _armTime = 0.04f;  // ignore collisions for a short time to avoid hitting self
+    private float _armTime = 0.00f;  // ignore collisions for a short time to avoid hitting self
     [Signal] public delegate void OnAttackEventHandler(Unit target, int dps);
 
     public override void _Ready()
