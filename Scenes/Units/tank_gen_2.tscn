@@ -23,6 +23,7 @@ height = 1.0
 radius = 1.2
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mfhdj"]
+playback_mode = 1
 random_pitch = 1.5
 random_volume_offset_db = 0.8
 streams_count = 1
