@@ -57,14 +57,9 @@ public partial class Projectile : Node3D
                     PlayImpactParticles(pos, nrm);
                 }
 
-                // detach trail so it can finish
-                DetachTrail();
-                // _trail.Emitting = false;
-                // RemoveChild(_trail);
-                // var root = GetTree().CurrentScene;
-                // root.AddChild(_trail);
-
+                DetachTrail(); // detach trail so it can finish
                 QueueFree();
+
                 return;
             }
 
@@ -107,23 +102,40 @@ public partial class Projectile : Node3D
         GetTree().CreateTimer(lifetime).Timeout += () => _impactParticles.QueueFree();
     }
 
+    // Detach trail from projectil so it can finish
+    // Delete after one second
     private void DetachTrail()
     {
         if (_trail == null || !IsInstanceValid(_trail)) return;
 
-        // Move the trail out so it survives the projectile’s QueueFree()
         var root = GetTree().CurrentScene;
-        _trail.GetParent().RemoveChild(_trail);
-        root.AddChild(_trail);
-        _trail.GlobalPosition = GlobalPosition;
 
-        // Delete after ~1s
-        GetTree().CreateTimer(1.0f).Timeout += () =>
+        // Keep world transform while reparenting
+        _trail.Reparent(root, true); // keepGlobalTransform = true
+
+        // Capture a local so we don't rely on the field after we null it
+        var trail = _trail;
+        _trail = null;
+
+        // Timer lives under the root (NOT the projectile, not the trail)
+        var timer = new Timer
         {
-            if (IsInstanceValid(_trail))
-                _trail.QueueFree();
+            OneShot = true,
+            Autostart = true,
+            WaitTime = 1.0
         };
 
-        _trail = null; // prevent double-detach
+        root.AddChild(timer);
+
+        timer.Timeout += () =>
+        {
+            if (IsInstanceValid(trail))
+            {
+                GD.Print("Freeing trail");
+                trail.QueueFree();
+            }
+            timer.QueueFree();
+        };
     }
+
 }
