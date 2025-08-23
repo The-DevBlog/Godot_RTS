@@ -61,15 +61,15 @@ mesh = SubResource("CapsuleMesh_hs57m")
 
 [node name="Trail" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-amount = 58
-lifetime = 58.0
+amount = 57
+lifetime = 57.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("5_3vc05")
-length = 58
-length_seconds = 0.405594
+length = 57
+length_seconds = 0.398601
 color_ramp = SubResource("GradientTexture1D_50ii1")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true
