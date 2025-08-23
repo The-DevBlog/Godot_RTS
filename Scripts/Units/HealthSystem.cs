@@ -33,6 +33,11 @@ public partial class HealthSystem : Node
 		// Color
 		UpdateHealthbar(_unit, _healthbar);
 
+		// Impact Audio
+		var impactAudio = _unit.GetNode<AudioStreamPlayer3D>("Audio/Impact");
+		Utils.NullCheck(impactAudio);
+		impactAudio.Play();
+
 		if (_unit.CurrentHP <= 0)
 			Destroy();
 	}
@@ -40,6 +45,7 @@ public partial class HealthSystem : Node
 	private void Destroy()
 	{
 		var deathAudio = _unit.GetNode<AudioStreamPlayer3D>("Audio/Death");
+		Utils.NullCheck(deathAudio);
 		deathAudio.Reparent(_unit.GetParent());
 		deathAudio.Play();
 
