@@ -2,97 +2,128 @@ using Godot;
 
 public partial class Projectile : Node3D
 {
-	[Export] private float _speed = 1250f;
-	[Export] private float _lifetime = 3f;
-	[Export(PropertyHint.Layers3DPhysics)] private uint _hitMask = 1 << 0; // set to "Units" & "World" layers in inspector
-	[Export] private int _team = 0; // so you can ignore friendlies via layers/masks
-	private Node3D _impactParticles;
-	public int Damage;
-	private Vector3 _vel;
-	private float _timeLeft;
-	private Node _shooter;           // optional reference for attribution
-	private float _armTime = 0.04f;  // ignore collisions for a short time to avoid hitting self
-	[Signal] public delegate void OnAttackEventHandler(Unit target, int dps);
+    [Export] private float _speed = 1250f;
+    [Export] private float _lifetime = 3f;
+    [Export(PropertyHint.Layers3DPhysics)] private uint _hitMask = 1 << 0; // set to "Units" & "World" layers in inspector
+    [Export] private int _team = 0; // so you can ignore friendlies via layers/masks
+    private Node3D _impactParticles;
+    private GpuParticles3D _trail;
+    public int Damage;
+    private Vector3 _vel;
+    private float _timeLeft;
+    private Node _shooter;           // optional reference for attribution
+    private float _armTime = 0.04f;  // ignore collisions for a short time to avoid hitting self
+    [Signal] public delegate void OnAttackEventHandler(Unit target, int dps);
 
-	public override void _Ready()
-	{
-		_impactParticles = GetNode<Node3D>("ImpactParticles");
-		Utils.NullCheck(_impactParticles);
-	}
+    public override void _Ready()
+    {
+        _impactParticles = GetNode<Node3D>("ImpactParticles");
+        Utils.NullCheck(_impactParticles);
 
-	public override void _PhysicsProcess(double delta)
-	{
-		float dt = (float)delta;
-		if ((_timeLeft -= dt) <= 0f) { QueueFree(); return; }
+        _trail = GetNode<GpuParticles3D>("Trail");
+        Utils.NullCheck(_trail);
+    }
 
-		// integrate motion
-		Vector3 from = GlobalPosition;
-		Vector3 step = _vel * dt;
-		Vector3 to = from + step;
+    public override void _PhysicsProcess(double delta)
+    {
+        float dt = (float)delta;
+        if ((_timeLeft -= dt) <= 0f) { QueueFree(); return; }
 
-		// continuous collision: ray from -> to
-		var space = GetWorld3D().DirectSpaceState;
-		var query = PhysicsRayQueryParameters3D.Create(from, to);
-		query.CollisionMask = _hitMask;
+        // integrate motion
+        Vector3 from = GlobalPosition;
+        Vector3 step = _vel * dt;
+        Vector3 to = from + step;
 
-		var hit = space.IntersectRay(query);
+        // continuous collision: ray from -> to
+        var space = GetWorld3D().DirectSpaceState;
+        var query = PhysicsRayQueryParameters3D.Create(from, to);
+        query.CollisionMask = _hitMask;
 
-		if (hit.Count > 0 && _armTime <= 0f)
-		{
-			var pos = (Vector3)hit["position"];
-			var nrm = ((Vector3)hit["normal"]).Normalized();
+        var hit = space.IntersectRay(query);
 
-			var collider = hit["collider"].AsGodotObject() as Node;
-			// Apply damage if it's a Unit (you can adjust to your own API)
-			if (collider != null)
-			{
-				if (collider is IDamageable damageable)
-				{
-					GD.Print($"Projectile hit a damageable: {collider.Name}");
-					damageable.ApplyDamage(Damage, pos, nrm);
-					PlayImpactParticles(pos, nrm);
-				}
+        if (hit.Count > 0 && _armTime <= 0f)
+        {
+            var pos = (Vector3)hit["position"];
+            var nrm = ((Vector3)hit["normal"]).Normalized();
 
-				QueueFree();
-				return;
-			}
+            var collider = hit["collider"].AsGodotObject() as Node;
+            // Apply damage if it's a Unit (you can adjust to your own API)
+            if (collider != null)
+            {
+                if (collider is IDamageable damageable)
+                {
+                    GD.Print($"Projectile hit a damageable: {collider.Name}");
+                    damageable.ApplyDamage(Damage, pos, nrm);
+                    PlayImpactParticles(pos, nrm);
+                }
 
-			// World hit or non-unit: place impact and destroy
-			GlobalPosition = (Vector3)hit["position"];
-			QueueFree();
-			return;
-		}
+                // detach trail so it can finish
+                DetachTrail();
+                // _trail.Emitting = false;
+                // RemoveChild(_trail);
+                // var root = GetTree().CurrentScene;
+                // root.AddChild(_trail);
 
-		_armTime -= dt;
-		GlobalPosition = to; // no hit: continue
-	}
+                QueueFree();
+                return;
+            }
 
-	public void FireFrom(Transform3D muzzleXform, Vector3 velocity, Node shooter, int team)
-	{
-		GlobalTransform = muzzleXform;
-		_vel = velocity * _speed;
-		_timeLeft = _lifetime;
-		_shooter = shooter;
-		_team = team;
-	}
+            // World hit or non-unit: place impact and destroy
+            GlobalPosition = (Vector3)hit["position"];
+            QueueFree();
+            return;
+        }
 
-	private void PlayImpactParticles(Vector3 pos, Vector3 normal, float lifetime = 0.5f)
-	{
-		// Detach if needed so QueueFree() on the projectile doesn’t kill the FX
-		_impactParticles.GetParent().RemoveChild(_impactParticles);
-		GetTree().CurrentScene.AddChild(_impactParticles);
+        _armTime -= dt;
+        GlobalPosition = to; // no hit: continue
+    }
 
-		// Pick a stable up vector (avoid gimbal when normal ~ up)
-		var up = Mathf.Abs(normal.Y) > 0.9f ? Vector3.Forward : Vector3.Up;
+    public void FireFrom(Transform3D muzzleXform, Vector3 velocity, Node shooter, int team)
+    {
+        GlobalTransform = muzzleXform;
+        _vel = velocity * _speed;
+        _timeLeft = _lifetime;
+        _shooter = shooter;
+        _team = team;
+    }
 
-		// Place slightly off the surface and orient so -Z faces 'normal'
-		var xf = Transform3D.Identity.Translated(pos + normal * 0.05f)
-								   .LookingAt(pos + normal * 1.05f, up);
-		_impactParticles.GlobalTransform = xf;
+    private void PlayImpactParticles(Vector3 pos, Vector3 normal, float lifetime = 0.5f)
+    {
+        // Detach if needed so QueueFree() on the projectile doesn’t kill the FX
+        _impactParticles.GetParent().RemoveChild(_impactParticles);
+        GetTree().CurrentScene.AddChild(_impactParticles);
 
-		foreach (GpuParticles3D particles in _impactParticles.GetChildren())
-			particles.Restart();
+        // Pick a stable up vector (avoid gimbal when normal ~ up)
+        var up = Mathf.Abs(normal.Y) > 0.9f ? Vector3.Forward : Vector3.Up;
 
-		GetTree().CreateTimer(lifetime).Timeout += () => _impactParticles.QueueFree();
-	}
+        // Place slightly off the surface and orient so -Z faces 'normal'
+        var xf = Transform3D.Identity.Translated(pos + normal * 0.05f)
+                                   .LookingAt(pos + normal * 1.05f, up);
+        _impactParticles.GlobalTransform = xf;
+
+        foreach (GpuParticles3D particles in _impactParticles.GetChildren())
+            particles.Restart();
+
+        GetTree().CreateTimer(lifetime).Timeout += () => _impactParticles.QueueFree();
+    }
+
+    private void DetachTrail()
+    {
+        if (_trail == null || !IsInstanceValid(_trail)) return;
+
+        // Move the trail out so it survives the projectile’s QueueFree()
+        var root = GetTree().CurrentScene;
+        _trail.GetParent().RemoveChild(_trail);
+        root.AddChild(_trail);
+        _trail.GlobalPosition = GlobalPosition;
+
+        // Delete after ~1s
+        GetTree().CreateTimer(1.0f).Timeout += () =>
+        {
+            if (IsInstanceValid(_trail))
+                _trail.QueueFree();
+        };
+
+        _trail = null; // prevent double-detach
+    }
 }

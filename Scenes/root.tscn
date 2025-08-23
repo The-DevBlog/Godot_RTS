@@ -82,11 +82,13 @@ Weather = 3
 [node name="Players" type="Node" parent="."]
 
 [node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
+Team = 1
 Color = Color(0.764235, 0.426826, 9.62615e-07, 1)
 Funds = 30000
 
 [node name="Bot" parent="Players" instance=ExtResource("12_lwnbm")]
 IsHuman = false
+Team = 2
 Color = Color(0.352951, 0.461727, 1, 1)
 Funds = 30000
 
@@ -165,12 +167,14 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.75528, 0, 0.871063)
 Team = 1
-FireRate = 1.5
+HP = 1000
+Range = 50
 
 [node name="TankGen3" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.246, 0, 0)
 Team = 2
-FireRate = 1.5
+HP = 1000
+Range = 50
 
 [node name="Shaders" type="Node3D" parent="."]
 
