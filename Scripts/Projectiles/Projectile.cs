@@ -82,27 +82,28 @@ public partial class Projectile : Node3D
         _team = team;
     }
 
-    private void PlayImpactParticles(Vector3 pos, Vector3 normal, float lifetime = 0.5f)
+    private void PlayImpactParticles(Vector3 pos, Vector3 normal)
     {
-        // Detach if needed so QueueFree() on the projectile doesn’t kill the FX
+        // Detach so projectile despawn won’t kill the FX
         _impactParticles.GetParent().RemoveChild(_impactParticles);
         GetTree().CurrentScene.AddChild(_impactParticles);
 
-        // Pick a stable up vector (avoid gimbal when normal ~ up)
         var up = Mathf.Abs(normal.Y) > 0.9f ? Vector3.Forward : Vector3.Up;
-
-        // Place slightly off the surface and orient so -Z faces 'normal'
-        var xf = Transform3D.Identity.Translated(pos + normal * 0.05f)
-                                   .LookingAt(pos + normal * 1.05f, up);
+        var xf = Transform3D.Identity
+            .Translated(pos + normal * 0.05f)
+            .LookingAt(pos + normal * 1.05f, up);
         _impactParticles.GlobalTransform = xf;
 
         foreach (GpuParticles3D particles in _impactParticles.GetChildren())
             particles.Restart();
 
-        GetTree().CreateTimer(lifetime).Timeout += () => _impactParticles.QueueFree();
+        // IMPORTANT: don’t bind through 'this' (projectile). Bind directly to the FX node.
+        var fx = _impactParticles; // capture local
+        var stt = GetTree().CreateTimer(3f);
+        stt.Timeout += fx.QueueFree;  // engine calls fx.queue_free()
     }
 
-    // Detach trail from projectil so it can finish
+    // Detach trail from projectile so it can finish
     // Delete after one second
     private void DetachTrail()
     {
