@@ -99,9 +99,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("13_lwnbm")
 
-[node name="StructureFactory" type="Node" parent="Managers" node_paths=PackedStringArray("_navRegion")]
+[node name="StructureFactory" type="Node" parent="Managers"]
 script = ExtResource("2_lwnbm")
-_navRegion = NodePath("../../NavigationRegion3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
@@ -165,10 +164,13 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.75528, 0, 0.871063)
 Team = 1
+Range = 1
 
 [node name="TankGen3" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.246, 0, 0)
 Team = 2
+DPS = 25
+FireRate = 1.0
 
 [node name="Shaders" type="Node3D" parent="."]
 

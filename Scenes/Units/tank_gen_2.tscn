@@ -9,8 +9,8 @@
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="6_k2jx1"]
 [ext_resource type="PackedScene" uid="uid://drjoj3k3jsmon" path="res://Scenes/Projectiles/projectile.tscn" id="6_kavk7"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_sd0dm"]
-[ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="7_mfhdj"]
-[ext_resource type="AudioStream" uid="uid://c16bgi1py2kfw" path="res://Assets/Audio/ExplosionWithMetal.wav" id="7_sd0dm"]
+[ext_resource type="AudioStream" uid="uid://br56k10n8h5m" path="res://Assets/Audio/TankAttack.wav" id="7_15mll"]
+[ext_resource type="AudioStream" uid="uid://dgty8d8dh0js1" path="res://Assets/Audio/Explosion.wav" id="7_smbrw"]
 [ext_resource type="ArrayMesh" uid="uid://gv6m7q3rqdu5" path="res://Assets/VFX/MuzzlePlane.obj" id="9_mfhdj"]
 [ext_resource type="Texture2D" uid="uid://brscwxgt8w15i" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashCone.png" id="10_kavk7"]
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
@@ -26,7 +26,7 @@ radius = 1.2
 random_pitch = 1.5
 random_volume_offset_db = 0.8
 streams_count = 1
-stream_0/stream = ExtResource("7_mfhdj")
+stream_0/stream = ExtResource("7_15mll")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fl6pk"]
 random_pitch = 1.5
@@ -36,7 +36,7 @@ stream_0/stream = ExtResource("6_sd0dm")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sd0dm"]
 streams_count = 1
-stream_0/stream = ExtResource("7_sd0dm")
+stream_0/stream = ExtResource("7_smbrw")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smbrw"]
 transparency = 1

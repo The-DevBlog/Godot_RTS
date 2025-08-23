@@ -36,7 +36,7 @@ public partial class HealthSystem : Node
 		// Impact Audio
 		var impactAudio = _unit.GetNode<AudioStreamPlayer3D>("Audio/Impact");
 		Utils.NullCheck(impactAudio);
-		impactAudio.Play();
+		// impactAudio.Play();
 
 		if (_unit.CurrentHP <= 0)
 			Destroy();
