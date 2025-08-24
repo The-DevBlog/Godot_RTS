@@ -33,6 +33,7 @@ namespace MyEnums
         TankGen1,
         TankGen2,
         Artillery,
+        AntiInfantry
     }
 
     public enum ProjectileType

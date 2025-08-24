@@ -46,6 +46,7 @@ public class MyModels
             { VehicleType.TankGen1, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_1.tscn") },
             { VehicleType.TankGen2, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_2.tscn") },
             { VehicleType.Artillery, GD.Load<PackedScene>("res://Scenes/Units/artillery.tscn") },
+            { VehicleType.AntiInfantry, GD.Load<PackedScene>("res://Scenes/Units/anti_infantry.tscn") },
         };
 
         Projectiles = new Dictionary<ProjectileType, PackedScene>
