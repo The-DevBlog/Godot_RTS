@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
-[ext_resource type="PackedScene" uid="uid://dmrpp7am4my3k" path="res://Scenes/VFX/vfx_impact.tscn" id="14_20eh2"]
 [ext_resource type="PackedScene" uid="uid://deexst56o0ban" path="res://Scenes/Structures/reactor.tscn" id="15_imcog"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
@@ -166,21 +165,18 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.75528, 0, 0.871063)
 Team = 1
-HP = 1000
-Range = 50
+Range = 20
 
 [node name="TankGen4" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11.1901, 0, 0.871063)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -11.1901, 0, 5.81016)
 Team = 1
-HP = 1000
-Range = 50
+Range = 20
 
 [node name="TankGen3" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.25462, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 11.5047, 0, 6.80079)
 collision_layer = 2
 Team = 2
-HP = 1000
-Range = 50
+Range = 20
 
 [node name="Shaders" type="Node3D" parent="."]
 
@@ -196,9 +192,6 @@ Player = NodePath("../Players/Human")
 [node name="Reactor2" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_imcog")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.29817, 0, -15.1307)
 Player = NodePath("../Players/Bot")
-
-[node name="VfxImpact" parent="." instance=ExtResource("14_20eh2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]
