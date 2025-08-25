@@ -5,7 +5,7 @@ public partial class CombatSystem : Node
 {
 	[Export] private Unit _unit;
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec)
-	[Export] private float TurnSpeedDeg = 180f;     // tank yaw speed (deg/sec)
+	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
 	[Export] private AnimationPlayer _animationPlayer;
 	[Export] private Node3D _turretYaw;
 	[Export] private Node3D _projectileSpawnPoint;

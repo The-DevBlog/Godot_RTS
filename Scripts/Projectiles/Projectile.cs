@@ -6,7 +6,8 @@ public partial class Projectile : Node3D
 	[Export] private float _lifetime = 3f;
 	[Export] private int _team = 0; // so you can ignore friendlies via layers/masks
 	private Node3D _impactParticles;
-	private GpuParticles3D _trail;
+	private GpuParticles3D _trailZ;
+	private GpuParticles3D _trailX; // perpendicular to trail Z
 	public int Damage;
 	private Vector3 _vel;
 	private float _timeLeft;
@@ -17,20 +18,13 @@ public partial class Projectile : Node3D
 	public override void _Ready()
 	{
 		_impactParticles = GetNode<Node3D>("ImpactParticles");
+		_trailZ = GetNode<GpuParticles3D>("TrailZ");
+		_trailX = GetNode<GpuParticles3D>("TrailX");
+
 		Utils.NullCheck(_impactParticles);
-
-		_trail = GetNode<GpuParticles3D>("Trail");
-		Utils.NullCheck(_trail);
+		Utils.NullCheck(_trailZ);
+		Utils.NullCheck(_trailX);
 	}
-
-	// private uint EnemyMaskForTeam(int team)
-	// {
-	//     // Example for 2 teams; expand as needed.
-	//     return team == 0
-	//         ? LAYER_WORLD | LAYER_TEAM1
-	//         : LAYER_WORLD | LAYER_TEAM0;
-	// }
-
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -74,8 +68,10 @@ public partial class Projectile : Node3D
 				PlayImpactParticles(pos, nrm);
 			}
 
-			DetachTrail();
+			DetachTrail(_trailZ);
+			DetachTrail(_trailX);
 			QueueFree();
+
 			return;
 		}
 
@@ -116,18 +112,18 @@ public partial class Projectile : Node3D
 
 	// Detach trail from projectile so it can finish
 	// Delete after one second
-	private void DetachTrail()
+	private void DetachTrail(GpuParticles3D trail)
 	{
-		if (_trail == null || !IsInstanceValid(_trail)) return;
+		if (trail == null || !IsInstanceValid(trail)) return;
 
 		var root = GetTree().CurrentScene;
 
 		// Keep world transform while reparenting
-		_trail.Reparent(root, true); // keepGlobalTransform = true
+		trail.Reparent(root, true); // keepGlobalTransform = true
 
 		// Capture a local so we don't rely on the field after we null it
-		var trail = _trail;
-		_trail = null;
+		var tmpTrail = trail;
+		trail = null;
 
 		// Timer lives under the root (NOT the projectile, not the trail)
 		var timer = new Timer
@@ -141,8 +137,8 @@ public partial class Projectile : Node3D
 
 		timer.Timeout += () =>
 		{
-			if (IsInstanceValid(trail))
-				trail.QueueFree();
+			if (IsInstanceValid(tmpTrail))
+				tmpTrail.QueueFree();
 
 			timer.QueueFree();
 		};

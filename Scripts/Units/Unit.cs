@@ -16,6 +16,12 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public Node3D Death;
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
+	[Export] private float _rotationSpeed = 220f;   // try 1000–2000 for tanks
+	private float _facingWindowDeg = 10f; // start moving when |diff| <= this
+	private float _stopWindowDeg = 18f;   // stop moving when |diff| > this (hysteresis)
+	private bool _meshFacesPlusZ = false; // set false if your mesh faces -Z, eg: travel backwards or forwards
+
+	private bool _moving = false; // hysteresis state
 	public int CurrentHP { get; set; }
 	public Player Player { get; set; }
 	private float _movementDelta;
@@ -70,52 +76,11 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		CurrentHP = HP;
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override void _PhysicsProcess(double delta) => MoveUnit(delta);
+
+	public void ApplyDamage(int amount, Vector3 hitPos, Vector3 hitNormal)
 	{
-		MoveUnit();
-	}
-
-	private void MoveUnit()
-	{
-		if (NavigationServer3D.MapGetIterationId(_navigationAgent.GetNavigationMap()) == 0)
-			return;
-
-		if (_navigationAgent.IsNavigationFinished())
-			return;
-
-		// 1) Ask the agent for the next waypoint:
-		Vector3 nextPathPosition = _navigationAgent.GetNextPathPosition();
-
-		// 2) Build a pure‐horizontal direction: 
-		Vector3 toTarget = nextPathPosition - GlobalPosition;
-		toTarget.Y = 0;                         // force Y = 0 so we don't “pop” upward
-		if (toTarget.LengthSquared() < 0.001f)  // if we're basically on‐top of the waypoint, skip
-			return;
-
-		Vector3 horizontalDir = toTarget.Normalized();
-
-		// 3) Multiply by speed to get a flat velocity
-		Vector3 newVelocity = horizontalDir * Speed;
-
-		// 4) Give that to the NavigationAgent (or directly to MoveAndSlide) 
-		if (_navigationAgent.AvoidanceEnabled)
-			_navigationAgent.Velocity = newVelocity;
-		else
-			OnVelocityComputed(newVelocity);
-
-		// 5) Make the unit face the horizontal direction:
-		LookAt(GlobalPosition + horizontalDir, Vector3.Up);
-	}
-
-	private void OnVelocityComputed(Vector3 safeVelocity)
-	{
-		Velocity = safeVelocity;
-		MoveAndSlide();
-	}
-
-	private void ToggleSelectBorder()
-	{
-		_selectBorder.Visible = _selected;
+		_healthSystem.ApplyDamage(amount, hitPos, hitNormal);
 	}
 
 	public void SetMoveTarget(Vector3 worldPos)
@@ -124,8 +89,66 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_navigationAgent.TargetPosition = worldPos;
 	}
 
-	public void ApplyDamage(int amount, Vector3 hitPos, Vector3 hitNormal)
+	private void MoveUnit(double delta)
 	{
-		_healthSystem.ApplyDamage(amount, hitPos, hitNormal);
+		if (NavigationServer3D.MapGetIterationId(_navigationAgent.GetNavigationMap()) == 0) return;
+		if (_navigationAgent.IsNavigationFinished()) return;
+
+		// 1) Next waypoint & flat dir
+		Vector3 next = _navigationAgent.GetNextPathPosition();
+		Vector3 to = next - GlobalPosition;
+		to.Y = 0f;
+		if (to.LengthSquared() < 0.0001f) return;
+
+		Vector3 desiredDir = to.Normalized();
+
+		// 2) Current & target yaw
+		float currentYaw = Rotation.Y; // node's yaw
+		float targetYaw = Mathf.Atan2(desiredDir.X, desiredDir.Z);
+		if (!_meshFacesPlusZ) targetYaw += Mathf.Pi; // if your model faces -Z
+
+		float maxStep = Mathf.DegToRad(_rotationSpeed) * (float)delta;
+		float windowIn = Mathf.DegToRad(_facingWindowDeg);
+		float windowOut = Mathf.DegToRad(Mathf.Max(_stopWindowDeg, _facingWindowDeg + 0.1f)); // ensure > windowIn
+
+		// Shortest signed delta in (-PI, PI]
+		float diff = Mathf.AngleDifference(currentYaw, targetYaw);
+
+		// 3) Hysteresis state update
+		if (_moving && Mathf.Abs(diff) > windowOut) _moving = false;
+		else if (!_moving && Mathf.Abs(diff) <= windowIn) _moving = true;
+
+		// 4) Act on state
+		if (!_moving)
+		{
+			// Rotate-in-place using short-arc step
+			float step = Mathf.Clamp(diff, -maxStep, maxStep);
+			float newYaw = currentYaw + step;
+			Rotation = new Vector3(0f, newYaw, 0f);
+
+			if (_navigationAgent.AvoidanceEnabled) _navigationAgent.Velocity = Vector3.Zero;
+			else OnVelocityComputed(Vector3.Zero);
+			return;
+		}
+		else
+		{
+			// Move forward
+			Vector3 vel = desiredDir * Speed;
+			if (_navigationAgent.AvoidanceEnabled) _navigationAgent.Velocity = vel;
+			else OnVelocityComputed(vel);
+
+			// Keep steering toward target while moving (short-arc)
+			float step = Mathf.Clamp(diff, -maxStep, maxStep);
+			float newYaw = currentYaw + step;
+			Rotation = new Vector3(0f, newYaw, 0f);
+		}
 	}
+
+	private void OnVelocityComputed(Vector3 safeVelocity)
+	{
+		Velocity = safeVelocity;
+		MoveAndSlide();
+	}
+
+	private void ToggleSelectBorder() => _selectBorder.Visible = _selected;
 }

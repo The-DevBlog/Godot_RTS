@@ -2,6 +2,7 @@
 - The upgrade icon on the ugprade button is a tad too large
 - I cant get the 'energy' label txt to turn red when consumed energy > energy
 - Scaling issues at 2560x1440 and up
+- If there are building that exist on startup, they are not added to the navigation region
 
 # Tasks
 - Rename Unit.cs to Unitbase.cs to standardize with StructureBase/Structure.cs
