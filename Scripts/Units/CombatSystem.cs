@@ -22,7 +22,6 @@ public partial class CombatSystem : Node
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(_unit);
-		Utils.NullExportCheck(_animationPlayer);
 		Utils.NullExportCheck(_turretYaw);
 		Utils.NullExportCheck(_projectileScene);
 		Utils.NullExportCheck(_projectileSpawnPoint);
@@ -81,7 +80,8 @@ public partial class CombatSystem : Node
 			particles.Restart();
 
 		// animation
-		_animationPlayer.Play("FireAnimation");
+		if (_animationPlayer != null)
+			_animationPlayer.Play("FireAnimation");
 	}
 
 	private void SpawnProjectile()
