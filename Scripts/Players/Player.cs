@@ -34,7 +34,7 @@ public partial class Player : Node3D
 	public Dictionary<VehicleType, bool> VehicleAvailability { get; private set; } = new();
 	public HashSet<Garage> GaragesMap { get; } = new();
 	public HashSet<Barracks> BarracksMap { get; } = new();
-	public int ActiveGarageId { get; set; } = 0;
+	public int ActiveGarageId { get; set; } = 1;
 	public int ActiveBarracksId { get; set; } = 0;
 	public bool UpgradesAvailable { get; set; }
 

@@ -2,7 +2,6 @@ using Godot;
 
 public partial class Projectile : Node3D
 {
-	[Export] private float _speed = 1250f;
 	[Export] private float _lifetime = 3f;
 	[Export] private int _team = 0; // so you can ignore friendlies via layers/masks
 	private Node3D _impactParticles;
@@ -80,10 +79,10 @@ public partial class Projectile : Node3D
 		GlobalPosition = to;
 	}
 
-	public void FireFrom(Transform3D muzzleXform, Vector3 velocity, Node shooter, int team)
+	public void FireFrom(Transform3D muzzleXform, Vector3 velocity, Unit shooter, int team)
 	{
 		GlobalTransform = muzzleXform;
-		_vel = velocity * _speed;
+		_vel = velocity * shooter.ProjectileSpeed;
 		_timeLeft = _lifetime;
 		_shooter = shooter;
 		_team = team;

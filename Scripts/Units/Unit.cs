@@ -13,6 +13,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
+	[Export] public float ProjectileSpeed { get; set; }
 	[Export] public Node3D Death;
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
@@ -68,6 +69,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
+		if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
 
 		Utils.NullExportCheck(_combatSystem);
 		Utils.NullExportCheck(_healthSystem);

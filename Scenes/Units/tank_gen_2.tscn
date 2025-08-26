@@ -215,6 +215,7 @@ FireRate = 1.5
 Cost = 750
 BuildTime = 8
 Acceleration = 8
+ProjectileSpeed = 1250.0
 Death = NodePath("Death")
 _combatSystem = NodePath("Systems/CombatSystem")
 _healthSystem = NodePath("Systems/HealthSystem")
