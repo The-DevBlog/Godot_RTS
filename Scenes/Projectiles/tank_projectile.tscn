@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://drjoj3k3jsmon"]
+[gd_scene load_steps=17 format=3 uid="uid://ymglj7l7eaip"]
 
 [ext_resource type="Script" uid="uid://f8cujj2p6334" path="res://Scripts/Projectiles/Projectile.cs" id="1_2re41"]
 [ext_resource type="PackedScene" uid="uid://dmrpp7am4my3k" path="res://Scenes/VFX/vfx_impact.tscn" id="2_aihi3"]
@@ -63,15 +63,15 @@ mesh = SubResource("CapsuleMesh_hs57m")
 
 [node name="TrailZ" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-amount = 54
-lifetime = 54.0
+amount = 53
+lifetime = 53.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("5_3vc05")
-length = 54
-length_seconds = 0.377622
+length = 53
+length_seconds = 0.370629
 color_ramp = SubResource("GradientTexture1D_50ii1")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true
@@ -79,15 +79,15 @@ metadata/_custom_type_script = "uid://cnp4aaf2ws2je"
 
 [node name="TrailX" type="GPUParticles3D" parent="."]
 transform = Transform3D(-2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0, 0.5, 0, 0, 0)
-amount = 54
-lifetime = 54.0
+amount = 53
+lifetime = 53.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("5_3vc05")
-length = 54
-length_seconds = 0.377622
+length = 53
+length_seconds = 0.370629
 color_ramp = SubResource("GradientTexture1D_50ii1")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true

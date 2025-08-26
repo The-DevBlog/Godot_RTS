@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://djsa3anxcvbst" path="res://Assets/Textures/MuzzleFlash/MuzzleFlash.png" id="5_k2jx1"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="5_k7ata"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="6_k2jx1"]
-[ext_resource type="PackedScene" uid="uid://drjoj3k3jsmon" path="res://Scenes/Projectiles/tank_projectile.tscn" id="6_kavk7"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_sd0dm"]
 [ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="7_mfhdj"]
 [ext_resource type="AudioStream" uid="uid://c16bgi1py2kfw" path="res://Assets/Audio/ExplosionWithMetal.wav" id="7_sd0dm"]
@@ -16,6 +15,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_xrrag"]
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
+[ext_resource type="PackedScene" uid="uid://ymglj7l7eaip" path="res://Scenes/Projectiles/tank_projectile.tscn" id="15_sd0dm"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="15_xrrag"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
@@ -208,9 +208,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 script = ExtResource("1_eb2nj")
 VehicleType = 2
 Speed = 8
-HP = 100
+HP = 300
 DPS = 15
-Range = 15
+Range = 25
 FireRate = 1.5
 Cost = 750
 BuildTime = 8
@@ -332,7 +332,7 @@ _unit = NodePath("../..")
 _animationPlayer = NodePath("../../Model/AnimationPlayer")
 _turretYaw = NodePath("../../Model/Tank/Turret")
 _projectileSpawnPoint = NodePath("../../Model/Tank/Turret/Barrel/ProjectileSpawnPoint")
-_projectileScene = ExtResource("6_kavk7")
+_projectileScene = ExtResource("15_sd0dm")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("6_k2jx1")

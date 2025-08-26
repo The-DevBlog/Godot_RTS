@@ -20,7 +20,7 @@ rings = 1
 shader = ExtResource("3_0eaub")
 
 [sub_resource type="Gradient" id="Gradient_c13hb"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619)
+colors = PackedColorArray(0.686275, 0.686275, 0.686275, 0.486275, 0.686275, 0.686275, 0.686275, 0.486275)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_kwj5o"]
 gradient = SubResource("Gradient_c13hb")
@@ -51,7 +51,7 @@ material = SubResource("ShaderMaterial_vhf1q")
 script = ExtResource("1_c13hb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.0999999, 8.14974e-05, 9.01682e-05, 9.00416e-05, 0.000155174, -0.0999998, -8.16405e-05, 0.0999999, 0.0001551, 0, 0, 0)
+transform = Transform3D(0.05, 4.07532e-05, 4.59108e-05, 4.58464e-05, 7.90097e-05, -0.0499999, -4.08247e-05, 0.0499999, 7.89723e-05, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_65ub1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -61,15 +61,15 @@ mesh = SubResource("CapsuleMesh_hs57m")
 
 [node name="TrailZ" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
-amount = 54
-lifetime = 54.0
+amount = 53
+lifetime = 53.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("6_us0jq")
-length = 54
-length_seconds = 0.377622
+length = 53
+length_seconds = 0.370629
 color_ramp = SubResource("GradientTexture1D_kwj5o")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true
@@ -77,15 +77,15 @@ metadata/_custom_type_script = "uid://cnp4aaf2ws2je"
 
 [node name="TrailX" type="GPUParticles3D" parent="."]
 transform = Transform3D(-1.09278e-09, -0.025, 0, 0.025, -1.09278e-09, 0, 0, 0, 0.025, 0, 0, 0)
-amount = 54
-lifetime = 54.0
+amount = 53
+lifetime = 53.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("6_us0jq")
-length = 54
-length_seconds = 0.377622
+length = 53
+length_seconds = 0.370629
 color_ramp = SubResource("GradientTexture1D_kwj5o")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true
