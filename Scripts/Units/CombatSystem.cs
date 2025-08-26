@@ -1,4 +1,3 @@
-
 using Godot;
 
 public partial class CombatSystem : Node
@@ -10,6 +9,7 @@ public partial class CombatSystem : Node
 	[Export] private Node3D _turretYaw;
 	[Export] private Node3D _projectileSpawnPoint;
 	[Export] private PackedScene _projectileScene;
+	private RandomNumberGenerator _random;
 	private bool _isZeroed;
 	private int _hp;
 	private int _dps;
@@ -29,6 +29,8 @@ public partial class CombatSystem : Node
 		_hp = _unit.CurrentHP;
 		_dps = _unit.DPS;
 		_range = _unit.Range;
+		_random = new RandomNumberGenerator();
+		_random.Randomize();
 
 		_attackSound = GetNode<AudioStreamPlayer3D>("../../Audio/Attack");
 		Utils.NullCheck(_attackSound);
@@ -86,14 +88,50 @@ public partial class CombatSystem : Node
 
 	private void SpawnProjectile()
 	{
-		Projectile projectile = _projectileScene.Instantiate<Projectile>();
+		var projectile = _projectileScene.Instantiate<Projectile>();
 		projectile.Damage = _dps;
 		GetTree().CurrentScene.AddChild(projectile);
 
-		// Shell goes along barrel forward (-Z in Godot)
-		Transform3D muzzleXf = _projectileSpawnPoint.GlobalTransform;
-		Vector3 dir = -muzzleXf.Basis.Z; // barrel forward
-		projectile.FireFrom(muzzleXf, dir, _unit, _unit.Team); // set speed to taste
+		// Keep your existing transform (preserves trails/FX)
+		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+
+		// ---- Aim at center-mass (inline) ----
+		// Prefer a child "AimCenter" on the target if it exists; otherwise use a simple Y offset.
+		Vector3 targetPos = _currentTarget.GlobalPosition;
+		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
+		if (aimCenter != null)
+			targetPos = aimCenter.GlobalPosition;
+		else
+		{
+			GD.PrintErr("No AimCenter on target; using rough offset");
+			targetPos += Vector3.Up * 1.0f; // <- tweak this height for your units
+		}
+
+		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
+
+		// ---- Add spread around the ideal 3D direction ----
+		Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random); // uses your existing AddSpread()
+
+		projectile.FireFrom(muzzle, dir, _unit, _unit.Team);
+	}
+
+	private static Vector3 AddBulletSpread(Vector3 forward, float maxDeg, RandomNumberGenerator rng)
+	{
+		forward = forward.Normalized();
+		if (maxDeg <= 0.0001f) return forward;
+
+		float maxRad = Mathf.DegToRad(maxDeg);
+		float cosMax = Mathf.Cos(maxRad);
+		float cosTheta = Mathf.Lerp(cosMax, 1f, rng.Randf());
+		float sinTheta = Mathf.Sqrt(1f - cosTheta * cosTheta);
+		float phi = rng.Randf() * Mathf.Tau;
+
+		Vector3 any = Mathf.Abs(forward.Y) < 0.999f ? Vector3.Up : Vector3.Right;
+		Vector3 right = forward.Cross(any).Normalized();
+		Vector3 up = right.Cross(forward).Normalized();
+
+		Vector3 offset = (Mathf.Cos(phi) * right + Mathf.Sin(phi) * up) * sinTheta;
+		return (forward * cosTheta + offset).Normalized();
 	}
 
 	private Unit GetNearestEnemyInRange()

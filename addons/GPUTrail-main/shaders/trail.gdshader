@@ -2,8 +2,6 @@ shader_type particles;
 
 render_mode keep_data,disable_force,disable_velocity;
 
-
-
 void process() {
 	// CUSTOM.w tracks the particles place in the trail, in range (0..LIFETIME]
 	// requires that LIFETIME = number of particles

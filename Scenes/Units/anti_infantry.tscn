@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_7fw24"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_j535g"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_pjyd2"]
-[ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="5_g1ow1"]
+[ext_resource type="AudioStream" uid="uid://bbwury3qlup3w" path="res://Assets/Audio/MachineGun.wav" id="5_7fw24"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_6rfje"]
 [ext_resource type="AudioStream" uid="uid://c16bgi1py2kfw" path="res://Assets/Audio/ExplosionWithMetal.wav" id="7_2aiw2"]
 [ext_resource type="Texture2D" uid="uid://djsa3anxcvbst" path="res://Assets/Textures/MuzzleFlash/MuzzleFlash.png" id="8_ohh4q"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_3pwdw"]
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="13_kwoso"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="14_djthm"]
-[ext_resource type="PackedScene" uid="uid://drjoj3k3jsmon" path="res://Scenes/Projectiles/projectile.tscn" id="15_3bic8"]
+[ext_resource type="PackedScene" uid="uid://wastun31y71x" path="res://Scenes/Projectiles/anti_infantry_projectile.tscn" id="15_7fw24"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="16_6qcct"]
 [ext_resource type="PackedScene" uid="uid://cxyrfhqny0rmr" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.gltf" id="17_7fw24"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="17_equr2"]
@@ -22,12 +22,9 @@
 height = 1.0
 radius = 1.2
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mfhdj"]
-playback_mode = 1
-random_pitch = 1.5
-random_volume_offset_db = 0.8
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_7fw24"]
 streams_count = 1
-stream_0/stream = ExtResource("5_g1ow1")
+stream_0/stream = ExtResource("5_7fw24")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fl6pk"]
 random_pitch = 1.5
@@ -213,14 +210,15 @@ script = ExtResource("1_7fw24")
 VehicleType = 4
 Speed = 10
 HP = 200
-DPS = 2
+DPS = 1
 Range = 15
-FireRate = 2.0
+FireRate = 0.1
 Cost = 750
 BuildTime = 8
 Acceleration = 8
-ProjectileSpeed = 20.0
+ProjectileSpeed = 300.0
 Death = NodePath("Death")
+BulletSpread = 2.0
 _combatSystem = NodePath("Systems/CombatSystem")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
@@ -229,7 +227,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(-0.62, 0, -5.42021e-08, 0, 0.62, 0, 5.42021e-08, 0, -0.62, 0, 1.092, 0)
 
 [node name="ProjectileSpawnPoint" type="Node3D" parent="Model/Turret" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03028e-07, 0, 1.16431)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.03028e-07, 0, 1.16431)
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/Turret" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.06055e-07, 0, 1.17826)
@@ -255,10 +253,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75709, 0)
 [node name="Audio" type="Node3D" parent="."]
 
 [node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
-stream = SubResource("AudioStreamRandomizer_mfhdj")
-volume_db = -1.0
-pitch_scale = 0.51
+stream = SubResource("AudioStreamRandomizer_7fw24")
+volume_db = -5.0
+unit_size = 27.9
 
 [node name="Impact" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -339,7 +336,7 @@ _unit = NodePath("../..")
 TurnSpeedDeg = 350.0
 _turretYaw = NodePath("../../Model/Turret")
 _projectileSpawnPoint = NodePath("../../Model/Turret/ProjectileSpawnPoint")
-_projectileScene = ExtResource("15_3bic8")
+_projectileScene = ExtResource("15_7fw24")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("16_6qcct")

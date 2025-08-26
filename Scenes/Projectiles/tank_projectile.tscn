@@ -47,7 +47,7 @@ shader_parameter/flags = 40
 [sub_resource type="QuadMesh" id="QuadMesh_82ryy"]
 material = SubResource("ShaderMaterial_vhf1q")
 
-[node name="Projectile" type="Node3D"]
+[node name="TankProjectile" type="Node3D"]
 script = ExtResource("1_2re41")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -63,15 +63,15 @@ mesh = SubResource("CapsuleMesh_hs57m")
 
 [node name="TrailZ" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-amount = 55
-lifetime = 55.0
+amount = 54
+lifetime = 54.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("5_3vc05")
-length = 55
-length_seconds = 0.384615
+length = 54
+length_seconds = 0.377622
 color_ramp = SubResource("GradientTexture1D_50ii1")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true
@@ -79,15 +79,15 @@ metadata/_custom_type_script = "uid://cnp4aaf2ws2je"
 
 [node name="TrailX" type="GPUParticles3D" parent="."]
 transform = Transform3D(-2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0, 0, 0.5, 0, 0, 0)
-amount = 55
-lifetime = 55.0
+amount = 54
+lifetime = 54.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("5_3vc05")
-length = 55
-length_seconds = 0.384615
+length = 54
+length_seconds = 0.377622
 color_ramp = SubResource("GradientTexture1D_50ii1")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true

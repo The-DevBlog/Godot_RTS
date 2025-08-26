@@ -15,6 +15,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public bool DebugEnabled { get; set; }
 	[Export] public float ProjectileSpeed { get; set; }
 	[Export] public Node3D Death;
+	[Export] public float BulletSpread { get; set; }
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
 	[Export] private float _rotationSpeed = 220f;   // try 1000–2000 for tanks
@@ -70,6 +71,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 		if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
+		if (BulletSpread == 0) Utils.PrintErr("No BulletSpread Assigned to unit");
 
 		Utils.NullExportCheck(_combatSystem);
 		Utils.NullExportCheck(_healthSystem);

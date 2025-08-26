@@ -1,0 +1,94 @@
+[gd_scene load_steps=17 format=3 uid="uid://wastun31y71x"]
+
+[ext_resource type="Script" uid="uid://f8cujj2p6334" path="res://Scripts/Projectiles/Projectile.cs" id="1_c13hb"]
+[ext_resource type="Shader" uid="uid://drb8pmcl1yk3m" path="res://addons/GPUTrail-main/shaders/trail.gdshader" id="3_0eaub"]
+[ext_resource type="Shader" uid="uid://d3r3jmjwnbrbt" path="res://addons/GPUTrail-main/shaders/trail_draw_pass.gdshader" id="4_t2xsp"]
+[ext_resource type="Texture2D" uid="uid://crk6pkb7e5rwc" path="res://addons/GPUTrail-main/defaults/texture.tres" id="5_uvca4"]
+[ext_resource type="PackedScene" uid="uid://b2anfi6d10162" path="res://Scenes/VFX/vfx_impact_2.tscn" id="6_c13hb"]
+[ext_resource type="Script" uid="uid://cnp4aaf2ws2je" path="res://addons/GPUTrail-main/GPUTrail3D.gd" id="6_us0jq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_65ub1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2re41"]
+albedo_color = Color(0.33924, 0.298392, 4.81308e-08, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hs57m"]
+material = SubResource("StandardMaterial3D_2re41")
+rings = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fj3w"]
+shader = ExtResource("3_0eaub")
+
+[sub_resource type="Gradient" id="Gradient_c13hb"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.619)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kwj5o"]
+gradient = SubResource("Gradient_c13hb")
+
+[sub_resource type="Curve" id="Curve_kmsyh"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8fpug"]
+curve = SubResource("Curve_kmsyh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vhf1q"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_t2xsp")
+shader_parameter/tex = ExtResource("5_uvca4")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/color_ramp = SubResource("GradientTexture1D_kwj5o")
+shader_parameter/curve = SubResource("CurveTexture_8fpug")
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+
+[sub_resource type="QuadMesh" id="QuadMesh_82ryy"]
+material = SubResource("ShaderMaterial_vhf1q")
+
+[node name="AntiInfantryProjectile" type="Node3D"]
+script = ExtResource("1_c13hb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.0999999, 8.14974e-05, 9.01682e-05, 9.00416e-05, 0.000155174, -0.0999998, -8.16405e-05, 0.0999999, 0.0001551, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_65ub1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.05, -4.13176e-05, 1.80605e-12, 0, -2.18557e-09, -0.05, 4.13176e-05, 0.05, -2.18557e-09, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CapsuleMesh_hs57m")
+
+[node name="TrailZ" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+amount = 54
+lifetime = 54.0
+explosiveness = 1.0
+fixed_fps = 143
+process_material = SubResource("ShaderMaterial_7fj3w")
+draw_pass_1 = SubResource("QuadMesh_82ryy")
+script = ExtResource("6_us0jq")
+length = 54
+length_seconds = 0.377622
+color_ramp = SubResource("GradientTexture1D_kwj5o")
+curve = SubResource("CurveTexture_8fpug")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://cnp4aaf2ws2je"
+
+[node name="TrailX" type="GPUParticles3D" parent="."]
+transform = Transform3D(-1.09278e-09, -0.025, 0, 0.025, -1.09278e-09, 0, 0, 0, 0.025, 0, 0, 0)
+amount = 54
+lifetime = 54.0
+explosiveness = 1.0
+fixed_fps = 143
+process_material = SubResource("ShaderMaterial_7fj3w")
+draw_pass_1 = SubResource("QuadMesh_82ryy")
+script = ExtResource("6_us0jq")
+length = 54
+length_seconds = 0.377622
+color_ramp = SubResource("GradientTexture1D_kwj5o")
+curve = SubResource("CurveTexture_8fpug")
+_defaults_have_been_set = true
+metadata/_custom_type_script = "uid://cnp4aaf2ws2je"
+
+[node name="ImpactParticles" parent="." instance=ExtResource("6_c13hb")]

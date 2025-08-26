@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://djsa3anxcvbst" path="res://Assets/Textures/MuzzleFlash/MuzzleFlash.png" id="5_k2jx1"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="5_k7ata"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="6_k2jx1"]
-[ext_resource type="PackedScene" uid="uid://drjoj3k3jsmon" path="res://Scenes/Projectiles/projectile.tscn" id="6_kavk7"]
+[ext_resource type="PackedScene" uid="uid://drjoj3k3jsmon" path="res://Scenes/Projectiles/tank_projectile.tscn" id="6_kavk7"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_sd0dm"]
 [ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="7_mfhdj"]
 [ext_resource type="AudioStream" uid="uid://c16bgi1py2kfw" path="res://Assets/Audio/ExplosionWithMetal.wav" id="7_sd0dm"]
@@ -215,8 +215,9 @@ FireRate = 1.5
 Cost = 750
 BuildTime = 8
 Acceleration = 8
-ProjectileSpeed = 1250.0
+ProjectileSpeed = 150.0
 Death = NodePath("Death")
+BulletSpread = 0.5
 _combatSystem = NodePath("Systems/CombatSystem")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
