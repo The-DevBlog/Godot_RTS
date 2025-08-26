@@ -41,6 +41,14 @@ public partial class CombatSystem : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
+		_acquireTimer -= (float)delta;
+		if (_acquireTimer <= 0f)
+		{
+			_currentTarget = GetNearestEnemyInRange();
+			_acquireTimer = 1f / Mathf.Max(0.01f, AcquireHz);
+		}
+
+
 		FaceTarget((float)delta);
 		TryAttack(delta);
 	}
@@ -179,30 +187,62 @@ public partial class CombatSystem : Node
 		return Mathf.Abs(newErr) <= Mathf.DegToRad(3f); // change tolerance as needed
 	}
 
+	private float _acquireTimer = 0f;
+
 	private void FaceTarget(float dt)
 	{
-		_currentTarget = GetNearestEnemyInRange();
+		_acquireTimer -= dt;
+		if (_acquireTimer <= 0f)
+		{
+			_acquireTimer = 1f / AcquireHz;
+			_currentTarget = GetNearestEnemyInRange();
+		}
 
 		if (!IsInstanceValid(_currentTarget))
 		{
-			// No target: park the turret facing the hull's front (local yaw = HomeLocalYawDeg)
+			// No target: park turret to default
 			_isZeroed = RotateTurretTowardsLocalYaw(Mathf.DegToRad(0f), TurnSpeedDeg, dt);
 			return;
 		}
 
-		// --- compute desired local yaw toward target ---
+		// normal aiming code...
 		Vector3 tPos = _turretYaw.GlobalPosition;
 		Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
 		toTarget.Y = 0f;
+
 		if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
 
 		float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
 		float hullYawWorld = _unit.GlobalRotation.Y;
 		float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
 
-		// Slew toward the target and set zeroed flag
 		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, TurnSpeedDeg, dt);
 	}
+
+	// private void FaceTarget(float dt)
+	// {
+	// 	_currentTarget = GetNearestEnemyInRange();
+
+	// 	if (!IsInstanceValid(_currentTarget))
+	// 	{
+	// 		// No target: park the turret facing the hull's front (local yaw = HomeLocalYawDeg)
+	// 		_isZeroed = RotateTurretTowardsLocalYaw(Mathf.DegToRad(0f), TurnSpeedDeg, dt);
+	// 		return;
+	// 	}
+
+	// 	// --- compute desired local yaw toward target ---
+	// 	Vector3 tPos = _turretYaw.GlobalPosition;
+	// 	Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
+	// 	toTarget.Y = 0f;
+	// 	if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
+
+	// 	float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
+	// 	float hullYawWorld = _unit.GlobalRotation.Y;
+	// 	float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
+
+	// 	// Slew toward the target and set zeroed flag
+	// 	_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, TurnSpeedDeg, dt);
+	// }
 
 	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;
 	private static float ClampAngle(float a, float min, float max) => Mathf.Clamp(WrapAngle(a), min, max);

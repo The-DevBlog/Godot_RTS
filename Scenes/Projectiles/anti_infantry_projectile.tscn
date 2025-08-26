@@ -61,15 +61,15 @@ mesh = SubResource("CapsuleMesh_hs57m")
 
 [node name="TrailZ" type="GPUParticles3D" parent="."]
 transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
-amount = 53
-lifetime = 53.0
+amount = 52
+lifetime = 52.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("6_us0jq")
-length = 53
-length_seconds = 0.370629
+length = 52
+length_seconds = 0.363636
 color_ramp = SubResource("GradientTexture1D_kwj5o")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true
@@ -77,15 +77,15 @@ metadata/_custom_type_script = "uid://cnp4aaf2ws2je"
 
 [node name="TrailX" type="GPUParticles3D" parent="."]
 transform = Transform3D(-1.09278e-09, -0.025, 0, 0.025, -1.09278e-09, 0, 0, 0, 0.025, 0, 0, 0)
-amount = 53
-lifetime = 53.0
+amount = 52
+lifetime = 52.0
 explosiveness = 1.0
 fixed_fps = 143
 process_material = SubResource("ShaderMaterial_7fj3w")
 draw_pass_1 = SubResource("QuadMesh_82ryy")
 script = ExtResource("6_us0jq")
-length = 53
-length_seconds = 0.370629
+length = 52
+length_seconds = 0.363636
 color_ramp = SubResource("GradientTexture1D_kwj5o")
 curve = SubResource("CurveTexture_8fpug")
 _defaults_have_been_set = true

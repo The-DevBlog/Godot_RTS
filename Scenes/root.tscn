@@ -165,7 +165,6 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.75528, 0, 0.871063)
 Team = 1
-Range = 25
 
 [node name="Shaders" type="Node3D" parent="."]
 
