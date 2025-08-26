@@ -3,7 +3,7 @@ using Godot;
 public partial class CombatSystem : Node
 {
 	[Export] private Unit _unit;
-	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec)
+	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec) TODO: Add spatial partitioning to optimize target acquisition
 	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
 	[Export] private AnimationPlayer _animationPlayer;
 	[Export] private Node3D _turretYaw;
@@ -218,31 +218,6 @@ public partial class CombatSystem : Node
 
 		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, TurnSpeedDeg, dt);
 	}
-
-	// private void FaceTarget(float dt)
-	// {
-	// 	_currentTarget = GetNearestEnemyInRange();
-
-	// 	if (!IsInstanceValid(_currentTarget))
-	// 	{
-	// 		// No target: park the turret facing the hull's front (local yaw = HomeLocalYawDeg)
-	// 		_isZeroed = RotateTurretTowardsLocalYaw(Mathf.DegToRad(0f), TurnSpeedDeg, dt);
-	// 		return;
-	// 	}
-
-	// 	// --- compute desired local yaw toward target ---
-	// 	Vector3 tPos = _turretYaw.GlobalPosition;
-	// 	Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
-	// 	toTarget.Y = 0f;
-	// 	if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
-
-	// 	float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
-	// 	float hullYawWorld = _unit.GlobalRotation.Y;
-	// 	float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
-
-	// 	// Slew toward the target and set zeroed flag
-	// 	_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, TurnSpeedDeg, dt);
-	// }
 
 	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;
 	private static float ClampAngle(float a, float min, float max) => Mathf.Clamp(WrapAngle(a), min, max);

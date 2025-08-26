@@ -5,6 +5,7 @@
 - If there are building that exist on startup, they are not added to the navigation region
 
 # Tasks
+- Add spatial partitioning. Will help with target aquisition, and much more probably
 - Rename Unit.cs to Unitbase.cs to standardize with StructureBase/Structure.cs
 - Disable sun shadows if weather is cloudy?
 - Rebaking the navigation region at runtime is currently very slow. This is because I am parsing through the entire scene tree. The larger my map is, the longer the bake takes. Check out this link: https://www.reddit.com/r/godot/comments/17x3qvx/baking_navmesh_regions_at_runtime_best_practices/
