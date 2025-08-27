@@ -36,12 +36,6 @@ namespace MyEnums
         AntiInfantry
     }
 
-    public enum ProjectileType
-    {
-        None,
-        Tank,
-    }
-
     public enum UpgradeType
     {
         None,

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://dytawf24kkrry"]
+[gd_scene load_steps=51 format=3 uid="uid://dytawf24kkrry"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_7fw24"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_j535g"]
@@ -13,9 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_3pwdw"]
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="13_kwoso"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="14_djthm"]
-[ext_resource type="PackedScene" uid="uid://wastun31y71x" path="res://Scenes/Projectiles/anti_infantry_projectile.tscn" id="15_7fw24"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="16_6qcct"]
-[ext_resource type="PackedScene" uid="uid://du7dhyg6fuu7e" path="res://Scenes/Projectiles/tracer.tscn" id="16_y4stx"]
 [ext_resource type="PackedScene" uid="uid://cxyrfhqny0rmr" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.gltf" id="17_7fw24"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="17_equr2"]
 
@@ -341,8 +339,6 @@ _unit = NodePath("../..")
 TurnSpeedDeg = 350.0
 _turretYaw = NodePath("../../Model/Turret")
 _projectileSpawnPoint = NodePath("../../Model/Turret/ProjectileSpawnPoint")
-_projectileScene = ExtResource("15_7fw24")
-TracerScene = ExtResource("16_y4stx")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("16_6qcct")

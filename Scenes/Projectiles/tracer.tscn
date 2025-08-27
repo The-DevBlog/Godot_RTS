@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://du7dhyg6fuu7e"]
+[gd_scene load_steps=7 format=3 uid="uid://ubievpqrx05k"]
 
 [ext_resource type="Script" uid="uid://bdlsy5o30fyui" path="res://Scripts/Projectiles/Tracer.cs" id="1_swk1j"]
 
@@ -25,11 +25,12 @@ transparency = 1
 cull_mode = 2
 albedo_texture = SubResource("GradientTexture2D_swk1j")
 emission_enabled = true
+emission_energy_multiplier = 4.92
 emission_texture = SubResource("GradientTexture2D_28q7i")
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_dqvda"]
 material = SubResource("StandardMaterial3D_l6tth")
-size = 0.013
+size = 0.03
 sections = 2
 section_length = 0.5
 section_segments = 1

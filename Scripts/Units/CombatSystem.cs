@@ -8,7 +8,6 @@ public partial class CombatSystem : Node
 	[Export] private AnimationPlayer _animationPlayer;
 	[Export] private Node3D _turretYaw;
 	[Export] private Node3D _projectileSpawnPoint;
-	[Export] private PackedScene _projectileScene;
 	private RandomNumberGenerator _random;
 	private bool _isZeroed;
 	private int _hp;
@@ -18,17 +17,18 @@ public partial class CombatSystem : Node
 	private float _fireRateTimer;
 	private AudioStreamPlayer3D _attackSound;
 	private Node3D _muzzleFlashParticles;
+	private MyModels _models;
 
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(_unit);
 		Utils.NullExportCheck(_turretYaw);
-		Utils.NullExportCheck(_projectileScene);
 		Utils.NullExportCheck(_projectileSpawnPoint);
 
 		_hp = _unit.CurrentHP;
 		_dps = _unit.DPS;
 		_range = _unit.Range;
+		_models = AssetServer.Instance.Models;
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
@@ -67,10 +67,11 @@ public partial class CombatSystem : Node
 		_fireRateTimer = _unit.FireRate;
 
 		// --- choose fire mode ---
-		if (_unit.WeaponType == MyEnums.WeaponType.SmallArms)   // <-- your enum/flag
-			FireHitscan();
+		var projectile = _models.Projectiles[_unit.WeaponType].Instantiate();
+		if (_unit.WeaponType == MyEnums.WeaponType.SmallArms)
+			SpawnTracer(projectile as Tracer);
 		else
-			SpawnProjectile();
+			SpawnProjectile(projectile as Projectile);
 
 		// audio + vfx (muzzle)
 		_attackSound.Play();
@@ -78,103 +79,40 @@ public partial class CombatSystem : Node
 		_animationPlayer?.Play("FireAnimation");
 	}
 
-	[Export] public float TracerChance = 0.33f;      // draw 1 of 3 bullets as a tracer
-	[Export] public float TracerWidth = 0.035f;
-	[Export] public float TracerLifetime = 0.1f;
-	[Export] public PackedScene TracerScene;         // simple line/quad scene (below)
-
-	private void FireHitscan()
+	private void SpawnTracer(Tracer tracer)
 	{
-		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+		// Start position
+		Vector3 muzzlePos = _projectileSpawnPoint.GlobalPosition;
 
-		// Aim at center-mass inline (uses CollisionShape3D center if present)
+		// Aim center mass
 		Vector3 targetPos = _currentTarget.GlobalPosition;
 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
-		if (aimCenter != null) targetPos = aimCenter.GlobalPosition;
-		else targetPos += Vector3.Up * 1.0f;
+		if (aimCenter != null)
+			targetPos = aimCenter.GlobalPosition;
+		else
+			Utils.PrintErr("No CollisionShape3D on target; using rough offset");
 
-		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
+		// Ideal forward direction
+		Vector3 idealDir = (targetPos - muzzlePos).Normalized();
+
+		// Apply bullet spread
 		Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random);
 
-		float maxDist = _unit.Range;
-		Vector3 from = muzzle.Origin;
-		Vector3 to = from + dir * maxDist;
+		// Compute tracer start/end
+		Vector3 startPos = muzzlePos + dir * 0.25f;
+		Vector3 endPos = startPos + dir * _unit.Range; // or distance to target if you prefer exact hit point
 
-		var space = GetViewport().GetWorld3D().DirectSpaceState;
-		var query = PhysicsRayQueryParameters3D.Create(from, to);
-		query.CollideWithBodies = true;
-		query.CollideWithAreas = true;
-		// Optionally: query.CollisionMask = _unit.BulletMask;
-
-		var hit = space.IntersectRay(query);
-
-		Vector3 endPos = to;
-		if (hit.Count > 0)
+		if ((endPos - startPos).Length() > 3.0f)
 		{
-			endPos = (Vector3)hit["position"];
-			var nrm = ((Vector3)hit["normal"]).Normalized();
-
-			if (hit["collider"].AsGodotObject() is IDamageable dmg)
-				dmg.ApplyDamage(_dps, endPos, nrm);
-
-			// (Optional) spawn an impact FX scene here
-			// SpawnImpactFx(endPos, nrm);
-		}
-
-		// Tracer VFX sometimes (cheap)
-		if (TracerScene != null && _random.Randf() < TracerChance)
-		{
-			var tracer = TracerScene.Instantiate<Node3D>() as ITracer;
-			GetTree().CurrentScene.AddChild(tracer as Node);
-			tracer!.Init(from, endPos, TracerWidth, TracerLifetime);
+			_unit.AddSibling(tracer);
+			tracer.GlobalPosition = startPos;
+			tracer.TargetPos = endPos;
+			tracer.LookAt(endPos);
 		}
 	}
 
-
-	// private void TryAttack(double delta)
-	// {
-	// 	if (!_isZeroed)
-	// 		return;
-
-	// 	if (!IsInstanceValid(_currentTarget))
-	// 	{
-	// 		_currentTarget = null;
-	// 		return;
-	// 	}
-
-	// 	// Ensure target it still in range
-	// 	Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition;
-	// 	distance.Y = 0;
-
-	// 	if (distance.LengthSquared() > (_range * _range))
-	// 		return;
-
-	// 	// cooldown tick
-	// 	_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
-
-	// 	if (_fireRateTimer > 0f)
-	// 		return;
-
-	// 	_fireRateTimer = _unit.FireRate;
-
-	// 	// spawn projectile
-	// 	SpawnProjectile();
-
-	// 	// audio
-	// 	_attackSound.Play();
-
-	// 	// vfx
-	// 	foreach (GpuParticles3D particles in _muzzleFlashParticles.GetChildren())
-	// 		particles.Restart();
-
-	// 	// animation
-	// 	if (_animationPlayer != null)
-	// 		_animationPlayer.Play("FireAnimation");
-	// }
-
-	private void SpawnProjectile()
+	private void SpawnProjectile(Projectile projectile)
 	{
-		var projectile = _projectileScene.Instantiate<Projectile>();
 		projectile.Damage = _dps;
 		GetTree().CurrentScene.AddChild(projectile);
 
@@ -188,14 +126,9 @@ public partial class CombatSystem : Node
 		if (aimCenter != null)
 			targetPos = aimCenter.GlobalPosition;
 		else
-		{
-			GD.PrintErr("No AimCenter on target; using rough offset");
-			targetPos += Vector3.Up * 1.0f; // <- tweak this height for your units
-		}
+			Utils.PrintErr("No CollisionShape3D on target; using rough offset");
 
 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
-
-		// ---- Add spread around the ideal 3D direction ----
 		Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random); // uses your existing AddSpread()
 
 		projectile.FireFrom(muzzle, dir, _unit, _unit.Team);

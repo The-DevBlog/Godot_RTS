@@ -8,7 +8,7 @@ public class MyModels
     public Dictionary<StructureType, PackedScene> StructurePlaceholders { get; set; }
     public Dictionary<InfantryType, PackedScene> Infantry { get; set; }
     public Dictionary<VehicleType, PackedScene> Vehicles { get; set; }
-    public Dictionary<ProjectileType, PackedScene> Projectiles { get; set; }
+    public Dictionary<WeaponType, PackedScene> Projectiles { get; set; }
 
     public MyModels()
     {
@@ -50,9 +50,10 @@ public class MyModels
         };
 
         // TODO: NOt sure if I need this?
-        Projectiles = new Dictionary<ProjectileType, PackedScene>
+        Projectiles = new Dictionary<WeaponType, PackedScene>
         {
-            { ProjectileType.Tank, GD.Load<PackedScene>("res://Scenes/Projectiles/tank_projectile.tscn") },
+            { WeaponType.Cannon, GD.Load<PackedScene>("res://Scenes/Projectiles/tank_projectile.tscn") },
+            { WeaponType.SmallArms, GD.Load<PackedScene>("res://Scenes/Projectiles/tracer.tscn") },
         };
     }
 }

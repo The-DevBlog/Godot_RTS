@@ -74,9 +74,9 @@ size = Vector3(200, 0.5, 200)
 [node name="World" type="Node3D"]
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
-Season = 1
-TimeOfDay = 1
-Weather = 2
+Season = 2
+TimeOfDay = 3
+Weather = 3
 
 [node name="Players" type="Node" parent="."]
 
