@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bdlsy5o30fyui" path="res://Scripts/Projectiles/Tracer.cs" id="1_swk1j"]
 
 [sub_resource type="Gradient" id="Gradient_ho4y4"]
-offsets = PackedFloat32Array(0, 0.163424, 0.836576, 1)
-colors = PackedColorArray(1, 1, 0.172549, 0, 1, 1, 0.431373, 1, 0.823529, 0.447059, 0, 1, 0.823529, 0.447059, 0, 0)
+offsets = PackedFloat32Array(0, 0.166667, 0.836576, 1)
+colors = PackedColorArray(0.937, 0.075, 0.047, 0, 0.938419, 0.07364, 0.0456593, 1, 0.935136, 0.312978, 0, 1, 0.933, 0.314, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_swk1j"]
 gradient = SubResource("Gradient_ho4y4")
@@ -25,19 +25,22 @@ transparency = 1
 cull_mode = 2
 albedo_texture = SubResource("GradientTexture2D_swk1j")
 emission_enabled = true
-emission_energy_multiplier = 4.92
+emission = Color(0.937255, 0.0745098, 0.0470588, 1)
+emission_energy_multiplier = 4.6
 emission_texture = SubResource("GradientTexture2D_28q7i")
+grow = true
+grow_amount = 0.424
 
 [sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_dqvda"]
 material = SubResource("StandardMaterial3D_l6tth")
 size = 0.03
 sections = 2
-section_length = 0.5
+section_length = 1.0
 section_segments = 1
 
 [node name="Tracer" type="Node3D"]
 script = ExtResource("1_swk1j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.503289)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.998457)
 mesh = SubResource("RibbonTrailMesh_dqvda")
