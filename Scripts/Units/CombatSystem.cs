@@ -79,37 +79,103 @@ public partial class CombatSystem : Node
 		_animationPlayer?.Play("FireAnimation");
 	}
 
+	// inside CombatSystem
 	private void SpawnTracer(Tracer tracer)
 	{
-		// Start position
-		Vector3 muzzlePos = _projectileSpawnPoint.GlobalPosition;
+		GetTree().CurrentScene.AddChild(tracer);
 
-		// Aim center mass
+		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+
+		// Aim center-mass (same as before)
 		Vector3 targetPos = _currentTarget.GlobalPosition;
 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
-		if (aimCenter != null)
-			targetPos = aimCenter.GlobalPosition;
-		else
-			Utils.PrintErr("No CollisionShape3D on target; using rough offset");
+		if (aimCenter != null) targetPos = aimCenter.GlobalPosition;
+		else targetPos += Vector3.Up * 1.0f;
 
-		// Ideal forward direction
-		Vector3 idealDir = (targetPos - muzzlePos).Normalized();
-
-		// Apply bullet spread
+		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
 		Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random);
 
-		// Compute tracer start/end
-		Vector3 startPos = muzzlePos + dir * 0.25f;
-		Vector3 endPos = startPos + dir * _unit.Range; // or distance to target if you prefer exact hit point
+		float maxDist = _unit.Range;
+		Vector3 from = muzzle.Origin;
+		Vector3 to = from + dir * maxDist;
 
-		if ((endPos - startPos).Length() > 3.0f)
+		var space = GetViewport().GetWorld3D().DirectSpaceState;
+		var q = PhysicsRayQueryParameters3D.Create(from, to);
+		q.CollideWithBodies = true;
+		q.CollideWithAreas = true;
+
+		// Skip friendlies: loop until enemy/world hit (same idea as your Projectile)
+		var exclude = new Godot.Collections.Array<Rid>();
+		Vector3 endPos = to;
+		while (true)
 		{
-			_unit.AddSibling(tracer);
-			tracer.GlobalPosition = startPos;
-			tracer.TargetPos = endPos;
-			tracer.LookAt(endPos);
+			q.Exclude = exclude;
+			var hit = space.IntersectRay(q);
+			if (hit.Count == 0) break;
+
+			var collider = hit["collider"].AsGodotObject() as Node;
+			var pos = (Vector3)hit["position"];
+			var nrm = ((Vector3)hit["normal"]).Normalized();
+
+			if (collider is Unit u && u.Team == _unit.Team)
+			{
+				exclude.Add((Rid)hit["rid"]);   // skip friendly and recast
+				continue;
+			}
+
+			endPos = pos;
+
+			// Apply damage + play impact (reuse your helpers if you have them)
+			if (collider is IDamageable dmg)
+			{
+				dmg.ApplyDamage(_dps, pos, nrm);
+			}
+			// Spawn impact FX here if you want (same as Projectile.PlayImpactParticles)
+
+			tracer.PlayImpactParticles(pos, nrm);
+			break;
 		}
+
+		// Spawn tracer purely as VFX
+		tracer.GlobalPosition = from + dir * 0.25f; // tiny offset from muzzle
+		tracer.TargetPos = endPos;
+		tracer.Speed = _unit.ProjectileSpeed;
+		tracer.TracerLength = 0.1f;
+		tracer.LookAt(endPos);
 	}
+
+
+	// private void SpawnTracer(Tracer tracer)
+	// {
+	// 	// Start position
+	// 	Vector3 muzzlePos = _projectileSpawnPoint.GlobalPosition;
+
+	// 	// Aim center mass
+	// 	Vector3 targetPos = _currentTarget.GlobalPosition;
+	// 	var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
+	// 	if (aimCenter != null)
+	// 		targetPos = aimCenter.GlobalPosition;
+	// 	else
+	// 		Utils.PrintErr("No CollisionShape3D on target; using rough offset");
+
+	// 	// Ideal forward direction
+	// 	Vector3 idealDir = (targetPos - muzzlePos).Normalized();
+
+	// 	// Apply bullet spread
+	// 	Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random);
+
+	// 	// Compute tracer start/end
+	// 	Vector3 startPos = muzzlePos + dir * 0.25f;
+	// 	Vector3 endPos = startPos + dir * _unit.Range; // or distance to target if you prefer exact hit point
+
+	// 	if ((endPos - startPos).Length() > 3.0f)
+	// 	{
+	// 		_unit.AddSibling(tracer);
+	// 		tracer.GlobalPosition = startPos;
+	// 		tracer.TargetPos = endPos;
+	// 		tracer.LookAt(endPos);
+	// 	}
+	// }
 
 	private void SpawnProjectile(Projectile projectile)
 	{
