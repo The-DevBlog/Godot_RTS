@@ -233,7 +233,6 @@ lifetime = 0.2
 one_shot = true
 speed_scale = 1.5
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_d60jn")
 draw_pass_1 = SubResource("QuadMesh_nlrlp")
 
@@ -259,7 +258,6 @@ one_shot = true
 speed_scale = 1.5
 explosiveness = 1.0
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_46f20")
 draw_pass_1 = SubResource("QuadMesh_nlrlp")
 
