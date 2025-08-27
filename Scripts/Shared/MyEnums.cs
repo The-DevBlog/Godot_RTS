@@ -96,4 +96,11 @@ namespace MyEnums
         None,
         Death
     }
+
+    public enum WeaponType
+    {
+        None,
+        Cannon,
+        SmallArms
+    }
 }

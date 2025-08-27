@@ -55,44 +55,122 @@ public partial class CombatSystem : Node
 
 	private void TryAttack(double delta)
 	{
-		if (!_isZeroed)
-			return;
+		if (!_isZeroed) return;
+		if (!IsInstanceValid(_currentTarget)) { _currentTarget = null; return; }
 
-		if (!IsInstanceValid(_currentTarget))
-		{
-			_currentTarget = null;
-			return;
-		}
-
-		// Ensure target it still in range
 		Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition;
 		distance.Y = 0;
+		if (distance.LengthSquared() > (_range * _range)) return;
 
-		if (distance.LengthSquared() > (_range * _range))
-			return;
-
-		// cooldown tick
 		_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
-
-		if (_fireRateTimer > 0f)
-			return;
-
+		if (_fireRateTimer > 0f) return;
 		_fireRateTimer = _unit.FireRate;
 
-		// spawn projectile
-		SpawnProjectile();
+		// --- choose fire mode ---
+		if (_unit.WeaponType == MyEnums.WeaponType.SmallArms)   // <-- your enum/flag
+			FireHitscan();
+		else
+			SpawnProjectile();
 
-		// audio
+		// audio + vfx (muzzle)
 		_attackSound.Play();
-
-		// vfx
-		foreach (GpuParticles3D particles in _muzzleFlashParticles.GetChildren())
-			particles.Restart();
-
-		// animation
-		if (_animationPlayer != null)
-			_animationPlayer.Play("FireAnimation");
+		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
+		_animationPlayer?.Play("FireAnimation");
 	}
+
+	[Export] public float TracerChance = 0.33f;      // draw 1 of 3 bullets as a tracer
+	[Export] public float TracerWidth = 0.035f;
+	[Export] public float TracerLifetime = 0.1f;
+	[Export] public PackedScene TracerScene;         // simple line/quad scene (below)
+
+	private void FireHitscan()
+	{
+		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+
+		// Aim at center-mass inline (uses CollisionShape3D center if present)
+		Vector3 targetPos = _currentTarget.GlobalPosition;
+		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
+		if (aimCenter != null) targetPos = aimCenter.GlobalPosition;
+		else targetPos += Vector3.Up * 1.0f;
+
+		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
+		Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random);
+
+		float maxDist = _unit.Range;
+		Vector3 from = muzzle.Origin;
+		Vector3 to = from + dir * maxDist;
+
+		var space = GetViewport().GetWorld3D().DirectSpaceState;
+		var query = PhysicsRayQueryParameters3D.Create(from, to);
+		query.CollideWithBodies = true;
+		query.CollideWithAreas = true;
+		// Optionally: query.CollisionMask = _unit.BulletMask;
+
+		var hit = space.IntersectRay(query);
+
+		Vector3 endPos = to;
+		if (hit.Count > 0)
+		{
+			endPos = (Vector3)hit["position"];
+			var nrm = ((Vector3)hit["normal"]).Normalized();
+
+			if (hit["collider"].AsGodotObject() is IDamageable dmg)
+				dmg.ApplyDamage(_dps, endPos, nrm);
+
+			// (Optional) spawn an impact FX scene here
+			// SpawnImpactFx(endPos, nrm);
+		}
+
+		// Tracer VFX sometimes (cheap)
+		if (TracerScene != null && _random.Randf() < TracerChance)
+		{
+			var tracer = TracerScene.Instantiate<Node3D>() as ITracer;
+			GetTree().CurrentScene.AddChild(tracer as Node);
+			tracer!.Init(from, endPos, TracerWidth, TracerLifetime);
+		}
+	}
+
+
+	// private void TryAttack(double delta)
+	// {
+	// 	if (!_isZeroed)
+	// 		return;
+
+	// 	if (!IsInstanceValid(_currentTarget))
+	// 	{
+	// 		_currentTarget = null;
+	// 		return;
+	// 	}
+
+	// 	// Ensure target it still in range
+	// 	Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition;
+	// 	distance.Y = 0;
+
+	// 	if (distance.LengthSquared() > (_range * _range))
+	// 		return;
+
+	// 	// cooldown tick
+	// 	_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
+
+	// 	if (_fireRateTimer > 0f)
+	// 		return;
+
+	// 	_fireRateTimer = _unit.FireRate;
+
+	// 	// spawn projectile
+	// 	SpawnProjectile();
+
+	// 	// audio
+	// 	_attackSound.Play();
+
+	// 	// vfx
+	// 	foreach (GpuParticles3D particles in _muzzleFlashParticles.GetChildren())
+	// 		particles.Restart();
+
+	// 	// animation
+	// 	if (_animationPlayer != null)
+	// 		_animationPlayer.Play("FireAnimation");
+	// }
 
 	private void SpawnProjectile()
 	{
