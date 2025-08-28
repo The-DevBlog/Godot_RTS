@@ -36,7 +36,7 @@ section_segments = 1
 script = ExtResource("1_swk1j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.10269)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.598416)
 mesh = SubResource("RibbonTrailMesh_dqvda")
 
 [node name="ImpactParticles" parent="." instance=ExtResource("2_28q7i")]
