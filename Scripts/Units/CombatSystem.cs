@@ -144,39 +144,6 @@ public partial class CombatSystem : Node
 		tracer.LookAt(endPos);
 	}
 
-
-	// private void SpawnTracer(Tracer tracer)
-	// {
-	// 	// Start position
-	// 	Vector3 muzzlePos = _projectileSpawnPoint.GlobalPosition;
-
-	// 	// Aim center mass
-	// 	Vector3 targetPos = _currentTarget.GlobalPosition;
-	// 	var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
-	// 	if (aimCenter != null)
-	// 		targetPos = aimCenter.GlobalPosition;
-	// 	else
-	// 		Utils.PrintErr("No CollisionShape3D on target; using rough offset");
-
-	// 	// Ideal forward direction
-	// 	Vector3 idealDir = (targetPos - muzzlePos).Normalized();
-
-	// 	// Apply bullet spread
-	// 	Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random);
-
-	// 	// Compute tracer start/end
-	// 	Vector3 startPos = muzzlePos + dir * 0.25f;
-	// 	Vector3 endPos = startPos + dir * _unit.Range; // or distance to target if you prefer exact hit point
-
-	// 	if ((endPos - startPos).Length() > 3.0f)
-	// 	{
-	// 		_unit.AddSibling(tracer);
-	// 		tracer.GlobalPosition = startPos;
-	// 		tracer.TargetPos = endPos;
-	// 		tracer.LookAt(endPos);
-	// 	}
-	// }
-
 	private void SpawnProjectile(Projectile projectile)
 	{
 		projectile.Damage = _dps;
@@ -215,7 +182,12 @@ public partial class CombatSystem : Node
 		Vector3 right = forward.Cross(any).Normalized();
 		Vector3 up = right.Cross(forward).Normalized();
 
+		// Normal offset
 		Vector3 offset = (Mathf.Cos(phi) * right + Mathf.Sin(phi) * up) * sinTheta;
+
+		// Scale vertical (up/down) contribution by 0.5
+		offset = (offset.Dot(right) * right) + (offset.Dot(up) * 0.5f * up);
+
 		return (forward * cosTheta + offset).Normalized();
 	}
 

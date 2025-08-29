@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dv1r2himryp6m"]
+
+[ext_resource type="PackedScene" uid="uid://d2r18fv0poemt" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.glb" id="1_r5j6i"]
+[ext_resource type="Shader" uid="uid://b08400eugbkj6" path="res://Shaders/team_color.gdshader" id="2_6o83b"]
+[ext_resource type="Texture2D" uid="uid://xwhc471eikrb" path="res://Assets/Models/Units/AntiInfantry/BaseColor.png" id="3_0tliw"]
+[ext_resource type="Texture2D" uid="uid://b86fnx2fr3sim" path="res://Assets/Models/Units/AntiInfantry/TeamColor.png" id="4_jmxgr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8f4p"]
+render_priority = 0
+shader = ExtResource("2_6o83b")
+shader_parameter/albedo_texture = ExtResource("3_0tliw")
+shader_parameter/team_mask = ExtResource("4_jmxgr")
+shader_parameter/team_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ji3wj"]
+render_priority = 0
+shader = ExtResource("2_6o83b")
+shader_parameter/albedo_texture = ExtResource("3_0tliw")
+shader_parameter/team_mask = ExtResource("4_jmxgr")
+shader_parameter/team_color = Color(0, 0, 0, 1)
+shader_parameter/outline_thickness = 2.0
+
+[node name="AntiInfantry" instance=ExtResource("1_r5j6i")]
+
+[node name="Body" parent="." index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_b8f4p")
+
+[node name="Turret" parent="." index="1"]
+surface_material_override/0 = SubResource("ShaderMaterial_ji3wj")
+
+[node name="Cannon" parent="Turret" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_ji3wj")

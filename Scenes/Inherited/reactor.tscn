@@ -9,7 +9,7 @@ render_priority = 2
 shader = ExtResource("1_2m6yi")
 shader_parameter/albedo_texture = ExtResource("1_y7guc")
 shader_parameter/team_mask = ExtResource("3_grfcp")
-shader_parameter/team_color = Color(1, 0, 0, 1)
+shader_parameter/team_color = Color(1, 1, 1, 1)
 shader_parameter/outline_thickness = 2.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_2gke7"]

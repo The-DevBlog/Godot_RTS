@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cxyrfhqny0rmr"
-path="res://.godot/imported/AntiInfantry.gltf-44a6856274e71bb381a12805f61ed196.scn"
+uid="uid://d2r18fv0poemt"
+path="res://.godot/imported/AntiInfantry.glb-5103664b6d03c2cf3e4a47c6e5c5860f.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Units/AntiInfantry/AntiInfantry.gltf"
-dest_files=["res://.godot/imported/AntiInfantry.gltf-44a6856274e71bb381a12805f61ed196.scn"]
+source_file="res://Assets/Models/Units/AntiInfantry/AntiInfantry.glb"
+dest_files=["res://.godot/imported/AntiInfantry.glb-5103664b6d03c2cf3e4a47c6e5c5860f.scn"]
 
 [params]
 

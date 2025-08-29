@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_7fw24"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_j535g"]
+[ext_resource type="PackedScene" uid="uid://dv1r2himryp6m" path="res://Scenes/Inherited/Units/anti_infantry.tscn" id="2_p5b3e"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_pjyd2"]
 [ext_resource type="AudioStream" uid="uid://bbwury3qlup3w" path="res://Assets/Audio/MachineGun.wav" id="5_7fw24"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_6rfje"]
@@ -14,7 +15,6 @@
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="13_kwoso"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="14_djthm"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="16_6qcct"]
-[ext_resource type="PackedScene" uid="uid://cxyrfhqny0rmr" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.gltf" id="17_7fw24"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="17_equr2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
@@ -213,27 +213,27 @@ VehicleType = 4
 Speed = 10
 HP = 200
 DPS = 1
-Range = 20
-FireRate = 0.1
+Range = 25
+FireRate = 0.05
 Cost = 750
 BuildTime = 8
 Acceleration = 8
 ProjectileSpeed = 200.0
 Death = NodePath("Death")
-BulletSpread = 3.5
+BulletSpread = 3.0
 WeaponType = 2
 _combatSystem = NodePath("Systems/CombatSystem")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
-[node name="Model" parent="." instance=ExtResource("17_7fw24")]
-transform = Transform3D(-0.62, 0, -5.42021e-08, 0, 0.62, 0, 5.42021e-08, 0, -0.62, 0, 1.092, 0)
+[node name="Model" parent="." instance=ExtResource("2_p5b3e")]
+transform = Transform3D(-0.62, 0, 9.36174e-08, 0, 0.62, 0, -9.36174e-08, 0, -0.62, 0, 1.092, 0)
 
 [node name="ProjectileSpawnPoint" type="Node3D" parent="Model/Turret" index="1"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.03028e-07, 0, 1.16431)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.80782e-08, 1.38767, 0.913567)
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/Turret" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.06055e-07, 0, 1.17826)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.80782e-08, 1.38767, 0.913567)
 remote_path = NodePath("../../../MuzzleFlash")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -270,7 +270,7 @@ stream = SubResource("AudioStreamRandomizer_sd0dm")
 volume_db = 8.5
 
 [node name="MuzzleFlash" type="Node3D" parent="."]
-transform = Transform3D(-0.95303, 0, -8.33165e-08, 0, 0.95303, 0, 8.33165e-08, 0, -0.95303, -0.00245992, 1.96264, -0.533734)
+transform = Transform3D(-0.62, 0, 9.36174e-08, 0, 0.62, 0, -9.36174e-08, 0, -0.62, 4.95173e-08, 1.95236, -0.566412)
 
 [node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash"]
 material_override = SubResource("StandardMaterial3D_smbrw")
