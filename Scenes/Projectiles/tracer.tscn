@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ubievpqrx05k"]
+[gd_scene load_steps=7 format=3 uid="uid://31306wya3kxm"]
 
 [ext_resource type="Script" uid="uid://bdlsy5o30fyui" path="res://Scripts/Projectiles/Tracer.cs" id="1_swk1j"]
 [ext_resource type="PackedScene" uid="uid://b2anfi6d10162" path="res://Scenes/VFX/vfx_impact_2.tscn" id="2_28q7i"]

@@ -41,6 +41,7 @@ alpha_curve = SubResource("CurveTexture_psjbx")
 [sub_resource type="QuadMesh" id="QuadMesh_nlrlp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_16gwn"]
+render_priority = 2
 transparency = 1
 cull_mode = 2
 shading_mode = 0
@@ -68,6 +69,7 @@ curve = SubResource("Curve_qctdy")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d60jn"]
 gravity = Vector3(0, 0, 0)
+scale_min = 1.5
 scale_max = 1.5
 scale_curve = SubResource("CurveTexture_myex4")
 color = Color(3.5, 2, 0.8, 1)
@@ -110,6 +112,7 @@ alpha_curve = SubResource("CurveTexture_x0xvs")
 load_path = "res://.godot/imported/Flare.png-150188fbc09f2a03d2c3ea48743050c2.s3tc.ctex"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d74cc"]
+render_priority = 2
 transparency = 1
 cull_mode = 2
 shading_mode = 0
