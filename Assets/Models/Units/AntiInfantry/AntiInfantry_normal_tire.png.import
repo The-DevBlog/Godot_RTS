@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blc3vwbey6c0q"
-path.s3tc="res://.godot/imported/AntiInfantry_Normal.png-d021cd35084c771ba232f647ff3e6086.s3tc.ctex"
+uid="uid://ddvwx8u5ug8f3"
+path.s3tc="res://.godot/imported/AntiInfantry_normal_tire.png-511bdc58557b298dbde2de1a3a33f058.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "1fc92fe8d50a3ffa52d3a41ce59cfa68"
+"md5": "2c70e80f1304db1b69fb54a99e6ede9d"
 }
 
 [deps]
 
-source_file="res://Assets/Models/Units/AntiInfantry/AntiInfantry_Normal.png"
-dest_files=["res://.godot/imported/AntiInfantry_Normal.png-d021cd35084c771ba232f647ff3e6086.s3tc.ctex"]
+source_file="res://Assets/Models/Units/AntiInfantry/AntiInfantry_normal_tire.png"
+dest_files=["res://.godot/imported/AntiInfantry_normal_tire.png-511bdc58557b298dbde2de1a3a33f058.s3tc.ctex"]
 
 [params]
 
@@ -28,7 +28,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://Assets/Models/Units/AntiInfantry/AntiInfantry_Normal.png"
+roughness/src_normal="res://Assets/Models/Units/AntiInfantry/AntiInfantry_normal_tire.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_7fw24"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_j535g"]
-[ext_resource type="PackedScene" uid="uid://dv1r2himryp6m" path="res://Scenes/Inherited/Units/anti_infantry.tscn" id="2_p5b3e"]
+[ext_resource type="PackedScene" uid="uid://drsppe75qhqje" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.glb" id="2_p5b3e"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_pjyd2"]
 [ext_resource type="AudioStream" uid="uid://bbwury3qlup3w" path="res://Assets/Audio/MachineGun.wav" id="5_7fw24"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_6rfje"]
@@ -227,13 +227,13 @@ _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("2_p5b3e")]
-transform = Transform3D(-0.62, 0, 9.36174e-08, 0, 0.62, 0, -9.36174e-08, 0, -0.62, 0, 1.092, 0)
+transform = Transform3D(-0.62, 0, -5.42021e-08, 0, 0.62, 0, 5.42021e-08, 0, -0.62, 0, 0, 0)
 
 [node name="ProjectileSpawnPoint" type="Node3D" parent="Model/Turret" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.80782e-08, 1.38767, 0.913567)
+transform = Transform3D(1.6129, 0, 0, 0, 1.6129, 0, 0, 0, 1.6129, 0.00425316, -0.237176, 1.87995)
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/Turret" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.80782e-08, 1.38767, 0.913567)
+transform = Transform3D(1.6129, 0, 0, 0, 1.6129, 0, 0, 0, 1.6129, 0.00425316, -0.237176, 1.87995)
 remote_path = NodePath("../../../MuzzleFlash")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -241,7 +241,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506965, 0.107553)
 shape = SubResource("CylinderShape3D_ebj34")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
-transform = Transform3D(1.374, 0, 0, 0, 1.374, 0, 0, 0, 1.374, 0, 0.47361, 0)
+transform = Transform3D(1.374, 0, 0, 0, 1.374, 0, 0, 0, 1.374, 0, 0.771436, 0)
 billboard = 1
 no_depth_test = true
 render_priority = 1
@@ -251,7 +251,7 @@ texture = ExtResource("2_j535g")
 avoidance_enabled = true
 
 [node name="Healthbar" parent="." instance=ExtResource("4_pjyd2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75709, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.01667, 0)
 
 [node name="Audio" type="Node3D" parent="."]
 
@@ -270,7 +270,7 @@ stream = SubResource("AudioStreamRandomizer_sd0dm")
 volume_db = 8.5
 
 [node name="MuzzleFlash" type="Node3D" parent="."]
-transform = Transform3D(-0.62, 0, 9.36174e-08, 0, 0.62, 0, -9.36174e-08, 0, -0.62, 4.95173e-08, 1.95236, -0.566412)
+transform = Transform3D(-0.999998, 0, -8.74226e-08, 0, 0.999998, 0, 8.74226e-08, 0, -0.999998, 1.97658e-07, 1.95749, -0.644332)
 
 [node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash"]
 material_override = SubResource("StandardMaterial3D_smbrw")

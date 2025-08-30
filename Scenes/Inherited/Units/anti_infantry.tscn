@@ -1,13 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://dv1r2himryp6m"]
 
-[ext_resource type="PackedScene" uid="uid://1k4btyc3c1wc" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.glb" id="1_r5j6i"]
+[ext_resource type="PackedScene" uid="uid://drsppe75qhqje" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.glb" id="1_r5j6i"]
 [ext_resource type="Shader" uid="uid://b08400eugbkj6" path="res://Shaders/team_color.gdshader" id="2_6o83b"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s11bj"]
-load_path = "res://.godot/imported/BaseColor.png-fc1dd107d29af8d65f2ea1f35f264d9e.s3tc.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_grfo8"]
-load_path = "res://.godot/imported/TeamColor.png-6ab011be69405076cb6d92ca977d3274.s3tc.ctex"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b8f4p"]
 render_priority = 0
