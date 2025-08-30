@@ -20,6 +20,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
 	[Export] private float _rotationSpeed = 220f;   // try 1000–2000 for tanks
+	private Player _player;
 	private Node3D _model;
 	private float _facingWindowDeg = 10f; // start moving when |diff| <= this
 	private float _stopWindowDeg = 18f;   // stop moving when |diff| > this (hysteresis)
@@ -27,7 +28,6 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 
 	private bool _moving = false; // hysteresis state
 	public int CurrentHP { get; set; }
-	public Player Player { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;
@@ -51,6 +51,11 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	{
 		AddToGroup(Group.units.ToString());
 
+		PlayerManager.Instance.WhenHumanPlayerReady(player =>
+		{
+			_player = player;
+		});
+
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		Utils.NullExportCheck(_navigationAgent);
 		_navigationAgent.AvoidanceEnabled = true;
@@ -60,6 +65,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 
+		Team = _player.Team;
 		_model = GetNode<Node3D>("Model");
 		_targetPosition = Vector3.Zero;
 		_cam = GetViewport().GetCamera3D();
@@ -81,7 +87,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		Utils.NullExportCheck(_healthSystem);
 		Utils.NullExportCheck(Death);
 		Utils.NullCheck(_model);
-		Utils.NullCheck(Player);
+		Utils.NullCheck(_player);
 
 		CurrentHP = HP;
 
@@ -163,34 +169,6 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	}
 
 	private void ToggleSelectBorder() => _selectBorder.Visible = _selected;
-
-	// public void SetTeamColor(Color color)
-	// {
-	// 	foreach (Node child in _model.GetChildren())
-	// 	{
-	// 		if (child is MeshInstance3D mesh)
-	// 		{
-	// 			// Get the current material on surface 0
-	// 			var originalMaterial = mesh.Mesh.SurfaceGetMaterial(0) as ShaderMaterial;
-	// 			if (originalMaterial == null)
-	// 			{
-	// 				Utils.PrintErr("Material on surface 0 is null.");
-	// 				continue;
-	// 			}
-
-	// 			// Duplicate the material to avoid affecting all instances
-	// 			ShaderMaterial matInstance = (ShaderMaterial)originalMaterial.Duplicate();
-
-	// 			// Set the uniform parameter
-	// 			matInstance.SetShaderParameter("team_color", color);
-
-	// 			// GD.Print("Setting team color for structure: " + StructureType + " to " + color);
-
-	// 			// Assign it back to the mesh
-	// 			mesh.SetSurfaceOverrideMaterial(0, matInstance);
-	// 		}
-	// 	}
-	// }
 
 	private void SetTeamColor(Node node, Color color)
 	{

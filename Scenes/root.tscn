@@ -75,18 +75,20 @@ size = Vector3(200, 0.5, 200)
 script = ExtResource("1_a6f85")
 MapSize = Vector2(1000, 1000)
 Season = 2
-TimeOfDay = 2
-Weather = 1
+TimeOfDay = 3
+Weather = 3
 
 [node name="Players" type="Node" parent="."]
 
 [node name="Human" parent="Players" instance=ExtResource("12_lwnbm")]
 Id = 1
+Team = 2
 Color = Color(0.764235, 0.426826, 9.62615e-07, 1)
 Funds = 30000
 
 [node name="Bot" parent="Players" instance=ExtResource("12_lwnbm")]
 IsHuman = false
+Team = 4
 Color = Color(0.352951, 0.461727, 1, 1)
 Funds = 30000
 
@@ -164,7 +166,7 @@ button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.75528, 0, 0.871063)
-Team = 2
+Team = 1
 HP = 200
 
 [node name="Shaders" type="Node3D" parent="."]
