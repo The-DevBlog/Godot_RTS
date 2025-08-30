@@ -85,7 +85,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 
 		CurrentHP = HP;
 
-		SetTeamColor(_model, PlayerManager.Instance.HumanPlayer.Color);
+		// SetTeamColor(_model, PlayerManager.Instance.HumanPlayer.Color);
 	}
 
 	public override void _PhysicsProcess(double delta) => MoveUnit(delta);

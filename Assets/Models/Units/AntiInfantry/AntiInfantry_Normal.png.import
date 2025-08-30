@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b86fnx2fr3sim"
-path.s3tc="res://.godot/imported/TeamColor.png-6ab011be69405076cb6d92ca977d3274.s3tc.ctex"
+uid="uid://blc3vwbey6c0q"
+path.s3tc="res://.godot/imported/AntiInfantry_Normal.png-d021cd35084c771ba232f647ff3e6086.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "1fc92fe8d50a3ffa52d3a41ce59cfa68"
+}
 
 [deps]
 
-source_file="res://Assets/Models/Units/AntiInfantry/TeamColor.png"
-dest_files=["res://.godot/imported/TeamColor.png-6ab011be69405076cb6d92ca977d3274.s3tc.ctex"]
+source_file="res://Assets/Models/Units/AntiInfantry/AntiInfantry_Normal.png"
+dest_files=["res://.godot/imported/AntiInfantry_Normal.png-d021cd35084c771ba232f647ff3e6086.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +23,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://Assets/Models/Units/AntiInfantry/AntiInfantry_Normal.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
