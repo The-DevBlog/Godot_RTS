@@ -20,7 +20,6 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
 	[Export] private float _rotationSpeed = 220f;   // try 1000–2000 for tanks
-	private Player _player;
 	private Node3D _model;
 	private float _facingWindowDeg = 10f; // start moving when |diff| <= this
 	private float _stopWindowDeg = 18f;   // stop moving when |diff| > this (hysteresis)
@@ -51,11 +50,6 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	{
 		AddToGroup(Group.units.ToString());
 
-		PlayerManager.Instance.WhenHumanPlayerReady(player =>
-		{
-			_player = player;
-		});
-
 		_navigationAgent = GetNode<NavigationAgent3D>("NavigationAgent3D");
 		Utils.NullExportCheck(_navigationAgent);
 		_navigationAgent.AvoidanceEnabled = true;
@@ -65,7 +59,6 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 
-		Team = _player.Team;
 		_model = GetNode<Node3D>("Model");
 		_targetPosition = Vector3.Zero;
 		_cam = GetViewport().GetCamera3D();
@@ -87,7 +80,8 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		Utils.NullExportCheck(_healthSystem);
 		Utils.NullExportCheck(Death);
 		Utils.NullCheck(_model);
-		Utils.NullCheck(_player);
+
+		GD.Print("Built vehicle on team " + Team);
 
 		CurrentHP = HP;
 
