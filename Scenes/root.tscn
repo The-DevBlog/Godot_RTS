@@ -1,16 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=23 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
 [ext_resource type="Script" uid="uid://cje1x122yykgi" path="res://Scripts/Structures/StructureFactory.cs" id="2_lwnbm"]
 [ext_resource type="Material" uid="uid://8kxoxyvk5toc" path="res://Assets/Resources/snow_partial_material.tres" id="3_a6f85"]
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="3_dun2r"]
-[ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="4_dun2r"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="5_4g5cr"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
-[ext_resource type="PackedScene" uid="uid://dytawf24kkrry" path="res://Scenes/Units/anti_infantry.tscn" id="11_20eh2"]
+[ext_resource type="PackedScene" uid="uid://bbsme72x5icrn" path="res://Scenes/Units/anti_infantry.tscn" id="11_20eh2"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://deexst56o0ban" path="res://Scenes/Structures/reactor.tscn" id="15_imcog"]
@@ -165,13 +164,405 @@ button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="Units" type="Node3D" parent="."]
 
-[node name="TankGen2" parent="Units" instance=ExtResource("4_dun2r")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.75528, 0, 0.871063)
-Team = 1
-HP = 200
-
 [node name="AntiInfantry" parent="Units" instance=ExtResource("11_20eh2")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10.7094, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 0)
+Team = 2
+
+[node name="AntiInfantry2" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 0)
+Team = 2
+
+[node name="AntiInfantry3" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 0)
+Team = 2
+
+[node name="AntiInfantry4" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 0)
+Team = 2
+
+[node name="AntiInfantry5" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 0)
+Team = 2
+
+[node name="AntiInfantry6" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 0)
+Team = 2
+
+[node name="AntiInfantry7" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 0)
+Team = 2
+
+[node name="AntiInfantry8" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 0)
+Team = 2
+
+[node name="AntiInfantry9" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 0)
+Team = 2
+
+[node name="AntiInfantry10" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 0)
+Team = 2
+
+[node name="AntiInfantry11" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry12" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry13" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry14" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry15" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry16" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry17" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry18" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry19" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry20" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 4.5338)
+Team = 2
+
+[node name="AntiInfantry21" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry22" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry23" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry24" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry25" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry26" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry27" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry28" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry29" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry30" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 8.56103)
+Team = 2
+
+[node name="AntiInfantry31" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry32" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry33" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry34" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry35" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry36" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry37" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry38" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry39" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry40" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 12.3858)
+Team = 2
+
+[node name="AntiInfantry41" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry42" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry43" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry44" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry45" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry46" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry47" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry48" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry49" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry50" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 16.6891)
+Team = 2
+
+[node name="AntiInfantry51" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry52" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry53" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry54" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry55" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry56" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry57" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry58" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry59" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry60" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 21.5768)
+Team = 2
+
+[node name="AntiInfantry61" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry62" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry63" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry64" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry65" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry66" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry67" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry68" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry69" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry70" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 26.1106)
+Team = 2
+
+[node name="AntiInfantry71" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry72" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry73" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry74" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry75" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry76" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry77" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry78" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry79" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry80" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 30.1378)
+Team = 2
+
+[node name="AntiInfantry81" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry82" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry83" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry84" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry85" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry86" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry87" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry88" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry89" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry90" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 33.9625)
+Team = 2
+
+[node name="AntiInfantry91" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 13.1262, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry92" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 16.6348, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry93" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.0121, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry94" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 24.0121, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry95" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 27.8175, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry96" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.5026, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry97" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35.0112, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry98" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 38.3885, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry99" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 42.3885, 0, 38.2659)
+Team = 2
+
+[node name="AntiInfantry100" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 46.1939, 0, 38.2659)
+Team = 2
 
 [node name="Shaders" type="Node3D" parent="."]
 

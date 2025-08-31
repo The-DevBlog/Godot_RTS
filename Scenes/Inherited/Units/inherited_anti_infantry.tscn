@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxr3oy5wmuyc3"]
+
+[ext_resource type="PackedScene" uid="uid://djvayspodag3e" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry.glb" id="1_5sein"]
+
+[node name="Model" instance=ExtResource("1_5sein")]

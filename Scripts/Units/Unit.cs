@@ -81,8 +81,6 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		Utils.NullExportCheck(Death);
 		Utils.NullCheck(_model);
 
-		GD.Print("Built vehicle on team " + Team);
-
 		CurrentHP = HP;
 
 		// SetTeamColor(_model, PlayerManager.Instance.HumanPlayer.Color);
