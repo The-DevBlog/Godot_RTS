@@ -227,14 +227,12 @@ _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("2_p5b3e")]
-transform = Transform3D(-0.62, 0, -5.42021e-08, 0, 0.62, 0, 5.42021e-08, 0, -0.62, 0, 0, 0)
+transform = Transform3D(-0.62, 0, -9.36174e-08, 0, 0.62, 0, 9.36174e-08, 0, -0.62, 0, 0, 0)
 
-[node name="ProjectileSpawnPoint" type="Node3D" parent="Model/Turret" index="1"]
-transform = Transform3D(1.6129, 0, 0, 0, 1.6129, 0, 0, 0, 1.6129, 0.00425316, -0.237176, 1.87995)
-
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/Turret" index="2"]
-transform = Transform3D(1.6129, 0, 0, 0, 1.6129, 0, 0, 0, 1.6129, 0.00425316, -0.237176, 1.87995)
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/Turret" index="1"]
 remote_path = NodePath("../../../MuzzleFlash")
+
+[node name="ProjectileSpawnPoint" type="Node3D" parent="Model/Turret" index="2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506965, 0.107553)
@@ -270,7 +268,7 @@ stream = SubResource("AudioStreamRandomizer_sd0dm")
 volume_db = 8.5
 
 [node name="MuzzleFlash" type="Node3D" parent="."]
-transform = Transform3D(-0.999998, 0, -8.74226e-08, 0, 0.999998, 0, 8.74226e-08, 0, -0.999998, 1.97658e-07, 1.95749, -0.644332)
+transform = Transform3D(-0.62, 0, -9.36174e-08, 0, 0.62, 0, 9.36174e-08, 0, -0.62, 0.00263729, 2.10454, 0.521237)
 
 [node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash"]
 material_override = SubResource("StandardMaterial3D_smbrw")
