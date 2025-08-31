@@ -3,6 +3,8 @@
 - I cant get the 'energy' label txt to turn red when consumed energy > energy
 - Scaling issues at 2560x1440 and up
 - If there are building that exist on startup, they are not added to the navigation region
+- Minimap markers are too big, and outlines are too thick. When there a many units in one spot, I mostly only see outlines. 
+  - Maybe make clusters only have an outline surrounding the entire cluster?
 
 # Tasks
 - Add spatial partitioning. Will help with target aquisition, and much more probably
