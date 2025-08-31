@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class MiniMap : Control
@@ -15,19 +16,30 @@ public partial class MiniMap : Control
     private Camera3D _camera;
     private GlobalResources _globalResources;
     private Player _player;
+    private readonly List<Unit> _units = new();
+    private readonly List<StructureBase> _structures = new();
+    private static readonly float SQRT2 = 1.41421356237f;
+    private readonly Vector2[] _unitCorners = new Vector2[4];
+    private readonly Color[] _unitColors = { Colors.White, Colors.White, Colors.White, Colors.White };
+    private const double MiniMapFPS = 45.0;
+    private double _targetDelta = 1.0 / MiniMapFPS;
+    private double _accum;
+
+    public override void _EnterTree()
+    {
+        GetTree().NodeAdded += OnNodeAdded;
+        GetTree().NodeRemoved += OnNodeRemoved;
+    }
 
     public override void _Ready()
     {
-        GD.Print("[MiniMap] _Ready called");
         Utils.NullExportCheck(GameCamera);
 
         PlayerManager playerManager = PlayerManager.Instance;
         if (playerManager.HumanPlayer != null)
             _player = playerManager.HumanPlayer;
         else
-        {
             playerManager.HumanPlayerReady += OnHumanPlayerReady;
-        }
 
         Utils.NullCheck(_player);
 
@@ -41,7 +53,17 @@ public partial class MiniMap : Control
 
     public override void _Process(double delta)
     {
-        QueueRedraw();
+        _accum += delta;
+
+        // avoid huge catch-up after a long hitch
+        if (_accum >= _targetDelta * 2.0)
+            _accum = _targetDelta;
+
+        if (_accum >= _targetDelta)
+        {
+            _accum = 0;
+            QueueRedraw();
+        }
     }
 
     public override void _Draw()
@@ -52,7 +74,6 @@ public partial class MiniMap : Control
 
         // Draw background
         DrawRect(new Rect2(Vector2.Zero, Size), _backgroundColor, true);
-
         DrawUnits(scale);
         DrawStructures(scale);
         DrawCameraRect(scale);
@@ -66,6 +87,20 @@ public partial class MiniMap : Control
         {
             NavigateToPostition();
         }
+    }
+
+    // Add units and structures to their respective lists when they are added to the scene
+    private void OnNodeAdded(Node n)
+    {
+        if (n is Unit u && u.IsInGroup("units")) _units.Add(u);
+        if (n is StructureBase s && s.IsInGroup("structures")) _structures.Add(s);
+    }
+
+    // Remove units and structures from their respective lists when they are removed from the scene
+    private void OnNodeRemoved(Node n)
+    {
+        if (n is Unit u) _units.Remove(u);
+        if (n is StructureBase s) _structures.Remove(s);
     }
 
     private void OnHumanPlayerReady(Player player)
@@ -95,36 +130,42 @@ public partial class MiniMap : Control
 
     private void DrawUnits(Vector2 scale)
     {
-        var units = GetTree().GetNodesInGroup(MyEnums.Group.units.ToString());
-        foreach (Unit unit in units)
+        float sx = scale.X; // use X scale for size; good enough for a minimap
+        _unitColors[0] = _unitColors[1] = _unitColors[2] = _unitColors[3] = _friendlyUnitsColor;
+
+        foreach (Unit unit in _units)
         {
-            Vector2 worldPos = new Vector2(unit.GlobalPosition.X, unit.GlobalPosition.Z);
-            Vector2 localPos = (worldPos - _worldMin) * scale;
+            // world → minimap pixel center
+            Vector2 wp = new(unit.GlobalPosition.X, unit.GlobalPosition.Z);
+            if (wp.X < _worldMin.X || wp.X > _worldMax.X || wp.Y < _worldMin.Y || wp.Y > _worldMax.Y)
+                continue;
 
-            // Try to get the collision shape size
-            float radius = 3f; // fallback
-            var collider = unit.GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
-            if (collider != null && collider.Shape is SphereShape3D sphere)
-            {
-                radius = sphere.Radius * scale.X; // scale to minimap
-            }
-            else if (collider != null && collider.Shape is BoxShape3D box)
-            {
-                radius = Mathf.Max(box.Size.X, box.Size.Z) * 0.5f * scale.X;
-            }
+            Vector2 rel = wp - _worldMin;
+            Vector2 center = new(Mathf.Round(rel.X * sx), Mathf.Round(rel.Y * scale.Y));
 
-            // Draw black outline
-            DrawCircle(localPos, radius + 1f, Colors.Black);
-            // Draw unit fill
-            DrawCircle(localPos, radius, _friendlyUnitsColor);
+            // choose the square’s half-side in pixels (map your cached world radius however you like)
+            float halfSidePx = Mathf.Max(1.0f, unit.MiniMapRadius * sx);
+            float halfDiagPx = halfSidePx * SQRT2; // distance from center to each corner
+
+            // 45° square (diamond): C + (0,±d), C + (±d,0)
+            _unitCorners[0] = new(center.X, center.Y - halfDiagPx);
+            _unitCorners[1] = new(center.X + halfDiagPx, center.Y);
+            _unitCorners[2] = new(center.X, center.Y + halfDiagPx);
+            _unitCorners[3] = new(center.X - halfDiagPx, center.Y);
+
+            DrawPolygon(_unitCorners, _unitColors);
+
+            // optional (slower): outline
+            // for (int i = 0; i < 4; i++)
+            //     DrawLine(_squareCorners[i], _squareCorners[(i + 1) % 4], Colors.Black, 1f);
         }
     }
+
 
     private void DrawStructures(Vector2 scale)
     {
         // Draw structures
-        var structures = GetTree().GetNodesInGroup(MyEnums.Group.structures.ToString());
-        foreach (StructureBase structure in structures)
+        foreach (StructureBase structure in _structures)
         {
             Vector2 worldPos = new Vector2(structure.GlobalPosition.X, structure.GlobalPosition.Z);
             Vector2 localPos = (worldPos - _worldMin) * scale;
@@ -148,7 +189,7 @@ public partial class MiniMap : Control
 
             // Rectangle corners centered at (0,0)
             Vector2 half = rectSize / 2f;
-            Vector2[] corners =
+            Vector2[] structureCorners =
             [
                 new Vector2(-half.X, -half.Y),
                 new Vector2( half.X, -half.Y),
@@ -158,16 +199,14 @@ public partial class MiniMap : Control
 
             // Rotate and translate corners
             for (int i = 0; i < 4; i++)
-            {
-                corners[i] = RotateVector2(corners[i], -yaw) + localPos;
-            }
+                structureCorners[i] = RotateVector2(structureCorners[i], -yaw) + localPos;
 
             // Draw the rectangle as a polygon
-            DrawPolygon(corners, new Color[] { _friendlyUnitsColor, _friendlyUnitsColor, _friendlyUnitsColor, _friendlyUnitsColor });
+            DrawPolygon(structureCorners, new Color[] { _friendlyUnitsColor, _friendlyUnitsColor, _friendlyUnitsColor, _friendlyUnitsColor });
 
             // Draw black outline
-            for (int i = 0; i < 4; i++)
-                DrawLine(corners[i], corners[(i + 1) % 4], Colors.Black, 1f);
+            // for (int i = 0; i < 4; i++)
+            //     DrawLine(corners[i], corners[(i + 1) % 4], Colors.Black, 1f);
         }
     }
 

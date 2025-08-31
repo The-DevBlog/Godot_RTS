@@ -13,17 +13,21 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
+	[Export] public float ProjectileSpeed { get; set; }
 	[Export] public Node3D Death;
+	[Export] public float BulletSpread { get; set; }
+	[Export] public WeaponType WeaponType { get; set; }
+	[Export] public float MiniMapRadius { get; set; }
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
 	[Export] private float _rotationSpeed = 220f;   // try 1000–2000 for tanks
+	private Node3D _model;
 	private float _facingWindowDeg = 10f; // start moving when |diff| <= this
 	private float _stopWindowDeg = 18f;   // stop moving when |diff| > this (hysteresis)
 	private bool _meshFacesPlusZ = false; // set false if your mesh faces -Z, eg: travel backwards or forwards
 
 	private bool _moving = false; // hysteresis state
 	public int CurrentHP { get; set; }
-	public Player Player { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
 	private NavigationAgent3D _navigationAgent;
@@ -56,6 +60,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 
+		_model = GetNode<Node3D>("Model");
 		_targetPosition = Vector3.Zero;
 		_cam = GetViewport().GetCamera3D();
 
@@ -68,12 +73,21 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
+		if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
+		if (BulletSpread == 0) Utils.PrintErr("No BulletSpread Assigned to unit");
+		if (WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
+		if (MiniMapRadius == 0) Utils.PrintErr("No MiniMapRadius Assigned to unit");
 
 		Utils.NullExportCheck(_combatSystem);
 		Utils.NullExportCheck(_healthSystem);
 		Utils.NullExportCheck(Death);
+		Utils.NullCheck(_model);
+
+		GD.Print("Built vehicle on team " + Team);
 
 		CurrentHP = HP;
+
+		// SetTeamColor(_model, PlayerManager.Instance.HumanPlayer.Color);
 	}
 
 	public override void _PhysicsProcess(double delta) => MoveUnit(delta);
@@ -151,4 +165,56 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	}
 
 	private void ToggleSelectBorder() => _selectBorder.Visible = _selected;
+
+	private void SetTeamColor(Node node, Color color)
+	{
+		foreach (Node child in node.GetChildren())
+		{
+			if (child is MeshInstance3D mi && mi.Mesh != null)
+			{
+				var mesh = mi.Mesh;
+				int sc = mesh.GetSurfaceCount();
+				if (sc == 0)
+				{
+					// No surfaces to edit; try material_override as a fallback
+					if (mi.MaterialOverride is ShaderMaterial smo)
+					{
+						var dup = (ShaderMaterial)smo.Duplicate(true);
+						dup.SetShaderParameter("team_color", color);
+						mi.MaterialOverride = dup;
+					}
+				}
+				else
+				{
+					for (int s = 0; s < sc; s++)
+					{
+						// Priority: per-surface override → mesh surface material → node material_override
+						Material m =
+							mi.GetSurfaceOverrideMaterial(s) ??
+							mesh.SurfaceGetMaterial(s) ??
+							mi.MaterialOverride;
+
+						if (m is ShaderMaterial sm)
+						{
+							var dup = (ShaderMaterial)sm.Duplicate(true);
+							dup.SetShaderParameter("team_color", color);
+							// Put it back as a per-surface override so we don't mutate shared assets
+							mi.SetSurfaceOverrideMaterial(s, dup);
+						}
+						else
+						{
+							// If you *know* everything should use your team shader, you can force it:
+							// var forced = new ShaderMaterial { Shader = GD.Load<Shader>("res://shaders/team_outline.shader") };
+							// forced.SetShaderParameter("team_color", color);
+							// mi.SetSurfaceOverrideMaterial(s, forced);
+							// Otherwise just skip non-shader materials.
+						}
+					}
+				}
+			}
+
+			// Recurse
+			SetTeamColor(child, color);
+		}
+	}
 }

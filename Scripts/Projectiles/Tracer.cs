@@ -1,0 +1,60 @@
+using Godot;
+
+public partial class Tracer : Node3D
+{
+	[Export] public Vector3 TargetPos { get; set; } = Vector3.Zero;
+	[Export] public float TracerLength { get; set; } = 1f;
+	public float Speed { get; set; }
+	private Node3D _impactParticles;
+
+	private const ulong MAX_LIFETIME_MS = 5000;
+	private ulong _spawnTime;
+
+	public override void _Ready()
+	{
+		_impactParticles = GetNode<Node3D>("ImpactParticles");
+		_spawnTime = Time.GetTicksMsec();
+
+		Utils.NullCheck(_impactParticles);
+	}
+
+	public override void _Process(double delta)
+	{
+		var diff = TargetPos - GlobalPosition;
+		var step = diff.Normalized() * Speed * (float)delta;
+
+		// Clamp step so we don't overshoot the target
+		if (step.Length() > diff.Length())
+			step = diff; // move exactly to target this frame
+
+		GlobalPosition += step;
+
+		// Despawn when close enough or too old
+		var distLeft = (TargetPos - GlobalPosition).Length();
+		var aliveMs = Time.GetTicksMsec() - _spawnTime;
+
+		if (distLeft <= TracerLength || aliveMs > MAX_LIFETIME_MS)
+			QueueFree();
+	}
+
+	public void PlayImpactParticles(Vector3 pos, Vector3 normal)
+	{
+		// Detach so projectile despawn won’t kill the FX
+		_impactParticles.GetParent().RemoveChild(_impactParticles);
+		GetTree().CurrentScene.AddChild(_impactParticles);
+
+		var up = Mathf.Abs(normal.Y) > 0.9f ? Vector3.Forward : Vector3.Up;
+		var xf = Transform3D.Identity
+			.Translated(pos + normal * 0.05f)
+			.LookingAt(pos + normal * 1.05f, up);
+		_impactParticles.GlobalTransform = xf;
+
+		foreach (GpuParticles3D particles in _impactParticles.GetChildren())
+			particles.Restart();
+
+		// IMPORTANT: don’t bind through 'this' (projectile). Bind directly to the FX node.
+		var fx = _impactParticles; // capture local
+		var stt = GetTree().CreateTimer(3f);
+		stt.Timeout += fx.QueueFree;  // engine calls fx.queue_free()
+	}
+}

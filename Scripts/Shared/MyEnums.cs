@@ -33,12 +33,7 @@ namespace MyEnums
         TankGen1,
         TankGen2,
         Artillery,
-    }
-
-    public enum ProjectileType
-    {
-        None,
-        Tank,
+        AntiInfantry
     }
 
     public enum UpgradeType
@@ -94,5 +89,12 @@ namespace MyEnums
     {
         None,
         Death
+    }
+
+    public enum WeaponType
+    {
+        None,
+        Cannon,
+        SmallArms
     }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using Godot;
 using MyEnums;
 
@@ -12,6 +13,10 @@ public partial class Garage : StructureBase
 
 		int garageCount = Player.StructureCount[StructureType.Garage];
 		Id = garageCount;
+
+		// TODO: This will cause bugs. What if a garage gets destroyed?
+		if (Player.GaragesMap.Count == Id)
+			Activate();
 	}
 
 	public void Activate()
