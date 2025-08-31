@@ -16,10 +16,12 @@ public partial class NavigationRegion : NavigationRegion3D
 		Utils.NullExportCheck(GroundCollider);
 
 		ResizeGroundToMapSize();
+		BakeNavigationMesh();
 	}
 
 	private void ResizeGroundToMapSize()
 	{
+		GD.Print("Resizing ground to map size " + GlobalResources.Instance.MapSize);
 		Vector2 mapSize = GlobalResources.Instance.MapSize;
 
 		// Resize PlaneMesh (only works if GroundMesh.Mesh is a PlaneMesh)

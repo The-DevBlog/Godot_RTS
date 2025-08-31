@@ -17,6 +17,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public Node3D Death;
 	[Export] public float BulletSpread { get; set; }
 	[Export] public WeaponType WeaponType { get; set; }
+	[Export] public float MiniMapRadius { get; set; }
 	[Export] private CombatSystem _combatSystem;
 	[Export] private HealthSystem _healthSystem;
 	[Export] private float _rotationSpeed = 220f;   // try 1000–2000 for tanks
@@ -75,6 +76,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
 		if (BulletSpread == 0) Utils.PrintErr("No BulletSpread Assigned to unit");
 		if (WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
+		if (MiniMapRadius == 0) Utils.PrintErr("No MiniMapRadius Assigned to unit");
 
 		Utils.NullExportCheck(_combatSystem);
 		Utils.NullExportCheck(_healthSystem);
