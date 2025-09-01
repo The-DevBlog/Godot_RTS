@@ -7,7 +7,7 @@ public partial class CombatSystem : Node
 	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
 	[Export] private AnimationPlayer _animationPlayer;
 	private Node3D _turretYaw;
-	private Node3D _projectileSpawnPoint;
+	private Node3D _muzzle;
 	private RandomNumberGenerator _random;
 	private bool _isZeroed;
 	private int _hp;
@@ -31,21 +31,27 @@ public partial class CombatSystem : Node
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
-		_turretYaw = _unit.GetNode<Node3D>("Model/Body/BarrelBase");
-		Utils.NullCheck(_turretYaw);
-
-		_projectileSpawnPoint = _unit.GetNode<Node3D>("Model/Body/BarrelBase/Barrel/ProjectileSpawnPoint");
-		Utils.NullCheck(_projectileSpawnPoint);
-
+		_turretYaw = _unit.GetNode<Node3D>("Model/Rig/Turret");
+		_muzzle = _unit.GetNode<Node3D>("Model/Rig/Turret/Muzzle");
 		_attackSound = _unit.GetNode<AudioStreamPlayer3D>("Audio/Attack");
-		Utils.NullCheck(_attackSound);
-
 		_muzzleFlashParticles = _unit.GetNode<Node3D>("MuzzleFlash");
+
+		_unit.LODManager.SocketsChanged += OnSocketsChanged;
+
+		if (_unit.LODManager.TurretYaw != null)
+			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle);
+
+		Utils.NullCheck(_turretYaw);
+		Utils.NullCheck(_muzzle);
+		Utils.NullCheck(_attackSound);
 		Utils.NullCheck(_muzzleFlashParticles);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_turretYaw == null || _muzzle == null)
+			return;
+
 		_acquireTimer -= (float)delta;
 		if (_acquireTimer <= 0f)
 		{
@@ -55,6 +61,12 @@ public partial class CombatSystem : Node
 
 		FaceTarget((float)delta);
 		TryAttack(delta);
+	}
+
+	private void OnSocketsChanged(Node3D yaw, Node3D muzzle)
+	{
+		_turretYaw = yaw;
+		_muzzle = muzzle;
 	}
 
 	private void TryAttack(double delta)
@@ -79,17 +91,16 @@ public partial class CombatSystem : Node
 
 		// audio + vfx (muzzle)
 		_attackSound.Play();
-		_muzzleFlashParticles.GlobalTransform = _projectileSpawnPoint.GlobalTransform;
+		_muzzleFlashParticles.GlobalTransform = _muzzle.GlobalTransform;
 		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
 		_animationPlayer?.Play("FireAnimation");
 	}
 
-	// inside CombatSystem
 	private void SpawnTracer(Tracer tracer)
 	{
 		GetTree().CurrentScene.AddChild(tracer);
 
-		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+		Transform3D muzzle = _muzzle.GlobalTransform;
 
 		// Aim center-mass (same as before)
 		Vector3 targetPos = _currentTarget.GlobalPosition;
@@ -155,7 +166,7 @@ public partial class CombatSystem : Node
 		GetTree().CurrentScene.AddChild(projectile);
 
 		// Keep your existing transform (preserves trails/FX)
-		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+		Transform3D muzzle = _muzzle.GlobalTransform;
 
 		// ---- Aim at center-mass (inline) ----
 		// Prefer a child "AimCenter" on the target if it exists; otherwise use a simple Y offset.

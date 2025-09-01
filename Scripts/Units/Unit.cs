@@ -22,7 +22,8 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] private float _rotationSpeed = 220f;
 
 	[ExportCategory("Unit Systems")]
-	[Export] private CombatSystem _combatSystem;
+	[Export] public CombatSystem CombatSystem;
+	[Export] public LODManager LODManager;
 	[Export] private HealthSystem _healthSystem;
 	private Node3D _model;
 	private float _facingWindowDeg = 10f; // start moving when |diff| <= this
@@ -81,10 +82,10 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		if (WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
 		if (MiniMapRadius == 0) Utils.PrintErr("No MiniMapRadius Assigned to unit");
 
-		Utils.NullExportCheck(_combatSystem);
+		Utils.NullExportCheck(CombatSystem);
 		Utils.NullExportCheck(_healthSystem);
+		Utils.NullExportCheck(LODManager);
 		Utils.NullExportCheck(Death);
-		// Utils.NullCheck(_model);
 
 		CurrentHP = HP;
 
