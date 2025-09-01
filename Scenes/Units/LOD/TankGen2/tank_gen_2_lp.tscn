@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctlb7nd07moi4"]
+
+[ext_resource type="PackedScene" uid="uid://bq7d00sbcc2hm" path="res://Assets/Models/Units/TankGen2/TankGen2_LP.glb" id="1_cjdfp"]
+
+[node name="Model" instance=ExtResource("1_cjdfp")]
+transform = Transform3D(0.115, 0, 0, 0, 0.115, 0, 0, 0, 0.115, 0, 0.312, 0)

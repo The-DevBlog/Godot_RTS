@@ -8,8 +8,8 @@ public partial class LODManager : Node
 	[Export] public float LodNear = 23f;
 	[Export] public float LodHysteresis = 3f;
 	[Export] public float UpdateHz = 8f;
-	[Export] public LODScenes HighId = LODScenes.AntiInfantryHigh;
-	[Export] public LODScenes LowId = LODScenes.AntiInfantryLow;
+	[Export] public LODScenes HighId = LODScenes.AntiInfantryHP;
+	[Export] public LODScenes LowId = LODScenes.AntiInfantryLP;
 
 	[ExportCategory("Sockets (inside Model)")]
 	[Export] public string TurretPath = "Rig/Turret";
@@ -22,7 +22,7 @@ public partial class LODManager : Node
 	private Camera3D _cam;
 	private Node3D _model;
 	private double _accum;
-	private bool _initialized;                     // NEW
+	private bool _initialized;
 
 	private enum LodTier { High, Low }
 	private LodTier _lodState = LodTier.Low;
@@ -121,6 +121,12 @@ public partial class LODManager : Node
 	{
 		_swapScheduled = false;
 
+		// --- save current turret orientation BEFORE replacing the model ---
+		// (use local yaw since this is a turret yaw node under the model)
+		float savedTurretYawY = 0f;
+		if (TurretYaw != null)
+			savedTurretYawY = TurretYaw.Rotation.Y;   // radians
+
 		var tier = (LodTier)tierInt;
 		var sceneId = (tier == LodTier.High) ? HighId : LowId;
 		var ps = AssetServer.Instance.Models.LODs[sceneId];
@@ -136,8 +142,17 @@ public partial class LODManager : Node
 		_model = next;
 		_lodState = tier;
 
+		// (re)bind sockets on the NEW model
 		BindSockets(_model);
 		ModelChanged?.Invoke(_model);
+
+		// --- restore turret yaw on the new model ---
+		if (TurretYaw != null)
+		{
+			var r = TurretYaw.Rotation;
+			r.Y = savedTurretYawY;          // keep previous yaw
+			TurretYaw.Rotation = r;
+		}
 
 		old?.QueueFree();
 	}

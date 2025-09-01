@@ -59,8 +59,10 @@ public class MyModels
 
         LODs = new Dictionary<LODScenes, PackedScene>
         {
-            { LODScenes.AntiInfantryLow, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_low.tscn") },
-            { LODScenes.AntiInfantryHigh, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_high.tscn") },
+            { LODScenes.AntiInfantryLP, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_lp.tscn") },
+            { LODScenes.AntiInfantryHP, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_hp.tscn") },
+            { LODScenes.TankGen2HP, GD.Load<PackedScene>("res://Scenes/Units/LOD/TankGen2/tank_gen_2_hp.tscn") },
+            { LODScenes.TankGen2LP, GD.Load<PackedScene>("res://Scenes/Units/LOD/TankGen2/tank_gen_2_lp.tscn") },
         };
     }
 }

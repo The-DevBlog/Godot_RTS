@@ -101,7 +101,9 @@ namespace MyEnums
     public enum LODScenes
     {
         None,
-        AntiInfantryLow,
-        AntiInfantryHigh
+        AntiInfantryLP,
+        AntiInfantryHP,
+        TankGen2LP,
+        TankGen2HP,
     }
 }
