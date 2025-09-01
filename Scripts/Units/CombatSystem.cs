@@ -6,8 +6,8 @@ public partial class CombatSystem : Node
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec) TODO: Add spatial partitioning to optimize target acquisition
 	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
 	[Export] private AnimationPlayer _animationPlayer;
-	[Export] private Node3D _turretYaw;
-	[Export] private Node3D _projectileSpawnPoint;
+	private Node3D _turretYaw;
+	private Node3D _projectileSpawnPoint;
 	private RandomNumberGenerator _random;
 	private bool _isZeroed;
 	private int _hp;
@@ -22,8 +22,6 @@ public partial class CombatSystem : Node
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(_unit);
-		Utils.NullExportCheck(_turretYaw);
-		Utils.NullExportCheck(_projectileSpawnPoint);
 
 		_hp = _unit.CurrentHP;
 		_dps = _unit.DPS;
@@ -32,10 +30,16 @@ public partial class CombatSystem : Node
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
-		_attackSound = GetNode<AudioStreamPlayer3D>("../../Audio/Attack");
+		_turretYaw = _unit.GetNode<Node3D>("Model/Body/BarrelBase");
+		Utils.NullCheck(_turretYaw);
+
+		_projectileSpawnPoint = _unit.GetNode<Node3D>("Model/Body/BarrelBase/Barrel/ProjectileSpawnPoint");
+		Utils.NullCheck(_projectileSpawnPoint);
+
+		_attackSound = _unit.GetNode<AudioStreamPlayer3D>("Audio/Attack");
 		Utils.NullCheck(_attackSound);
 
-		_muzzleFlashParticles = GetNode<Node3D>("../../MuzzleFlash");
+		_muzzleFlashParticles = _unit.GetNode<Node3D>("MuzzleFlash");
 		Utils.NullCheck(_muzzleFlashParticles);
 	}
 
@@ -75,6 +79,7 @@ public partial class CombatSystem : Node
 
 		// audio + vfx (muzzle)
 		_attackSound.Play();
+		_muzzleFlashParticles.GlobalTransform = _projectileSpawnPoint.GlobalTransform;
 		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
 		_animationPlayer?.Play("FireAnimation");
 	}
