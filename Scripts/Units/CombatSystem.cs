@@ -249,7 +249,6 @@ public partial class CombatSystem : Node
 		if (_acquireTimer <= 0f)
 		{
 			_acquireTimer = 1f / AcquireHz;
-			_currentTarget = GetNearestEnemyInRange();
 		}
 
 		if (!IsInstanceValid(_currentTarget))
