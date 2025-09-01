@@ -341,5 +341,6 @@ _unit = NodePath("../..")
 script = ExtResource("16_7fw24")
 LodNear = 20.0
 LodHysteresis = 1.0
+HighId = 1
 
 [node name="Death" parent="." instance=ExtResource("17_equr2")]
