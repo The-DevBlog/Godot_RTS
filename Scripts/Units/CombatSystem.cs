@@ -18,6 +18,7 @@ public partial class CombatSystem : Node
 	private AudioStreamPlayer3D _attackSound;
 	private Node3D _muzzleFlashParticles;
 	private MyModels _models;
+	private float _acquireTimer = 0f;
 
 	public override void _Ready()
 	{
@@ -48,10 +49,9 @@ public partial class CombatSystem : Node
 		_acquireTimer -= (float)delta;
 		if (_acquireTimer <= 0f)
 		{
-			_currentTarget = GetNearestEnemyInRange();
+			_currentTarget = GetNearestEnemyInRange();   // single place to reacquire
 			_acquireTimer = 1f / Mathf.Max(0.01f, AcquireHz);
 		}
-
 
 		FaceTarget((float)delta);
 		TryAttack(delta);
@@ -241,16 +241,8 @@ public partial class CombatSystem : Node
 		return Mathf.Abs(newErr) <= Mathf.DegToRad(3f); // change tolerance as needed
 	}
 
-	private float _acquireTimer = 0f;
-
 	private void FaceTarget(float dt)
 	{
-		_acquireTimer -= dt;
-		if (_acquireTimer <= 0f)
-		{
-			_acquireTimer = 1f / AcquireHz;
-		}
-
 		if (!IsInstanceValid(_currentTarget))
 		{
 			// No target: park turret to default
