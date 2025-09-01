@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://de0os1ylmjlvy"]
+
+[ext_resource type="PackedScene" uid="uid://1dhvkg5val66" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry_LP.glb" id="1_r70fo"]
+
+[node name="Model" instance=ExtResource("1_r70fo")]
+transform = Transform3D(-0.67, 0, -5.85733e-08, 0, 0.67, 0, 5.85733e-08, 0, -0.67, 0, 0, 0)

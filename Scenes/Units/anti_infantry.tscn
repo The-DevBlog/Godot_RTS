@@ -1,8 +1,8 @@
-[gd_scene load_steps=51 format=3 uid="uid://bbsme72x5icrn"]
+[gd_scene load_steps=52 format=3 uid="uid://bbsme72x5icrn"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_7fw24"]
-[ext_resource type="PackedScene" uid="uid://1dhvkg5val66" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry_LP.glb" id="2_7fw24"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_j535g"]
+[ext_resource type="PackedScene" uid="uid://de0os1ylmjlvy" path="res://Scenes/Units/LOD/AntiInfantry/anti_infantry_low.tscn" id="2_p5b3e"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_pjyd2"]
 [ext_resource type="AudioStream" uid="uid://bbwury3qlup3w" path="res://Assets/Audio/MachineGun.wav" id="5_7fw24"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_6rfje"]
@@ -15,6 +15,7 @@
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="13_kwoso"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="14_djthm"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="16_6qcct"]
+[ext_resource type="Script" uid="uid://jlslpr84ir1t" path="res://Scripts/Units/LODManager.cs" id="16_7fw24"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="17_equr2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
@@ -227,8 +228,7 @@ _combatSystem = NodePath("Systems/CombatSystem")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
-[node name="Model" parent="." instance=ExtResource("2_7fw24")]
-transform = Transform3D(-0.67, 0, -5.85733e-08, 0, 0.67, 0, 5.85733e-08, 0, -0.67, 0, 0, 0)
+[node name="Model" parent="." instance=ExtResource("2_p5b3e")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506965, 0.107553)
@@ -336,6 +336,11 @@ TurnSpeedDeg = 350.0
 script = ExtResource("16_6qcct")
 _unit = NodePath("../..")
 
+[node name="LODManager" type="Node" parent="Systems"]
+script = ExtResource("16_7fw24")
+
 [node name="Death" parent="." instance=ExtResource("17_equr2")]
 
-[editable path="Model"]
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54494e-09, 1.04325, -0.0748653)
+aabb = AABB(-1.04193, -1.07335, -2.0528, 2.08387, 2.40451, 4.1056)

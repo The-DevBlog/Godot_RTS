@@ -9,6 +9,7 @@ public class MyModels
     public Dictionary<InfantryType, PackedScene> Infantry { get; set; }
     public Dictionary<VehicleType, PackedScene> Vehicles { get; set; }
     public Dictionary<WeaponType, PackedScene> Projectiles { get; set; }
+    public Dictionary<LODScenes, PackedScene> LODs { get; set; }
 
     public MyModels()
     {
@@ -54,6 +55,12 @@ public class MyModels
         {
             { WeaponType.Cannon, GD.Load<PackedScene>("res://Scenes/Projectiles/tank_projectile.tscn") },
             { WeaponType.SmallArms, GD.Load<PackedScene>("res://Scenes/Projectiles/tracer.tscn") },
+        };
+
+        LODs = new Dictionary<LODScenes, PackedScene>
+        {
+            { LODScenes.AntiInfantryLow, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_low.tscn") },
+            { LODScenes.AntiInfantryHigh, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_high.tscn") },
         };
     }
 }
