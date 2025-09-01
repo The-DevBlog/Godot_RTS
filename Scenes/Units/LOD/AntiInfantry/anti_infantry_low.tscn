@@ -4,3 +4,27 @@
 
 [node name="Model" instance=ExtResource("1_r70fo")]
 transform = Transform3D(-0.67, 0, -5.85733e-08, 0, 0.67, 0, 5.85733e-08, 0, -0.67, 0, 0, 0)
+
+[node name="Tire" parent="Rig/Body_LP" index="0"]
+cast_shadow = 0
+
+[node name="Tire_002" parent="Rig/Body_LP" index="1"]
+cast_shadow = 0
+
+[node name="Tire_003" parent="Rig/Body_LP" index="2"]
+cast_shadow = 0
+
+[node name="Tire_004" parent="Rig/Body_LP" index="3"]
+cast_shadow = 0
+
+[node name="Tire_005" parent="Rig/Body_LP" index="4"]
+cast_shadow = 0
+
+[node name="Tire_006" parent="Rig/Body_LP" index="5"]
+cast_shadow = 0
+
+[node name="Tire_007" parent="Rig/Body_LP" index="6"]
+cast_shadow = 0
+
+[node name="Tire_008" parent="Rig/Body_LP" index="7"]
+cast_shadow = 0

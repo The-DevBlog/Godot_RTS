@@ -167,6 +167,10 @@ button_group = SubResource("ButtonGroup_fu36u")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -8.86955, 0, 0)
 Team = 2
 
+[node name="AntiInfantry401" parent="Units" instance=ExtResource("11_20eh2")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -34.9888, 0, 0)
+Team = 1
+
 [node name="AntiInfantry202" parent="Units" instance=ExtResource("11_20eh2")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.46964, 0, 0)
 Team = 2
