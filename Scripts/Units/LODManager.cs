@@ -12,7 +12,7 @@ public partial class LODManager : Node
 	[Export] public LODScenes LowId = LODScenes.AntiInfantryLow;
 
 	[ExportCategory("Sockets (inside Model)")]
-	[Export] public string TurretYawPath = "Rig/Turret";
+	[Export] public string TurretPath = "Rig/Turret";
 	[Export] public string MuzzlePath = "Rig/Turret/Muzzle";
 
 	[ExportCategory("Metric")]
@@ -144,7 +144,7 @@ public partial class LODManager : Node
 
 	private void BindSockets(Node3D model)
 	{
-		TurretYaw = model?.GetNodeOrNull<Node3D>(TurretYawPath);
+		TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
 		Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
 
 		Utils.NullCheck(TurretYaw);

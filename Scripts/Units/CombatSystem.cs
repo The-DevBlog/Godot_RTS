@@ -6,7 +6,7 @@ public partial class CombatSystem : Node
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec) TODO: Add spatial partitioning to optimize target acquisition
 	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
 	[Export] private AnimationPlayer _animationPlayer;
-	private Node3D _turretYaw;
+	private Node3D _turret;
 	private Node3D _muzzle;
 	private RandomNumberGenerator _random;
 	private bool _isZeroed;
@@ -31,7 +31,7 @@ public partial class CombatSystem : Node
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
-		_turretYaw = _unit.GetNode<Node3D>("Model/Rig/Turret");
+		_turret = _unit.GetNode<Node3D>("Model/Rig/Turret");
 		_muzzle = _unit.GetNode<Node3D>("Model/Rig/Turret/Muzzle");
 		_attackSound = _unit.GetNode<AudioStreamPlayer3D>("Audio/Attack");
 		_muzzleFlashParticles = _unit.GetNode<Node3D>("MuzzleFlash");
@@ -41,7 +41,7 @@ public partial class CombatSystem : Node
 		if (_unit.LODManager.TurretYaw != null)
 			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle);
 
-		Utils.NullCheck(_turretYaw);
+		Utils.NullCheck(_turret);
 		Utils.NullCheck(_muzzle);
 		Utils.NullCheck(_attackSound);
 		Utils.NullCheck(_muzzleFlashParticles);
@@ -49,7 +49,7 @@ public partial class CombatSystem : Node
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_turretYaw == null || _muzzle == null)
+		if (_turret == null || _muzzle == null)
 			return;
 
 		_acquireTimer -= (float)delta;
@@ -65,7 +65,7 @@ public partial class CombatSystem : Node
 
 	private void OnSocketsChanged(Node3D yaw, Node3D muzzle)
 	{
-		_turretYaw = yaw;
+		_turret = yaw;
 		_muzzle = muzzle;
 	}
 
@@ -240,15 +240,15 @@ public partial class CombatSystem : Node
 
 	private bool RotateTurretTowardsLocalYaw(float desiredLocalYaw, float speedDeg, float dt)
 	{
-		float current = _turretYaw.Rotation.Y;
+		float current = _turret.Rotation.Y;
 		float err = WrapAngle(desiredLocalYaw - current);
 
 		float maxStep = Mathf.DegToRad(speedDeg) * dt;
 		float step = Mathf.Clamp(err, -maxStep, maxStep);
-		_turretYaw.Rotation = new Vector3(_turretYaw.Rotation.X, current + step, _turretYaw.Rotation.Z);
+		_turret.Rotation = new Vector3(_turret.Rotation.X, current + step, _turret.Rotation.Z);
 
 		// recompute error after stepping
-		float newErr = WrapAngle(desiredLocalYaw - _turretYaw.Rotation.Y);
+		float newErr = WrapAngle(desiredLocalYaw - _turret.Rotation.Y);
 		return Mathf.Abs(newErr) <= Mathf.DegToRad(3f); // change tolerance as needed
 	}
 
@@ -262,7 +262,7 @@ public partial class CombatSystem : Node
 		}
 
 		// normal aiming code...
-		Vector3 tPos = _turretYaw.GlobalPosition;
+		Vector3 tPos = _turret.GlobalPosition;
 		Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
 		toTarget.Y = 0f;
 
