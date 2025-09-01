@@ -97,4 +97,13 @@ namespace MyEnums
         Cannon,
         SmallArms
     }
+
+    public enum LODScenes
+    {
+        None,
+        AntiInfantryLP,
+        AntiInfantryHP,
+        TankGen2LP,
+        TankGen2HP,
+    }
 }

@@ -3,6 +3,7 @@ using MyEnums;
 
 public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 {
+	[ExportCategory("Unit Stats")]
 	[Export] public int Team { get; set; }
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
@@ -18,9 +19,12 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public float BulletSpread { get; set; }
 	[Export] public WeaponType WeaponType { get; set; }
 	[Export] public float MiniMapRadius { get; set; }
-	[Export] private CombatSystem _combatSystem;
+	[Export] private float _rotationSpeed = 220f;
+
+	[ExportCategory("Unit Systems")]
+	[Export] public CombatSystem CombatSystem;
+	[Export] public LODManager LODManager;
 	[Export] private HealthSystem _healthSystem;
-	[Export] private float _rotationSpeed = 220f;   // try 1000–2000 for tanks
 	private Node3D _model;
 	private float _facingWindowDeg = 10f; // start moving when |diff| <= this
 	private float _stopWindowDeg = 18f;   // stop moving when |diff| > this (hysteresis)
@@ -60,7 +64,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
 
-		_model = GetNode<Node3D>("Model");
+		// _model = GetNode<Node3D>("Model");
 		_targetPosition = Vector3.Zero;
 		_cam = GetViewport().GetCamera3D();
 
@@ -78,12 +82,10 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		if (WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
 		if (MiniMapRadius == 0) Utils.PrintErr("No MiniMapRadius Assigned to unit");
 
-		Utils.NullExportCheck(_combatSystem);
+		Utils.NullExportCheck(CombatSystem);
 		Utils.NullExportCheck(_healthSystem);
+		Utils.NullExportCheck(LODManager);
 		Utils.NullExportCheck(Death);
-		Utils.NullCheck(_model);
-
-		GD.Print("Built vehicle on team " + Team);
 
 		CurrentHP = HP;
 

@@ -1,0 +1,162 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7qa57dgc8y2b"]
+
+[ext_resource type="PackedScene" uid="uid://drsppe75qhqje" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry_HP.glb" id="1_woebo"]
+
+[node name="Model" instance=ExtResource("1_woebo")]
+transform = Transform3D(-0.67, 0, -5.85733e-08, 0, 0.67, 0, 5.85733e-08, 0, -0.67, 0, 0, 0)
+
+[node name="Bolt_001" parent="Rig/Body_HP" index="0"]
+cast_shadow = 0
+
+[node name="Bolt_002" parent="Rig/Body_HP" index="1"]
+cast_shadow = 0
+
+[node name="Bolt_003" parent="Rig/Body_HP" index="2"]
+cast_shadow = 0
+
+[node name="Bolt_004" parent="Rig/Body_HP" index="3"]
+cast_shadow = 0
+
+[node name="Bolt_005" parent="Rig/Body_HP" index="4"]
+cast_shadow = 0
+
+[node name="Bolt_006" parent="Rig/Body_HP" index="5"]
+cast_shadow = 0
+
+[node name="Bolt_007" parent="Rig/Body_HP" index="6"]
+cast_shadow = 0
+
+[node name="Bolt_008" parent="Rig/Body_HP" index="7"]
+cast_shadow = 0
+
+[node name="Bolt_009" parent="Rig/Body_HP" index="8"]
+cast_shadow = 0
+
+[node name="Bolt_010" parent="Rig/Body_HP" index="9"]
+cast_shadow = 0
+
+[node name="Bolt_011" parent="Rig/Body_HP" index="10"]
+cast_shadow = 0
+
+[node name="Bolt_012" parent="Rig/Body_HP" index="11"]
+cast_shadow = 0
+
+[node name="Bolt_013" parent="Rig/Body_HP" index="12"]
+cast_shadow = 0
+
+[node name="Bolt_014" parent="Rig/Body_HP" index="13"]
+cast_shadow = 0
+
+[node name="Bolt_015" parent="Rig/Body_HP" index="14"]
+cast_shadow = 0
+
+[node name="Bolt_016" parent="Rig/Body_HP" index="15"]
+cast_shadow = 0
+
+[node name="Bolt_017" parent="Rig/Body_HP" index="16"]
+cast_shadow = 0
+
+[node name="Bolt_018" parent="Rig/Body_HP" index="17"]
+cast_shadow = 0
+
+[node name="Bolt_019" parent="Rig/Body_HP" index="18"]
+cast_shadow = 0
+
+[node name="Bolt_020" parent="Rig/Body_HP" index="19"]
+cast_shadow = 0
+
+[node name="Bolt_021" parent="Rig/Body_HP" index="20"]
+cast_shadow = 0
+
+[node name="Bolt_022" parent="Rig/Body_HP" index="21"]
+cast_shadow = 0
+
+[node name="Bolt_023" parent="Rig/Body_HP" index="22"]
+cast_shadow = 0
+
+[node name="Bolt_024" parent="Rig/Body_HP" index="23"]
+cast_shadow = 0
+
+[node name="Bolt_025" parent="Rig/Body_HP" index="24"]
+cast_shadow = 0
+
+[node name="Bolt_026" parent="Rig/Body_HP" index="25"]
+cast_shadow = 0
+
+[node name="Bolt_027" parent="Rig/Body_HP" index="26"]
+cast_shadow = 0
+
+[node name="Bolt_028" parent="Rig/Body_HP" index="27"]
+cast_shadow = 0
+
+[node name="Bolt_029" parent="Rig/Body_HP" index="28"]
+cast_shadow = 0
+
+[node name="Bolt_030" parent="Rig/Body_HP" index="29"]
+cast_shadow = 0
+
+[node name="Bolt_031" parent="Rig/Body_HP" index="30"]
+cast_shadow = 0
+
+[node name="Bolt_032" parent="Rig/Body_HP" index="31"]
+cast_shadow = 0
+
+[node name="Bolt_033" parent="Rig/Body_HP" index="32"]
+cast_shadow = 0
+
+[node name="Bolt_034" parent="Rig/Body_HP" index="33"]
+cast_shadow = 0
+
+[node name="Bolt_035" parent="Rig/Body_HP" index="34"]
+cast_shadow = 0
+
+[node name="Bolt_036" parent="Rig/Body_HP" index="35"]
+cast_shadow = 0
+
+[node name="Bolt_037" parent="Rig/Body_HP" index="36"]
+cast_shadow = 0
+
+[node name="Bolt_038" parent="Rig/Body_HP" index="37"]
+cast_shadow = 0
+
+[node name="Bolt_039" parent="Rig/Body_HP" index="38"]
+cast_shadow = 0
+
+[node name="Bolt_040" parent="Rig/Body_HP" index="39"]
+cast_shadow = 0
+
+[node name="Bolt_041" parent="Rig/Body_HP" index="40"]
+cast_shadow = 0
+
+[node name="Bolt_042" parent="Rig/Body_HP" index="41"]
+cast_shadow = 0
+
+[node name="Rail" parent="Rig/Body_HP" index="42"]
+cast_shadow = 0
+
+[node name="Rail_001" parent="Rig/Body_HP" index="43"]
+cast_shadow = 0
+
+[node name="Tire_001" parent="Rig/Body_HP" index="44"]
+cast_shadow = 0
+
+[node name="Tire_009" parent="Rig/Body_HP" index="45"]
+cast_shadow = 0
+
+[node name="Tire_010" parent="Rig/Body_HP" index="46"]
+cast_shadow = 0
+
+[node name="Tire_011" parent="Rig/Body_HP" index="47"]
+cast_shadow = 0
+
+[node name="Tire_012" parent="Rig/Body_HP" index="48"]
+cast_shadow = 0
+
+[node name="Tire_013" parent="Rig/Body_HP" index="49"]
+cast_shadow = 0
+
+[node name="Tire_014" parent="Rig/Body_HP" index="50"]
+cast_shadow = 0
+
+[node name="Tire_015" parent="Rig/Body_HP" index="51"]
+cast_shadow = 0

@@ -1,7 +1,7 @@
-[gd_scene load_steps=51 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=52 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
-[ext_resource type="PackedScene" uid="uid://cquy2bdr0ij44" path="res://Assets/Models/Units/TankGen2/TankGen2.gltf" id="2_mkm1s"]
+[ext_resource type="PackedScene" uid="uid://dhpvj7prqmufa" path="res://Scenes/Units/LOD/TankGen2/tank_gen_2_hp.tscn" id="2_smbrw"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_r3h8b"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_yir8a"]
 [ext_resource type="Texture2D" uid="uid://djsa3anxcvbst" path="res://Assets/Textures/MuzzleFlash/MuzzleFlash.png" id="5_k2jx1"]
@@ -15,6 +15,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_xrrag"]
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
+[ext_resource type="Script" uid="uid://jlslpr84ir1t" path="res://Scripts/Units/LODManager.cs" id="14_sd0dm"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="15_xrrag"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
@@ -202,7 +203,7 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "_combatSystem", "_healthSystem") groups=["damageable", "units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "CombatSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
 VehicleType = 2
@@ -218,7 +219,8 @@ ProjectileSpeed = 150.0
 Death = NodePath("Death")
 BulletSpread = 0.5
 WeaponType = 1
-_combatSystem = NodePath("Systems/CombatSystem")
+CombatSystem = NodePath("Systems/CombatSystem")
+LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
@@ -226,30 +228,7 @@ metadata/_edit_group_ = true
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.506965, 0.107553)
 shape = SubResource("CylinderShape3D_ebj34")
 
-[node name="Model" parent="." instance=ExtResource("2_mkm1s")]
-transform = Transform3D(0.115, 0, 0, 0, 0.115, 0, 0, 0, 0.115, 0, 0.311906, 0)
-
-[node name="Body" parent="Model/Tank" index="0"]
-cast_shadow = 0
-
-[node name="TailLights" parent="Model/Tank" index="1"]
-cast_shadow = 0
-
-[node name="Tracks" parent="Model/Tank" index="2"]
-cast_shadow = 0
-
-[node name="Turret" parent="Model/Tank" index="3"]
-cast_shadow = 0
-
-[node name="Barrel" parent="Model/Tank/Turret" index="0"]
-cast_shadow = 0
-
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Model/Tank/Turret/Barrel" index="0"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.16579, 4.19214, -20.9805)
-remote_path = NodePath("../../../../../MuzzleFlash")
-
-[node name="ProjectileSpawnPoint" type="Node3D" parent="Model/Tank/Turret/Barrel" index="1"]
-transform = Transform3D(1, 0, 5.68434e-14, 0, 1, 0, -5.68434e-14, 0, 1, -0.13119, 4.25056, -20.9524)
+[node name="Model" parent="." instance=ExtResource("2_smbrw")]
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
@@ -341,17 +320,19 @@ draw_pass_1 = SubResource("SphereMesh_uqx8m")
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_animationPlayer", "_turretYaw", "_projectileSpawnPoint")]
+[node name="LODManager" type="Node" parent="Systems"]
+script = ExtResource("14_sd0dm")
+LodNear = 20.0
+LodHysteresis = 1.0
+HighId = 4
+LowId = 3
+
+[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("5_k7ata")
 _unit = NodePath("../..")
-_animationPlayer = NodePath("../../Model/AnimationPlayer")
-_turretYaw = NodePath("../../Model/Tank/Turret")
-_projectileSpawnPoint = NodePath("../../Model/Tank/Turret/Barrel/ProjectileSpawnPoint")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("6_k2jx1")
 _unit = NodePath("../..")
 
 [node name="Death" parent="." instance=ExtResource("15_xrrag")]
-
-[editable path="Model"]

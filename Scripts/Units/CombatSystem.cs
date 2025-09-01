@@ -6,8 +6,8 @@ public partial class CombatSystem : Node
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec) TODO: Add spatial partitioning to optimize target acquisition
 	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
 	[Export] private AnimationPlayer _animationPlayer;
-	[Export] private Node3D _turretYaw;
-	[Export] private Node3D _projectileSpawnPoint;
+	private Node3D _turret;
+	private Node3D _muzzle;
 	private RandomNumberGenerator _random;
 	private bool _isZeroed;
 	private int _hp;
@@ -18,12 +18,11 @@ public partial class CombatSystem : Node
 	private AudioStreamPlayer3D _attackSound;
 	private Node3D _muzzleFlashParticles;
 	private MyModels _models;
+	private float _acquireTimer = 0f;
 
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(_unit);
-		Utils.NullExportCheck(_turretYaw);
-		Utils.NullExportCheck(_projectileSpawnPoint);
 
 		_hp = _unit.CurrentHP;
 		_dps = _unit.DPS;
@@ -32,25 +31,42 @@ public partial class CombatSystem : Node
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
-		_attackSound = GetNode<AudioStreamPlayer3D>("../../Audio/Attack");
-		Utils.NullCheck(_attackSound);
+		_turret = _unit.GetNode<Node3D>("Model/Rig/Turret");
+		_muzzle = _unit.GetNode<Node3D>("Model/Rig/Turret/Muzzle");
+		_attackSound = _unit.GetNode<AudioStreamPlayer3D>("Audio/Attack");
+		_muzzleFlashParticles = _unit.GetNode<Node3D>("MuzzleFlash");
 
-		_muzzleFlashParticles = GetNode<Node3D>("../../MuzzleFlash");
+		_unit.LODManager.SocketsChanged += OnSocketsChanged;
+
+		if (_unit.LODManager.TurretYaw != null)
+			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle);
+
+		Utils.NullCheck(_turret);
+		Utils.NullCheck(_muzzle);
+		Utils.NullCheck(_attackSound);
 		Utils.NullCheck(_muzzleFlashParticles);
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (_turret == null || _muzzle == null)
+			return;
+
 		_acquireTimer -= (float)delta;
 		if (_acquireTimer <= 0f)
 		{
-			_currentTarget = GetNearestEnemyInRange();
+			_currentTarget = GetNearestEnemyInRange();   // single place to reacquire
 			_acquireTimer = 1f / Mathf.Max(0.01f, AcquireHz);
 		}
 
-
 		FaceTarget((float)delta);
 		TryAttack(delta);
+	}
+
+	private void OnSocketsChanged(Node3D yaw, Node3D muzzle)
+	{
+		_turret = yaw;
+		_muzzle = muzzle;
 	}
 
 	private void TryAttack(double delta)
@@ -75,16 +91,16 @@ public partial class CombatSystem : Node
 
 		// audio + vfx (muzzle)
 		_attackSound.Play();
+		_muzzleFlashParticles.GlobalTransform = _muzzle.GlobalTransform;
 		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
 		_animationPlayer?.Play("FireAnimation");
 	}
 
-	// inside CombatSystem
 	private void SpawnTracer(Tracer tracer)
 	{
 		GetTree().CurrentScene.AddChild(tracer);
 
-		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+		Transform3D muzzle = _muzzle.GlobalTransform;
 
 		// Aim center-mass (same as before)
 		Vector3 targetPos = _currentTarget.GlobalPosition;
@@ -150,7 +166,7 @@ public partial class CombatSystem : Node
 		GetTree().CurrentScene.AddChild(projectile);
 
 		// Keep your existing transform (preserves trails/FX)
-		Transform3D muzzle = _projectileSpawnPoint.GlobalTransform;
+		Transform3D muzzle = _muzzle.GlobalTransform;
 
 		// ---- Aim at center-mass (inline) ----
 		// Prefer a child "AimCenter" on the target if it exists; otherwise use a simple Y offset.
@@ -224,29 +240,20 @@ public partial class CombatSystem : Node
 
 	private bool RotateTurretTowardsLocalYaw(float desiredLocalYaw, float speedDeg, float dt)
 	{
-		float current = _turretYaw.Rotation.Y;
+		float current = _turret.Rotation.Y;
 		float err = WrapAngle(desiredLocalYaw - current);
 
 		float maxStep = Mathf.DegToRad(speedDeg) * dt;
 		float step = Mathf.Clamp(err, -maxStep, maxStep);
-		_turretYaw.Rotation = new Vector3(_turretYaw.Rotation.X, current + step, _turretYaw.Rotation.Z);
+		_turret.Rotation = new Vector3(_turret.Rotation.X, current + step, _turret.Rotation.Z);
 
 		// recompute error after stepping
-		float newErr = WrapAngle(desiredLocalYaw - _turretYaw.Rotation.Y);
+		float newErr = WrapAngle(desiredLocalYaw - _turret.Rotation.Y);
 		return Mathf.Abs(newErr) <= Mathf.DegToRad(3f); // change tolerance as needed
 	}
 
-	private float _acquireTimer = 0f;
-
 	private void FaceTarget(float dt)
 	{
-		_acquireTimer -= dt;
-		if (_acquireTimer <= 0f)
-		{
-			_acquireTimer = 1f / AcquireHz;
-			_currentTarget = GetNearestEnemyInRange();
-		}
-
 		if (!IsInstanceValid(_currentTarget))
 		{
 			// No target: park turret to default
@@ -255,7 +262,7 @@ public partial class CombatSystem : Node
 		}
 
 		// normal aiming code...
-		Vector3 tPos = _turretYaw.GlobalPosition;
+		Vector3 tPos = _turret.GlobalPosition;
 		Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
 		toTarget.Y = 0f;
 
