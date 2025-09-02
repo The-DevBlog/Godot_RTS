@@ -219,6 +219,7 @@ ProjectileSpeed = 150.0
 Death = NodePath("Death")
 BulletSpread = 0.5
 WeaponType = 1
+MiniMapRadius = 5.0
 CombatSystem = NodePath("Systems/CombatSystem")
 LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
