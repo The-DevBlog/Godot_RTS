@@ -58,8 +58,6 @@ adjustment_enabled = true
 adjustment_saturation = 0.77
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_q101i"]
-vertices = PackedVector3Array(-99, 0.75, -99, -99, 0.75, 99, 99, 0.75, 99, 99, 0.75, -99)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 geometry_parsed_geometry_type = 1
 cell_size = 1.0
 agent_height = 1.0
@@ -198,35 +196,83 @@ visible = false
 [node name="House2" parent="." instance=ExtResource("14_20eh2")]
 transform = Transform3D(-0.231558, 0, -1.2804, 0, 1.30117, 0, 1.2804, 0, -0.231558, 15.6201, 1.27173, -15.6666)
 
+[node name="House3" parent="." instance=ExtResource("14_20eh2")]
+transform = Transform3D(-0.231558, 0, -1.2804, 0, 1.30117, 0, 1.2804, 0, -0.231558, 50.5931, 1.27174, -8.78744)
+
 [node name="House22" parent="." instance=ExtResource("15_qoxdu")]
 transform = Transform3D(-0.170788, 0, -0.914184, 0, 0.93, 0, 0.914184, 0, -0.170788, 37.7965, 0.846533, -10.0228)
+
+[node name="House23" parent="." instance=ExtResource("15_qoxdu")]
+transform = Transform3D(-0.170788, 0, -0.914184, 0, 0.93, 0, 0.914184, 0, -0.170788, 2.92101, 0.846533, -16.085)
 
 [node name="Tree_Type0_03" parent="." instance=ExtResource("16_teq3f")]
 transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 25.8972, 0.0361673, -14.5013)
 
+[node name="Tree_Type0_07" parent="." instance=ExtResource("16_teq3f")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 26.8952, 0.0361673, -10.5253)
+
+[node name="Tree_Type0_08" parent="." instance=ExtResource("16_teq3f")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 30.0911, 0.0361673, -7.18291)
+
+[node name="Tree_Type0_12" parent="." instance=ExtResource("16_teq3f")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 43.2563, 0.0361654, -8.06546)
+
 [node name="Tree_Type0_04" parent="." instance=ExtResource("16_teq3f")]
 transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 22.7904, 0.0361673, -10.6609)
+
+[node name="Tree_Type0_10" parent="." instance=ExtResource("16_teq3f")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 23.3787, 0.0361673, -13.8788)
 
 [node name="Tree_Type0_05" parent="." instance=ExtResource("16_teq3f")]
 transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 25.7904, 0.0361673, -6.66088)
 
+[node name="Tree_Type0_09" parent="." instance=ExtResource("16_teq3f")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 22.5456, 0.0361673, -7.88824)
+
+[node name="Tree_Type0_13" parent="." instance=ExtResource("16_teq3f")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 44.5898, 0.0361654, -6.23516)
+
 [node name="Tree_Type0_06" parent="." instance=ExtResource("16_teq3f")]
 transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 21.5163, 0.0361673, -5.5055)
 
+[node name="Tree_Type0_11" parent="." instance=ExtResource("16_teq3f")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 10.5505, 0.0361673, -14.2338)
+
 [node name="Tree_Type1_05" parent="." instance=ExtResource("17_capts")]
-transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 48.5345, 0.00571224, -4.07115)
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 44.0923, 0.00571415, -11.4026)
+
+[node name="Tree_Type1_07" parent="." instance=ExtResource("17_capts")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 23.8858, 0.00571415, -8.07446)
+
+[node name="Tree_Type1_08" parent="." instance=ExtResource("17_capts")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 8.9756, 0.00571415, -12.855)
+
+[node name="Tree_Type1_09" parent="." instance=ExtResource("17_capts")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 10.9761, 0.00571415, -11.0218)
+
+[node name="Tree_Type1_10" parent="." instance=ExtResource("17_capts")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, -4.02387, 0.00571415, -14.0218)
+
+[node name="Tree_Type1_06" parent="." instance=ExtResource("17_capts")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 30.4208, 0.00571415, -9.84642)
 
 [node name="Rock_Type1_03" parent="." instance=ExtResource("18_s4qac")]
-transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 25.271, 0.02735, -3.34913)
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 37.3628, 0.0273528, -5.98031)
+
+[node name="Rock_Type1_04" parent="." instance=ExtResource("18_s4qac")]
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 12.4621, 0.0273528, -10.1982)
 
 [node name="Rock_Type2_01" parent="." instance=ExtResource("19_dw4fd")]
-transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 23.3276, 0.198301, -3.19399)
+transform = Transform3D(1.43409, 0, 0, 0, 1.43409, 0, 0, 0, 1.43409, 23.3276, 0.198301, -3.19399)
 
 [node name="Rock_Type2_02" parent="." instance=ExtResource("20_642p6")]
-transform = Transform3D(-0.888983, 0, 0.273147, 0, 0.93, 0, -0.273147, 0, -0.888983, 21.3352, 0.233989, -3.21972)
+transform = Transform3D(-1.06381, 0, 0.326864, 0, 1.11289, 0, -0.326864, 0, -1.06381, 21.3352, 0.233989, -3.21972)
 
 [node name="Rock_Type2_03" parent="." instance=ExtResource("21_18fmr")]
-transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 19.5851, 0.0929362, -4.59261)
+transform = Transform3D(1.28671, 0, 0, 0, 1.28671, 0, 0, 0, 1.28671, 19.5851, 0.0929362, -4.59261)
+
+[node name="Rock_Type2_04" parent="." instance=ExtResource("21_18fmr")]
+transform = Transform3D(1.28671, 0, 0, 0, 1.28671, 0, 0, 0, 1.28671, 38.6696, 0.0929352, -6.33674)
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]
