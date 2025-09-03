@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=32 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://c0nxev7d8pneq" path="res://Assets/Models/Environment/Rocks/Rock_Type2_01.glb" id="19_dw4fd"]
 [ext_resource type="PackedScene" uid="uid://cqx17bfctmufh" path="res://Assets/Models/Environment/Rocks/Rock_Type2_02.glb" id="20_642p6"]
 [ext_resource type="PackedScene" uid="uid://dcwm8th0iewfd" path="res://Assets/Models/Environment/Rocks/Rock_Type2_03.glb" id="21_18fmr"]
+[ext_resource type="PackedScene" uid="uid://5fai86db6on4" path="res://Assets/Models/Environment/Structures/House3.glb" id="22_teq3f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
 sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
@@ -257,7 +258,7 @@ transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, -4.02387, 0.00571415
 transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 30.4208, 0.00571415, -9.84642)
 
 [node name="Rock_Type1_03" parent="." instance=ExtResource("18_s4qac")]
-transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 37.3628, 0.0273528, -5.98031)
+transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 41.6457, 0.0273528, -5.35984)
 
 [node name="Rock_Type1_04" parent="." instance=ExtResource("18_s4qac")]
 transform = Transform3D(0.93, 0, 0, 0, 0.93, 0, 0, 0, 0.93, 12.4621, 0.0273528, -10.1982)
@@ -272,7 +273,10 @@ transform = Transform3D(-1.06381, 0, 0.326864, 0, 1.11289, 0, -0.326864, 0, -1.0
 transform = Transform3D(1.28671, 0, 0, 0, 1.28671, 0, 0, 0, 1.28671, 19.5851, 0.0929362, -4.59261)
 
 [node name="Rock_Type2_04" parent="." instance=ExtResource("21_18fmr")]
-transform = Transform3D(1.28671, 0, 0, 0, 1.28671, 0, 0, 0, 1.28671, 38.6696, 0.0929352, -6.33674)
+transform = Transform3D(1.28671, 0, 0, 0, 1.28671, 0, 0, 0, 1.28671, 40.2796, 0.0929352, -3.98502)
+
+[node name="House32" parent="." instance=ExtResource("22_teq3f")]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, 15.8852, 1.14689, -13.6634)
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]
