@@ -12,6 +12,8 @@
 - Partial Level Design
 - Pathfinding improvements
   - Group movement
+- Steam Capsule Art
+- Voice Commands
 - 45 second teaser trailer
 
 # Tasks
