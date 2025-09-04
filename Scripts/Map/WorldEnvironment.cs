@@ -93,7 +93,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 			_snowParticles.Emitting = true;
 			_snowParticles.Visible = true;
 			Environment.VolumetricFogEnabled = true;
-			Environment.VolumetricFogDensity = 0.015f;
+			Environment.VolumetricFogDensity = 0.012f;
 		}
 		else if (_weather == Weather.Sunny)
 		{
