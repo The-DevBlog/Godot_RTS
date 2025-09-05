@@ -20,7 +20,7 @@
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
 height = 1.0
-radius = 1.2
+radius = 1.5
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mfhdj"]
 playback_mode = 1
@@ -219,6 +219,7 @@ ProjectileSpeed = 150.0
 Death = NodePath("Death")
 BulletSpread = 0.5
 WeaponType = 1
+MiniMapRadius = 5.0
 CombatSystem = NodePath("Systems/CombatSystem")
 LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
@@ -249,6 +250,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82261, 0)
 [node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 stream = SubResource("AudioStreamRandomizer_mfhdj")
+volume_db = 5.0
 
 [node name="Impact" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)

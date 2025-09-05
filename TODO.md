@@ -1,6 +1,7 @@
 # Steam Page Todo:
 - Environmental details
   - Trees/rocks/grass/bushes/etc
+    - Trees ✅ Rocks ✅
   - Buildings/abandon buildings
   - Stormy weather?
 - More units
@@ -8,8 +9,11 @@
   - One infantry unit
 - Research Center
 - Nuke
+- Partial Level Design
 - Pathfinding improvements
   - Group movement
+- Steam Capsule Art
+- Voice Commands
 - 45 second teaser trailer
 
 # Tasks

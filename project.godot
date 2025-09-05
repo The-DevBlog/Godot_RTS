@@ -35,7 +35,7 @@ project/assembly_name="Godot_RTS"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg")
+enabled=PackedStringArray("res://addons/GPUTrail-main/plugin.cfg", "res://addons/road-generator/plugin.cfg")
 
 [global_group]
 

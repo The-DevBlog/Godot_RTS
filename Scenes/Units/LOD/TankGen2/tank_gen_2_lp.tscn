@@ -3,4 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://bq7d00sbcc2hm" path="res://Assets/Models/Units/TankGen2/TankGen2_LP.glb" id="1_cjdfp"]
 
 [node name="Model" instance=ExtResource("1_cjdfp")]
-transform = Transform3D(0.115, 0, 0, 0, 0.115, 0, 0, 0, 0.115, 0, 0.312, 0)
+
+[node name="Rig" parent="." index="0"]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.435, 0)
+
+[node name="Body_LP" parent="." index="1"]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.435, 0)

@@ -221,7 +221,7 @@ BuildTime = 8
 Acceleration = 8
 ProjectileSpeed = 200.0
 Death = NodePath("Death")
-BulletSpread = 8.0
+BulletSpread = 4.0
 WeaponType = 2
 MiniMapRadius = 5.0
 CombatSystem = NodePath("Systems/CombatSystem")
@@ -341,6 +341,5 @@ _unit = NodePath("../..")
 script = ExtResource("16_7fw24")
 LodNear = 20.0
 LodHysteresis = 1.0
-HighId = 1
 
 [node name="Death" parent="." instance=ExtResource("17_equr2")]
