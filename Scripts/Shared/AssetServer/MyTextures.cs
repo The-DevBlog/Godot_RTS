@@ -20,6 +20,7 @@ public class MyTextures
             { VehicleType.TankGen2, GD.Load<Texture2D>("res://Assets/Textures/UI/Units/TankGen2.png") },
             { VehicleType.Artillery, GD.Load<Texture2D>("res://Assets/Textures/UI/Units/Artillery.png") },
             { VehicleType.AntiInfantry, GD.Load<Texture2D>("res://Assets/Textures/UI/Units/Artillery.png") },
+            { VehicleType.BFT, GD.Load<Texture2D>("res://Assets/Textures/UI/Units/Artillery.png") }
         };
     }
 }
