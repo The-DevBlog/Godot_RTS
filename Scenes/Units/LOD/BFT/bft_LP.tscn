@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpoy4l0mbp7w8"]
+
+[ext_resource type="PackedScene" uid="uid://fmek3e2jllh" path="res://Assets/Models/Units/BFT/BFT.glb" id="1_e0lfn"]
+
+[node name="BFT" instance=ExtResource("1_e0lfn")]

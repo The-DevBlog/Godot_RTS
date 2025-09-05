@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bagu21m6v8he7"]
+[gd_scene load_steps=38 format=3 uid="uid://bagu21m6v8he7"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_d03iv"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="2_swxg5"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="10_urg4o"]
 [ext_resource type="PackedScene" uid="uid://bbsme72x5icrn" path="res://Scenes/Units/anti_infantry.tscn" id="11_3y0tc"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="12_4m7a2"]
+[ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="12_se0gi"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="13_1v20a"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_ltfxp"]
 [ext_resource type="PackedScene" uid="uid://cj8d2a8h8r1ig" path="res://Assets/Models/Environment/Structures/House2.glb" id="15_76sjy"]
@@ -195,6 +196,9 @@ Team = 1
 [node name="AntiInfantry" parent="Units" instance=ExtResource("11_3y0tc")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 83.1601, 7.6294e-06, -30.4172)
 Team = 2
+
+[node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.56131, 0, 33.4332)
 
 [node name="Shaders" type="Node3D" parent="."]
 
