@@ -45,16 +45,15 @@ public partial class CombatSystem : Node
 
 		_turret = _unit.GetNode<Node3D>("Model/Rig/Turret");
 
-		// initial muzzle collection
+		// initial muzzle collection: scan the Muzzle container's children
 		_muzzles.Clear();
-		var muzzle = _turret.GetNode<Node3D>("Muzzle");
-		if (muzzle != null)
+		var muzzleContainer = _unit.GetNodeOrNull<Node3D>("Model/Rig/Turret/Muzzle"); // SAFE: OrNull
+		CollectMuzzlesFrom(muzzleContainer);
+		if (_muzzles.Count == 0)
 		{
-			foreach (var child in muzzle.GetChildren())
-			{
-				if (child is Node3D n3 && n3.Name.ToString().StartsWith("Muzzle"))
-					_muzzles.Add(n3);
-			}
+			// Fallbacks (in case the scene is single-muzzle or slightly different)
+			CollectMuzzlesFrom(_turret?.GetNodeOrNull<Node3D>("Muzzle")); // single-node-as-muzzle
+			if (_muzzles.Count == 0) CollectMuzzlesFrom(_turret);        // rare: muzzles directly under turret
 		}
 
 		_attackSound = _unit.GetNode<AudioStreamPlayer3D>("Audio/Attack");
@@ -93,7 +92,7 @@ public partial class CombatSystem : Node
 	{
 		// Defer rebuild to avoid racing with frees/swaps
 		_pendingYaw = yaw;
-		_pendingMuzzle = muzzle;
+		_pendingMuzzle = muzzle; // this should be the Muzzle CONTAINER: Rig/Turret/Muzzle
 		if (!_socketsDirty)
 		{
 			_socketsDirty = true;
@@ -108,14 +107,12 @@ public partial class CombatSystem : Node
 		_turret = _pendingYaw;
 		_muzzles.Clear();
 
-		if (_turret != null)
-		{
-			foreach (var child in _turret.GetChildren())
-			{
-				if (child is Node3D n3 && n3.Name.ToString().StartsWith("Muzzle"))
-					_muzzles.Add(n3);
-			}
-		}
+		// Prefer scanning the Muzzle container's children (Muzzle1, Muzzle2, ...)
+		Node3D scanRoot = _pendingMuzzle
+			?? _turret?.GetNodeOrNull<Node3D>("Muzzle")   // fallback if LOD doesn't pass the container
+			?? _turret;                                   // last resort
+
+		CollectMuzzlesFrom(scanRoot);
 
 		// Drop dead / out-of-tree refs
 		_muzzles.RemoveAll(m => m == null || !GodotObject.IsInstanceValid(m) || !m.IsInsideTree());
@@ -125,6 +122,26 @@ public partial class CombatSystem : Node
 
 		// Reset barrel index safely
 		_barrelIdx = Mathf.PosMod(_barrelIdx, Mathf.Max(1, _muzzles.Count));
+	}
+
+	private void CollectMuzzlesFrom(Node3D root)
+	{
+		if (root == null) return;
+
+		// If this root has children named Muzzle*, collect those (typical case: container with Muzzle1..N)
+		bool addedChild = false;
+		foreach (var child in root.GetChildren())
+		{
+			if (child is Node3D n3 && n3.Name.ToString().StartsWith("Muzzle"))
+			{
+				_muzzles.Add(n3);
+				addedChild = true;
+			}
+		}
+
+		// If no child muzzles were found and the root itself is a "Muzzle", treat it as a single muzzle
+		if (!addedChild && root.Name.ToString().StartsWith("Muzzle"))
+			_muzzles.Add(root);
 	}
 
 	private bool EnsureMuzzlesFresh()

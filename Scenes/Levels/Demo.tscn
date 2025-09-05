@@ -199,7 +199,7 @@ Team = 2
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
 transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -1.60012, 0, 45.9383)
-Team = 2
+Team = 3
 
 [node name="Shaders" type="Node3D" parent="."]
 

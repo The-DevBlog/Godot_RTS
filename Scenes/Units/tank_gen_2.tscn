@@ -265,6 +265,7 @@ volume_db = 8.5
 transform = Transform3D(-0.115, 0, -1.00536e-08, 0, 0.115, 0, 1.00536e-08, 0, -0.115, -0.0190659, 0.794002, -2.41276)
 
 [node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_smbrw")
 emitting = false
 amount = 1
@@ -276,6 +277,7 @@ process_material = SubResource("ParticleProcessMaterial_5vagt")
 draw_pass_1 = ExtResource("9_mfhdj")
 
 [node name="MuzzleCone" type="GPUParticles3D" parent="MuzzleFlash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_4avmg")
 emitting = false
 amount = 1
@@ -287,6 +289,7 @@ process_material = SubResource("ParticleProcessMaterial_5vagt")
 draw_pass_1 = ExtResource("11_pw7cq")
 
 [node name="BeamFlash" type="GPUParticles3D" parent="MuzzleFlash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_hmto5")
 emitting = false
 amount = 1
@@ -298,6 +301,7 @@ process_material = SubResource("ParticleProcessMaterial_gu5w3")
 draw_pass_1 = SubResource("QuadMesh_fvnnt")
 
 [node name="Sparks" type="GPUParticles3D" parent="MuzzleFlash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_07m4p")
 emitting = false
 amount = 20
@@ -310,6 +314,7 @@ process_material = SubResource("ParticleProcessMaterial_uh2bm")
 draw_pass_1 = SubResource("QuadMesh_cocvn")
 
 [node name="Smoke" type="GPUParticles3D" parent="MuzzleFlash"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_xrrag")
 cast_shadow = 0
 emitting = false
