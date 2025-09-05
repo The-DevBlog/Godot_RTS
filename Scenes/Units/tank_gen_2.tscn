@@ -272,7 +272,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_5vagt")
 draw_pass_1 = ExtResource("9_mfhdj")
 
@@ -284,7 +283,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_5vagt")
 draw_pass_1 = ExtResource("11_pw7cq")
 
@@ -296,7 +294,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_gu5w3")
 draw_pass_1 = SubResource("QuadMesh_fvnnt")
 
@@ -309,7 +306,6 @@ lifetime = 0.2
 one_shot = true
 explosiveness = 0.7
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_uh2bm")
 draw_pass_1 = SubResource("QuadMesh_cocvn")
 
