@@ -206,11 +206,11 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 [node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("Death", "CombatSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 script = ExtResource("1_0g5s4")
 VehicleType = 5
-Speed = 5
+Speed = 4
 HP = 1000
 DPS = 35
 Range = 30
-FireRate = 1.5
+FireRate = 0.75
 Cost = 750
 BuildTime = 8
 Acceleration = 8
@@ -337,6 +337,7 @@ MuzzlePath = "Rig/Turret/Muzzle1"
 [node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("15_x2ywe")
 _unit = NodePath("../..")
+TurnSpeedDeg = 200.0
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("16_hofw4")
