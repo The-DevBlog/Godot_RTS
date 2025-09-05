@@ -179,6 +179,7 @@ public partial class CombatSystem : Node
 		}
 		else
 		{
+			GD.Print("Firing projectile from " + muzzleNode.Name);
 			SpawnProjectileFrom(muzzleNode, projectile as Projectile);
 		}
 
