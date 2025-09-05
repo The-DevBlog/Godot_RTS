@@ -6,11 +6,9 @@ public partial class CombatSystem : Node
 	[Export] private Unit _unit;
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec)
 	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
-	[Export] private AnimationPlayer _animationPlayer;
-
+	private AnimationPlayer _animationPlayer;
 	private Node3D _turret;
 	private readonly List<Node3D> _muzzles = new();
-
 	private RandomNumberGenerator _random;
 	private bool _isZeroed;
 	private int _hp;
@@ -44,6 +42,7 @@ public partial class CombatSystem : Node
 		_random.Randomize();
 
 		_turret = _unit.GetNode<Node3D>("Model/Rig/Turret");
+		_animationPlayer = _unit.GetNodeOrNull<AnimationPlayer>("Model/AnimationPlayer");
 
 		// initial muzzle collection: scan the Muzzle container's children
 		_muzzles.Clear();
@@ -63,11 +62,12 @@ public partial class CombatSystem : Node
 
 		// If LOD sockets are already available, rebuild now (deferred)
 		if (_unit.LODManager.TurretYaw != null)
-			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle);
+			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _animationPlayer);
 
 		Utils.NullCheck(_turret);
 		Utils.NullCheck(_attackSound);
 		Utils.NullCheck(_muzzleFlashParticles);
+		Utils.NullCheck(_animationPlayer);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -88,11 +88,13 @@ public partial class CombatSystem : Node
 
 	// --- Sockets / Muzzles management ------------------------------------------------------------
 
-	private void OnSocketsChanged(Node3D yaw, Node3D muzzle)
+	private void OnSocketsChanged(Node3D yaw, Node3D muzzle, AnimationPlayer animationPlayer)
 	{
 		// Defer rebuild to avoid racing with frees/swaps
 		_pendingYaw = yaw;
 		_pendingMuzzle = muzzle; // this should be the Muzzle CONTAINER: Rig/Turret/Muzzle
+		_animationPlayer = animationPlayer;
+
 		if (!_socketsDirty)
 		{
 			_socketsDirty = true;
@@ -159,7 +161,7 @@ public partial class CombatSystem : Node
 		if (removed && _muzzles.Count == 0)
 		{
 			// attempt to rebuild from current sockets
-			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle);
+			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _unit.LODManager.AnimationPlayer);
 		}
 
 		return _muzzles.Count > 0;
@@ -196,7 +198,6 @@ public partial class CombatSystem : Node
 		}
 		else
 		{
-			GD.Print("Firing projectile from " + muzzleNode.Name);
 			SpawnProjectileFrom(muzzleNode, projectile as Projectile);
 		}
 
@@ -204,7 +205,7 @@ public partial class CombatSystem : Node
 		_attackSound.Play();
 		_muzzleFlashParticles.GlobalTransform = muzzleNode.GlobalTransform;
 		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
-		_animationPlayer?.Play("FireAnimation");
+		_animationPlayer?.Play($"Recoil{_barrelIdx}");
 	}
 
 	private void SpawnTracerFrom(Node3D muzzleNode, Tracer tracer)
