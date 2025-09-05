@@ -204,7 +204,6 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
 [node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("Death", "CombatSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_0g5s4")
 VehicleType = 5
 Speed = 5
@@ -227,7 +226,6 @@ _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("2_0g5s4")]
-transform = Transform3D(-5.36422e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -5.36422e-08, 0, 1.16505, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 1.02692e-08, 0.506965, -0.00991298)

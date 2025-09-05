@@ -2,4 +2,5 @@
 
 [ext_resource type="PackedScene" uid="uid://2ily08dgrc0p" path="res://Assets/Models/Units/BFT/BFT.glb" id="1_e0lfn"]
 
-[node name="BFT" instance=ExtResource("1_e0lfn")]
+[node name="Model" instance=ExtResource("1_e0lfn")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

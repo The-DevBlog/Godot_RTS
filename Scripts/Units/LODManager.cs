@@ -157,14 +157,28 @@ public partial class LODManager : Node
 		old?.QueueFree();
 	}
 
+	// private void BindSockets(Node3D model)
+	// {
+	// 	TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
+	// 	Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
+
+	// 	Utils.NullCheck(TurretYaw);
+	// 	Utils.NullCheck(Muzzle);
+
+	// 	SocketsChanged?.Invoke(TurretYaw, Muzzle);
+	// }
+
 	private void BindSockets(Node3D model)
 	{
 		TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
+		// Muzzle may not exist if you only have Muzzle1/Muzzle2... — that's OK now.
 		Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
 
 		Utils.NullCheck(TurretYaw);
-		Utils.NullCheck(Muzzle);
+		// Utils.NullCheck(Muzzle); // REMOVE THIS
 
+		// Pass both; second may be null. CombatSystem will scan children of TurretYaw for "Muzzle*".
 		SocketsChanged?.Invoke(TurretYaw, Muzzle);
 	}
+
 }
