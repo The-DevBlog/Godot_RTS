@@ -52,21 +52,21 @@ albedo_texture = ExtResource("5_k2jx1")
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_fl6pk"]
+[sub_resource type="CurveTexture" id="CurveTexture_sd0dm"]
 curve = SubResource("Curve_sd0dm")
 
 [sub_resource type="Curve" id="Curve_4s7kj"]
 _data = [Vector2(0, 0), 0.0, 3.20406, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_uqx8m"]
+[sub_resource type="CurveTexture" id="CurveTexture_fl6pk"]
 curve = SubResource("Curve_4s7kj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5vagt"]
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_uqx8m")
+scale_curve = SubResource("CurveTexture_fl6pk")
 color = Color(2, 1.5, 1, 1)
-alpha_curve = SubResource("CurveTexture_fl6pk")
+alpha_curve = SubResource("CurveTexture_sd0dm")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4avmg"]
 transparency = 1
@@ -95,21 +95,21 @@ particles_anim_loop = false
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_0t0mp"]
+[sub_resource type="CurveTexture" id="CurveTexture_4s7kj"]
 curve = SubResource("Curve_p24si")
 
 [sub_resource type="Curve" id="Curve_wylw5"]
 _data = [Vector2(0, 0), 0.0, 3.20406, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_q6gvt"]
+[sub_resource type="CurveTexture" id="CurveTexture_uqx8m"]
 curve = SubResource("Curve_wylw5")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gu5w3"]
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_q6gvt")
+scale_curve = SubResource("CurveTexture_uqx8m")
 color = Color(1.5, 1, 0.5, 1)
-alpha_curve = SubResource("CurveTexture_0t0mp")
+alpha_curve = SubResource("CurveTexture_4s7kj")
 
 [sub_resource type="QuadMesh" id="QuadMesh_fvnnt"]
 
@@ -125,7 +125,7 @@ albedo_texture = ExtResource("12_xrrag")
 _data = [Vector2(0.00512821, 0.987116), 0.0, -2.96919, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_mbwrp"]
+[sub_resource type="CurveTexture" id="CurveTexture_5vagt"]
 curve = SubResource("Curve_kcisb")
 
 [sub_resource type="Curve" id="Curve_4b1um"]
@@ -133,7 +133,7 @@ _limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992308, 100), 294.556, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_wrkjq"]
+[sub_resource type="CurveTexture" id="CurveTexture_4avmg"]
 curve = SubResource("Curve_4b1um")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uh2bm"]
@@ -147,11 +147,11 @@ initial_velocity_max = 30.0
 gravity = Vector3(0, 0, 0)
 damping_min = 0.5
 damping_max = 0.8
-damping_curve = SubResource("CurveTexture_wrkjq")
+damping_curve = SubResource("CurveTexture_4avmg")
 scale_min = 0.05
 scale_max = 0.3
 color = Color(5, 3, 1, 1)
-alpha_curve = SubResource("CurveTexture_mbwrp")
+alpha_curve = SubResource("CurveTexture_5vagt")
 
 [sub_resource type="QuadMesh" id="QuadMesh_cocvn"]
 size = Vector2(0.15, 0.5)
@@ -165,13 +165,13 @@ shader_parameter/DistanceFade = 0.3
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.489362, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_pw7cq"]
+[sub_resource type="CurveTexture" id="CurveTexture_hmto5"]
 curve = SubResource("Curve_smbrw")
 
 [sub_resource type="Gradient" id="Gradient_sd0dm"]
 colors = PackedColorArray(0, 0, 0, 1, 0.0177324, 0.0177324, 0.0177324, 0.619)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xrrag"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p24si"]
 gradient = SubResource("Gradient_sd0dm")
 use_hdr = true
 
@@ -179,7 +179,7 @@ use_hdr = true
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.325843), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_smbrw"]
+[sub_resource type="CurveTexture" id="CurveTexture_0t0mp"]
 curve = SubResource("Curve_fl6pk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4s7kj"]
@@ -197,9 +197,9 @@ radial_velocity_max = 0.499978
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_max = 0.75
-scale_curve = SubResource("CurveTexture_smbrw")
-color_ramp = SubResource("GradientTexture1D_xrrag")
-alpha_curve = SubResource("CurveTexture_pw7cq")
+scale_curve = SubResource("CurveTexture_0t0mp")
+color_ramp = SubResource("GradientTexture1D_p24si")
+alpha_curve = SubResource("CurveTexture_hmto5")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
