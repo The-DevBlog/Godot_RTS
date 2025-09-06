@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="10_urg4o"]
 [ext_resource type="PackedScene" uid="uid://bbsme72x5icrn" path="res://Scenes/Units/anti_infantry.tscn" id="11_3y0tc"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="12_4m7a2"]
-[ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="12_se0gi"]
+[ext_resource type="PackedScene" path="res://Scenes/Units/BFT.tscn" id="12_se0gi"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="13_1v20a"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_ltfxp"]
 [ext_resource type="PackedScene" uid="uid://cj8d2a8h8r1ig" path="res://Assets/Models/Environment/Structures/House2.glb" id="15_76sjy"]
@@ -517,6 +517,8 @@ next_pt_init = NodePath("../RP_004")
 
 [node name="4way_1x1" parent="RoadManager" instance=ExtResource("27_xyty3")]
 transform = Transform3D(0.34486, 6.23084e-05, -0.00981131, -6.23336e-05, 0.345, -1.72458e-11, 0.00981131, 1.77269e-06, 0.34486, -2.5785, 0.0471091, 26.9388)
+collision_layer = 0
+collision_mask = 0
 
 [node name="Road_001" type="Node3D" parent="RoadManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.40961, 0.0529566, -0.720156)
