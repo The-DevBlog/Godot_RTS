@@ -6,6 +6,8 @@ public partial class CombatSystem : Node
 	[Export] private Unit _unit;
 	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec)
 	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
+	[Export] private string TurretPath = "Model/Rig/Turret";
+	[Export] private string MuzzlePath = "Model/Rig/Turret/Muzzle";
 	private AnimationPlayer _animationPlayer;
 	private Node3D _turret;
 	private readonly List<Node3D> _muzzles = new();
@@ -41,12 +43,12 @@ public partial class CombatSystem : Node
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
-		_turret = _unit.GetNode<Node3D>("Model/Rig/Turret");
+		_turret = _unit.GetNode<Node3D>(TurretPath);
 		_animationPlayer = _unit.GetNodeOrNull<AnimationPlayer>("Model/AnimationPlayer");
 
 		// initial muzzle collection: scan the Muzzle container's children
 		_muzzles.Clear();
-		var muzzleContainer = _unit.GetNodeOrNull<Node3D>("Model/Rig/Turret/Muzzle"); // SAFE: OrNull
+		var muzzleContainer = _unit.GetNodeOrNull<Node3D>(MuzzlePath); // SAFE: OrNull
 		CollectMuzzlesFrom(muzzleContainer);
 		if (_muzzles.Count == 0)
 		{
