@@ -184,6 +184,7 @@ Team = 1
 [node name="TankGen3" parent="Units" instance=ExtResource("10_urg4o")]
 transform = Transform3D(-1, 0, -2.62268e-07, 0, 1, 0, 2.62268e-07, 0, -1, -4.18138, 0, 5.82011)
 Team = 1
+HP = 10000
 
 [node name="TankGen4" parent="Units" instance=ExtResource("10_urg4o")]
 transform = Transform3D(-0.139052, 0, 0.990285, 0, 1, 0, -0.990285, 0, -0.139052, 84.8625, 0, -0.0657997)

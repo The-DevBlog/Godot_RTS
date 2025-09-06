@@ -60,14 +60,15 @@ public partial class CombatSystem : Node
 
 		_unit.LODManager.SocketsChanged += OnSocketsChanged;
 
-		// If LOD sockets are already available, rebuild now (deferred)
-		if (_unit.LODManager.TurretYaw != null)
-			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _animationPlayer);
-
 		Utils.NullCheck(_turret);
 		Utils.NullCheck(_attackSound);
 		Utils.NullCheck(_muzzleFlashParticles);
 		Utils.NullCheck(_animationPlayer);
+
+		// If LOD sockets are already available, rebuild now (deferred)
+		if (_unit.LODManager.TurretYaw != null)
+			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _animationPlayer);
+
 	}
 
 	public override void _PhysicsProcess(double delta)

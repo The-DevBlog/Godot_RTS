@@ -64,7 +64,8 @@ public class MyModels
             { LODScenes.AntiInfantryHP, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_hp.tscn") },
             { LODScenes.TankGen2HP, GD.Load<PackedScene>("res://Scenes/Units/LOD/TankGen2/tank_gen_2_hp.tscn") },
             { LODScenes.TankGen2LP, GD.Load<PackedScene>("res://Scenes/Units/LOD/TankGen2/tank_gen_2_lp.tscn") },
-            { LODScenes.BftLP, GD.Load<PackedScene>("res://Scenes/Units/LOD/BFT/bft_lp.tscn") }
+            { LODScenes.BftLP, GD.Load<PackedScene>("res://Scenes/Units/LOD/BFT/bft_lp.tscn") },
+            { LODScenes.BftHP, GD.Load<PackedScene>("res://Scenes/Units/LOD/BFT/bft_hp.tscn") }
         };
     }
 }

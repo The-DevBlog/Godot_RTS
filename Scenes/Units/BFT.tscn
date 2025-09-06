@@ -1,7 +1,7 @@
 [gd_scene load_steps=52 format=3 uid="uid://dcf8ehewte4xk"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_0g5s4"]
-[ext_resource type="PackedScene" uid="uid://dpoy4l0mbp7w8" path="res://Scenes/Units/LOD/BFT/bft_LP.tscn" id="2_0g5s4"]
+[ext_resource type="PackedScene" uid="uid://cggbwk3butvve" path="res://Scenes/Units/LOD/BFT/bft_lp.tscn" id="2_0g5s4"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_dun38"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_l8yb7"]
 [ext_resource type="AudioStream" uid="uid://bmgh1pq1odwwk" path="res://Assets/Audio/TankFire.wav" id="5_w5rfh"]
@@ -270,7 +270,7 @@ volume_db = 8.5
 script = ExtResource("14_0231x")
 LodNear = 20.0
 LodHysteresis = 1.0
-HighId = 5
+HighId = 6
 LowId = 5
 MuzzlePath = "Rig/Turret/Muzzle1"
 
