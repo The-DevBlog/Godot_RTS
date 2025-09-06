@@ -37,24 +37,57 @@ public partial class Tracer : Node3D
 			QueueFree();
 	}
 
+	// public void PlayImpactParticles(Vector3 pos, Vector3 normal)
+	// {
+	// 	// Detach so projectile despawn won’t kill the FX
+	// 	_impactParticles.GetParent().RemoveChild(_impactParticles);
+	// 	GetTree().CurrentScene.AddChild(_impactParticles);
+
+	// 	var up = Mathf.Abs(normal.Y) > 0.9f ? Vector3.Forward : Vector3.Up;
+	// 	var xf = Transform3D.Identity
+	// 		.Translated(pos + normal * 0.05f)
+	// 		.LookingAt(pos + normal * 1.05f, up);
+	// 	_impactParticles.GlobalTransform = xf;
+
+	// 	foreach (GpuParticles3D particles in _impactParticles.GetChildren())
+	// 		particles.Restart();
+
+	// 	// IMPORTANT: don’t bind through 'this' (projectile). Bind directly to the FX node.
+	// 	var fx = _impactParticles; // capture local
+	// 	var stt = GetTree().CreateTimer(3f);
+	// 	stt.Timeout += fx.QueueFree;  // engine calls fx.queue_free()
+	// }
+
 	public void PlayImpactParticles(Vector3 pos, Vector3 normal)
 	{
 		// Detach so projectile despawn won’t kill the FX
 		_impactParticles.GetParent().RemoveChild(_impactParticles);
 		GetTree().CurrentScene.AddChild(_impactParticles);
 
-		var up = Mathf.Abs(normal.Y) > 0.9f ? Vector3.Forward : Vector3.Up;
-		var xf = Transform3D.Identity
-			.Translated(pos + normal * 0.05f)
-			.LookingAt(pos + normal * 1.05f, up);
+		// Ensure a valid forward (fallbacks if normal is zero)
+		Vector3 fwd = normal;
+		if (fwd.LengthSquared() < 1e-8f)
+			fwd = (-GlobalTransform.Basis.Z);  // object's forward as fallback
+		if (fwd.LengthSquared() < 1e-8f)
+			fwd = Vector3.Up;                  // absolute fallback
+		fwd = fwd.Normalized();
+
+		// Pick a stable up that's not parallel to fwd
+		Vector3 up = Mathf.Abs(fwd.Dot(Vector3.Up)) > 0.98f ? Vector3.Right : Vector3.Up;
+
+		// Build transform with a guaranteed non-zero target delta
+		var origin = pos + fwd * 0.05f;
+		var target = origin + fwd * 1.0f;
+
+		var xf = Transform3D.Identity.Translated(origin).LookingAt(target, up);
 		_impactParticles.GlobalTransform = xf;
 
 		foreach (GpuParticles3D particles in _impactParticles.GetChildren())
 			particles.Restart();
 
-		// IMPORTANT: don’t bind through 'this' (projectile). Bind directly to the FX node.
-		var fx = _impactParticles; // capture local
+		var fx = _impactParticles;
 		var stt = GetTree().CreateTimer(3f);
-		stt.Timeout += fx.QueueFree;  // engine calls fx.queue_free()
+		stt.Timeout += fx.QueueFree;
 	}
+
 }

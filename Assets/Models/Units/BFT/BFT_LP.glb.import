@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://drsppe75qhqje"
-path="res://.godot/imported/AntiInfantry_HP.glb-259f8f79a36911c024ef8a1e8e082316.scn"
+uid="uid://ccn0co7n0xe1s"
+path="res://.godot/imported/BFT_LP.glb-a49b58d08bcb7c0b5fbba6e49dbbc0fb.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Units/AntiInfantry/AntiInfantry_HP.glb"
-dest_files=["res://.godot/imported/AntiInfantry_HP.glb-259f8f79a36911c024ef8a1e8e082316.scn"]
+source_file="res://Assets/Models/Units/BFT/BFT_LP.glb"
+dest_files=["res://.godot/imported/BFT_LP.glb-a49b58d08bcb7c0b5fbba6e49dbbc0fb.scn"]
 
 [params]
 
@@ -32,17 +32,6 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"materials": {
-"Body": {
-"use_external/enabled": true,
-"use_external/path": "res://Assets/Models/Units/AntiInfantry/Body.tres"
-},
-"Turret": {
-"use_external/enabled": true,
-"use_external/path": "res://Assets/Models/Units/AntiInfantry/Turret.tres"
-}
-}
-}
+_subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=1

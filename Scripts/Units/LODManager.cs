@@ -14,6 +14,7 @@ public partial class LODManager : Node
 	[ExportCategory("Sockets (inside Model)")]
 	[Export] public string TurretPath = "Rig/Turret";
 	[Export] public string MuzzlePath = "Rig/Turret/Muzzle";
+	[Export] public string AnimationPlayerPath = "AnimationPlayer";
 
 	[ExportCategory("Metric")]
 	[Export] public bool UseTrue3DDistance = true; // NEW: respond to camera height
@@ -30,8 +31,9 @@ public partial class LODManager : Node
 	// sockets
 	public Node3D TurretYaw { get; private set; }
 	public Node3D Muzzle { get; private set; }
+	public AnimationPlayer AnimationPlayer { get; private set; }
 
-	public event Action<Node3D, Node3D> SocketsChanged;  // (turretYaw, muzzle)
+	public event Action<Node3D, Node3D, AnimationPlayer> SocketsChanged;  // (turretYaw, muzzle)
 	public event Action<Node3D> ModelChanged;
 
 	private bool _swapScheduled;
@@ -157,14 +159,30 @@ public partial class LODManager : Node
 		old?.QueueFree();
 	}
 
+	// private void BindSockets(Node3D model)
+	// {
+	// 	TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
+	// 	Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
+
+	// 	Utils.NullCheck(TurretYaw);
+	// 	Utils.NullCheck(Muzzle);
+
+	// 	SocketsChanged?.Invoke(TurretYaw, Muzzle);
+	// }
+
 	private void BindSockets(Node3D model)
 	{
 		TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
+		// Muzzle may not exist if you only have Muzzle1/Muzzle2... — that's OK now.
 		Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
+		AnimationPlayer = model?.GetNodeOrNull<AnimationPlayer>(AnimationPlayerPath);
 
-		Utils.NullCheck(TurretYaw);
-		Utils.NullCheck(Muzzle);
+		// Utils.NullCheck(TurretYaw);
+		// Utils.NullCheck(AnimationPlayer);
+		// Utils.NullCheck(Muzzle);
 
-		SocketsChanged?.Invoke(TurretYaw, Muzzle);
+		// Pass both; second may be null. CombatSystem will scan children of TurretYaw for "Muzzle*".
+		SocketsChanged?.Invoke(TurretYaw, Muzzle, AnimationPlayer);
 	}
+
 }

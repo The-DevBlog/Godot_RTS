@@ -33,7 +33,8 @@ namespace MyEnums
         TankGen1,
         TankGen2,
         Artillery,
-        AntiInfantry
+        AntiInfantry,
+        BFT
     }
 
     public enum UpgradeType
@@ -105,5 +106,7 @@ namespace MyEnums
         AntiInfantryHP,
         TankGen2LP,
         TankGen2HP,
+        BftLP,
+        BftHP
     }
 }

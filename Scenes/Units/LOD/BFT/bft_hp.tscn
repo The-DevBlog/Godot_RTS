@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://h8psfw3nf7ts"]
+
+[ext_resource type="PackedScene" uid="uid://b82tu7nawivij" path="res://Assets/Models/Units/BFT/BFT_HP.glb" id="1_oxgr2"]
+
+[node name="Model" instance=ExtResource("1_oxgr2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

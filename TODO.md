@@ -3,9 +3,10 @@
   - Trees/rocks/grass/bushes/etc
     - Trees ✅ Rocks ✅
   - Buildings/abandon buildings
+    - Houses ✅
   - Stormy weather?
 - More units
-  - One more vehicle (heavy tank?)
+  - One more vehicle (heavy tank?) ✅
   - One infantry unit
 - Research Center
 - Nuke

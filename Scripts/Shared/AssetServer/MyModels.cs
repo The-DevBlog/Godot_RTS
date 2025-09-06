@@ -48,6 +48,7 @@ public class MyModels
             { VehicleType.TankGen2, GD.Load<PackedScene>("res://Scenes/Units/tank_gen_2.tscn") },
             { VehicleType.Artillery, GD.Load<PackedScene>("res://Scenes/Units/artillery.tscn") },
             { VehicleType.AntiInfantry, GD.Load<PackedScene>("res://Scenes/Units/anti_infantry.tscn") },
+            { VehicleType.BFT, GD.Load<PackedScene>("res://Scenes/Units/BFT.tscn") }
         };
 
         // TODO: NOt sure if I need this?
@@ -63,6 +64,8 @@ public class MyModels
             { LODScenes.AntiInfantryHP, GD.Load<PackedScene>("res://Scenes/Units/LOD/AntiInfantry/anti_infantry_hp.tscn") },
             { LODScenes.TankGen2HP, GD.Load<PackedScene>("res://Scenes/Units/LOD/TankGen2/tank_gen_2_hp.tscn") },
             { LODScenes.TankGen2LP, GD.Load<PackedScene>("res://Scenes/Units/LOD/TankGen2/tank_gen_2_lp.tscn") },
+            { LODScenes.BftLP, GD.Load<PackedScene>("res://Scenes/Units/LOD/BFT/bft_lp.tscn") },
+            { LODScenes.BftHP, GD.Load<PackedScene>("res://Scenes/Units/LOD/BFT/bft_hp.tscn") }
         };
     }
 }
