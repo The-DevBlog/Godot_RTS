@@ -38,10 +38,6 @@ _subresources={
 "use_external/enabled": true,
 "use_external/path": "res://Assets/Models/Units/AntiInfantry/Body.tres"
 },
-"Tire": {
-"use_external/enabled": true,
-"use_external/path": "res://Assets/Models/Units/AntiInfantry/Tire.tres"
-},
 "Turret": {
 "use_external/enabled": true,
 "use_external/path": "res://Assets/Models/Units/AntiInfantry/Turret.tres"
