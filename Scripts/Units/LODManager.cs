@@ -1,4 +1,195 @@
+// using System;
+// using Godot;
+// using MyEnums;
+
+// public partial class LODManager : Node
+// {
+// 	[ExportCategory("LOD")]
+// 	[Export] public float LodNear = 23f;
+// 	[Export] public float LodHysteresis = 3f;
+// 	[Export] public float UpdateHz = 8f;
+// 	[Export] public LODScenes HighId = LODScenes.AntiInfantryHP;
+// 	[Export] public LODScenes LowId = LODScenes.AntiInfantryLP;
+
+// 	[ExportCategory("Sockets (inside Model)")]
+// 	[Export] public string TurretPath = "Rig/Turret";
+// 	[Export] public string MuzzlePath = "Rig/Turret/Muzzle";
+// 	[Export] public string AnimationPlayerPath = "AnimationPlayer";
+
+// 	[ExportCategory("Metric")]
+// 	[Export] public bool UseTrue3DDistance = true; // NEW: respond to camera height
+
+// 	private Unit _unit;
+// 	private Camera3D _cam;
+// 	private Node3D _model;
+// 	private double _accum;
+// 	private bool _initialized;
+
+// 	private enum LodTier { High, Low }
+// 	private LodTier _lodState = LodTier.Low;
+
+// 	// sockets
+// 	public Node3D TurretYaw { get; private set; }
+// 	public Node3D Muzzle { get; private set; }
+// 	public AnimationPlayer AnimationPlayer { get; private set; }
+
+// 	public event Action<Node3D, Node3D, AnimationPlayer> SocketsChanged;  // (turretYaw, muzzle)
+// 	public event Action<Node3D> ModelChanged;
+
+// 	private bool _swapScheduled;
+
+// 	public override void _Ready()
+// 	{
+// 		_cam = GetViewport().GetCamera3D();
+// 		_unit = GetNodeOrNull<Unit>("../../");
+// 		_model = _unit.GetNodeOrNull<Node3D>("Model"); // may be null (that’s fine)
+// 													   // _unit = GetParent<Unit>() ?? GetOwner<Unit>();
+// 		Utils.NullCheck(_unit);
+// 		Utils.NullCheck(_model);
+
+// 		EvaluateAndMaybeSwap(initial: true);
+// 	}
+
+// 	public override void _PhysicsProcess(double delta)
+// 	{
+// 		_accum += delta;
+// 		if (_accum < 1.0 / MathF.Max(1f, UpdateHz)) return;
+// 		_accum = 0;
+// 		EvaluateAndMaybeSwap();
+// 	}
+
+// 	private void EvaluateAndMaybeSwap(bool initial = false)
+// 	{
+// 		_cam ??= GetViewport().GetCamera3D();            // NEW: reacquire if null
+// 		if (_cam == null || _unit == null) return;
+
+// 		// --- choose distance metric ---
+// 		float distSq;
+// 		if (UseTrue3DDistance)
+// 		{
+// 			Vector3 d3 = _cam.GlobalPosition - _unit.GlobalPosition;
+// 			distSq = d3.LengthSquared();
+// 		}
+// 		else
+// 		{
+// 			Vector3 d = _cam.GlobalPosition - _unit.GlobalPosition;
+// 			d.Y = 0f;
+// 			distSq = d.LengthSquared();
+// 		}
+
+// 		float inDist = MathF.Max(0f, LodNear - LodHysteresis);
+// 		float outDist = LodNear + LodHysteresis;
+
+// 		float nearSq = LodNear * LodNear;
+// 		float inSq = inDist * inDist;
+// 		float outSq = outDist * outDist;
+
+// 		var desired = _lodState;
+
+// 		// Decide desired tier from current distance
+// 		if (!_initialized)
+// 		{
+// 			desired = (distSq <= nearSq) ? LodTier.High : LodTier.Low;
+// 		}
+// 		else if (_lodState == LodTier.High && distSq > outSq)
+// 		{
+// 			desired = LodTier.Low;
+// 		}
+// 		else if (_lodState == LodTier.Low && distSq < inSq)
+// 		{
+// 			desired = LodTier.High;
+// 		}
+
+// 		// On first run, FORCE alignment to the desired tier (even if a model exists)
+// 		if (!_initialized)
+// 		{
+// 			_initialized = true;
+// 			SwapModelDeferred(desired);
+// 			return;
+// 		}
+
+// 		if (desired != _lodState)
+// 			SwapModelDeferred(desired);
+// 	}
+
+// 	private void SwapModelDeferred(LodTier tier)
+// 	{
+// 		if (_swapScheduled) return;
+// 		_swapScheduled = true;
+// 		CallDeferred(nameof(DoSwapModel), (int)tier);
+// 	}
+
+// 	private void DoSwapModel(int tierInt)
+// 	{
+// 		_swapScheduled = false;
+
+// 		// --- save current turret orientation BEFORE replacing the model ---
+// 		// (use local yaw since this is a turret yaw node under the model)
+// 		float savedTurretYawY = 0f;
+// 		if (TurretYaw != null)
+// 			savedTurretYawY = TurretYaw.Rotation.Y;   // radians
+
+// 		var tier = (LodTier)tierInt;
+// 		var sceneId = (tier == LodTier.High) ? HighId : LowId;
+// 		var ps = AssetServer.Instance.Models.LODs[sceneId];
+// 		if (ps == null) { GD.PushError($"[LODManager] PackedScene for {sceneId} is null."); return; }
+
+// 		var old = _model;
+
+// 		var next = ps.Instantiate<Node3D>();
+// 		next.Name = "Model";
+// 		if (old != null) next.Transform = old.Transform;
+
+// 		_unit.AddChild(next);
+// 		_model = next;
+// 		_lodState = tier;
+
+// 		// (re)bind sockets on the NEW model
+// 		BindSockets(_model);
+// 		ModelChanged?.Invoke(_model);
+
+// 		// --- restore turret yaw on the new model ---
+// 		if (TurretYaw != null)
+// 		{
+// 			var r = TurretYaw.Rotation;
+// 			r.Y = savedTurretYawY;          // keep previous yaw
+// 			TurretYaw.Rotation = r;
+// 		}
+
+// 		old?.QueueFree();
+// 	}
+
+// 	// private void BindSockets(Node3D model)
+// 	// {
+// 	// 	TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
+// 	// 	Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
+
+// 	// 	Utils.NullCheck(TurretYaw);
+// 	// 	Utils.NullCheck(Muzzle);
+
+// 	// 	SocketsChanged?.Invoke(TurretYaw, Muzzle);
+// 	// }
+
+// 	private void BindSockets(Node3D model)
+// 	{
+// 		TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
+// 		// Muzzle may not exist if you only have Muzzle1/Muzzle2... — that's OK now.
+// 		Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
+// 		AnimationPlayer = model?.GetNodeOrNull<AnimationPlayer>(AnimationPlayerPath);
+
+// 		// Utils.NullCheck(TurretYaw);
+// 		// Utils.NullCheck(AnimationPlayer);
+// 		// Utils.NullCheck(Muzzle);
+
+// 		// Pass both; second may be null. CombatSystem will scan children of TurretYaw for "Muzzle*".
+// 		SocketsChanged?.Invoke(TurretYaw, Muzzle, AnimationPlayer);
+// 	}
+
+// }
+
 using System;
+using System.Collections.Generic;
+using System.Diagnostics; // for [Conditional("DEBUG")]
 using Godot;
 using MyEnums;
 
@@ -11,13 +202,13 @@ public partial class LODManager : Node
 	[Export] public LODScenes HighId = LODScenes.AntiInfantryHP;
 	[Export] public LODScenes LowId = LODScenes.AntiInfantryLP;
 
-	[ExportCategory("Sockets (inside Model)")]
-	[Export] public string TurretPath = "Rig/Turret";
-	[Export] public string MuzzlePath = "Rig/Turret/Muzzle";
-	[Export] public string AnimationPlayerPath = "AnimationPlayer";
+	[ExportCategory("Sockets (MULTI ONLY)")]
+	[Export] public Godot.Collections.Array<NodePath> TurretYawPaths = new();
+	[Export] public Godot.Collections.Array<NodePath> MuzzlePaths = new();
+	[Export] public Godot.Collections.Array<NodePath> AnimationPlayerPaths = new();
 
 	[ExportCategory("Metric")]
-	[Export] public bool UseTrue3DDistance = true; // NEW: respond to camera height
+	[Export] public bool UseTrue3DDistance = true;
 
 	private Unit _unit;
 	private Camera3D _cam;
@@ -28,22 +219,45 @@ public partial class LODManager : Node
 	private enum LodTier { High, Low }
 	private LodTier _lodState = LodTier.Low;
 
-	// sockets
-	public Node3D TurretYaw { get; private set; }
-	public Node3D Muzzle { get; private set; }
-	public AnimationPlayer AnimationPlayer { get; private set; }
+	// Sockets (lists only)
+	public List<Node3D> TurretYaws { get; private set; } = new();
+	public List<Node3D> Muzzles { get; private set; } = new();
+	public List<AnimationPlayer> AnimationPlayers { get; private set; } = new();
 
-	public event Action<Node3D, Node3D, AnimationPlayer> SocketsChanged;  // (turretYaw, muzzle)
+	// Events
+	public event Action<IReadOnlyList<Node3D>, IReadOnlyList<Node3D>, IReadOnlyList<AnimationPlayer>> SocketsChangedMany;
+	// Legacy: expose first entries for existing listeners
+	public Node3D TurretYaw => TurretYaws.Count > 0 ? TurretYaws[0] : null;
+	public Node3D Muzzle => Muzzles.Count > 0 ? Muzzles[0] : null;
+	public AnimationPlayer AnimationPlayer => AnimationPlayers.Count > 0 ? AnimationPlayers[0] : null;
+	public event Action<Node3D, Node3D, AnimationPlayer> SocketsChanged;
+
 	public event Action<Node3D> ModelChanged;
 
 	private bool _swapScheduled;
 
+	// --- debug helpers (compiled only in DEBUG) ---
+	[Conditional("DEBUG")] private static void DBG(string msg) => GD.Print($"[LODManager] {msg}");
+	[Conditional("DEBUG")]
+	private static void DBG_LIST(string label, IEnumerable<Node> nodes)
+	{
+		int i = 0;
+		foreach (var n in nodes)
+			GD.Print($"[LODManager] {label}[{i++}] name={n?.Name} path={n?.GetPath()}");
+		if (i == 0) GD.Print($"[LODManager] {label}: <none>");
+	}
+
 	public override void _Ready()
 	{
+		// GD.Print("TURRET YAW PATH");
+		// Utils.PrintTree(GetNode(TurretYawPaths[0]));
+
+		// GD.Print("MUZZLE PATH");
+		// Utils.PrintTree(GetNode(MuzzlePaths[0]));
+
 		_cam = GetViewport().GetCamera3D();
 		_unit = GetNodeOrNull<Unit>("../../");
-		_model = _unit.GetNodeOrNull<Node3D>("Model"); // may be null (that’s fine)
-													   // _unit = GetParent<Unit>() ?? GetOwner<Unit>();
+		_model = _unit.GetNodeOrNull<Node3D>("Model"); // may be null
 		Utils.NullCheck(_unit);
 		Utils.NullCheck(_model);
 
@@ -60,10 +274,10 @@ public partial class LODManager : Node
 
 	private void EvaluateAndMaybeSwap(bool initial = false)
 	{
-		_cam ??= GetViewport().GetCamera3D();            // NEW: reacquire if null
+		_cam ??= GetViewport().GetCamera3D();
 		if (_cam == null || _unit == null) return;
 
-		// --- choose distance metric ---
+		// distance metric
 		float distSq;
 		if (UseTrue3DDistance)
 		{
@@ -79,14 +293,12 @@ public partial class LODManager : Node
 
 		float inDist = MathF.Max(0f, LodNear - LodHysteresis);
 		float outDist = LodNear + LodHysteresis;
-
 		float nearSq = LodNear * LodNear;
 		float inSq = inDist * inDist;
 		float outSq = outDist * outDist;
 
 		var desired = _lodState;
 
-		// Decide desired tier from current distance
 		if (!_initialized)
 		{
 			desired = (distSq <= nearSq) ? LodTier.High : LodTier.Low;
@@ -100,7 +312,6 @@ public partial class LODManager : Node
 			desired = LodTier.High;
 		}
 
-		// On first run, FORCE alignment to the desired tier (even if a model exists)
 		if (!_initialized)
 		{
 			_initialized = true;
@@ -123,11 +334,10 @@ public partial class LODManager : Node
 	{
 		_swapScheduled = false;
 
-		// --- save current turret orientation BEFORE replacing the model ---
-		// (use local yaw since this is a turret yaw node under the model)
-		float savedTurretYawY = 0f;
-		if (TurretYaw != null)
-			savedTurretYawY = TurretYaw.Rotation.Y;   // radians
+		// save ALL turret local yaws before replacing the model
+		var savedTurretYawY = new List<float>(TurretYaws.Count);
+		foreach (var t in TurretYaws)
+			savedTurretYawY.Add(t?.Rotation.Y ?? 0f);
 
 		var tier = (LodTier)tierInt;
 		var sceneId = (tier == LodTier.High) ? HighId : LowId;
@@ -144,46 +354,80 @@ public partial class LODManager : Node
 		_model = next;
 		_lodState = tier;
 
-		// (re)bind sockets on the NEW model
+		// rebind sockets on the NEW model
 		BindSockets(_model);
 		ModelChanged?.Invoke(_model);
 
-		// --- restore turret yaw on the new model ---
-		if (TurretYaw != null)
+		// restore per-turret yaw by index
+		var count = Math.Min(savedTurretYawY.Count, TurretYaws.Count);
+		for (int i = 0; i < count; i++)
 		{
-			var r = TurretYaw.Rotation;
-			r.Y = savedTurretYawY;          // keep previous yaw
-			TurretYaw.Rotation = r;
+			var t = TurretYaws[i];
+			if (t == null) continue;
+			var r = t.Rotation;
+			r.Y = savedTurretYawY[i];
+			t.Rotation = r;
 		}
+
+		// DBG($"After BindSockets: turrets={TurretYaws.Count} muzzles={Muzzles.Count} animPlayers={AnimationPlayers.Count}");
+		// DBG_LIST("Muzzle", Muzzles);
 
 		old?.QueueFree();
 	}
 
-	// private void BindSockets(Node3D model)
-	// {
-	// 	TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
-	// 	Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
-
-	// 	Utils.NullCheck(TurretYaw);
-	// 	Utils.NullCheck(Muzzle);
-
-	// 	SocketsChanged?.Invoke(TurretYaw, Muzzle);
-	// }
-
 	private void BindSockets(Node3D model)
 	{
-		TurretYaw = model?.GetNodeOrNull<Node3D>(TurretPath);
-		// Muzzle may not exist if you only have Muzzle1/Muzzle2... — that's OK now.
-		Muzzle = model?.GetNodeOrNull<Node3D>(MuzzlePath);
-		AnimationPlayer = model?.GetNodeOrNull<AnimationPlayer>(AnimationPlayerPath);
+		// Utils.PrintTree(model);
+		TurretYaws.Clear();
+		Muzzles.Clear();
+		AnimationPlayers.Clear();
 
-		// Utils.NullCheck(TurretYaw);
-		// Utils.NullCheck(AnimationPlayer);
-		// Utils.NullCheck(Muzzle);
+		// arrays ONLY — no single-path fallback
+		if (TurretYawPaths != null)
+		{
+			foreach (var p in TurretYawPaths)
+			{
+				if (p != null && !p.IsEmpty)
+				{
 
-		// Pass both; second may be null. CombatSystem will scan children of TurretYaw for "Muzzle*".
+					if (_model.GetNodeOrNull(p) is Node3D n)
+					{
+						TurretYaws.Add(n);
+					}
+				}
+			}
+		}
+
+		if (MuzzlePaths != null)
+		{
+			foreach (var p in MuzzlePaths)
+			{
+				if (p != null && !p.IsEmpty)
+				{
+					if (GetNodeOrNull(p) is Node3D n)
+					{
+						Muzzles.Add(n);
+					}
+				}
+			}
+		}
+
+		if (AnimationPlayerPaths != null)
+		{
+			foreach (var p in AnimationPlayerPaths)
+			{
+				if (p != null && !p.IsEmpty)
+				{
+					if (model?.GetNodeOrNull(p) is AnimationPlayer ap)
+					{
+						AnimationPlayers.Add(ap);
+					}
+				}
+			}
+		}
+
+		// notify listeners
+		SocketsChangedMany?.Invoke(TurretYaws, Muzzles, AnimationPlayers);
 		SocketsChanged?.Invoke(TurretYaw, Muzzle, AnimationPlayer);
 	}
-
 }
-

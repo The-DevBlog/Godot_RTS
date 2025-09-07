@@ -204,7 +204,7 @@ alpha_curve = SubResource("CurveTexture_hmto5")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "WeaponSystem1", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
 VehicleType = 2
@@ -215,16 +215,16 @@ BuildTime = 8
 Acceleration = 8
 Death = NodePath("Death")
 MiniMapRadius = 5.0
-WeaponSystem1 = NodePath("Systems/WeaponSystem")
+PrimaryWeaponSystem = NodePath("Systems/WeaponSystem")
 LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
+[node name="Model" parent="." instance=ExtResource("2_smbrw")]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.506965, 0.107553)
 shape = SubResource("CylinderShape3D_ebj34")
-
-[node name="Model" parent="." instance=ExtResource("2_smbrw")]
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
@@ -324,6 +324,9 @@ LodNear = 20.0
 LodHysteresis = 1.0
 HighId = 4
 LowId = 3
+TurretYawPaths = Array[NodePath]([NodePath("../../Model/Rig/Turret")])
+MuzzlePaths = Array[NodePath]([NodePath("../../Model/Rig/Turret/Muzzle")])
+AnimationPlayerPaths = Array[NodePath]([NodePath("")])
 
 [node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("5_k7ata")
@@ -346,3 +349,5 @@ BulletSpread = 0.5
 WeaponType = 1
 
 [node name="Death" parent="." instance=ExtResource("15_xrrag")]
+
+[editable path="Model"]

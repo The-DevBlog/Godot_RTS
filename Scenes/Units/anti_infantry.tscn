@@ -208,7 +208,7 @@ alpha_curve = SubResource("CurveTexture_fm6nx")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="AntiInfantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "WeaponSystem1", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="AntiInfantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_7fw24")
 VehicleType = 4
@@ -219,7 +219,7 @@ BuildTime = 8
 Acceleration = 8
 Death = NodePath("Death")
 MiniMapRadius = 5.0
-WeaponSystem1 = NodePath("Systems/WeaponSystem")
+PrimaryWeaponSystem = NodePath("Systems/WeaponSystem")
 LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
@@ -338,6 +338,8 @@ _unit = NodePath("../..")
 script = ExtResource("16_7fw24")
 LodNear = 20.0
 LodHysteresis = 1.0
+TurretYawPaths = Array[NodePath]([NodePath("../../Model/Rig/Turret")])
+MuzzlePaths = Array[NodePath]([NodePath("../../Model/Rig/Turret/Muzzle")])
 
 [node name="WeaponSystem" type="Node" parent="Systems"]
 script = ExtResource("17_y4stx")
@@ -349,3 +351,5 @@ BulletSpread = 4.0
 WeaponType = 2
 
 [node name="Death" parent="." instance=ExtResource("17_equr2")]
+
+[editable path="Model"]

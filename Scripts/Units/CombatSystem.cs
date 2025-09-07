@@ -395,4 +395,3 @@ public partial class CombatSystem : Node
 		return (forward * cosTheta + offset).Normalized();
 	}
 }
-

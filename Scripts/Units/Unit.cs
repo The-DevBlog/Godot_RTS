@@ -3,7 +3,6 @@ using MyEnums;
 
 public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 {
-	[ExportCategory("Unit Stats")]
 	[Export] public int Team { get; set; }
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
@@ -14,8 +13,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public bool DebugEnabled { get; set; }
 	[Export] public Node3D Death;
 	[Export] public float MiniMapRadius { get; set; }
-	[Export] public WeaponSystem WeaponSystem1 { get; set; }
-	[Export] public WeaponSystem WeaponSystem2 { get; set; }
+	[Export] public WeaponSystem PrimaryWeaponSystem { get; set; }
 	[Export] private float _rotationSpeed = 220f;
 
 	// [ExportCategory("Primary Weapon System")]
@@ -74,18 +72,14 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_cam = GetViewport().GetCamera3D();
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
-		// if (Dmg == 0) Utils.PrintErr("No DPS Assigned to unit");
-		// if (Range == 0) Utils.PrintErr("No Range Assigned to unit");
-		// if (FireRate == 0) Utils.PrintErr("No FireRate Assigned to unit");
 		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");
 		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
-		// if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
-		// if (BulletSpread == 0) Utils.PrintErr("No BulletSpread Assigned to unit");
 		if (MiniMapRadius == 0) Utils.PrintErr("No MiniMapRadius Assigned to unit");
 
+		Utils.NullExportCheck(PrimaryWeaponSystem);
 		Utils.NullExportCheck(_healthSystem);
 		Utils.NullExportCheck(LODManager);
 		Utils.NullExportCheck(Death);
