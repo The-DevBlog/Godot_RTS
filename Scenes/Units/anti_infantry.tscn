@@ -336,10 +336,6 @@ _unit = NodePath("../..")
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("16_7fw24")
-LodNear = 20.0
-LodHysteresis = 1.0
-TurretYawPaths = Array[NodePath]([NodePath("../../Model/Rig/Turret")])
-MuzzlePaths = Array[NodePath]([NodePath("../../Model/Rig/Turret/Muzzle")])
 
 [node name="WeaponSystem" type="Node" parent="Systems"]
 script = ExtResource("17_y4stx")

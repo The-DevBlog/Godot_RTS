@@ -320,13 +320,6 @@ draw_pass_1 = SubResource("SphereMesh_uqx8m")
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_sd0dm")
-LodNear = 20.0
-LodHysteresis = 1.0
-HighId = 4
-LowId = 3
-TurretYawPaths = Array[NodePath]([NodePath("../../Model/Rig/Turret")])
-MuzzlePaths = Array[NodePath]([NodePath("../../Model/Rig/Turret/Muzzle")])
-AnimationPlayerPaths = Array[NodePath]([NodePath("")])
 
 [node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("5_k7ata")

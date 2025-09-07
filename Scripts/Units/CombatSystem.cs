@@ -396,26 +396,403 @@
 // 	}
 // }
 
+// using System.Collections.Generic;
+// using Godot;
+// using MyEnums;
+
+// public partial class CombatSystem : Node
+// {
+// 	[Export] private Unit _unit;
+// 	[Export] private float _acquireHz = 5f;
+// 	[Export] private float _turnSpeedDeg = 220f;
+// 	[Export] private NodePath _turretPath = "Model/Rig/Turret";
+// 	// [Export] private string _turretPath = "Model/Rig/Turret";
+// 	[Export] private NodePath _muzzlePath = "Model/Rig/Turret/Muzzle";
+// 	// [Export] private string _muzzlePath = "Model/Rig/Turret/Muzzle";
+// 	[Export] private WeaponSystem _weaponSystem;
+// 	[Export] private Node3D _muzzleFlashParticles;
+// 	[Export] private AudioStreamPlayer3D _attackSound;
+
+// 	private AnimationPlayer _animationPlayer;
+// 	private Node3D _turret;
+// 	private readonly List<Node3D> _muzzles = new();
+// 	private RandomNumberGenerator _random;
+// 	private bool _isZeroed;
+// 	private int _hp;
+// 	private int _dps;
+// 	private int _range;
+// 	private Unit _currentTarget;
+// 	private float _fireRateTimer;
+// 	private MyModels _models;
+// 	private float _acquireTimer = 0f;
+
+// 	private int _barrelIdx = 0;
+
+// 	private Node3D _pendingYaw, _pendingMuzzle;
+// 	private bool _socketsDirty;
+
+// 	private static bool Alive(Node n) => n != null && GodotObject.IsInstanceValid(n) && n.IsInsideTree();
+
+// 	public override void _Ready()
+// 	{
+// 		Utils.NullExportCheck(_unit);
+
+// 		_hp = _unit.CurrentHP;
+// 		_dps = _weaponSystem.Dmg;
+// 		_range = _weaponSystem.Range;
+// 		_models = AssetServer.Instance.Models;
+
+// 		_random = new RandomNumberGenerator();
+// 		_random.Randomize();
+
+// 		// Initial static sockets (before any LOD signal)
+// 		// _turret = _unit.GetNode<Node3D>(_turretPath);
+// 		_turret = GetNode<Node3D>(_turretPath);
+// 		_animationPlayer = _unit.GetNodeOrNull<AnimationPlayer>("Model/AnimationPlayer");
+
+// 		_muzzles.Clear();
+// 		var muzzleContainer = _unit.GetNodeOrNull<Node3D>(_muzzlePath);
+// 		CollectMuzzlesFrom(muzzleContainer);
+// 		if (_muzzles.Count == 0)
+// 		{
+// 			CollectMuzzlesFrom(_turret?.GetNodeOrNull<Node3D>("Muzzle"));
+// 			if (_muzzles.Count == 0) CollectMuzzlesFrom(_turret);
+// 		}
+
+// 		// Hook both events (legacy + multi)
+// 		_unit.LODManager.SocketsChanged += OnSocketsChanged;
+// 		_unit.LODManager.SocketsChangedMany += OnSocketsChangedMany;
+
+// 		if (_weaponSystem.WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
+
+// 		Utils.NullExportCheck(_weaponSystem);
+// 		Utils.NullExportCheck(_muzzleFlashParticles);
+// 		Utils.NullExportCheck(_attackSound);
+// 		Utils.NullCheck(_turret);
+// 		Utils.NullCheck(_animationPlayer);
+
+// 		if (_unit.LODManager.TurretYaw != null)
+// 			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _unit.LODManager.AnimationPlayer);
+// 	}
+
+// 	public override void _PhysicsProcess(double delta)
+// 	{
+// 		// Optionally skip a tick during scheduled rebuild
+// 		if (_socketsDirty) return;
+
+// 		if (!Alive(_turret) || _muzzles.Count == 0)
+// 			return;
+
+// 		_acquireTimer -= (float)delta;
+// 		if (_acquireTimer <= 0f)
+// 		{
+// 			_currentTarget = GetNearestEnemyInRange();
+// 			_acquireTimer = 1f / Mathf.Max(0.01f, _acquireHz);
+// 		}
+
+// 		FaceTarget((float)delta);
+// 		TryAttack(delta);
+// 	}
+
+// 	// --- Sockets / Muzzles management ------------------------------------------------------------
+
+// 	private void OnSocketsChanged(Node3D yaw, Node3D muzzle, AnimationPlayer animationPlayer)
+// 	{
+// 		_animationPlayer = animationPlayer;
+// 		_pendingYaw = yaw;
+// 		_pendingMuzzle = muzzle; // container or null
+
+
+// 		GD.Print("New turret" + (yaw != null ? ": " + yaw.Name : ": null"));
+// 		Utils.PrintTree(yaw);
+// 		_turret = yaw; // immediate swap is critical to avoid disposed access
+
+// 		if (!_socketsDirty)
+// 		{
+// 			_socketsDirty = true;
+// 			CallDeferred(nameof(RebuildSocketsDeferred));
+// 		}
+// 	}
+
+// 	private void OnSocketsChangedMany(
+// 		IReadOnlyList<Node3D> yawNodes,
+// 		IReadOnlyList<Node3D> muzzleNodes,
+// 		IReadOnlyList<AnimationPlayer> players)
+// 	{
+// 		_turret = (yawNodes != null && yawNodes.Count > 0) ? yawNodes[0] : null; // immediate
+// 		_pendingYaw = _turret;
+
+// 		_muzzles.Clear();
+// 		if (muzzleNodes != null)
+// 			foreach (var m in muzzleNodes)
+// 				if (Alive(m)) _muzzles.Add(m);
+
+// 		if (players != null && players.Count > 0)
+// 			_animationPlayer = players[0];
+
+// 		_barrelIdx = Mathf.PosMod(_barrelIdx, Mathf.Max(1, _muzzles.Count));
+// 	}
+
+// 	private void RebuildSocketsDeferred()
+// 	{
+// 		_socketsDirty = false;
+
+// 		_turret = _pendingYaw;
+// 		_muzzles.Clear();
+
+// 		Node3D scanRoot = _pendingMuzzle
+// 			?? _turret?.GetNodeOrNull<Node3D>("Muzzle")
+// 			?? _turret;
+
+// 		CollectMuzzlesFrom(scanRoot);
+
+// 		_muzzles.RemoveAll(m => m == null || !GodotObject.IsInstanceValid(m) || !m.IsInsideTree());
+
+// 		if (_muzzles.Count == 0)
+// 			GD.PushError("CombatSystem: No muzzles after sockets change.");
+
+// 		_barrelIdx = Mathf.PosMod(_barrelIdx, Mathf.Max(1, _muzzles.Count));
+// 	}
+
+// 	private void CollectMuzzlesFrom(Node3D root)
+// 	{
+// 		if (root == null) return;
+// 		bool addedChild = false;
+// 		foreach (var child in root.GetChildren())
+// 		{
+// 			if (child is Node3D n3 && n3.Name.ToString().StartsWith("Muzzle"))
+// 			{
+// 				_muzzles.Add(n3);
+// 				addedChild = true;
+// 			}
+// 		}
+// 		if (!addedChild && root.Name.ToString().StartsWith("Muzzle"))
+// 			_muzzles.Add(root);
+// 	}
+
+// 	private bool EnsureMuzzlesFresh()
+// 	{
+// 		bool removed = false;
+// 		for (int i = _muzzles.Count - 1; i >= 0; --i)
+// 		{
+// 			if (_muzzles[i] == null || !GodotObject.IsInstanceValid(_muzzles[i]) || !_muzzles[i].IsInsideTree())
+// 			{
+// 				_muzzles.RemoveAt(i);
+// 				removed = true;
+// 			}
+// 		}
+// 		if (removed && _muzzles.Count == 0)
+// 			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _unit.LODManager.AnimationPlayer);
+// 		return _muzzles.Count > 0;
+// 	}
+
+// 	// --- Combat ----------------------------------------------------------------------------------
+
+// 	private void TryAttack(double delta)
+// 	{
+// 		if (!_isZeroed) return;
+// 		if (!IsInstanceValid(_currentTarget)) { _currentTarget = null; return; }
+
+// 		Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition; distance.Y = 0;
+// 		if (distance.LengthSquared() > (_range * _range)) return;
+
+// 		_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
+// 		if (_fireRateTimer > 0f) return;
+// 		_fireRateTimer = _weaponSystem.FireRate;
+
+// 		if (!EnsureMuzzlesFresh()) return;
+
+// 		if (_barrelIdx >= _muzzles.Count) _barrelIdx = 0;
+// 		var muzzleNode = _muzzles[_barrelIdx++];
+// 		if (!Alive(muzzleNode)) return;
+
+// 		var projectile = _models.Projectiles[_weaponSystem.WeaponType].Instantiate();
+// 		if (_weaponSystem.WeaponType == MyEnums.WeaponType.SmallArms)
+// 			SpawnTracerFrom(muzzleNode, projectile as Tracer);
+// 		else
+// 			SpawnProjectileFrom(muzzleNode, projectile as Projectile);
+
+// 		_attackSound.Play();
+// 		_muzzleFlashParticles.GlobalTransform = muzzleNode.GlobalTransform;
+// 		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
+// 		_animationPlayer?.Play($"Recoil{_barrelIdx}");
+// 	}
+
+// 	private void SpawnTracerFrom(Node3D muzzleNode, Tracer tracer)
+// 	{
+// 		GetTree().CurrentScene.AddChild(tracer);
+// 		Transform3D muzzle = muzzleNode.GlobalTransform;
+
+// 		Vector3 targetPos = _currentTarget.GlobalPosition;
+// 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
+// 		if (aimCenter != null) targetPos = aimCenter.GlobalPosition; else targetPos += Vector3.Up * 1.0f;
+
+// 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
+// 		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _random);
+
+// 		float maxDist = _weaponSystem.Range;
+// 		Vector3 from = muzzle.Origin;
+// 		Vector3 to = from + dir * maxDist;
+
+// 		var space = GetViewport().GetWorld3D().DirectSpaceState;
+// 		var q = PhysicsRayQueryParameters3D.Create(from, to);
+// 		q.CollideWithBodies = true; q.CollideWithAreas = true;
+
+// 		var exclude = new Godot.Collections.Array<Rid>();
+// 		Vector3 endPos = to;
+// 		while (true)
+// 		{
+// 			q.Exclude = exclude;
+// 			var hit = space.IntersectRay(q);
+// 			if (hit.Count == 0) break;
+
+// 			var collider = hit["collider"].AsGodotObject() as Node;
+// 			var pos = (Vector3)hit["position"];
+// 			var nrm = ((Vector3)hit["normal"]).Normalized();
+
+// 			if (collider is Unit u && u.Team == _unit.Team)
+// 			{ exclude.Add((Rid)hit["rid"]); continue; }
+
+// 			endPos = pos;
+// 			if (collider is IDamageable dmg) dmg.ApplyDamage(_dps, pos, nrm);
+// 			tracer.PlayImpactParticles(pos, nrm);
+// 			break;
+// 		}
+
+// 		tracer.GlobalPosition = from + dir * 0.25f;
+// 		tracer.TargetPos = endPos;
+// 		tracer.Speed = _weaponSystem.ProjectileSpeed;
+// 		tracer.TracerLength = 0.1f;
+// 		tracer.LookAt(endPos);
+// 	}
+
+// 	private void SpawnProjectileFrom(Node3D muzzleNode, Projectile projectile)
+// 	{
+// 		projectile.Damage = _dps;
+// 		GetTree().CurrentScene.AddChild(projectile);
+// 		Transform3D muzzle = muzzleNode.GlobalTransform;
+
+// 		Vector3 targetPos = _currentTarget.GlobalPosition;
+// 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
+// 		if (aimCenter != null) targetPos = aimCenter.GlobalPosition; else Utils.PrintErr("No CollisionShape3D on target; using rough offset");
+
+// 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
+// 		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _random);
+// 		projectile.FireFrom(muzzle, dir, _unit, _weaponSystem.ProjectileSpeed, _unit.Team);
+// 	}
+
+// 	// --- Targeting / Aiming ----------------------------------------------------------------------
+
+// 	private Unit GetNearestEnemyInRange()
+// 	{
+// 		if (_unit == null) return null;
+
+// 		Vector3 myPos = _unit.GlobalPosition;
+// 		int myTeam = _unit.Team;
+// 		float rangeSq = _range * _range;
+
+// 		float bestDistSq = float.MaxValue;
+// 		Unit best = null;
+
+// 		foreach (Node n in GetTree().GetNodesInGroup(MyEnums.Group.units.ToString()))
+// 		{
+// 			if (n == _unit || n == null) continue;
+// 			if (n is not Unit other) continue;
+// 			if (other.CurrentHP <= 0) continue;
+// 			if (other.Team == myTeam) continue;
+
+// 			Vector3 d = other.GlobalPosition - myPos; d.Y = 0;
+// 			float dsq = d.LengthSquared();
+// 			if (dsq <= rangeSq && dsq < bestDistSq) { bestDistSq = dsq; best = other; }
+// 		}
+// 		return best;
+// 	}
+
+// 	private bool RotateTurretTowardsLocalYaw(float desiredLocalYaw, float speedDeg, float dt)
+// 	{
+// 		if (!Alive(_turret)) return false;
+// 		float current = _turret.Rotation.Y;
+// 		float err = WrapAngle(desiredLocalYaw - current);
+// 		float maxStep = Mathf.DegToRad(speedDeg) * dt;
+// 		float step = Mathf.Clamp(err, -maxStep, maxStep);
+// 		_turret.Rotation = new Vector3(_turret.Rotation.X, current + step, _turret.Rotation.Z);
+// 		float newErr = WrapAngle(desiredLocalYaw - _turret.Rotation.Y);
+// 		return Mathf.Abs(newErr) <= Mathf.DegToRad(3f);
+// 	}
+
+// 	private void FaceTarget(float dt)
+// 	{
+// 		if (!Alive(_turret)) { _isZeroed = true; return; }
+
+// 		if (!IsInstanceValid(_currentTarget))
+// 		{
+// 			_isZeroed = RotateTurretTowardsLocalYaw(Mathf.DegToRad(0f), _turnSpeedDeg, dt);
+// 			return;
+// 		}
+
+// 		Vector3 tPos = _turret.GlobalPosition;
+// 		Vector3 toTarget = _currentTarget.GlobalPosition - tPos; toTarget.Y = 0f;
+// 		if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
+
+// 		float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
+// 		float hullYawWorld = _unit.GlobalRotation.Y;
+// 		float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
+// 		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
+// 	}
+
+// 	// --- Math helpers ----------------------------------------------------------------------------
+
+// 	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;
+// 	private static float ClampAngle(float a, float min, float max) => Mathf.Clamp(WrapAngle(a), min, max);
+
+// 	private static Vector3 AddBulletSpread(Vector3 forward, float maxDeg, RandomNumberGenerator rng)
+// 	{
+// 		forward = forward.Normalized();
+// 		if (maxDeg <= 0.0001f) return forward;
+// 		float maxRad = Mathf.DegToRad(maxDeg);
+// 		float cosMax = Mathf.Cos(maxRad);
+// 		float cosTheta = Mathf.Lerp(cosMax, 1f, rng.Randf());
+// 		float sinTheta = Mathf.Sqrt(1f - cosTheta * cosTheta);
+// 		float phi = rng.Randf() * Mathf.Tau;
+// 		Vector3 any = Mathf.Abs(forward.Y) < 0.999f ? Vector3.Up : Vector3.Right;
+// 		Vector3 right = forward.Cross(any).Normalized();
+// 		Vector3 up = right.Cross(forward).Normalized();
+// 		Vector3 offset = (Mathf.Cos(phi) * right + Mathf.Sin(phi) * up) * sinTheta;
+// 		offset = (offset.Dot(right) * right) + (offset.Dot(up) * 0.5f * up);
+// 		return (forward * cosTheta + offset).Normalized();
+// 	}
+// }
+
 using System.Collections.Generic;
 using Godot;
 using MyEnums;
 
 public partial class CombatSystem : Node
 {
+	public enum WeaponSlot { Primary, Secondary }
+
+	[ExportCategory("Unit & Weapon")]
 	[Export] private Unit _unit;
+	[Export] private WeaponSystem _weaponSystem;
+	[Export] private WeaponSlot _slot = WeaponSlot.Primary;
+
+	[ExportCategory("Behaviour")]
 	[Export] private float _acquireHz = 5f;
 	[Export] private float _turnSpeedDeg = 220f;
-	[Export] private NodePath _turretPath = "Model/Rig/Turret";
-	// [Export] private string _turretPath = "Model/Rig/Turret";
-	[Export] private NodePath _muzzlePath = "Model/Rig/Turret/Muzzle";
-	// [Export] private string _muzzlePath = "Model/Rig/Turret/Muzzle";
-	[Export] private WeaponSystem _weaponSystem;
+
+	[ExportCategory("VFX/SFX (per-weapon)")]
 	[Export] private Node3D _muzzleFlashParticles;
 	[Export] private AudioStreamPlayer3D _attackSound;
 
+	// Optional static bootstrap (before first signal)
+	[ExportCategory("Legacy bootstrap (optional)")]
+	[Export] private string _turretPath = "Model/Rig/Turret";
+	[Export] private string _muzzlePath = "Model/Rig/Turret/Muzzle";
+
 	private AnimationPlayer _animationPlayer;
 	private Node3D _turret;
-	private readonly List<Node3D> _muzzles = new();
+	private readonly List<Node3D> _muzzles = new(); // internal for alternating barrels
+
 	private RandomNumberGenerator _random;
 	private bool _isZeroed;
 	private int _hp;
@@ -425,7 +802,6 @@ public partial class CombatSystem : Node
 	private float _fireRateTimer;
 	private MyModels _models;
 	private float _acquireTimer = 0f;
-
 	private int _barrelIdx = 0;
 
 	private Node3D _pendingYaw, _pendingMuzzle;
@@ -436,18 +812,19 @@ public partial class CombatSystem : Node
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(_unit);
+		Utils.NullExportCheck(_weaponSystem);
+		Utils.NullExportCheck(_muzzleFlashParticles);
+		Utils.NullExportCheck(_attackSound);
 
 		_hp = _unit.CurrentHP;
 		_dps = _weaponSystem.Dmg;
 		_range = _weaponSystem.Range;
 		_models = AssetServer.Instance.Models;
 
-		_random = new RandomNumberGenerator();
-		_random.Randomize();
+		_random = new RandomNumberGenerator(); _random.Randomize();
 
-		// Initial static sockets (before any LOD signal)
-		// _turret = _unit.GetNode<Node3D>(_turretPath);
-		_turret = GetNode<Node3D>(_turretPath);
+		// Initial static sockets (in case LOD signal hasn't fired yet)
+		_turret = _unit.GetNodeOrNull<Node3D>(_turretPath);
 		_animationPlayer = _unit.GetNodeOrNull<AnimationPlayer>("Model/AnimationPlayer");
 
 		_muzzles.Clear();
@@ -459,29 +836,46 @@ public partial class CombatSystem : Node
 			if (_muzzles.Count == 0) CollectMuzzlesFrom(_turret);
 		}
 
-		// Hook both events (legacy + multi)
-		_unit.LODManager.SocketsChanged += OnSocketsChanged;
-		_unit.LODManager.SocketsChangedMany += OnSocketsChangedMany;
+		// Subscribe: primary or secondary (no arrays)
+		if (_slot == WeaponSlot.Primary)
+		{
+			_unit.LODManager.SocketsChangedPrimary += OnSocketsChanged;
+			_unit.LODManager.SocketsChanged += OnSocketsChanged; // legacy single, same as primary
+		}
+		else
+		{
+			_unit.LODManager.SocketsChangedSecondary += OnSocketsChanged;
+		}
 
-		if (_weaponSystem.WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
+		// Pull current sockets if already bound
+		var lm = _unit.LODManager;
+		if (lm != null)
+		{
+			if (_slot == WeaponSlot.Primary)
+				OnSocketsChanged(lm.PrimaryTurretYaw, lm.PrimaryMuzzle, lm.AnimationPlayer);
+			else
+				OnSocketsChanged(lm.SecondaryTurretYaw, lm.SecondaryMuzzle, lm.AnimationPlayer);
+		}
+	}
 
-		Utils.NullExportCheck(_weaponSystem);
-		Utils.NullExportCheck(_muzzleFlashParticles);
-		Utils.NullExportCheck(_attackSound);
-		Utils.NullCheck(_turret);
-		Utils.NullCheck(_animationPlayer);
-
-		if (_unit.LODManager.TurretYaw != null)
-			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _unit.LODManager.AnimationPlayer);
+	public override void _ExitTree()
+	{
+		if (_unit?.LODManager == null) return;
+		if (_slot == WeaponSlot.Primary)
+		{
+			_unit.LODManager.SocketsChangedPrimary -= OnSocketsChanged;
+			_unit.LODManager.SocketsChanged -= OnSocketsChanged;
+		}
+		else
+		{
+			_unit.LODManager.SocketsChangedSecondary -= OnSocketsChanged;
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// Optionally skip a tick during scheduled rebuild
 		if (_socketsDirty) return;
-
-		if (!Alive(_turret) || _muzzles.Count == 0)
-			return;
+		if (!Alive(_turret) || _muzzles.Count == 0) return;
 
 		_acquireTimer -= (float)delta;
 		if (_acquireTimer <= 0f)
@@ -494,43 +888,20 @@ public partial class CombatSystem : Node
 		TryAttack(delta);
 	}
 
-	// --- Sockets / Muzzles management ------------------------------------------------------------
+	// ---- sockets ----
 
-	private void OnSocketsChanged(Node3D yaw, Node3D muzzle, AnimationPlayer animationPlayer)
+	private void OnSocketsChanged(Node3D yaw, Node3D muzzle, AnimationPlayer ap)
 	{
-		_animationPlayer = animationPlayer;
+		_animationPlayer = ap;
 		_pendingYaw = yaw;
-		_pendingMuzzle = muzzle; // container or null
-
-
-		// GD.Print("New turret" + (yaw != null ? ": " + yaw.Name : ": null"));
-		// Utils.PrintTree(yaw);
-		_turret = yaw; // immediate swap is critical to avoid disposed access
+		_pendingMuzzle = muzzle;
+		_turret = yaw; // immediate to avoid disposed access
 
 		if (!_socketsDirty)
 		{
 			_socketsDirty = true;
 			CallDeferred(nameof(RebuildSocketsDeferred));
 		}
-	}
-
-	private void OnSocketsChangedMany(
-		IReadOnlyList<Node3D> yawNodes,
-		IReadOnlyList<Node3D> muzzleNodes,
-		IReadOnlyList<AnimationPlayer> players)
-	{
-		_turret = (yawNodes != null && yawNodes.Count > 0) ? yawNodes[0] : null; // immediate
-		_pendingYaw = _turret;
-
-		_muzzles.Clear();
-		if (muzzleNodes != null)
-			foreach (var m in muzzleNodes)
-				if (Alive(m)) _muzzles.Add(m);
-
-		if (players != null && players.Count > 0)
-			_animationPlayer = players[0];
-
-		_barrelIdx = Mathf.PosMod(_barrelIdx, Mathf.Max(1, _muzzles.Count));
 	}
 
 	private void RebuildSocketsDeferred()
@@ -546,12 +917,10 @@ public partial class CombatSystem : Node
 
 		CollectMuzzlesFrom(scanRoot);
 
-		// GD.Print("unit " + _unit.Name + " has " + _muzzles.Count + " muzzles.");
-
 		_muzzles.RemoveAll(m => m == null || !GodotObject.IsInstanceValid(m) || !m.IsInsideTree());
 
 		if (_muzzles.Count == 0)
-			GD.PushError("CombatSystem: No muzzles after sockets change.");
+			GD.PushError($"[{Name}] No muzzles after sockets change (slot={_slot}).");
 
 		_barrelIdx = Mathf.PosMod(_barrelIdx, Mathf.Max(1, _muzzles.Count));
 	}
@@ -559,6 +928,7 @@ public partial class CombatSystem : Node
 	private void CollectMuzzlesFrom(Node3D root)
 	{
 		if (root == null) return;
+
 		bool addedChild = false;
 		foreach (var child in root.GetChildren())
 		{
@@ -572,30 +942,15 @@ public partial class CombatSystem : Node
 			_muzzles.Add(root);
 	}
 
-	private bool EnsureMuzzlesFresh()
-	{
-		bool removed = false;
-		for (int i = _muzzles.Count - 1; i >= 0; --i)
-		{
-			if (_muzzles[i] == null || !GodotObject.IsInstanceValid(_muzzles[i]) || !_muzzles[i].IsInsideTree())
-			{
-				_muzzles.RemoveAt(i);
-				removed = true;
-			}
-		}
-		if (removed && _muzzles.Count == 0)
-			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _unit.LODManager.AnimationPlayer);
-		return _muzzles.Count > 0;
-	}
-
-	// --- Combat ----------------------------------------------------------------------------------
+	// ---- combat ----
 
 	private void TryAttack(double delta)
 	{
 		if (!_isZeroed) return;
 		if (!IsInstanceValid(_currentTarget)) { _currentTarget = null; return; }
 
-		Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition; distance.Y = 0;
+		Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition;
+		distance.Y = 0;
 		if (distance.LengthSquared() > (_range * _range)) return;
 
 		_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
@@ -609,14 +964,17 @@ public partial class CombatSystem : Node
 		if (!Alive(muzzleNode)) return;
 
 		var projectile = _models.Projectiles[_weaponSystem.WeaponType].Instantiate();
-		if (_weaponSystem.WeaponType == MyEnums.WeaponType.SmallArms)
+		if (_weaponSystem.WeaponType == WeaponType.SmallArms)
 			SpawnTracerFrom(muzzleNode, projectile as Tracer);
 		else
 			SpawnProjectileFrom(muzzleNode, projectile as Projectile);
 
+		_attackSound.GlobalTransform = muzzleNode.GlobalTransform;
 		_attackSound.Play();
+
 		_muzzleFlashParticles.GlobalTransform = muzzleNode.GlobalTransform;
 		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
+
 		_animationPlayer?.Play($"Recoil{_barrelIdx}");
 	}
 
@@ -652,10 +1010,10 @@ public partial class CombatSystem : Node
 			var pos = (Vector3)hit["position"];
 			var nrm = ((Vector3)hit["normal"]).Normalized();
 
-			if (collider is Unit u && u.Team == _unit.Team)
-			{ exclude.Add((Rid)hit["rid"]); continue; }
+			if (collider is Unit u && u.Team == _unit.Team) { exclude.Add((Rid)hit["rid"]); continue; }
 
 			endPos = pos;
+
 			if (collider is IDamageable dmg) dmg.ApplyDamage(_dps, pos, nrm);
 			tracer.PlayImpactParticles(pos, nrm);
 			break;
@@ -672,18 +1030,21 @@ public partial class CombatSystem : Node
 	{
 		projectile.Damage = _dps;
 		GetTree().CurrentScene.AddChild(projectile);
+
 		Transform3D muzzle = muzzleNode.GlobalTransform;
 
 		Vector3 targetPos = _currentTarget.GlobalPosition;
 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
-		if (aimCenter != null) targetPos = aimCenter.GlobalPosition; else Utils.PrintErr("No CollisionShape3D on target; using rough offset");
+		if (aimCenter != null) targetPos = aimCenter.GlobalPosition;
+		else Utils.PrintErr("No CollisionShape3D on target; using rough offset");
 
 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
 		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _random);
+
 		projectile.FireFrom(muzzle, dir, _unit, _weaponSystem.ProjectileSpeed, _unit.Team);
 	}
 
-	// --- Targeting / Aiming ----------------------------------------------------------------------
+	// ---- targeting / aiming ----
 
 	private Unit GetNearestEnemyInRange()
 	{
@@ -742,10 +1103,30 @@ public partial class CombatSystem : Node
 		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
 	}
 
-	// --- Math helpers ----------------------------------------------------------------------------
-
 	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;
-	private static float ClampAngle(float a, float min, float max) => Mathf.Clamp(WrapAngle(a), min, max);
+
+	private bool EnsureMuzzlesFresh()
+	{
+		bool removed = false;
+		for (int i = _muzzles.Count - 1; i >= 0; --i)
+		{
+			if (_muzzles[i] == null || !GodotObject.IsInstanceValid(_muzzles[i]) || !_muzzles[i].IsInsideTree())
+			{ _muzzles.RemoveAt(i); removed = true; }
+		}
+		if (removed && _muzzles.Count == 0)
+		{
+			// attempt to rebuild from current sockets
+			var lm = _unit.LODManager;
+			if (lm != null)
+			{
+				if (_slot == WeaponSlot.Primary)
+					OnSocketsChanged(lm.PrimaryTurretYaw, lm.PrimaryMuzzle, lm.AnimationPlayer);
+				else
+					OnSocketsChanged(lm.SecondaryTurretYaw, lm.SecondaryMuzzle, lm.AnimationPlayer);
+			}
+		}
+		return _muzzles.Count > 0;
+	}
 
 	private static Vector3 AddBulletSpread(Vector3 forward, float maxDeg, RandomNumberGenerator rng)
 	{

@@ -389,7 +389,7 @@ script = ExtResource("1_dun38")
 SecondaryWeaponSystem = NodePath("Systems/WeaponSystemSecondary")
 VehicleType = 5
 Speed = 4
-HP = 1000
+HP = 5000
 Cost = 1250
 BuildTime = 20
 Acceleration = 4
@@ -444,19 +444,17 @@ volume_db = 8.5
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_0231x")
-LodNear = 20.0
-LodHysteresis = 1.0
-HighId = 6
-LowId = 5
-TurretYawPaths = Array[NodePath]([NodePath("../../Model/Rig/Turret"), NodePath("../../Model/Rig/Turret/TurretMachineGun")])
-MuzzlePaths = Array[NodePath]([NodePath("../../Model/Rig/Turret/Muzzle"), NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")])
-AnimationPlayerPaths = Array[NodePath]([NodePath("../../Model/AnimationPlayer")])
+_highId = 6
+_lowId = 5
+PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
+PrimaryMuzzlePath = NodePath("../../Model/Rig/Turret/Muzzle")
+AnimationPlayerPath = NodePath("../../Model/AnimationPlayer")
+SecondaryTurretPath = NodePath("../../Model/Rig/Turret/TurretMachineGun")
+SecondaryMuzzlePath = NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
 
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")
 _unit = NodePath("../..")
-_turretPath = NodePath("../../Model/Rig/Turret")
-_muzzlePath = NodePath("../../Model/Rig/Turret/Muzzle")
 _weaponSystem = NodePath("../WeaponSystemPrimary")
 _muzzleFlashParticles = NodePath("../../MuzzleFlashPrimary")
 _attackSound = NodePath("../../Audio/AttackPrimary")
@@ -464,11 +462,12 @@ _attackSound = NodePath("../../Audio/AttackPrimary")
 [node name="CombatSystemSecondary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")
 _unit = NodePath("../..")
-_turretPath = NodePath("../../Model/Rig/Turret/TurretMachineGun")
-_muzzlePath = NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
 _weaponSystem = NodePath("../WeaponSystemSecondary")
+_slot = 1
 _muzzleFlashParticles = NodePath("../../MuzzleFlashSecondary")
 _attackSound = NodePath("../../Audio/AttackSecondary")
+_turretPath = "Model/Rig/Turret/TurretMachineGun"
+_muzzlePath = "Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun"
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("16_hofw4")
