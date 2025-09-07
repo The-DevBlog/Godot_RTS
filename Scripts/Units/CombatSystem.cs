@@ -405,8 +405,10 @@ public partial class CombatSystem : Node
 	[Export] private Unit _unit;
 	[Export] private float _acquireHz = 5f;
 	[Export] private float _turnSpeedDeg = 220f;
-	[Export] private string _turretPath = "Model/Rig/Turret";
-	[Export] private string _muzzlePath = "Model/Rig/Turret/Muzzle";
+	[Export] private NodePath _turretPath = "Model/Rig/Turret";
+	// [Export] private string _turretPath = "Model/Rig/Turret";
+	[Export] private NodePath _muzzlePath = "Model/Rig/Turret/Muzzle";
+	// [Export] private string _muzzlePath = "Model/Rig/Turret/Muzzle";
 	[Export] private WeaponSystem _weaponSystem;
 	[Export] private Node3D _muzzleFlashParticles;
 	[Export] private AudioStreamPlayer3D _attackSound;
@@ -444,7 +446,8 @@ public partial class CombatSystem : Node
 		_random.Randomize();
 
 		// Initial static sockets (before any LOD signal)
-		_turret = _unit.GetNode<Node3D>(_turretPath);
+		// _turret = _unit.GetNode<Node3D>(_turretPath);
+		_turret = GetNode<Node3D>(_turretPath);
 		_animationPlayer = _unit.GetNodeOrNull<AnimationPlayer>("Model/AnimationPlayer");
 
 		_muzzles.Clear();
@@ -499,6 +502,9 @@ public partial class CombatSystem : Node
 		_pendingYaw = yaw;
 		_pendingMuzzle = muzzle; // container or null
 
+
+		// GD.Print("New turret" + (yaw != null ? ": " + yaw.Name : ": null"));
+		// Utils.PrintTree(yaw);
 		_turret = yaw; // immediate swap is critical to avoid disposed access
 
 		if (!_socketsDirty)
@@ -539,6 +545,8 @@ public partial class CombatSystem : Node
 			?? _turret;
 
 		CollectMuzzlesFrom(scanRoot);
+
+		// GD.Print("unit " + _unit.Name + " has " + _muzzles.Count + " muzzles.");
 
 		_muzzles.RemoveAll(m => m == null || !GodotObject.IsInstanceValid(m) || !m.IsInsideTree());
 

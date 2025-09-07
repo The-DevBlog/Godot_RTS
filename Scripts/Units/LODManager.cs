@@ -634,14 +634,38 @@ public partial class LODManager : Node
 
 		// All NodePaths resolved RELATIVE TO THIS LODManager (so ../../Model/... is valid)
 		if (TurretYawPaths != null)
+		{
+			// GD.Print("TurretYawPaths count: " + TurretYawPaths.Count);
 			foreach (var p in TurretYawPaths)
+			{
+				// GD.Print("TurretYaw path: " + p);
 				if (p != null && !p.IsEmpty)
-					if (GetNodeOrNull<Node3D>(p) is Node3D t) TurretYaws.Add(t);
+				{
+					if (GetNodeOrNull<Node3D>(p) is Node3D t)
+					{
+						// Utils.PrintTree(t);
+						TurretYaws.Add(t);
+					}
+				}
+			}
+		}
 
 		if (MuzzlePaths != null)
+		{
+			// GD.Print("MuzzlePaths count: " + MuzzlePaths.Count);
 			foreach (var p in MuzzlePaths)
+			{
+				// GD.Print("Muzzle path: " + p);
 				if (p != null && !p.IsEmpty)
-					if (GetNodeOrNull<Node3D>(p) is Node3D m) Muzzles.Add(m);
+				{
+					if (GetNodeOrNull<Node3D>(p) is Node3D m)
+					{
+						// Utils.PrintTree(m);
+						Muzzles.Add(m);
+					}
+				}
+			}
+		}
 
 		if (AnimationPlayerPaths != null)
 			foreach (var p in AnimationPlayerPaths)

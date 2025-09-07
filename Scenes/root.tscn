@@ -175,7 +175,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1445, -3.8147e-06, 19.0979
 Team = 1
 
 [node name="BFT2" parent="Units" instance=ExtResource("10_qoxdu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5043, -3.8147e-06, 21.104)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5143, -1.90735e-06, 19.9344)
 Team = 2
 
 [node name="Shaders" type="Node3D" parent="."]

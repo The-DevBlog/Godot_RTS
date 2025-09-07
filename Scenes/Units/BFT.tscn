@@ -455,6 +455,8 @@ AnimationPlayerPaths = Array[NodePath]([NodePath("../../Model/AnimationPlayer")]
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")
 _unit = NodePath("../..")
+_turretPath = NodePath("../../Model/Rig/Turret")
+_muzzlePath = NodePath("../../Model/Rig/Turret/Muzzle")
 _weaponSystem = NodePath("../WeaponSystemPrimary")
 _muzzleFlashParticles = NodePath("../../MuzzleFlashPrimary")
 _attackSound = NodePath("../../Audio/AttackPrimary")
@@ -462,7 +464,9 @@ _attackSound = NodePath("../../Audio/AttackPrimary")
 [node name="CombatSystemSecondary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")
 _unit = NodePath("../..")
-_weaponSystem = NodePath("../WeaponSystemPrimary")
+_turretPath = NodePath("../../Model/Rig/Turret/TurretMachineGun")
+_muzzlePath = NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
+_weaponSystem = NodePath("../WeaponSystemSecondary")
 _muzzleFlashParticles = NodePath("../../MuzzleFlashSecondary")
 _attackSound = NodePath("../../Audio/AttackSecondary")
 
@@ -482,7 +486,7 @@ WeaponType = 1
 [node name="WeaponSystemSecondary" type="Node" parent="Systems"]
 script = ExtResource("11_4tim4")
 Dmg = 1
-Range = 25
+Range = 30
 FireRate = 0.1
 ProjectileSpeed = 200.0
 BulletSpread = 4.0
