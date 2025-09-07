@@ -19,22 +19,20 @@ public partial class CombatSystem : Node
 	[Export] private Node3D _muzzleFlashParticles;
 	[Export] private AudioStreamPlayer3D _attackSound;
 
-	// (Legacy bootstrap removed to avoid races)
-
-	private AnimationPlayer _animationPlayer;
+	private AnimationPlayer _animationPlayer;     // null for secondary
 	private Node3D _turret;
-	private readonly List<Node3D> _muzzles = new(); // firing cycle
+	private readonly List<Node3D> _muzzles = new();
 	private readonly List<Node3D> _pendingMuzzles = new();
 
-	private RandomNumberGenerator _random;
+	private RandomNumberGenerator _rng;
+	private bool _socketsDirty = true;
 	private bool _isZeroed;
 	private int _hp, _dps, _range;
 	private Unit _currentTarget;
 	private float _fireRateTimer;
 	private MyModels _models;
-	private float _acquireTimer = 0f;
-	private int _barrelIdx = 0;
-	private bool _socketsDirty;
+	private float _acquireTimer;
+	private int _barrelIdx;
 
 	private static bool Alive(Node n) => n != null && GodotObject.IsInstanceValid(n) && n.IsInsideTree();
 
@@ -50,15 +48,16 @@ public partial class CombatSystem : Node
 		_range = _weaponSystem.Range;
 		_models = AssetServer.Instance.Models;
 
-		_random = new RandomNumberGenerator(); _random.Randomize();
+		_rng = new RandomNumberGenerator();
+		_rng.Randomize();
 
-		// Subscribe FIRST; do not pull immediately (avoid races)
+		// Subscribe to LOD sockets (primary vs secondary)
 		if (_slot == WeaponSlot.Primary)
 			_unit.LODManager.SocketsChangedPrimary += OnSocketsChangedList;
 		else
 			_unit.LODManager.SocketsChangedSecondary += OnSocketsChangedList;
 
-		// Block processing until we get sockets
+		// Wait until first sockets signal before doing anything
 		_socketsDirty = true;
 	}
 
@@ -71,30 +70,9 @@ public partial class CombatSystem : Node
 			_unit.LODManager.SocketsChangedSecondary -= OnSocketsChangedList;
 	}
 
-	private void DebugDumpRecoilTracks()
-	{
-		if (_animationPlayer == null) return;
-		foreach (var nameObj in _animationPlayer.GetAnimationList())
-		{
-			var name = nameObj.ToString();
-			if (!name.StartsWith("Recoil")) continue;
-
-			var anim = _animationPlayer.GetAnimation(name);
-			GD.Print($"[AnimDump] {name} tracks={anim.GetTrackCount()}");
-			for (int i = 0; i < anim.GetTrackCount(); i++)
-			{
-				var path = anim.TrackGetPath(i);   // NodePath
-				GD.Print($"  - track[{i}] -> {path}");
-			}
-		}
-		foreach (var m in _muzzles)
-			GD.Print($"[Muzzle] {m.Name} path={m.GetPath()}");
-	}
-
-
 	public override void _PhysicsProcess(double delta)
 	{
-		if (_socketsDirty) return;                 // wait for rebuild
+		if (_socketsDirty) return;
 		if (!Alive(_turret) || _muzzles.Count == 0) return;
 
 		_acquireTimer -= (float)delta;
@@ -105,15 +83,15 @@ public partial class CombatSystem : Node
 		}
 
 		FaceTarget((float)delta);
-		DebugDumpRecoilTracks();
 		TryAttack(delta);
 	}
 
-	// ----- sockets from LODManager -----
+	// -- sockets from LODManager --
 
 	private void OnSocketsChangedList(Node3D yaw, IReadOnlyList<Node3D> muzzles, AnimationPlayer ap)
 	{
-		_animationPlayer = ap;
+		// Only the primary uses recoil animations; secondary is mute (prevents AP stomp)
+		_animationPlayer = (_slot == WeaponSlot.Primary) ? ap : null;
 		_turret = yaw;
 
 		_pendingMuzzles.Clear();
@@ -122,15 +100,9 @@ public partial class CombatSystem : Node
 				if (Alive(m)) _pendingMuzzles.Add(m);
 
 		if (!_socketsDirty)
-		{
 			_socketsDirty = true;
-			CallDeferred(nameof(RebuildSocketsDeferred));
-		}
-		else
-		{
-			// first time we’re still dirty; just schedule once
-			CallDeferred(nameof(RebuildSocketsDeferred));
-		}
+
+		CallDeferred(nameof(RebuildSocketsDeferred));
 	}
 
 	private void RebuildSocketsDeferred()
@@ -139,6 +111,7 @@ public partial class CombatSystem : Node
 		foreach (var m in _pendingMuzzles)
 			if (Alive(m)) _muzzles.Add(m);
 
+		// keep only valid & in-tree
 		_muzzles.RemoveAll(m => m == null || !GodotObject.IsInstanceValid(m) || !m.IsInsideTree());
 
 		// reset barrel index safely
@@ -146,16 +119,15 @@ public partial class CombatSystem : Node
 		_socketsDirty = false;
 	}
 
-	// ----- combat -----
+	// -- combat --
 
 	private void TryAttack(double delta)
 	{
 		if (!_isZeroed) return;
 		if (!IsInstanceValid(_currentTarget)) { _currentTarget = null; return; }
 
-		Vector3 distance = _currentTarget.GlobalPosition - _unit.GlobalPosition;
-		distance.Y = 0;
-		if (distance.LengthSquared() > (_range * _range)) return;
+		Vector3 d = _currentTarget.GlobalPosition - _unit.GlobalPosition; d.Y = 0;
+		if (d.LengthSquared() > (_range * _range)) return;
 
 		_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
 		if (_fireRateTimer > 0f) return;
@@ -164,7 +136,7 @@ public partial class CombatSystem : Node
 		if (!EnsureMuzzlesFresh()) return;
 
 		if (_barrelIdx >= _muzzles.Count) _barrelIdx = 0;
-		var muzzleNode = _muzzles[_barrelIdx++];
+		var muzzleNode = _muzzles[_barrelIdx++];  // use, then advance
 		if (!Alive(muzzleNode)) return;
 
 		var projectile = _models.Projectiles[_weaponSystem.WeaponType].Instantiate();
@@ -179,9 +151,13 @@ public partial class CombatSystem : Node
 		_muzzleFlashParticles.GlobalTransform = muzzleNode.GlobalTransform;
 		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
 
-		GD.Print("Firing from muzzle: " + muzzleNode.Name + ". Muzzle count: " + _muzzles.Count + ", idx: " + _barrelIdx + ", animation: " + "Recoil" + _barrelIdx);
-
-		_animationPlayer?.Play($"Recoil{_barrelIdx}"); // matches the barrel that just fired
+		// 1-based anim names: Recoil1, Recoil2, ...
+		if (_animationPlayer != null)
+		{
+			string animName = _muzzles.Count > 1 ? $"Recoil{_barrelIdx}" : "Recoil1";
+			if (_animationPlayer.HasAnimation(animName))
+				_animationPlayer.Play(animName);
+		}
 	}
 
 	private void SpawnTracerFrom(Node3D muzzleNode, Tracer tracer)
@@ -194,7 +170,7 @@ public partial class CombatSystem : Node
 		if (aimCenter != null) targetPos = aimCenter.GlobalPosition; else targetPos += Vector3.Up * 1.0f;
 
 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
-		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _random);
+		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _rng);
 
 		float maxDist = _weaponSystem.Range;
 		Vector3 from = muzzle.Origin;
@@ -244,12 +220,12 @@ public partial class CombatSystem : Node
 		else Utils.PrintErr("No CollisionShape3D on target; using rough offset");
 
 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
-		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _random);
+		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _rng);
 
 		projectile.FireFrom(muzzle, dir, _unit, _weaponSystem.ProjectileSpeed, _unit.Team);
 	}
 
-	// ----- targeting / aiming -----
+	// -- targeting / aiming --
 
 	private Unit GetNearestEnemyInRange()
 	{
@@ -276,6 +252,19 @@ public partial class CombatSystem : Node
 		return best;
 	}
 
+	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;
+
+	private bool EnsureMuzzlesFresh()
+	{
+		for (int i = _muzzles.Count - 1; i >= 0; --i)
+			if (_muzzles[i] == null || !GodotObject.IsInstanceValid(_muzzles[i]) || !_muzzles[i].IsInsideTree())
+				_muzzles.RemoveAt(i);
+
+
+		return _muzzles.Count > 0;
+	}
+
+	// ----- aiming / turret yaw -----
 	private bool RotateTurretTowardsLocalYaw(float desiredLocalYaw, float speedDeg, float dt)
 	{
 		if (!Alive(_turret)) return false;
@@ -290,48 +279,49 @@ public partial class CombatSystem : Node
 
 	private void FaceTarget(float dt)
 	{
-		if (!Alive(_turret)) { _isZeroed = true; return; }
-
-		if (!IsInstanceValid(_currentTarget))
+		// If we don't have a yaw node yet, treat as zeroed to avoid jitter
+		if (_turret == null || !GodotObject.IsInstanceValid(_turret) || !_turret.IsInsideTree())
 		{
-			_isZeroed = RotateTurretTowardsLocalYaw(Mathf.DegToRad(0f), _turnSpeedDeg, dt);
+			_isZeroed = true;
 			return;
 		}
 
+		// No target: park turret forward
+		if (!IsInstanceValid(_currentTarget))
+		{
+			_isZeroed = RotateTurretTowardsLocalYaw(0f, _turnSpeedDeg, dt);
+			return;
+		}
+
+		// Compute desired local yaw (target yaw in world - hull yaw in world)
 		Vector3 tPos = _turret.GlobalPosition;
-		Vector3 toTarget = _currentTarget.GlobalPosition - tPos; toTarget.Y = 0f;
+		Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
+		toTarget.Y = 0f;
+
 		if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
 
 		float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
 		float hullYawWorld = _unit.GlobalRotation.Y;
 		float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
+
 		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
-	}
-
-	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;
-
-	private bool EnsureMuzzlesFresh()
-	{
-		for (int i = _muzzles.Count - 1; i >= 0; --i)
-		{
-			if (_muzzles[i] == null || !GodotObject.IsInstanceValid(_muzzles[i]) || !_muzzles[i].IsInsideTree())
-				_muzzles.RemoveAt(i);
-		}
-		return _muzzles.Count > 0;
 	}
 
 	private static Vector3 AddBulletSpread(Vector3 forward, float maxDeg, RandomNumberGenerator rng)
 	{
 		forward = forward.Normalized();
 		if (maxDeg <= 0.0001f) return forward;
+
 		float maxRad = Mathf.DegToRad(maxDeg);
 		float cosMax = Mathf.Cos(maxRad);
 		float cosTheta = Mathf.Lerp(cosMax, 1f, rng.Randf());
 		float sinTheta = Mathf.Sqrt(1f - cosTheta * cosTheta);
 		float phi = rng.Randf() * Mathf.Tau;
+
 		Vector3 any = Mathf.Abs(forward.Y) < 0.999f ? Vector3.Up : Vector3.Right;
 		Vector3 right = forward.Cross(any).Normalized();
 		Vector3 up = right.Cross(forward).Normalized();
+
 		Vector3 offset = (Mathf.Cos(phi) * right + Mathf.Sin(phi) * up) * sinTheta;
 		offset = (offset.Dot(right) * right) + (offset.Dot(up) * 0.5f * up);
 		return (forward * cosTheta + offset).Normalized();
