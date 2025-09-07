@@ -444,6 +444,7 @@ volume_db = 8.5
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_0231x")
+_lodNear = 30.0
 _highId = 6
 _lowId = 5
 PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
@@ -555,6 +556,7 @@ draw_pass_1 = SubResource("SphereMesh_p8gj8")
 transform = Transform3D(-19.2274, -19.2274, 1.68091e-06, -19.2274, 19.2274, 1.68091e-06, -1.05418e-06, -1.7053e-12, -12.0584, 0.0138766, 4.37099, -0.227879)
 
 [node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_ct0ub")
 emitting = false
 amount = 1
@@ -566,6 +568,7 @@ process_material = SubResource("ParticleProcessMaterial_oxulr")
 draw_pass_1 = ExtResource("9_qbaht")
 
 [node name="MuzzleCone" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_0231x")
 emitting = false
@@ -578,6 +581,7 @@ process_material = SubResource("ParticleProcessMaterial_oxulr")
 draw_pass_1 = ExtResource("11_62a0k")
 
 [node name="BeamFlash" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_x2ywe")
 emitting = false
 amount = 1
@@ -589,6 +593,7 @@ process_material = SubResource("ParticleProcessMaterial_p8gj8")
 draw_pass_1 = SubResource("QuadMesh_4eisr")
 
 [node name="Sparks" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 visible = false
 material_override = SubResource("StandardMaterial3D_yi07i")
 emitting = false
@@ -602,6 +607,7 @@ process_material = SubResource("ParticleProcessMaterial_e6afd")
 draw_pass_1 = SubResource("QuadMesh_45ym0")
 
 [node name="Smoke" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 visible = false
 material_override = SubResource("ShaderMaterial_bc61a")
 cast_shadow = 0

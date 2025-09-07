@@ -277,35 +277,77 @@ public partial class CombatSystem : Node
 		return Mathf.Abs(newErr) <= Mathf.DegToRad(3f);
 	}
 
+	// private void FaceTarget(float dt)
+	// {
+	// 	// If we don't have a yaw node yet, treat as zeroed to avoid jitter
+	// 	if (_turret == null || !GodotObject.IsInstanceValid(_turret) || !_turret.IsInsideTree())
+	// 	{
+	// 		_isZeroed = true;
+	// 		return;
+	// 	}
+
+	// 	// No target: park turret forward
+	// 	if (!IsInstanceValid(_currentTarget))
+	// 	{
+	// 		_isZeroed = RotateTurretTowardsLocalYaw(0f, _turnSpeedDeg, dt);
+	// 		return;
+	// 	}
+
+	// 	// Compute desired local yaw (target yaw in world - hull yaw in world)
+	// 	Vector3 tPos = _turret.GlobalPosition;
+	// 	Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
+	// 	toTarget.Y = 0f;
+
+	// 	if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
+
+	// 	float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
+	// 	float hullYawWorld = _unit.GlobalRotation.Y;
+	// 	float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
+
+	// 	_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
+	// }
+
 	private void FaceTarget(float dt)
 	{
-		// If we don't have a yaw node yet, treat as zeroed to avoid jitter
-		if (_turret == null || !GodotObject.IsInstanceValid(_turret) || !_turret.IsInsideTree())
-		{
-			_isZeroed = true;
-			return;
-		}
+		if (!Alive(_turret)) { _isZeroed = true; return; }
 
-		// No target: park turret forward
 		if (!IsInstanceValid(_currentTarget))
 		{
 			_isZeroed = RotateTurretTowardsLocalYaw(0f, _turnSpeedDeg, dt);
 			return;
 		}
 
-		// Compute desired local yaw (target yaw in world - hull yaw in world)
-		Vector3 tPos = _turret.GlobalPosition;
-		Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
-		toTarget.Y = 0f;
+		// Aim in the turret's PARENT space
+		var parent = _turret.GetParent() as Node3D;
 
-		if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
+		// If there's no Node3D parent (edge case), fall back to hull math
+		if (parent == null)
+		{
+			Vector3 tPos = _turret.GlobalPosition;
+			Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
+			toTarget.Y = 0f;
+			if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
+			float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
+			float hullYawWorld = _unit.GlobalRotation.Y;
+			float desiredLocalYawFallback = WrapAngle(targetYawWorld - hullYawWorld);
+			_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYawFallback, _turnSpeedDeg, dt);
+			return;
+		}
 
-		float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
-		float hullYawWorld = _unit.GlobalRotation.Y;
-		float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
+		// Convert both points into the parent's local space, then compute flat direction
+		Vector3 tgtLocal = parent.ToLocal(_currentTarget.GlobalPosition);
+		Vector3 turretLocal = _turret.Position;                 // turret's local pos in parent
+		Vector3 toLocal = tgtLocal - turretLocal;
+		toLocal.Y = 0f;
+
+		if (toLocal.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
+
+		// -Z is forward in Godot, hence (-x, -z)
+		float desiredLocalYaw = Mathf.Atan2(-toLocal.X, -toLocal.Z);
 
 		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
 	}
+
 
 	private static Vector3 AddBulletSpread(Vector3 forward, float maxDeg, RandomNumberGenerator rng)
 	{
