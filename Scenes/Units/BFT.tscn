@@ -447,10 +447,10 @@ script = ExtResource("14_0231x")
 _highId = 6
 _lowId = 5
 PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
-PrimaryMuzzlePath = NodePath("../../Model/Rig/Turret/Muzzle")
-AnimationPlayerPath = NodePath("../../Model/AnimationPlayer")
+PrimaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/Muzzle")
 SecondaryTurretPath = NodePath("../../Model/Rig/Turret/TurretMachineGun")
-SecondaryMuzzlePath = NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
+SecondaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
+AnimationPlayerPath = NodePath("../../Model/AnimationPlayer")
 
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")
@@ -466,8 +466,6 @@ _weaponSystem = NodePath("../WeaponSystemSecondary")
 _slot = 1
 _muzzleFlashParticles = NodePath("../../MuzzleFlashSecondary")
 _attackSound = NodePath("../../Audio/AttackSecondary")
-_turretPath = "Model/Rig/Turret/TurretMachineGun"
-_muzzlePath = "Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun"
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("16_hofw4")

@@ -174,9 +174,18 @@ button_group = SubResource("ButtonGroup_fu36u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1445, -3.8147e-06, 19.0979)
 Team = 1
 
+[node name="WeaponSystemSecondary" parent="Units/BFT/Systems" index="5"]
+Range = 20
+
 [node name="BFT2" parent="Units" instance=ExtResource("10_qoxdu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5143, -1.90735e-06, 19.9344)
 Team = 2
+
+[node name="WeaponSystemPrimary" parent="Units/BFT2/Systems" index="4"]
+Range = 1
+
+[node name="WeaponSystemSecondary" parent="Units/BFT2/Systems" index="5"]
+Range = 1
 
 [node name="Shaders" type="Node3D" parent="."]
 
@@ -271,3 +280,7 @@ transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]
+[editable path="Units/BFT"]
+[editable path="Units/BFT/Model"]
+[editable path="Units/BFT2"]
+[editable path="Units/BFT2/Model"]
