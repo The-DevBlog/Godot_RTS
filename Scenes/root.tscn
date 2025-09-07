@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=31 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="10_qoxdu"]
-[ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="11_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_20eh2"]
@@ -176,12 +175,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1445, -3.8147e-06, 19.0979
 Team = 1
 
 [node name="BFT2" parent="Units" instance=ExtResource("10_qoxdu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.947, -3.8147e-06, 19.5307)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5043, -3.8147e-06, 21.104)
 Team = 2
-
-[node name="TankGen2" parent="Units" instance=ExtResource("11_lwnbm")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20.2482, 0, 6.67969)
-Team = 3
 
 [node name="Shaders" type="Node3D" parent="."]
 

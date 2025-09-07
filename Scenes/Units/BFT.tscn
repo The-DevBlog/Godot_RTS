@@ -384,8 +384,9 @@ alpha_curve = SubResource("CurveTexture_u0ol3")
 
 [sub_resource type="SphereMesh" id="SphereMesh_pqgj0"]
 
-[node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("SecondaryWeaponSystem", "Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 script = ExtResource("1_dun38")
+SecondaryWeaponSystem = NodePath("Systems/WeaponSystemSecondary")
 VehicleType = 5
 Speed = 4
 HP = 1000
@@ -447,8 +448,8 @@ LodNear = 20.0
 LodHysteresis = 1.0
 HighId = 6
 LowId = 5
-TurretYawPaths = Array[NodePath]([NodePath("../../Model/Rig/Turret")])
-MuzzlePaths = Array[NodePath]([NodePath("../../Model/Rig/Turret/Muzzle")])
+TurretYawPaths = Array[NodePath]([NodePath("../../Model/Rig/Turret"), NodePath("../../Model/Rig/Turret/TurretMachineGun")])
+MuzzlePaths = Array[NodePath]([NodePath("../../Model/Rig/Turret/Muzzle"), NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")])
 AnimationPlayerPaths = Array[NodePath]([NodePath("../../Model/AnimationPlayer")])
 
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
