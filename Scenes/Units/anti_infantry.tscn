@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bbsme72x5icrn"]
+[gd_scene load_steps=53 format=3 uid="uid://bbsme72x5icrn"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_7fw24"]
 [ext_resource type="PackedScene" uid="uid://b7qa57dgc8y2b" path="res://Scenes/Units/LOD/AntiInfantry/anti_infantry_hp.tscn" id="2_7fw24"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="16_6qcct"]
 [ext_resource type="Script" uid="uid://jlslpr84ir1t" path="res://Scripts/Units/LODManager.cs" id="16_7fw24"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="17_equr2"]
+[ext_resource type="Script" uid="uid://h6bdsqjhlaxl" path="res://Scripts/Units/WeaponSystem.cs" id="17_y4stx"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
 height = 1.0
@@ -52,23 +53,23 @@ albedo_texture = ExtResource("8_ohh4q")
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_fl6pk"]
+[sub_resource type="CurveTexture" id="CurveTexture_y4stx"]
 curve = SubResource("Curve_sd0dm")
 
 [sub_resource type="Curve" id="Curve_4s7kj"]
 _data = [Vector2(0, 0), 0.0, 3.20406, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_uqx8m"]
+[sub_resource type="CurveTexture" id="CurveTexture_pjyd2"]
 curve = SubResource("Curve_4s7kj")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5vagt"]
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_max = 0.75
-scale_curve = SubResource("CurveTexture_uqx8m")
+scale_curve = SubResource("CurveTexture_pjyd2")
 color = Color(2, 1.5, 1, 1)
-alpha_curve = SubResource("CurveTexture_fl6pk")
+alpha_curve = SubResource("CurveTexture_y4stx")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4avmg"]
 transparency = 1
@@ -97,23 +98,23 @@ particles_anim_loop = false
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_0t0mp"]
+[sub_resource type="CurveTexture" id="CurveTexture_g1ow1"]
 curve = SubResource("Curve_p24si")
 
 [sub_resource type="Curve" id="Curve_wylw5"]
 _data = [Vector2(0, 0), 0.0, 3.20406, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_q6gvt"]
+[sub_resource type="CurveTexture" id="CurveTexture_6rfje"]
 curve = SubResource("Curve_wylw5")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gu5w3"]
 gravity = Vector3(0, 0, 0)
 scale_min = 0.6
 scale_max = 0.6
-scale_curve = SubResource("CurveTexture_q6gvt")
+scale_curve = SubResource("CurveTexture_6rfje")
 color = Color(1.5, 1, 0.5, 1)
-alpha_curve = SubResource("CurveTexture_0t0mp")
+alpha_curve = SubResource("CurveTexture_g1ow1")
 
 [sub_resource type="QuadMesh" id="QuadMesh_fvnnt"]
 
@@ -129,7 +130,7 @@ albedo_texture = ExtResource("12_3pwdw")
 _data = [Vector2(0.00512821, 0.987116), 0.0, -2.96919, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_mbwrp"]
+[sub_resource type="CurveTexture" id="CurveTexture_2aiw2"]
 curve = SubResource("Curve_kcisb")
 
 [sub_resource type="Curve" id="Curve_4b1um"]
@@ -137,7 +138,7 @@ _limits = [0.0, 100.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992308, 100), 294.556, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_wrkjq"]
+[sub_resource type="CurveTexture" id="CurveTexture_ohh4q"]
 curve = SubResource("Curve_4b1um")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uh2bm"]
@@ -151,11 +152,11 @@ initial_velocity_max = 30.0
 gravity = Vector3(0, 0, 0)
 damping_min = 0.5
 damping_max = 0.8
-damping_curve = SubResource("CurveTexture_wrkjq")
+damping_curve = SubResource("CurveTexture_ohh4q")
 scale_min = 0.05
 scale_max = 0.3
 color = Color(5, 3, 1, 1)
-alpha_curve = SubResource("CurveTexture_mbwrp")
+alpha_curve = SubResource("CurveTexture_2aiw2")
 
 [sub_resource type="QuadMesh" id="QuadMesh_cocvn"]
 size = Vector2(0.15, 0.5)
@@ -169,13 +170,13 @@ shader_parameter/DistanceFade = 0.3
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.489362, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_pw7cq"]
+[sub_resource type="CurveTexture" id="CurveTexture_fm6nx"]
 curve = SubResource("Curve_smbrw")
 
 [sub_resource type="Gradient" id="Gradient_sd0dm"]
 colors = PackedColorArray(0, 0, 0, 1, 0.0177324, 0.0177324, 0.0177324, 0.619)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_xrrag"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r41al"]
 gradient = SubResource("Gradient_sd0dm")
 use_hdr = true
 
@@ -183,7 +184,7 @@ use_hdr = true
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.325843), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_smbrw"]
+[sub_resource type="CurveTexture" id="CurveTexture_ewpmt"]
 curve = SubResource("Curve_fl6pk")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4s7kj"]
@@ -201,30 +202,24 @@ radial_velocity_max = 0.499978
 gravity = Vector3(0, 0, 0)
 scale_min = 0.5
 scale_max = 0.75
-scale_curve = SubResource("CurveTexture_smbrw")
-color_ramp = SubResource("GradientTexture1D_xrrag")
-alpha_curve = SubResource("CurveTexture_pw7cq")
+scale_curve = SubResource("CurveTexture_ewpmt")
+color_ramp = SubResource("GradientTexture1D_r41al")
+alpha_curve = SubResource("CurveTexture_fm6nx")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="AntiInfantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "CombatSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="AntiInfantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "WeaponSystem1", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_7fw24")
 VehicleType = 4
 Speed = 10
 HP = 200
-DPS = 1
-Range = 25
-FireRate = 0.1
 Cost = 750
 BuildTime = 8
 Acceleration = 8
-ProjectileSpeed = 200.0
 Death = NodePath("Death")
-BulletSpread = 4.0
-WeaponType = 2
 MiniMapRadius = 5.0
-CombatSystem = NodePath("Systems/CombatSystem")
+WeaponSystem1 = NodePath("Systems/WeaponSystem")
 LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
@@ -328,10 +323,12 @@ draw_pass_1 = SubResource("SphereMesh_uqx8m")
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
+[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("14_djthm")
 _unit = NodePath("../..")
-TurnSpeedDeg = 350.0
+_weaponSystem = NodePath("../WeaponSystem")
+_muzzleFlashParticles = NodePath("../../MuzzleFlash")
+_attackSound = NodePath("../../Audio/Attack")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("16_6qcct")
@@ -341,5 +338,14 @@ _unit = NodePath("../..")
 script = ExtResource("16_7fw24")
 LodNear = 20.0
 LodHysteresis = 1.0
+
+[node name="WeaponSystem" type="Node" parent="Systems"]
+script = ExtResource("17_y4stx")
+Dmg = 1
+Range = 25
+FireRate = 0.1
+ProjectileSpeed = 200.0
+BulletSpread = 4.0
+WeaponType = 2
 
 [node name="Death" parent="." instance=ExtResource("17_equr2")]

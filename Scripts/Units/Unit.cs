@@ -7,22 +7,27 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public int Team { get; set; }
 	[Export] public int Speed { get; set; }
 	[Export] public int HP { get; set; }
-	[Export] public int DPS { get; set; }
-	[Export] public int Range { get; set; }
-	[Export] public float FireRate { get; set; }
+
 	[Export] public int Cost { get; set; }
 	[Export] public int BuildTime { get; set; }
 	[Export] public int Acceleration { get; set; }
 	[Export] public bool DebugEnabled { get; set; }
-	[Export] public float ProjectileSpeed { get; set; }
 	[Export] public Node3D Death;
-	[Export] public float BulletSpread { get; set; }
-	[Export] public WeaponType WeaponType { get; set; }
 	[Export] public float MiniMapRadius { get; set; }
+	[Export] public WeaponSystem WeaponSystem1 { get; set; }
+	[Export] public WeaponSystem WeaponSystem2 { get; set; }
 	[Export] private float _rotationSpeed = 220f;
 
+	// [ExportCategory("Primary Weapon System")]
+	// [Export] public int Dmg { get; set; }
+	// [Export] public int Range { get; set; }
+	// [Export] public float FireRate { get; set; }
+	// [Export] public float ProjectileSpeed { get; set; }
+	// [Export] public float BulletSpread { get; set; }
+
+	// [ExportCategory("Secondary Weapon System")]
+
 	[ExportCategory("Unit Systems")]
-	[Export] public CombatSystem CombatSystem;
 	[Export] public LODManager LODManager;
 	[Export] private HealthSystem _healthSystem;
 	private Node3D _model;
@@ -69,20 +74,18 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_cam = GetViewport().GetCamera3D();
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
-		if (DPS == 0) Utils.PrintErr("No DPS Assigned to unit");
-		if (Range == 0) Utils.PrintErr("No Range Assigned to unit");
-		if (FireRate == 0) Utils.PrintErr("No FireRate Assigned to unit");
+		// if (Dmg == 0) Utils.PrintErr("No DPS Assigned to unit");
+		// if (Range == 0) Utils.PrintErr("No Range Assigned to unit");
+		// if (FireRate == 0) Utils.PrintErr("No FireRate Assigned to unit");
 		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");
 		if (Cost == 0) Utils.PrintErr("No Cost Assigned to unit");
 		if (BuildTime == 0) Utils.PrintErr("No BuildTime Assigned to unit");
 		if (Acceleration == 0) Utils.PrintErr("No Acceleration Assigned to unit");
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
-		if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
-		if (BulletSpread == 0) Utils.PrintErr("No BulletSpread Assigned to unit");
-		if (WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
+		// if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
+		// if (BulletSpread == 0) Utils.PrintErr("No BulletSpread Assigned to unit");
 		if (MiniMapRadius == 0) Utils.PrintErr("No MiniMapRadius Assigned to unit");
 
-		Utils.NullExportCheck(CombatSystem);
 		Utils.NullExportCheck(_healthSystem);
 		Utils.NullExportCheck(LODManager);
 		Utils.NullExportCheck(Death);

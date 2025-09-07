@@ -1,13 +1,17 @@
 using System.Collections.Generic;
 using Godot;
+using MyEnums;
 
 public partial class CombatSystem : Node
 {
 	[Export] private Unit _unit;
-	[Export] private float AcquireHz = 5f;          // how often to re-acquire a target (times/sec)
-	[Export] private float TurnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
-	[Export] private string TurretPath = "Model/Rig/Turret";
-	[Export] private string MuzzlePath = "Model/Rig/Turret/Muzzle";
+	[Export] private float _acquireHz = 5f;          // how often to re-acquire a target (times/sec)
+	[Export] private float _turnSpeedDeg = 220f;     // tank yaw speed (deg/sec)
+	[Export] private string _turretPath = "Model/Rig/Turret";
+	[Export] private string _muzzlePath = "Model/Rig/Turret/Muzzle";
+	[Export] private WeaponSystem _weaponSystem;
+	[Export] private Node3D _muzzleFlashParticles;
+	[Export] private AudioStreamPlayer3D _attackSound;
 	private AnimationPlayer _animationPlayer;
 	private Node3D _turret;
 	private readonly List<Node3D> _muzzles = new();
@@ -18,8 +22,6 @@ public partial class CombatSystem : Node
 	private int _range;
 	private Unit _currentTarget;
 	private float _fireRateTimer;
-	private AudioStreamPlayer3D _attackSound;
-	private Node3D _muzzleFlashParticles;
 	private MyModels _models;
 	private float _acquireTimer = 0f;
 
@@ -35,20 +37,20 @@ public partial class CombatSystem : Node
 		Utils.NullExportCheck(_unit);
 
 		_hp = _unit.CurrentHP;
-		_dps = _unit.DPS;
-		_range = _unit.Range;
+		_dps = _weaponSystem.Dmg;
+		_range = _weaponSystem.Range;
 
 		_models = AssetServer.Instance.Models;
 
 		_random = new RandomNumberGenerator();
 		_random.Randomize();
 
-		_turret = _unit.GetNode<Node3D>(TurretPath);
+		_turret = _unit.GetNode<Node3D>(_turretPath);
 		_animationPlayer = _unit.GetNodeOrNull<AnimationPlayer>("Model/AnimationPlayer");
 
 		// initial muzzle collection: scan the Muzzle container's children
 		_muzzles.Clear();
-		var muzzleContainer = _unit.GetNodeOrNull<Node3D>(MuzzlePath); // SAFE: OrNull
+		var muzzleContainer = _unit.GetNodeOrNull<Node3D>(_muzzlePath); // SAFE: OrNull
 		CollectMuzzlesFrom(muzzleContainer);
 		if (_muzzles.Count == 0)
 		{
@@ -57,20 +59,19 @@ public partial class CombatSystem : Node
 			if (_muzzles.Count == 0) CollectMuzzlesFrom(_turret);        // rare: muzzles directly under turret
 		}
 
-		_attackSound = _unit.GetNode<AudioStreamPlayer3D>("Audio/Attack");
-		_muzzleFlashParticles = _unit.GetNode<Node3D>("MuzzleFlash");
-
 		_unit.LODManager.SocketsChanged += OnSocketsChanged;
 
+		if (_weaponSystem.WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
+
+		Utils.NullExportCheck(_weaponSystem);
+		Utils.NullExportCheck(_muzzleFlashParticles);
+		Utils.NullExportCheck(_attackSound);
 		Utils.NullCheck(_turret);
-		Utils.NullCheck(_attackSound);
-		Utils.NullCheck(_muzzleFlashParticles);
 		Utils.NullCheck(_animationPlayer);
 
 		// If LOD sockets are already available, rebuild now (deferred)
 		if (_unit.LODManager.TurretYaw != null)
 			OnSocketsChanged(_unit.LODManager.TurretYaw, _unit.LODManager.Muzzle, _animationPlayer);
-
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -82,7 +83,7 @@ public partial class CombatSystem : Node
 		if (_acquireTimer <= 0f)
 		{
 			_currentTarget = GetNearestEnemyInRange();   // single place to reacquire
-			_acquireTimer = 1f / Mathf.Max(0.01f, AcquireHz);
+			_acquireTimer = 1f / Mathf.Max(0.01f, _acquireHz);
 		}
 
 		FaceTarget((float)delta);
@@ -126,6 +127,7 @@ public partial class CombatSystem : Node
 			GD.PushError("CombatSystem: No muzzles after sockets change.");
 
 		// Reset barrel index safely
+		GD.Print("unit " + _unit.Name + " has " + _muzzles.Count + " muzzles.");
 		_barrelIdx = Mathf.PosMod(_barrelIdx, Mathf.Max(1, _muzzles.Count));
 	}
 
@@ -183,7 +185,7 @@ public partial class CombatSystem : Node
 
 		_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
 		if (_fireRateTimer > 0f) return;
-		_fireRateTimer = _unit.FireRate;
+		_fireRateTimer = _weaponSystem.FireRate;
 
 		if (!EnsureMuzzlesFresh()) return;
 
@@ -194,8 +196,8 @@ public partial class CombatSystem : Node
 			return;
 
 		// choose fire mode
-		var projectile = _models.Projectiles[_unit.WeaponType].Instantiate();
-		if (_unit.WeaponType == MyEnums.WeaponType.SmallArms)
+		var projectile = _models.Projectiles[_weaponSystem.WeaponType].Instantiate();
+		if (_weaponSystem.WeaponType == MyEnums.WeaponType.SmallArms)
 		{
 			SpawnTracerFrom(muzzleNode, projectile as Tracer);
 		}
@@ -224,9 +226,9 @@ public partial class CombatSystem : Node
 		else targetPos += Vector3.Up * 1.0f;
 
 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
-		Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random);
+		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _random);
 
-		float maxDist = _unit.Range;
+		float maxDist = _weaponSystem.Range;
 		Vector3 from = muzzle.Origin;
 		Vector3 to = from + dir * maxDist;
 
@@ -268,7 +270,7 @@ public partial class CombatSystem : Node
 		// Spawn tracer purely as VFX
 		tracer.GlobalPosition = from + dir * 0.25f; // tiny offset from muzzle
 		tracer.TargetPos = endPos;
-		tracer.Speed = _unit.ProjectileSpeed;
+		tracer.Speed = _weaponSystem.ProjectileSpeed;
 		tracer.TracerLength = 0.1f;
 		tracer.LookAt(endPos);
 	}
@@ -289,9 +291,9 @@ public partial class CombatSystem : Node
 			Utils.PrintErr("No CollisionShape3D on target; using rough offset");
 
 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
-		Vector3 dir = AddBulletSpread(idealDir, _unit.BulletSpread, _random);
+		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _random);
 
-		projectile.FireFrom(muzzle, dir, _unit, _unit.Team);
+		projectile.FireFrom(muzzle, dir, _unit, _weaponSystem.ProjectileSpeed, _unit.Team);
 	}
 
 	// --- Targeting / Aiming ----------------------------------------------------------------------
@@ -346,7 +348,7 @@ public partial class CombatSystem : Node
 		if (!IsInstanceValid(_currentTarget))
 		{
 			// No target: park turret to default
-			_isZeroed = RotateTurretTowardsLocalYaw(Mathf.DegToRad(0f), TurnSpeedDeg, dt);
+			_isZeroed = RotateTurretTowardsLocalYaw(Mathf.DegToRad(0f), _turnSpeedDeg, dt);
 			return;
 		}
 
@@ -361,7 +363,7 @@ public partial class CombatSystem : Node
 		float hullYawWorld = _unit.GlobalRotation.Y;
 		float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
 
-		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, TurnSpeedDeg, dt);
+		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
 	}
 
 	// --- Math helpers ----------------------------------------------------------------------------
@@ -393,3 +395,4 @@ public partial class CombatSystem : Node
 		return (forward * cosTheta + offset).Normalized();
 	}
 }
+

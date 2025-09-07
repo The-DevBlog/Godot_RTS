@@ -79,10 +79,10 @@ public partial class Projectile : Node3D
 		GlobalPosition = to;
 	}
 
-	public void FireFrom(Transform3D muzzleXform, Vector3 velocity, Unit shooter, int team)
+	public void FireFrom(Transform3D muzzleXform, Vector3 velocity, Unit shooter, float projectileSpeed, int team)
 	{
 		GlobalTransform = muzzleXform;
-		_vel = velocity * shooter.ProjectileSpeed;
+		_vel = velocity * projectileSpeed;
 		_timeLeft = _lifetime;
 		_shooter = shooter;
 		_team = team;

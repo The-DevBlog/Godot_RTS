@@ -1,15 +1,17 @@
-[gd_scene load_steps=52 format=3 uid="uid://dcf8ehewte4xk"]
+[gd_scene load_steps=85 format=3 uid="uid://dcf8ehewte4xk"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_0g5s4"]
 [ext_resource type="PackedScene" uid="uid://h8psfw3nf7ts" path="res://Scenes/Units/LOD/BFT/bft_hp.tscn" id="2_0g5s4"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_dun38"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_l8yb7"]
 [ext_resource type="AudioStream" uid="uid://bo8auev662hot" path="res://Assets/Audio/TankFireExtraBass.wav" id="5_0g5s4"]
+[ext_resource type="AudioStream" uid="uid://bbwury3qlup3w" path="res://Assets/Audio/MachineGun.wav" id="6_dun38"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="6_f5mem"]
 [ext_resource type="AudioStream" uid="uid://c16bgi1py2kfw" path="res://Assets/Audio/ExplosionWithMetal.wav" id="7_ct0ub"]
 [ext_resource type="Texture2D" uid="uid://djsa3anxcvbst" path="res://Assets/Textures/MuzzleFlash/MuzzleFlash.png" id="8_5swof"]
 [ext_resource type="ArrayMesh" uid="uid://gv6m7q3rqdu5" path="res://Assets/VFX/MuzzlePlane.obj" id="9_qbaht"]
 [ext_resource type="Texture2D" uid="uid://brscwxgt8w15i" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashCone.png" id="10_5f8ud"]
+[ext_resource type="Script" uid="uid://h6bdsqjhlaxl" path="res://Scripts/Units/WeaponSystem.cs" id="11_4tim4"]
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_62a0k"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_7knbb"]
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="13_oxulr"]
@@ -28,6 +30,13 @@ random_pitch = 1.5
 random_volume_offset_db = 0.8
 streams_count = 1
 stream_0/stream = ExtResource("5_0g5s4")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_l8yb7"]
+playback_mode = 1
+random_pitch = 1.75
+random_volume_offset_db = 0.5
+streams_count = 1
+stream_0/stream = ExtResource("6_dun38")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fl6pk"]
 random_pitch = 1.5
@@ -207,24 +216,187 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_p8gj8"]
 
-[node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("Death", "CombatSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ct0ub"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("8_5swof")
+
+[sub_resource type="Curve" id="Curve_qbaht"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5f8ud"]
+curve = SubResource("Curve_qbaht")
+
+[sub_resource type="Curve" id="Curve_62a0k"]
+_data = [Vector2(0, 0), 0.0, 3.20406, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7knbb"]
+curve = SubResource("Curve_62a0k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oxulr"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_7knbb")
+color = Color(2, 1.5, 1, 1)
+alpha_curve = SubResource("CurveTexture_5f8ud")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0231x"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("10_5f8ud")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2ywe"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("12_7knbb")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_hofw4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2qrto"]
+curve = SubResource("Curve_hofw4")
+
+[sub_resource type="Curve" id="Curve_l8yob"]
+_data = [Vector2(0, 0), 0.0, 3.20406, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_l2ncb"]
+curve = SubResource("Curve_l8yob")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_p8gj8"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.6
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_l2ncb")
+color = Color(1.5, 1, 0.5, 1)
+alpha_curve = SubResource("CurveTexture_2qrto")
+
+[sub_resource type="QuadMesh" id="QuadMesh_4eisr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yi07i"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("12_7knbb")
+
+[sub_resource type="Curve" id="Curve_8ymut"]
+_data = [Vector2(0.00512821, 0.987116), 0.0, -2.96919, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_nknxh"]
+curve = SubResource("Curve_8ymut")
+
+[sub_resource type="Curve" id="Curve_30dr5"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.992308, 100), 294.556, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_up0in"]
+curve = SubResource("Curve_30dr5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e6afd"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.6
+direction = Vector3(0, 0, 1)
+spread = 50.0
+initial_velocity_min = 5.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+damping_min = 0.5
+damping_max = 0.8
+damping_curve = SubResource("CurveTexture_up0in")
+scale_min = 0.05
+scale_max = 0.3
+color = Color(5, 3, 1, 1)
+alpha_curve = SubResource("CurveTexture_nknxh")
+
+[sub_resource type="QuadMesh" id="QuadMesh_45ym0"]
+size = Vector2(0.15, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bc61a"]
+render_priority = 0
+shader = ExtResource("13_oxulr")
+shader_parameter/DistanceFade = 0.3
+
+[sub_resource type="Curve" id="Curve_1w2wx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.489362, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_u0ol3"]
+curve = SubResource("Curve_1w2wx")
+
+[sub_resource type="Gradient" id="Gradient_nir48"]
+colors = PackedColorArray(0, 0, 0, 1, 0.0177324, 0.0177324, 0.0177324, 0.619)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_72gpp"]
+gradient = SubResource("Gradient_nir48")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_w03vw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.325843), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0lvq4"]
+curve = SubResource("Curve_w03vw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eth2w"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 1.0
+emission_ring_cone_angle = 90.0
+angle_min = -180.0
+angle_max = 180.0
+direction = Vector3(1, 1, 0)
+radial_velocity_min = 0.499978
+radial_velocity_max = 0.499978
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_0lvq4")
+color_ramp = SubResource("GradientTexture1D_72gpp")
+alpha_curve = SubResource("CurveTexture_u0ol3")
+
+[sub_resource type="SphereMesh" id="SphereMesh_pqgj0"]
+
+[node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("Death", "WeaponSystem1", "WeaponSystem2", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 script = ExtResource("1_0g5s4")
 VehicleType = 5
 Speed = 4
 HP = 1000
-DPS = 35
-Range = 30
-FireRate = 0.75
 Cost = 750
 BuildTime = 8
 Acceleration = 8
-ProjectileSpeed = 150.0
 Death = NodePath("Death")
-BulletSpread = 0.5
-WeaponType = 1
 MiniMapRadius = 6.0
+WeaponSystem1 = NodePath("Systems/WeaponSystemPrimary")
+WeaponSystem2 = NodePath("Systems/WeaponSystemSecondary")
 _rotationSpeed = 185.0
-CombatSystem = NodePath("Systems/CombatSystem")
 LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
@@ -250,10 +422,15 @@ transform = Transform3D(1.59, 0, 0, 0, 1.59, 0, 0, 0, 1.59, 0, 3.65035, 0)
 
 [node name="Audio" type="Node3D" parent="."]
 
-[node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
+[node name="AttackPrimary" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 stream = SubResource("AudioStreamRandomizer_mfhdj")
 volume_db = 6.0
+
+[node name="AttackSecondary" type="AudioStreamPlayer3D" parent="Audio"]
+stream = SubResource("AudioStreamRandomizer_l8yb7")
+volume_db = -5.0
+unit_size = 35.0
 
 [node name="Impact" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -274,21 +451,51 @@ HighId = 6
 LowId = 5
 MuzzlePath = "Rig/Turret/Muzzle1"
 
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
+[node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")
 _unit = NodePath("../..")
-TurnSpeedDeg = 200.0
+_weaponSystem = NodePath("../WeaponSystemPrimary")
+_muzzleFlashParticles = NodePath("../../MuzzleFlashPrimary")
+_attackSound = NodePath("../../Audio/AttackPrimary")
+
+[node name="CombatSystemSecondary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
+script = ExtResource("15_x2ywe")
+_unit = NodePath("../..")
+_mountKey = "Secondary"
+_turretPath = "Model/Rig/Turret/TurretMachineGun"
+_muzzlePath = "Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun"
+_weaponSystem = NodePath("../WeaponSystemSecondary")
+_muzzleFlashParticles = NodePath("../../MuzzleFlashSecondary")
+_attackSound = NodePath("../../Audio/AttackSecondary")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("16_hofw4")
 _unit = NodePath("../..")
 
+[node name="WeaponSystemPrimary" type="Node" parent="Systems"]
+script = ExtResource("11_4tim4")
+Dmg = 35
+Range = 30
+FireRate = 0.75
+ProjectileSpeed = 150.0
+BulletSpread = 0.5
+WeaponType = 1
+
+[node name="WeaponSystemSecondary" type="Node" parent="Systems"]
+script = ExtResource("11_4tim4")
+Dmg = 1
+Range = 25
+FireRate = 0.1
+ProjectileSpeed = 200.0
+BulletSpread = 4.0
+WeaponType = 2
+
 [node name="Death" parent="." instance=ExtResource("17_2qrto")]
 
-[node name="MuzzleFlash" type="Node3D" parent="."]
+[node name="MuzzleFlashPrimary" type="Node3D" parent="."]
 transform = Transform3D(0.115, 0, 0, 0, 0.115, 0, 0, 0, 0.115, -1.56372, 2.0439, -3.74627)
 
-[node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash"]
+[node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlashPrimary"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_0g5s4")
 emitting = false
@@ -299,7 +506,7 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_l8yb7")
 draw_pass_1 = ExtResource("9_qbaht")
 
-[node name="MuzzleCone" type="GPUParticles3D" parent="MuzzleFlash"]
+[node name="MuzzleCone" type="GPUParticles3D" parent="MuzzleFlashPrimary"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_w5rfh")
 emitting = false
@@ -310,7 +517,7 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_l8yb7")
 draw_pass_1 = ExtResource("11_62a0k")
 
-[node name="BeamFlash" type="GPUParticles3D" parent="MuzzleFlash"]
+[node name="BeamFlash" type="GPUParticles3D" parent="MuzzleFlashPrimary"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_f5mem")
 emitting = false
@@ -321,7 +528,7 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_qbaht")
 draw_pass_1 = SubResource("QuadMesh_5f8ud")
 
-[node name="Sparks" type="GPUParticles3D" parent="MuzzleFlash"]
+[node name="Sparks" type="GPUParticles3D" parent="MuzzleFlashPrimary"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_62a0k")
 emitting = false
@@ -333,7 +540,7 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_0231x")
 draw_pass_1 = SubResource("QuadMesh_x2ywe")
 
-[node name="Smoke" type="GPUParticles3D" parent="MuzzleFlash"]
+[node name="Smoke" type="GPUParticles3D" parent="MuzzleFlashPrimary"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_hofw4")
 cast_shadow = 0
@@ -344,3 +551,65 @@ explosiveness = 0.85
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_87a0m")
 draw_pass_1 = SubResource("SphereMesh_p8gj8")
+
+[node name="MuzzleFlashSecondary" type="Node3D" parent="."]
+transform = Transform3D(-19.2274, -19.2274, 1.68091e-06, -19.2274, 19.2274, 1.68091e-06, -1.05418e-06, -1.7053e-12, -12.0584, 0.0138766, 4.37099, -0.227879)
+
+[node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+material_override = SubResource("StandardMaterial3D_ct0ub")
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_oxulr")
+draw_pass_1 = ExtResource("9_qbaht")
+
+[node name="MuzzleCone" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+visible = false
+material_override = SubResource("StandardMaterial3D_0231x")
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_oxulr")
+draw_pass_1 = ExtResource("11_62a0k")
+
+[node name="BeamFlash" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+material_override = SubResource("StandardMaterial3D_x2ywe")
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_p8gj8")
+draw_pass_1 = SubResource("QuadMesh_4eisr")
+
+[node name="Sparks" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+visible = false
+material_override = SubResource("StandardMaterial3D_yi07i")
+emitting = false
+amount = 20
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.7
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_e6afd")
+draw_pass_1 = SubResource("QuadMesh_45ym0")
+
+[node name="Smoke" type="GPUParticles3D" parent="MuzzleFlashSecondary"]
+visible = false
+material_override = SubResource("ShaderMaterial_bc61a")
+cast_shadow = 0
+emitting = false
+amount = 12
+one_shot = true
+explosiveness = 0.85
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_eth2w")
+draw_pass_1 = SubResource("SphereMesh_pqgj0")
