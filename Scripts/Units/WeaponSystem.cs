@@ -9,6 +9,7 @@ public partial class WeaponSystem : Node
 	[Export] public float ProjectileSpeed { get; set; }
 	[Export] public float BulletSpread { get; set; }
 	[Export] public WeaponType WeaponType { get; set; }
+	[Export] public Vector3 ProjectileScale { get; set; }
 
 	public override void _Ready()
 	{
@@ -18,5 +19,6 @@ public partial class WeaponSystem : Node
 		if (ProjectileSpeed == 0) Utils.PrintErr("No ProjectileSpeed Assigned to unit");
 		if (BulletSpread == 0) Utils.PrintErr("No BulletSpread Assigned to unit");
 		if (WeaponType == WeaponType.None) Utils.PrintErr("No WeaponType Assigned to unit");
+		if (ProjectileScale == Vector3.Zero) Utils.PrintErr("No Scale Assigned to unit");
 	}
 }

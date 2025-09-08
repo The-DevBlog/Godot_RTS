@@ -171,14 +171,6 @@ button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="Units" type="Node3D" parent="."]
 
-[node name="BFT" parent="Units" instance=ExtResource("10_qoxdu")]
-transform = Transform3D(0.658335, 0, -0.752725, 0, 1, 0, 0.752725, 0, 0.658335, -11.6188, -3.8147e-06, 21.3686)
-Team = 1
-HP = 1000
-
-[node name="WeaponSystemSecondary" parent="Units/BFT/Systems" index="5"]
-Range = 20
-
 [node name="TankGen2" parent="Units" instance=ExtResource("11_lwnbm")]
 transform = Transform3D(0.830849, 0, 0.556499, 0, 1, 0, -0.556499, 0, 0.830849, 28.3037, 0, 16.7988)
 Team = 2
@@ -186,6 +178,9 @@ Team = 2
 [node name="TankGen3" parent="Units" instance=ExtResource("11_lwnbm")]
 transform = Transform3D(-0.225937, 0, 0.974142, 0, 1, 0, -0.974142, 0, -0.225937, 27.1078, 0, 26.4826)
 Team = 2
+
+[node name="BFT" parent="Units" instance=ExtResource("10_qoxdu")]
+Team = 1
 
 [node name="Shaders" type="Node3D" parent="."]
 
@@ -280,5 +275,3 @@ transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819
 
 [editable path="GameCamera"]
 [editable path="CommandUI"]
-[editable path="Units/BFT"]
-[editable path="Units/BFT/Model"]

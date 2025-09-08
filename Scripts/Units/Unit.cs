@@ -13,17 +13,10 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public bool DebugEnabled { get; set; }
 	[Export] public Node3D Death;
 	[Export] public float MiniMapRadius { get; set; }
-	[Export] public WeaponSystem PrimaryWeaponSystem { get; set; }
 	[Export] private float _rotationSpeed = 220f;
 
-	// [ExportCategory("Primary Weapon System")]
-	// [Export] public int Dmg { get; set; }
-	// [Export] public int Range { get; set; }
-	// [Export] public float FireRate { get; set; }
-	// [Export] public float ProjectileSpeed { get; set; }
-	// [Export] public float BulletSpread { get; set; }
-
-	// [ExportCategory("Secondary Weapon System")]
+	[ExportCategory("Weapons")]
+	[Export] public WeaponSystem PrimaryWeaponSystem { get; set; }
 
 	[ExportCategory("Unit Systems")]
 	[Export] public LODManager LODManager;

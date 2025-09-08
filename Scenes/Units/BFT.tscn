@@ -477,20 +477,22 @@ _unit = NodePath("../..")
 [node name="WeaponSystemPrimary" type="Node" parent="Systems"]
 script = ExtResource("11_4tim4")
 Dmg = 35
-Range = 30
+Range = 40
 FireRate = 0.75
 ProjectileSpeed = 150.0
 BulletSpread = 0.5
 WeaponType = 1
+ProjectileScale = Vector3(0.3, 0.3, 0.3)
 
 [node name="WeaponSystemSecondary" type="Node" parent="Systems"]
 script = ExtResource("11_4tim4")
 Dmg = 1
 Range = 30
 FireRate = 0.075
-ProjectileSpeed = 200.0
-BulletSpread = 6.0
+ProjectileSpeed = 25.0
+BulletSpread = 5.0
 WeaponType = 2
+ProjectileScale = Vector3(1, 1, 1)
 
 [node name="Death" parent="." instance=ExtResource("17_2qrto")]
 

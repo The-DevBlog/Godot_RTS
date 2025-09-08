@@ -213,6 +213,10 @@ public partial class CombatSystem : Node
 		GetTree().CurrentScene.AddChild(projectile);
 
 		Transform3D muzzle = muzzleNode.GlobalTransform;
+		var rotation = muzzle.Basis.Orthonormalized(); // remove scale & shead, keeps rotation
+		rotation = rotation.Scaled(_weaponSystem.ProjectileScale); // apply scale
+		muzzle.Basis = rotation;
+
 
 		Vector3 targetPos = _currentTarget.GlobalPosition;
 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
@@ -276,36 +280,6 @@ public partial class CombatSystem : Node
 		float newErr = WrapAngle(desiredLocalYaw - _turret.Rotation.Y);
 		return Mathf.Abs(newErr) <= Mathf.DegToRad(3f);
 	}
-
-	// private void FaceTarget(float dt)
-	// {
-	// 	// If we don't have a yaw node yet, treat as zeroed to avoid jitter
-	// 	if (_turret == null || !GodotObject.IsInstanceValid(_turret) || !_turret.IsInsideTree())
-	// 	{
-	// 		_isZeroed = true;
-	// 		return;
-	// 	}
-
-	// 	// No target: park turret forward
-	// 	if (!IsInstanceValid(_currentTarget))
-	// 	{
-	// 		_isZeroed = RotateTurretTowardsLocalYaw(0f, _turnSpeedDeg, dt);
-	// 		return;
-	// 	}
-
-	// 	// Compute desired local yaw (target yaw in world - hull yaw in world)
-	// 	Vector3 tPos = _turret.GlobalPosition;
-	// 	Vector3 toTarget = _currentTarget.GlobalPosition - tPos;
-	// 	toTarget.Y = 0f;
-
-	// 	if (toTarget.LengthSquared() < 1e-6f) { _isZeroed = true; return; }
-
-	// 	float targetYawWorld = Mathf.Atan2(-toTarget.X, -toTarget.Z);
-	// 	float hullYawWorld = _unit.GlobalRotation.Y;
-	// 	float desiredLocalYaw = WrapAngle(targetYawWorld - hullYawWorld);
-
-	// 	_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
-	// }
 
 	private void FaceTarget(float dt)
 	{
