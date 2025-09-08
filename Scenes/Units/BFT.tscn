@@ -483,16 +483,18 @@ ProjectileSpeed = 150.0
 BulletSpread = 0.5
 WeaponType = 1
 ProjectileScale = Vector3(0.3, 0.3, 0.3)
+TracerLength = 1.0
 
 [node name="WeaponSystemSecondary" type="Node" parent="Systems"]
 script = ExtResource("11_4tim4")
 Dmg = 1
 Range = 30
 FireRate = 0.075
-ProjectileSpeed = 200.0
+ProjectileSpeed = 20.0
 BulletSpread = 5.0
 WeaponType = 2
 ProjectileScale = Vector3(1, 1, 1)
+TracerLength = 20.0
 
 [node name="Death" parent="." instance=ExtResource("17_2qrto")]
 

@@ -163,7 +163,12 @@ public partial class CombatSystem : Node
 	private void SpawnTracerFrom(Node3D muzzleNode, Tracer tracer)
 	{
 		GetTree().CurrentScene.AddChild(tracer);
+		// Transform3D muzzle = muzzleNode.GlobalTransform;
+
 		Transform3D muzzle = muzzleNode.GlobalTransform;
+		// var rotation = muzzle.Basis.Orthonormalized(); // remove scale & shead, keeps rotation
+		// rotation = rotation.Scaled(_weaponSystem.ProjectileScale); // apply scale
+		// muzzle.Basis = rotation;
 
 		Vector3 targetPos = _currentTarget.GlobalPosition;
 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
@@ -203,7 +208,7 @@ public partial class CombatSystem : Node
 		tracer.GlobalPosition = from + dir * 0.25f;
 		tracer.TargetPos = endPos;
 		tracer.Speed = _weaponSystem.ProjectileSpeed;
-		tracer.TracerLength = 0.1f;
+		tracer.TracerLength = 0.1f; // TODO: Make this confiugurable per-weapon?
 		tracer.LookAt(endPos);
 	}
 

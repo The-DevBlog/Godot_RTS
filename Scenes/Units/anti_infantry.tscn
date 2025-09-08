@@ -345,6 +345,8 @@ FireRate = 0.1
 ProjectileSpeed = 200.0
 BulletSpread = 4.0
 WeaponType = 2
+ProjectileScale = Vector3(1, 1, 1)
+TracerLength = 0.1
 
 [node name="Death" parent="." instance=ExtResource("17_equr2")]
 
