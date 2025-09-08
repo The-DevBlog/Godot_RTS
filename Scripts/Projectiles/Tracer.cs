@@ -37,27 +37,6 @@ public partial class Tracer : Node3D
 			QueueFree();
 	}
 
-	// public void PlayImpactParticles(Vector3 pos, Vector3 normal)
-	// {
-	// 	// Detach so projectile despawn won’t kill the FX
-	// 	_impactParticles.GetParent().RemoveChild(_impactParticles);
-	// 	GetTree().CurrentScene.AddChild(_impactParticles);
-
-	// 	var up = Mathf.Abs(normal.Y) > 0.9f ? Vector3.Forward : Vector3.Up;
-	// 	var xf = Transform3D.Identity
-	// 		.Translated(pos + normal * 0.05f)
-	// 		.LookingAt(pos + normal * 1.05f, up);
-	// 	_impactParticles.GlobalTransform = xf;
-
-	// 	foreach (GpuParticles3D particles in _impactParticles.GetChildren())
-	// 		particles.Restart();
-
-	// 	// IMPORTANT: don’t bind through 'this' (projectile). Bind directly to the FX node.
-	// 	var fx = _impactParticles; // capture local
-	// 	var stt = GetTree().CreateTimer(3f);
-	// 	stt.Timeout += fx.QueueFree;  // engine calls fx.queue_free()
-	// }
-
 	public void PlayImpactParticles(Vector3 pos, Vector3 normal)
 	{
 		// Detach so projectile despawn won’t kill the FX
