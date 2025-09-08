@@ -145,6 +145,26 @@ mesh = SubResource("BoxMesh_or46v")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground"]
 shape = SubResource("BoxShape3D_ns7qj")
 
+[node name="NavigationRegion3D2" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+navigation_mesh = SubResource("NavigationMesh_q101i")
+script = ExtResource("7_w21b8")
+GroundMesh = NodePath("Ground/MeshInstance3D")
+GroundCollider = NodePath("Ground/CollisionShape3D")
+metadata/_edit_group_ = true
+
+[node name="Ground" type="StaticBody3D" parent="NavigationRegion3D2" groups=["mapbase"]]
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D2/Ground"]
+transform = Transform3D(1, -6.99458e-11, 9.31323e-10, -1.94404e-11, 1, 2.91038e-11, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_or46v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D2/Ground"]
+shape = SubResource("BoxShape3D_ns7qj")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.836736, 0.547607, 0, -0.547607, 0.836736, 0, 6.52424, 0)
 light_color = Color(0.88314, 0.923414, 0.999999, 1)
@@ -176,23 +196,24 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="Units" type="Node3D" parent="."]
 
 [node name="TankGen2" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.222553, 0, -0.974921, 0, 1, 0, 0.974921, 0, 0.222553, 60.6894, -9.53674e-07, -2.22297)
+transform = Transform3D(0.761776, 0, 0.647841, 0, 1, 0, -0.647841, 0, 0.761776, 66.6309, 0, 7.5683)
 Team = 1
-HP = 550
+HP = 350
 
 [node name="TankGen3" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.113724, 0, -0.993512, 0, 1, 0, 0.993512, 0, 0.113724, 60.3651, 9.53674e-07, 4.07277)
+transform = Transform3D(0.113724, 0, -0.993512, 0, 1, 0, 0.993512, 0, 0.113724, 64.0023, 0, 3.32919)
 Team = 1
-HP = 550
+HP = 350
 
 [node name="TankGen5" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.751115, 0, -0.660172, 0, 1, 0, 0.660172, 0, 0.751115, 65.0446, 9.53674e-07, 0.642748)
+transform = Transform3D(0.258566, 0, -0.965994, 0, 1, 0, 0.965994, 0, 0.258566, 63.6264, 9.53674e-07, 0.0932479)
 Team = 1
-HP = 550
+HP = 350
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
-transform = Transform3D(-0.89061, 0, 0.454768, 0, 1, 0, -0.454768, 0, -0.89061, 83.7761, 2.86102e-06, -53.8708)
+transform = Transform3D(-0.89061, 0, 0.454768, 0, 1, 0, -0.454768, 0, -0.89061, 83.7761, 2.86102e-06, -59.5177)
 Team = 3
+HP = 1000
 
 [node name="Shaders" type="Node3D" parent="."]
 
