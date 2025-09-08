@@ -155,7 +155,6 @@ shadow_blur = 3.0
 directional_shadow_max_distance = 70.0
 
 [node name="GameCamera" parent="." instance=ExtResource("8_4ehh5")]
-PanSpeed = 20.0
 RotateSpeed = 200.0
 
 [node name="RainParticles" parent="GameCamera" index="1"]
@@ -199,7 +198,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 83.160
 Team = 2
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.3014, -1.90735e-06, 44.4186)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18.9706, 5.72204e-06, 0.361767)
 Team = 3
 
 [node name="Shaders" type="Node3D" parent="."]
