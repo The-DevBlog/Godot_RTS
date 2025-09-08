@@ -405,7 +405,7 @@ metadata/_edit_group_ = true
 [node name="Model" parent="." instance=ExtResource("2_0g5s4")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 1.02692e-08, 0.506965, -0.00991298)
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 1.02692e-08, 0.893195, -0.00991298)
 shape = SubResource("CylinderShape3D_ebj34")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]

@@ -3,47 +3,43 @@ using Godot;
 public partial class GameCamera : Node3D
 {
 	[ExportCategory("Pan/Rotate/Zoom (Gameplay)")]
-	[Export] public float GameplayPanSpeed = 0.2f;           // ← gameplay-only
+	[Export] public float PanSpeed = 0.2f;                 // unchanged name = your saved value stays
 	[Export] public float PanSpeedBoost = 2.0f;
 	[Export] public float RotateSpeed = 1.2f;
 	[Export] public float ZoomSpeed = 2.0f;
 	[Export(PropertyHint.Range, "0.01,0.4")] public float Smoothness = 0.1f;
+
+	[ExportCategory("Shared Limits")]
 	[Export] public float MinZoom = 0.0f;
 	[Export] public float MaxZoom = 40.0f;
 	[Export] public float MouseSensitivity = 0.2f;
 	[Export] public float EdgeSize = 3.0f;
-	[Export] public Camera3D Camera { get; private set; }
 
 	[ExportCategory("Cinematic")]
-	[Export] public bool CinematicEnabled = true;
-	[Export(PropertyHint.Range, "0.01,0.8")] public float CinematicSmoothness = 0.18f;
-	[Export(PropertyHint.Range, "-80.0,-5.0,0.5")] public float CinematicPitchMin = -60f;
-	[Export(PropertyHint.Range, "-80.0,-5.0,0.5")] public float CinematicPitchMax = -10f;
-	[Export(PropertyHint.Range, "0.05,1.5,0.01")] public float CinematicMouseYawSensitivity = 0.25f;
-	[Export(PropertyHint.Range, "0.05,1.5,0.01")] public float CinematicMousePitchSensitivity = 0.25f;
+	[Export(PropertyHint.Range, "0.01,0.4")] public float CinematicSmoothness = 0.12f;
+	[Export] public float CinematicPanSpeed = 0.25f;
+	[Export] public float CinematicZoomSpeed = 6.0f;        // units/sec
+	[Export] public float CinematicRotateSensitivity = 0.22f; // MMB drag sensitivity
+	[Export] public float CinematicPanSpeedStep = 0.05f;    // wheel step while Shift held
+	[Export] public float CinematicPanSpeedMin = 0.01f;
+	[Export] public float CinematicPanSpeedMax = 10f;
+	[Export] public float CinematicPitchMinDeg = -80f;      // clamp pitch
+	[Export] public float CinematicPitchMaxDeg = -5f;
 
-	// Ctrl + Wheel changes ONLY this one (not gameplay)
-	[ExportCategory("Cinematic Pan Speed Tuning")]
-	[Export(PropertyHint.Range, "0.01,40.0,0.01")] public float CinematicPanSpeed = 0.25f;
-	[Export(PropertyHint.Range, "0.01,40.0,0.01")] public float CinematicPanSpeedMin = 0.05f;
-	[Export(PropertyHint.Range, "0.01,40.0,0.01")] public float CinematicPanSpeedMax = 8.0f;
-	[Export(PropertyHint.Range, "1.02,2.00,0.01")] public float PanSpeedWheelFactor = 1.15f; // >1.0
+	[Export] public Camera3D Camera { get; private set; }
 
 	private Vector2 _mapSize;
-	private Node3D _zoomPivot;
+	private Node3D _zoomPivot;           // pivot for pitch (child that contains Camera)
 	private Vector3 _moveTarget;
-	private float _rotateKeysTarget = 0.0f; // yaw target (deg)
-	private float _zoomTarget = 0.0f;       // Camera local Z
+	private float _yawTargetDeg;
+	private float _pitchTargetDeg;       // for cinematic pitch
+	private float _zoomTarget;
+
 	private GlobalResources _globalResources;
 
-	private bool _cinematic;
-	private Vector3 _savedMoveTarget;
-	private float _savedRotateTarget;
-	private float _savedZoomTarget;
-	private float _savedPitchDeg;
-	private float _savedGameplayPanSpeed;   // ← restore gameplay speed after cinematic
-
-	private float _pitchTargetDeg;
+	// Cinematic state
+	private bool _cinematic = false;
+	private float _savedGameplayZoom;
 
 	public override void _Ready()
 	{
@@ -54,53 +50,60 @@ public partial class GameCamera : Node3D
 		_mapSize = _globalResources.MapSize;
 
 		_moveTarget = Position;
-		_rotateKeysTarget = RotationDegrees.Y;
+		_yawTargetDeg = RotationDegrees.Y;
+		_pitchTargetDeg = _zoomPivot.RotationDegrees.X;   // keep whatever pitch you had
 		_zoomTarget = Camera.Position.Z;
-		_pitchTargetDeg = _zoomPivot.RotationDegrees.X;
+
+		// make sure pitch stays reasonable on first frame
+		_pitchTargetDeg = Mathf.Clamp(_pitchTargetDeg, CinematicPitchMinDeg, CinematicPitchMaxDeg);
 	}
 
-	public override void _Input(InputEvent e)
+	public override void _Input(InputEvent @event)
 	{
-		// Alt + C toggles cinematic
-		if (e is InputEventKey k && k.Pressed && !k.Echo && k.Keycode == Key.C && k.AltPressed && CinematicEnabled)
+		// Toggle cinematic mode
+		if (@event.IsActionPressed("cinematic_camera_toggle"))
 		{
 			ToggleCinematic();
+			GetViewport().SetInputAsHandled();
 			return;
 		}
 
-		// Cinematic: Ctrl + wheel changes *only* cinematic pan speed (WheelUp=faster, WheelDown=slower)
-		if (_cinematic && e is InputEventMouseButton mb && mb.Pressed &&
-			(mb.ButtonIndex == MouseButton.WheelUp || mb.ButtonIndex == MouseButton.WheelDown))
+		if (_cinematic)
 		{
-			bool ctrl = mb.CtrlPressed;
-			if (ctrl)
+			// Cinematic: middle mouse drag to rotate (yaw + pitch)
+			if (@event is InputEventMouseMotion motion && Input.IsMouseButtonPressed(MouseButton.Middle))
 			{
-				if (mb.ButtonIndex == MouseButton.WheelUp)
-					CinematicPanSpeed = Mathf.Clamp(CinematicPanSpeed * PanSpeedWheelFactor, CinematicPanSpeedMin, CinematicPanSpeedMax);
-				else // WheelDown
-					CinematicPanSpeed = Mathf.Clamp(CinematicPanSpeed / PanSpeedWheelFactor, CinematicPanSpeedMin, CinematicPanSpeedMax);
+				_yawTargetDeg -= motion.Relative.X * CinematicRotateSensitivity;
+				_pitchTargetDeg -= motion.Relative.Y * CinematicRotateSensitivity;
+				_pitchTargetDeg = Mathf.Clamp(_pitchTargetDeg, CinematicPitchMinDeg, CinematicPitchMaxDeg);
+				GetViewport().SetInputAsHandled();
 			}
-			else
-			{
-				_zoomTarget = Mathf.Clamp(_zoomTarget + (mb.ButtonIndex == MouseButton.WheelDown ? +ZoomSpeed : -ZoomSpeed), MinZoom, MaxZoom);
-			}
-			return;
-		}
 
-		// Cinematic: MMB drag to adjust yaw/pitch
-		if (_cinematic && e is InputEventMouseMotion mmm && Input.IsMouseButtonPressed(MouseButton.Middle))
+			// Cinematic: wheel ONLY adjusts pan speed when Shift is held; otherwise ignore wheel
+			if (@event is InputEventMouseButton mb &&
+				(mb.ButtonIndex == MouseButton.WheelUp || mb.ButtonIndex == MouseButton.WheelDown) &&
+				mb.Pressed)
+			{
+				if (Input.IsActionPressed("cinematic_camera_pan_speed_toggle"))
+				{
+					float dir = (mb.ButtonIndex == MouseButton.WheelUp) ? 1f : -1f;
+					CinematicPanSpeed = Mathf.Clamp(
+						CinematicPanSpeed + dir * CinematicPanSpeedStep,
+						CinematicPanSpeedMin, CinematicPanSpeedMax
+					);
+				}
+				// eat the wheel in cinematic so it never zooms here
+				GetViewport().SetInputAsHandled();
+			}
+		}
+		else
 		{
-			_rotateKeysTarget -= (float)(mmm.Relative.X * CinematicMouseYawSensitivity);
-			_pitchTargetDeg -= (float)(mmm.Relative.Y * CinematicMousePitchSensitivity);
-			_pitchTargetDeg = Mathf.Clamp(_pitchTargetDeg, CinematicPitchMin, CinematicPitchMax);
-			return;
+			// Gameplay rotate (your original "rotate" action)
+			if (@event is InputEventMouseMotion motion && Input.IsActionPressed("rotate"))
+				_yawTargetDeg -= (float)(motion.Relative.X * MouseSensitivity);
+
+			HideMouseIfRotating(@event); // keep your original UX
 		}
-
-		// Original rotate action (e.g., RMB drag)
-		if (e is InputEventMouseMotion motionEvent && Input.IsActionPressed("rotate"))
-			_rotateKeysTarget -= (float)(motionEvent.Relative.X * MouseSensitivity);
-
-		HideMouseIfRotating(e);
 	}
 
 	public override void _Process(double delta)
@@ -123,43 +126,23 @@ public partial class GameCamera : Node3D
 
 		if (_cinematic)
 		{
-			_savedMoveTarget = _moveTarget;
-			_savedRotateTarget = _rotateKeysTarget;
-			_savedZoomTarget = _zoomTarget;
-			_savedPitchDeg = _zoomPivot.RotationDegrees.X;
-			_savedGameplayPanSpeed = GameplayPanSpeed; // ← snapshot gameplay speed
-
-			_pitchTargetDeg = _zoomPivot.RotationDegrees.X;
-			Input.MouseMode = Input.MouseModeEnum.Hidden;
+			_savedGameplayZoom = _zoomTarget;
+			Input.MouseMode = Input.MouseModeEnum.Hidden; // hide cursor on entry
 		}
 		else
 		{
-			_moveTarget = _savedMoveTarget;
-			_rotateKeysTarget = _savedRotateTarget;
-			_zoomTarget = Mathf.Clamp(_savedZoomTarget, MinZoom, MaxZoom);
-
-			var pivotRot = _zoomPivot.RotationDegrees;
-			pivotRot.X = _savedPitchDeg;
-			_zoomPivot.RotationDegrees = pivotRot;
-
-			// Restore gameplay pan speed exactly
-			GameplayPanSpeed = _savedGameplayPanSpeed;
-
+			_zoomTarget = _savedGameplayZoom;            // snap back to gameplay height
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 		}
 	}
 
-	private void HideMouseIfRotating(InputEvent e)
+	private void HideMouseIfRotating(InputEvent @event)
 	{
 		if (Input.IsActionJustPressed("rotate"))
 			Input.MouseMode = Input.MouseModeEnum.Captured;
-		if (Input.IsActionJustReleased("rotate") && !_cinematic)
-			Input.MouseMode = Input.MouseModeEnum.Visible;
-	}
 
-	private float CurrentPanSpeed()
-	{
-		return _cinematic ? CinematicPanSpeed : GameplayPanSpeed;
+		if (Input.IsActionJustReleased("rotate"))
+			Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
 
 	private void MouseEdgeScroll(double delta)
@@ -167,40 +150,58 @@ public partial class GameCamera : Node3D
 		var viewport = GetViewport();
 		Vector2 mousePos = viewport.GetMousePosition();
 		Vector2 viewportSize = viewport.GetVisibleRect().Size;
+		Vector3 scrollDirection = Vector3.Zero;
 
+		// only when mouse is inside the window
 		if (mousePos.X < 0 || mousePos.X > viewportSize.X || mousePos.Y < 0 || mousePos.Y > viewportSize.Y)
 			return;
 
-		Vector3 dir = Vector3.Zero;
-		if (mousePos.X < EdgeSize) dir.X = -1;
-		else if (mousePos.X > viewportSize.X - EdgeSize) dir.X = 1;
-		if (mousePos.Y < EdgeSize) dir.Z = -1;
-		else if (mousePos.Y > viewportSize.Y - EdgeSize) dir.Z = 1;
+		if (mousePos.X < EdgeSize) scrollDirection.X = -1;
+		else if (mousePos.X > viewportSize.X - EdgeSize) scrollDirection.X = 1;
 
-		_moveTarget += Transform.Basis * dir * CurrentPanSpeed() * (float)delta;
+		if (mousePos.Y < EdgeSize) scrollDirection.Z = -1;
+		else if (mousePos.Y > viewportSize.Y - EdgeSize) scrollDirection.Z = 1;
+
+		float speed = CurrentPanSpeed();
+		_moveTarget += Transform.Basis * scrollDirection * speed * (float)delta;
 		ClampMoveTarget();
 	}
 
 	private void KeyboardScroll(double delta)
 	{
-		Vector2 inputDir = Input.GetVector("left", "right", "up", "down");
-		Vector3 moveDir = Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y);
+		// WASD pan
+		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
+		Vector3 movementDirection = Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
 
 		float rotateKeys = Input.GetAxis("rotate_left", "rotate_right");
+		var panSpeedBoost = Input.IsActionPressed("pan_speed_boost") ? PanSpeedBoost : 1.0f;
 
-		// In cinematic, block zoom when Ctrl held (keyboard path too)
-		bool ctrlHeld = _cinematic && Input.IsKeyPressed(Key.Ctrl);
-		int zoomDirection = ctrlHeld ? 0 :
-			(Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0) -
-			(Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
+		_moveTarget += movementDirection * CurrentPanSpeed() * panSpeedBoost * (float)delta;
 
-		float panBoost = Input.IsActionPressed("pan_speed_boost") ? PanSpeedBoost : 1.0f;
+		// Yaw with keys (both modes)
+		_yawTargetDeg += rotateKeys * RotateSpeed * (float)delta;
 
-		_moveTarget += moveDir * CurrentPanSpeed() * panBoost * (float)delta;
-		_rotateKeysTarget += rotateKeys * RotateSpeed * (float)delta;
+		// Zoom
+		if (_cinematic)
+		{
+			// Ctrl = zoom in, Space = zoom out (continuous while held)
+			bool inHeld = Input.IsActionPressed("cinematic_camera_zoom_in");
+			bool outHeld = Input.IsActionPressed("cinematic_camera_zoom_out");
+			int dir = (outHeld ? 1 : 0) - (inHeld ? 1 : 0);
+			if (dir != 0)
+			{
+				_zoomTarget = Mathf.Clamp(_zoomTarget + dir * CinematicZoomSpeed * (float)delta, MinZoom, MaxZoom);
+			}
+		}
+		else
+		{
+			// Your original “wheel released” zoom behavior
+			int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0)
+							  - (Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
 
-		if (!_globalResources.IsPlacingStructure)
-			_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
+			if (!_globalResources.IsPlacingStructure && zoomDirection != 0)
+				_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
+		}
 
 		ClampMoveTarget();
 	}
@@ -213,23 +214,25 @@ public partial class GameCamera : Node3D
 		Position = Position.Lerp(_moveTarget, s);
 
 		// Smooth yaw
-		Vector3 rot = RotationDegrees;
-		rot.Y = Mathf.Lerp(rot.Y, _rotateKeysTarget, s);
+		var rot = RotationDegrees;
+		rot.Y = Mathf.Lerp(rot.Y, _yawTargetDeg, s);
 		RotationDegrees = rot;
 
-		// Smooth zoom
-		Vector3 camPos = Camera.Position;
-		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, _cinematic ? CinematicSmoothness : 0.1f);
-		Camera.Position = camPos;
-
-		// Smooth pitch only in cinematic
-		if (_cinematic)
+		// Smooth pitch (cinematic uses its own target; gameplay just holds whatever pitch you have)
+		if (_cinematic && _zoomPivot != null)
 		{
-			var pivotRot = _zoomPivot.RotationDegrees;
-			pivotRot.X = Mathf.Lerp(pivotRot.X, _pitchTargetDeg, CinematicSmoothness);
-			_zoomPivot.RotationDegrees = pivotRot;
+			var p = _zoomPivot.RotationDegrees;
+			p.X = Mathf.Lerp(p.X, _pitchTargetDeg, s);
+			_zoomPivot.RotationDegrees = p;
 		}
+
+		// Smooth zoom
+		var camPos = Camera.Position;
+		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, s);
+		Camera.Position = camPos;
 	}
+
+	private float CurrentPanSpeed() => _cinematic ? CinematicPanSpeed : PanSpeed;
 
 	private void ClampMoveTarget()
 	{

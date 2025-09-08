@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bagu21m6v8he7"]
+[gd_scene load_steps=37 format=3 uid="uid://bagu21m6v8he7"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_d03iv"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="2_swxg5"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="8_4ehh5"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="9_xp8sf"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="10_urg4o"]
-[ext_resource type="PackedScene" uid="uid://bbsme72x5icrn" path="res://Scenes/Units/anti_infantry.tscn" id="11_3y0tc"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="12_4m7a2"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="12_se0gi"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="13_1v20a"]
@@ -87,9 +86,9 @@ size = Vector3(1000, 0.5, 1000)
 [node name="World" type="Node3D"]
 script = ExtResource("1_d03iv")
 MapSize = Vector2(1000, 1000)
-Season = 1
-TimeOfDay = 1
-Weather = 2
+Season = 2
+TimeOfDay = 3
+Weather = 3
 
 [node name="Players" type="Node" parent="."]
 
@@ -177,28 +176,22 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="Units" type="Node3D" parent="."]
 
 [node name="TankGen2" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(-1, 0, -2.62268e-07, 0, 1, 0, 2.62268e-07, 0, -1, -7.79866, 0, 0)
+transform = Transform3D(0.222553, 0, -0.974921, 0, 1, 0, 0.974921, 0, 0.222553, 60.6894, -9.53674e-07, -2.22297)
 Team = 1
+HP = 550
 
 [node name="TankGen3" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(-1, 0, -2.62268e-07, 0, 1, 0, 2.62268e-07, 0, -1, -4.18138, 0, 5.82011)
+transform = Transform3D(0.113724, 0, -0.993512, 0, 1, 0, 0.993512, 0, 0.113724, 60.3651, 9.53674e-07, 4.07277)
 Team = 1
-HP = 10000
-
-[node name="TankGen4" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(-0.139052, 0, 0.990285, 0, 1, 0, -0.990285, 0, -0.139052, 84.8625, 0, -0.0657997)
-Team = 1
+HP = 550
 
 [node name="TankGen5" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.420608, 0, 0.907242, 0, 1, 0, -0.907242, 0, 0.420608, 78.5593, 0, 0.0879905)
+transform = Transform3D(0.751115, 0, -0.660172, 0, 1, 0, 0.660172, 0, 0.751115, 65.0446, 9.53674e-07, 0.642748)
 Team = 1
-
-[node name="AntiInfantry" parent="Units" instance=ExtResource("11_3y0tc")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 83.1601, 7.6294e-06, -30.4172)
-Team = 2
+HP = 550
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18.9706, 5.72204e-06, 0.361767)
+transform = Transform3D(-0.89061, 0, 0.454768, 0, 1, 0, -0.454768, 0, -0.89061, 83.7761, 2.86102e-06, -53.8708)
 Team = 3
 
 [node name="Shaders" type="Node3D" parent="."]
@@ -404,8 +397,8 @@ traffic_dir = Array[int]([2, 1])
 lanes = Array[int]([5, 5])
 next_mag = 21.1338
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_002")
 
@@ -417,8 +410,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 16.4731
 next_mag = 32.7577
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_003")
 next_pt_init = NodePath("../RP_001")
@@ -431,8 +424,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 12.6153
 next_mag = 12.6153
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 next_pt_init = NodePath("../RP_002")
 
@@ -455,8 +448,8 @@ traffic_dir = Array[int]([2, 1])
 lanes = Array[int]([5, 5])
 next_mag = 12.7121
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_002")
 
@@ -468,8 +461,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 5.88559
 next_mag = 12.7121
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_003")
 next_pt_init = NodePath("../RP_001")
@@ -479,11 +472,11 @@ transform = Transform3D(-0.99804, 0.000197904, 0.0625781, 0, 0.999995, -0.003162
 script = ExtResource("26_x6ddr")
 traffic_dir = Array[int]([2, 1])
 lanes = Array[int]([5, 5])
-prior_mag = 6.73422
+prior_mag = -6.73422
 next_mag = 10.9699
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_004")
 next_pt_init = NodePath("../RP_002")
@@ -496,27 +489,27 @@ lanes = Array[int]([5, 5])
 prior_mag = 2.94579
 next_mag = 9.70707
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_005")
 next_pt_init = NodePath("../RP_003")
 
 [node name="RP_005" type="Node3D" parent="RoadManager/Road_003"]
-transform = Transform3D(-0.996008, -0.00142146, 0.0892516, 0, 0.999873, 0.0159244, -0.0892629, 0.0158609, -0.995882, -1.66196, 0.05, 70.9413)
+transform = Transform3D(-0.996008, -0.00142146, 0.0892516, 0, 0.999873, 0.0159244, -0.0892629, 0.0158609, -0.995882, -1.66196, 0.05, 73.0979)
 script = ExtResource("26_x6ddr")
 traffic_dir = Array[int]([2, 1])
 lanes = Array[int]([5, 5])
 prior_mag = 2.94579
 next_mag = 2.94579
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 next_pt_init = NodePath("../RP_004")
 
 [node name="4way_1x1" parent="RoadManager" instance=ExtResource("27_xyty3")]
-transform = Transform3D(0.34486, 6.23084e-05, -0.00981131, -6.23336e-05, 0.345, -1.72458e-11, 0.00981131, 1.77269e-06, 0.34486, -2.5785, 0.0471091, 26.9388)
+transform = Transform3D(0.34486, 6.23084e-05, -0.00981131, -6.23336e-05, 0.345, -1.72458e-11, 0.00981131, 1.77269e-06, 0.34486, -2.5785, 0.0471092, 26.9388)
 collision_layer = 0
 collision_mask = 0
 
@@ -538,8 +531,8 @@ traffic_dir = Array[int]([2, 1])
 lanes = Array[int]([5, 5])
 next_mag = 21.3743
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_002")
 
@@ -551,8 +544,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 9.32845
 next_mag = 21.3743
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_003")
 next_pt_init = NodePath("../RP_001")
@@ -565,8 +558,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 2.9
 next_mag = 9.32845
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_004")
 next_pt_init = NodePath("../RP_002")
@@ -579,8 +572,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 2.9
 next_mag = 2.9
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 next_pt_init = NodePath("../RP_003")
 
@@ -600,8 +593,8 @@ traffic_dir = Array[int]([2, 1])
 lanes = Array[int]([5, 5])
 next_mag = 4.62
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_002")
 
@@ -613,8 +606,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 0.708326
 next_mag = 4.62
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_003")
 next_pt_init = NodePath("../RP_001")
@@ -627,8 +620,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 7.34033
 next_mag = 6.75462
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 prior_pt_init = NodePath("../RP_004")
 next_pt_init = NodePath("../RP_002")
@@ -641,8 +634,8 @@ lanes = Array[int]([5, 5])
 prior_mag = 7.34033
 next_mag = 7.34033
 lane_width = 1.45
-shoulder_width_l = 0.5
-shoulder_width_r = 0.5
+shoulder_width_l = 0.7
+shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 next_pt_init = NodePath("../RP_003")
 
