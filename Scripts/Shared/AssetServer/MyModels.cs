@@ -51,7 +51,7 @@ public class MyModels
             { VehicleType.BFT, GD.Load<PackedScene>("res://Scenes/Units/BFT.tscn") }
         };
 
-        // TODO: NOt sure if I need this?
+        // Used in CombatSystem.TryAttack() to create the projectile
         Projectiles = new Dictionary<WeaponType, PackedScene>
         {
             { WeaponType.Cannon, GD.Load<PackedScene>("res://Scenes/Projectiles/tank_projectile.tscn") },

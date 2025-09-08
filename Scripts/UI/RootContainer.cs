@@ -369,7 +369,7 @@ public partial class RootContainer : Control
 			InfoPopupLabelName.Text = unit.Name;
 			InfoPopupLabelCost.Text = $"${unit.Cost}";
 			InfoPopupLabelHP.Text = $"{unit.CurrentHP}";
-			InfoPopupLabelDPS.Text = $"{unit.DPS}";
+			InfoPopupLabelDPS.Text = $"{unit.PrimaryWeaponSystem.Dmg}";
 			InfoPopupLabelSpeed.Text = $"{unit.Speed}";
 			InfoPopupLabelBuildTime.Text = $"{unit.BuildTime}s";
 		}

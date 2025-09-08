@@ -199,12 +199,8 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 83.160
 Team = 2
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -29.0955, -1.90735e-06, 84.7793)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.3014, -1.90735e-06, 44.4186)
 Team = 3
-
-[node name="BFT2" parent="Units" instance=ExtResource("12_se0gi")]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 1.59161, -1.90735e-06, 84.4669)
-Team = 4
 
 [node name="Shaders" type="Node3D" parent="."]
 

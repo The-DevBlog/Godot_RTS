@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="6_ckhy6"]
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
-[ext_resource type="PackedScene" uid="uid://bbsme72x5icrn" path="res://Scenes/Units/anti_infantry.tscn" id="11_20eh2"]
+[ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="10_qoxdu"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="11_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
@@ -172,20 +172,15 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="Units" type="Node3D" parent="."]
 
 [node name="TankGen2" parent="Units" instance=ExtResource("11_lwnbm")]
-transform = Transform3D(-1, 0, -2.62268e-07, 0, 1, 0, 2.62268e-07, 0, -1, -7.79866, 0, 0)
-Team = 1
+transform = Transform3D(0.830849, 0, 0.556499, 0, 1, 0, -0.556499, 0, 0.830849, 28.3037, 0, 16.7988)
+Team = 2
 
 [node name="TankGen3" parent="Units" instance=ExtResource("11_lwnbm")]
-transform = Transform3D(-1, 0, -2.62268e-07, 0, 1, 0, 2.62268e-07, 0, -1, -4.18138, 0, 5.82011)
-Team = 1
-
-[node name="TankGen4" parent="Units" instance=ExtResource("11_lwnbm")]
-transform = Transform3D(-1, 0, -2.62268e-07, 0, 1, 0, 2.62268e-07, 0, -1, 0.534457, 0, 9.11073)
-Team = 1
-
-[node name="AntiInfantry" parent="Units" instance=ExtResource("11_20eh2")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 31.7056, 1.90735e-06, 20.3481)
+transform = Transform3D(-0.225937, 0, 0.974142, 0, 1, 0, -0.974142, 0, -0.225937, 27.1078, 0, 26.4826)
 Team = 2
+
+[node name="BFT" parent="Units" instance=ExtResource("10_qoxdu")]
+Team = 1
 
 [node name="Shaders" type="Node3D" parent="."]
 

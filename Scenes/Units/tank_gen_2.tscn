@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bsqwqnw4t18r4"]
+[gd_scene load_steps=53 format=3 uid="uid://bsqwqnw4t18r4"]
 
 [ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
 [ext_resource type="PackedScene" uid="uid://dhpvj7prqmufa" path="res://Scenes/Units/LOD/TankGen2/tank_gen_2_hp.tscn" id="2_smbrw"]
@@ -17,6 +17,7 @@
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
 [ext_resource type="Script" uid="uid://jlslpr84ir1t" path="res://Scripts/Units/LODManager.cs" id="14_sd0dm"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="15_xrrag"]
+[ext_resource type="Script" uid="uid://h6bdsqjhlaxl" path="res://Scripts/Units/WeaponSystem.cs" id="17_fl6pk"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ebj34"]
 height = 1.0
@@ -40,6 +41,7 @@ streams_count = 1
 stream_0/stream = ExtResource("7_sd0dm")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smbrw"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -203,33 +205,27 @@ alpha_curve = SubResource("CurveTexture_hmto5")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "CombatSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
 VehicleType = 2
 Speed = 8
 HP = 225
-DPS = 20
-Range = 25
-FireRate = 1.5
 Cost = 750
 BuildTime = 8
 Acceleration = 8
-ProjectileSpeed = 150.0
 Death = NodePath("Death")
-BulletSpread = 0.5
-WeaponType = 1
 MiniMapRadius = 5.0
-CombatSystem = NodePath("Systems/CombatSystem")
+PrimaryWeaponSystem = NodePath("Systems/WeaponSystem")
 LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
+[node name="Model" parent="." instance=ExtResource("2_smbrw")]
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0.506965, 0.107553)
 shape = SubResource("CylinderShape3D_ebj34")
-
-[node name="Model" parent="." instance=ExtResource("2_smbrw")]
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
@@ -325,17 +321,34 @@ draw_pass_1 = SubResource("SphereMesh_uqx8m")
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_sd0dm")
-LodNear = 20.0
-LodHysteresis = 1.0
-HighId = 4
-LowId = 3
+_lodNear = 40.0
+_highId = 4
+_lowId = 3
+PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
+PrimaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/Muzzle")
 
-[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
+[node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("5_k7ata")
 _unit = NodePath("../..")
+_weaponSystem = NodePath("../WeaponSystem")
+_muzzleFlashParticles = NodePath("../../MuzzleFlash")
+_attackSound = NodePath("../../Audio/Attack")
 
 [node name="HealthSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit")]
 script = ExtResource("6_k2jx1")
 _unit = NodePath("../..")
 
+[node name="WeaponSystem" type="Node" parent="Systems"]
+script = ExtResource("17_fl6pk")
+Dmg = 20
+Range = 25
+FireRate = 1.5
+ProjectileSpeed = 150.0
+BulletSpread = 0.5
+WeaponType = 1
+ProjectileScale = Vector3(0.2, 0.2, 0.2)
+TracerLength = 1.0
+
 [node name="Death" parent="." instance=ExtResource("15_xrrag")]
+
+[editable path="Model"]
