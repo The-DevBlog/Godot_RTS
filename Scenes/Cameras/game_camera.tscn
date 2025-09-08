@@ -60,8 +60,12 @@ size = Vector2(0.25, 0.25)
 
 [node name="GameCamera" type="Node3D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_npc2i")
+GameplayPanSpeed = 35.0
 PanSpeedBoost = 3.0
+Smoothness = 0.02
 Camera = NodePath("CameraZoomPivot/Camera3D")
+CinematicSmoothness = 0.01
+CinematicPanSpeedMax = 20.0
 metadata/_edit_group_ = true
 
 [node name="CameraZoomPivot" type="Node3D" parent="."]
