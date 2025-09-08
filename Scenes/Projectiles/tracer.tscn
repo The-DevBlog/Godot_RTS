@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b2anfi6d10162" path="res://Scenes/VFX/vfx_impact_2.tscn" id="2_28q7i"]
 
 [sub_resource type="Gradient" id="Gradient_ho4y4"]
-offsets = PackedFloat32Array(0, 0.0105263, 0.713158, 0.836576, 1)
-colors = PackedColorArray(0.937, 0.075, 0.047, 0, 1, 0, 0, 1, 0.937255, 0.0745098, 0.0470588, 1, 0.935136, 0.312978, 0, 1, 0.933, 0.314, 0, 0)
+offsets = PackedFloat32Array(0, 0.0105263, 0.836576, 0.897368, 1)
+colors = PackedColorArray(0.937, 0.075, 0.047, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0.933, 0.314, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_28q7i"]
 gradient = SubResource("Gradient_ho4y4")
