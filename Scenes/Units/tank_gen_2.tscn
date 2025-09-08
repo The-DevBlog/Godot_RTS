@@ -347,7 +347,6 @@ ProjectileSpeed = 150.0
 BulletSpread = 0.5
 WeaponType = 1
 ProjectileScale = Vector3(0.2, 0.2, 0.2)
-TracerLength = 1.0
 
 [node name="Death" parent="." instance=ExtResource("15_xrrag")]
 
