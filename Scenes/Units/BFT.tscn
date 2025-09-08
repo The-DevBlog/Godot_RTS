@@ -49,6 +49,7 @@ streams_count = 1
 stream_0/stream = ExtResource("7_ct0ub")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g5s4"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -170,7 +171,7 @@ alpha_curve = SubResource("CurveTexture_mbwrp")
 size = Vector2(0.3, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hofw4"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("13_oxulr")
 shader_parameter/DistanceFade = 0.3
 
@@ -217,6 +218,7 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 [sub_resource type="SphereMesh" id="SphereMesh_p8gj8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ct0ub"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -444,7 +446,7 @@ volume_db = 8.5
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_0231x")
-_lodNear = 30.0
+_lodNear = 40.0
 _highId = 6
 _lowId = 5
 PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
@@ -485,9 +487,9 @@ WeaponType = 1
 script = ExtResource("11_4tim4")
 Dmg = 1
 Range = 30
-FireRate = 0.1
+FireRate = 0.075
 ProjectileSpeed = 200.0
-BulletSpread = 4.0
+BulletSpread = 6.0
 WeaponType = 2
 
 [node name="Death" parent="." instance=ExtResource("17_2qrto")]

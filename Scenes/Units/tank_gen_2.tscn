@@ -41,6 +41,7 @@ streams_count = 1
 stream_0/stream = ExtResource("7_sd0dm")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smbrw"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -320,6 +321,11 @@ draw_pass_1 = SubResource("SphereMesh_uqx8m")
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_sd0dm")
+_lodNear = 40.0
+_highId = 4
+_lowId = 3
+PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
+PrimaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/Muzzle")
 
 [node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("5_k7ata")

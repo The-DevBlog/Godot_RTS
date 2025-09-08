@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=32 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bn5cr8boic4wv" path="res://Scripts/Map/WorldEnvironment.cs" id="8_8fnbn"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="10_qoxdu"]
+[ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="11_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_20eh2"]
@@ -171,21 +172,20 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="Units" type="Node3D" parent="."]
 
 [node name="BFT" parent="Units" instance=ExtResource("10_qoxdu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1445, -3.8147e-06, 19.0979)
+transform = Transform3D(0.658335, 0, -0.752725, 0, 1, 0, 0.752725, 0, 0.658335, -11.6188, -3.8147e-06, 21.3686)
 Team = 1
+HP = 1000
 
 [node name="WeaponSystemSecondary" parent="Units/BFT/Systems" index="5"]
 Range = 20
 
-[node name="BFT2" parent="Units" instance=ExtResource("10_qoxdu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5143, -1.90735e-06, 19.9344)
+[node name="TankGen2" parent="Units" instance=ExtResource("11_lwnbm")]
+transform = Transform3D(0.830849, 0, 0.556499, 0, 1, 0, -0.556499, 0, 0.830849, 28.3037, 0, 16.7988)
 Team = 2
 
-[node name="WeaponSystemPrimary" parent="Units/BFT2/Systems" index="4"]
-Range = 1
-
-[node name="WeaponSystemSecondary" parent="Units/BFT2/Systems" index="5"]
-Range = 1
+[node name="TankGen3" parent="Units" instance=ExtResource("11_lwnbm")]
+transform = Transform3D(-0.225937, 0, 0.974142, 0, 1, 0, -0.974142, 0, -0.225937, 27.1078, 0, 26.4826)
+Team = 2
 
 [node name="Shaders" type="Node3D" parent="."]
 
@@ -282,5 +282,3 @@ transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819
 [editable path="CommandUI"]
 [editable path="Units/BFT"]
 [editable path="Units/BFT/Model"]
-[editable path="Units/BFT2"]
-[editable path="Units/BFT2/Model"]
