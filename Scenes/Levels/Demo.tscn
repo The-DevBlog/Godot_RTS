@@ -650,6 +650,5 @@ gutter_profile = Vector2(0.5, -0.2)
 next_pt_init = NodePath("../RP_003")
 
 [node name="GameCamera" parent="." instance=ExtResource("8_4ehh5")]
-RotateSpeed = 150.0
 
 [editable path="CommandUI"]

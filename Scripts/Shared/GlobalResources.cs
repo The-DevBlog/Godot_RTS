@@ -11,6 +11,7 @@ public partial class GlobalResources : Node3D
     [Export] public Weather Weather { get; set; }
     public GameCamera GameCamera { get; set; }
     public bool IsPlacingStructure { get; set; }
+    public bool IsCameraCinematic { get; set; }
     public bool IsHoveringUI { get; set; }
 
     public override void _EnterTree()

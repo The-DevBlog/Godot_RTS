@@ -147,6 +147,7 @@ public partial class GameCamera : Node3D
 	private void ToggleCinematic()
 	{
 		_cinematic = !_cinematic;
+		GlobalResources.Instance.IsCameraCinematic = _cinematic;
 
 		if (_cinematic)
 		{
