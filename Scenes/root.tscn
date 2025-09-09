@@ -149,7 +149,6 @@ shadow_blur = 3.0
 directional_shadow_max_distance = 70.0
 
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
-PanSpeed = 40.0
 RotateSpeed = 200.0
 
 [node name="RainParticles" parent="GameCamera" index="1"]

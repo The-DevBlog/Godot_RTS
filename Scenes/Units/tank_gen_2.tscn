@@ -340,8 +340,8 @@ _unit = NodePath("../..")
 
 [node name="WeaponSystem" type="Node" parent="Systems"]
 script = ExtResource("17_fl6pk")
-Dmg = 20
-Range = 25
+Dmg = 25
+Range = 20
 FireRate = 1.5
 ProjectileSpeed = 150.0
 BulletSpread = 0.5

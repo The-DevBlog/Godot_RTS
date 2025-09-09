@@ -62,7 +62,7 @@ public partial class MouseManager : Control
 
 	private void HandleMouseInput()
 	{
-		if (_resources.IsPlacingStructure)
+		if (_resources.IsPlacingStructure || _resources.IsCameraCinematic)
 			return;
 
 		if (Input.IsActionJustReleased("mb_secondary"))
