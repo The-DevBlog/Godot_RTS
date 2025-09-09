@@ -16,7 +16,7 @@ public partial class GameCamera : Node3D
 	[Export] public float EdgeSize = 3.0f;
 
 	[ExportCategory("Cinematic")]
-	[Export(PropertyHint.Range, "0.01,0.4")] public float CinematicSmoothness = 0.12f;
+	[Export(PropertyHint.Range, "0.001,0.4")] public float CinematicSmoothness = 0.12f;
 	[Export] public float CinematicPanSpeed = 0.25f;
 	[Export] public float CinematicZoomSpeed = 6.0f;            // units/sec while key held
 	[Export] public float CinematicRotateSensitivity = 0.22f;   // MMB drag sensitivity
@@ -26,7 +26,15 @@ public partial class GameCamera : Node3D
 	[Export] public float CinematicPitchMinDeg = -80f;
 	[Export] public float CinematicPitchMaxDeg = -5f;
 
+	[ExportCategory("UI")]
+	[Export]
+	public NodePath RootContainerPath = "../CommandUI";
+	[Export] public float UIFadeDuration = 0.25f;
+
 	[Export] public Camera3D Camera { get; private set; }
+
+	private Control _rootUI;
+	private Tween _uiTween;
 
 	private Vector2 _mapSize;
 	private Node3D _zoomPivot; // child that contains Camera (pitch pivot)
@@ -53,6 +61,12 @@ public partial class GameCamera : Node3D
 	public override void _Ready()
 	{
 		Utils.NullExportCheck(Camera);
+
+		_rootUI = GetNodeOrNull<Control>(RootContainerPath);
+		_rootUI ??= GetTree().Root.FindChild("RootContainer", recursive: true, owned: false) as Control;
+		if (_rootUI == null)
+			GD.PushWarning("GameCamera: RootContainer not found; UI won’t fade in cinematic.");
+
 
 		_globalResources = GlobalResources.Instance;
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
@@ -110,9 +124,11 @@ public partial class GameCamera : Node3D
 	{
 		if (_cinematic) ApplyCinematicPanSpeedStepWhileHeld(delta);
 
-		MouseEdgeScroll(delta);
+		// Edge scroll makes little sense in cinematic; disable it there
+		if (!_cinematic) MouseEdgeScroll(delta);
+
 		KeyboardScroll(delta);
-		UpdateCameraPosition();
+		UpdateCameraPosition((float)delta);
 	}
 
 	public void SetCameraTarget(Vector2 worldXZ)
@@ -137,16 +153,63 @@ public partial class GameCamera : Node3D
 			_lerpToGameplayPitch = false; // cancel any pending exit lerp
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 			_cinePanStepAccum = 0f;
+
+			FadeUI(show: false);   // << hide UI with fade
 		}
 		else
 		{
-			_zoomTarget = _savedGameplayZoom; // snap back to gameplay height
-
-			// start smooth pitch lerp back to saved gameplay pitch
+			_zoomTarget = _savedGameplayZoom;
 			_pitchLerpTargetDeg = _savedGameplayPitchDeg;
 			_lerpToGameplayPitch = true;
-
 			Input.MouseMode = Input.MouseModeEnum.Visible;
+
+			FadeUI(show: true);    // << show UI with fade
+		}
+	}
+
+	// Helper: convert a per-frame smoothing value into a dt-aware alpha.
+	// Keeps the same "feel" as if it ran at 60 FPS.
+	private static float SmoothAlpha(float perFrame, float dt)
+	{
+		perFrame = Mathf.Clamp(perFrame, 0f, 0.999f);
+		return 1f - Mathf.Pow(1f - perFrame, dt * 60f);
+	}
+
+
+	private void FadeUI(bool show)
+	{
+		if (_rootUI == null) return;
+
+		// Kill any in-flight tween to avoid fighting
+		_uiTween?.Kill();
+		_uiTween = CreateTween()
+			.SetTrans(Tween.TransitionType.Cubic)
+			.SetEase(Tween.EaseType.Out);
+
+		// Ensure visible before fading in
+		if (show)
+		{
+			// Enable clicks while visible
+			_rootUI.Visible = true;
+			_rootUI.MouseFilter = Control.MouseFilterEnum.Stop;
+
+			// tween modulate alpha to 1
+			Color to = _rootUI.Modulate; to.A = 1f;
+			_uiTween.TweenProperty(_rootUI, "modulate", to, UIFadeDuration);
+		}
+		else
+		{
+			// Pass clicks through while hidden
+			_rootUI.MouseFilter = Control.MouseFilterEnum.Ignore;
+
+			// tween modulate alpha to 0, then hide
+			Color to = _rootUI.Modulate; to.A = 0f;
+			_uiTween.TweenProperty(_rootUI, "modulate", to, UIFadeDuration);
+			_uiTween.Finished += () =>
+			{
+				// Fully hide after fade so it doesn’t block layouts or tab focus
+				_rootUI.Visible = false;
+			};
 		}
 	}
 
@@ -219,47 +282,42 @@ public partial class GameCamera : Node3D
 		ClampMoveTarget();
 	}
 
-	private void UpdateCameraPosition()
+	private void UpdateCameraPosition(float dt)
 	{
-		float s = _cinematic ? CinematicSmoothness : Smoothness;
+		float a = SmoothAlpha(_cinematic ? CinematicSmoothness : Smoothness, dt);
 
 		// Smooth movement
-		Position = Position.Lerp(_moveTarget, s);
+		Position = Position.Lerp(_moveTarget, a);
 
 		// Smooth yaw
 		var rot = RotationDegrees;
-		rot.Y = Mathf.Lerp(rot.Y, _yawTargetDeg, s);
+		rot.Y = Mathf.Lerp(rot.Y, _yawTargetDeg, a);
 		RotationDegrees = rot;
 
 		// Smooth pitch
 		if (_zoomPivot != null)
 		{
 			var p = _zoomPivot.RotationDegrees;
-
 			if (_cinematic)
 			{
-				// cinematic uses its own pitch target
-				p.X = Mathf.Lerp(p.X, _pitchTargetDeg, CinematicSmoothness);
+				float ac = SmoothAlpha(CinematicSmoothness, dt);
+				p.X = Mathf.Lerp(p.X, _pitchTargetDeg, ac);
 			}
 			else if (_lerpToGameplayPitch)
 			{
-				// lerp back to gameplay pitch after exiting cinematic
-				p.X = Mathf.Lerp(p.X, _pitchLerpTargetDeg, Smoothness);
-
-				// stop when close enough
+				p.X = Mathf.Lerp(p.X, _pitchLerpTargetDeg, a);
 				if (Mathf.Abs(p.X - _pitchLerpTargetDeg) < 0.05f)
 				{
 					p.X = _pitchLerpTargetDeg;
 					_lerpToGameplayPitch = false;
 				}
 			}
-
 			_zoomPivot.RotationDegrees = p;
 		}
 
 		// Smooth zoom
 		var camPos = Camera.Position;
-		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, s);
+		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, a);
 		Camera.Position = camPos;
 	}
 

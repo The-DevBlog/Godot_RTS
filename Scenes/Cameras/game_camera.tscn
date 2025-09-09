@@ -62,11 +62,12 @@ size = Vector2(0.25, 0.25)
 script = ExtResource("1_npc2i")
 PanSpeed = 35.0
 PanSpeedBoost = 3.0
-Smoothness = 0.02
-CinematicSmoothness = 0.01
-CinematicPanSpeed = 25.0
+Smoothness = 0.175
+CinematicSmoothness = 0.004
+CinematicPanSpeed = 300.0
 CinematicZoomSpeed = 12.0
-CinematicPanSpeedMax = 100.0
+CinematicPanSpeedStep = 10.0
+CinematicPanSpeedMax = 500.0
 Camera = NodePath("CameraZoomPivot/Camera3D")
 metadata/_edit_group_ = true
 
