@@ -3,7 +3,7 @@ using Godot;
 
 public partial class MiniMap : Control
 {
-    [Export] public GameCamera GameCamera { get; set; }
+    private GameCamera _gameCamera { get; set; }
     private Vector2 _mapSize;
     private Color _backgroundColor = new Color("#171717");
     private Color _friendlyUnitsColor;
@@ -33,8 +33,6 @@ public partial class MiniMap : Control
 
     public override void _Ready()
     {
-        Utils.NullExportCheck(GameCamera);
-
         PlayerManager playerManager = PlayerManager.Instance;
         if (playerManager.HumanPlayer != null)
             _player = playerManager.HumanPlayer;
@@ -44,11 +42,14 @@ public partial class MiniMap : Control
         Utils.NullCheck(_player);
 
         _globalResources = GlobalResources.Instance;
+        _gameCamera = _globalResources.GameCamera;
         _mapSize = _globalResources.MapSize;
         _worldMin = -_mapSize / 2;
         _worldMax = _mapSize / 2;
         _camera = GetViewport().GetCamera3D();
         _friendlyUnitsColor = _player.Color;
+
+        Utils.NullCheck(_gameCamera);
     }
 
     public override void _Process(double delta)
@@ -125,7 +126,7 @@ public partial class MiniMap : Control
         Vector2 worldXZ = _worldMin + percent * mapSize;
 
         // 4) tell your camera to move there
-        GameCamera.SetCameraTarget(worldXZ);
+        _gameCamera.SetCameraTarget(worldXZ);
     }
 
     private void DrawUnits(Vector2 scale)

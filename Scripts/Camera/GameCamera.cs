@@ -2,34 +2,34 @@ using Godot;
 
 public partial class GameCamera : Node3D
 {
-	[ExportCategory("Pan/Rotate/Zoom (Gameplay)")]
-	[Export] public float PanSpeed = 0.2f;
+	[ExportCategory("Gameplay Camera")]
+	[Export] public float PanSpeed = 35f;
 	[Export] public float PanSpeedBoost = 2.0f;
-	[Export] public float RotateSpeed = 1.2f;
+	[Export] public float RotateSpeed = 150.0f;
 	[Export] public float ZoomSpeed = 2.0f;
-	[Export(PropertyHint.Range, "0.01,0.4")] public float Smoothness = 0.1f;
-
-	[ExportCategory("Shared Limits (Gameplay)")]
+	[Export(PropertyHint.Range, "0.01,0.4")] public float Smoothness = 0.175f;
 	[Export] public float MinZoom = 0.0f;
 	[Export] public float MaxZoom = 40.0f;
-	[Export] public float MouseSensitivity = 0.2f;
 	[Export] public float EdgeSize = 3.0f;
 
-	[ExportCategory("Cinematic")]
-	[Export(PropertyHint.Range, "0.001,0.6")] public float CinematicSmoothness = 0.12f;       // affects PAN + YAW + ZOOM in cinematic
-	[Export(PropertyHint.Range, "0.001,0.6")] public float CinematicPitchSmoothness = 0.25f; // pitch-only smoothing in cinematic
-	[Export] public float CinematicPanSpeed = 0.25f;
-	[Export] public float CinematicZoomSpeed = 6.0f;            // units/sec while key held
-	[Export] public float CinematicRotateSensitivity = 0.22f;   // MMB drag sensitivity (yaw & pitch)
-	[Export] public float CinematicPanSpeedStep = 2.0f;         // step per tick while LMB/RMB held
-	[Export] public float CinematicPanSpeedMin = 0.01f;
-	[Export] public float CinematicPanSpeedMax = 10f;
+	[ExportCategory("Shared Limits (Gameplay)")]
+	[Export] public float MouseSensitivity = 0.2f;
+
+	[ExportCategory("Cinematic Camera")]
+	[Export(PropertyHint.Range, "0.001,0.6")] public float CinematicSmoothness = 0.089f;       // affects PAN + YAW + ZOOM in cinematic
+	[Export(PropertyHint.Range, "0.001,0.6")] public float CinematicPitchSmoothness = 0.08f; // pitch-only smoothing in cinematic
+	[Export] public float CinematicPanSpeed = 35f;
+	[Export] public float CinematicZoomSpeed = 50f;            // units/sec while key held
+	[Export] public float CinematicRotateSensitivity = 0.2f;   // MMB drag sensitivity (yaw & pitch)
+	[Export] public float CinematicPanSpeedStep = 1.0f;         // step per tick while LMB/RMB held
+	[Export] public float CinematicPanSpeedMin = 0.005f;
+	[Export] public float CinematicPanSpeedMax = 200f;
 	[Export] public float CinematicPitchMinDeg = -80f;
 	[Export] public float CinematicPitchMaxDeg = -5f;
 
 	// Cinematic-only zoom bounds
 	[Export] public float CinematicMinZoom = 0.0f;
-	[Export] public float CinematicMaxZoom = 40.0f;
+	[Export] public float CinematicMaxZoom = 100.0f;
 
 	[ExportCategory("UI")]
 	[Export] public NodePath RootContainerPath = "../CommandUI";

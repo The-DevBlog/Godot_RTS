@@ -62,6 +62,7 @@ size = Vector2(0.25, 0.25)
 script = ExtResource("1_npc2i")
 PanSpeed = 35.0
 PanSpeedBoost = 3.0
+RotateSpeed = 150.0
 Smoothness = 0.175
 CinematicSmoothness = 0.089
 CinematicPitchSmoothness = 0.08
