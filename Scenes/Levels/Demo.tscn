@@ -212,8 +212,8 @@ HP = 350
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
 transform = Transform3D(-0.89061, 0, 0.454768, 0, 1, 0, -0.454768, 0, -0.89061, 83.7761, 2.86102e-06, -59.5177)
-Team = 3
 HP = 1000
+Team = 3
 
 [node name="Shaders" type="Node3D" parent="."]
 

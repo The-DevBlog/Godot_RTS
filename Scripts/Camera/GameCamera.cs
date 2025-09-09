@@ -135,7 +135,7 @@ public partial class GameCamera : Node3D
 			_pitchTargetDeg = Mathf.Clamp(_savedGameplayPitchDeg, CinematicPitchMinDeg, CinematicPitchMaxDeg);
 
 			_lerpToGameplayPitch = false; // cancel any pending exit lerp
-			Input.MouseMode = Input.MouseModeEnum.Hidden;
+			Input.MouseMode = Input.MouseModeEnum.Captured;
 			_cinePanStepAccum = 0f;
 		}
 		else
