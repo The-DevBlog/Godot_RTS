@@ -9,26 +9,30 @@ public partial class GameCamera : Node3D
 	[Export] public float ZoomSpeed = 2.0f;
 	[Export(PropertyHint.Range, "0.01,0.4")] public float Smoothness = 0.1f;
 
-	[ExportCategory("Shared Limits")]
+	[ExportCategory("Shared Limits (Gameplay)")]
 	[Export] public float MinZoom = 0.0f;
 	[Export] public float MaxZoom = 40.0f;
 	[Export] public float MouseSensitivity = 0.2f;
 	[Export] public float EdgeSize = 3.0f;
 
 	[ExportCategory("Cinematic")]
-	[Export(PropertyHint.Range, "0.001,0.4")] public float CinematicSmoothness = 0.12f;
+	[Export(PropertyHint.Range, "0.001,0.6")] public float CinematicSmoothness = 0.12f;       // affects PAN + YAW + ZOOM in cinematic
+	[Export(PropertyHint.Range, "0.001,0.6")] public float CinematicPitchSmoothness = 0.25f; // pitch-only smoothing in cinematic
 	[Export] public float CinematicPanSpeed = 0.25f;
 	[Export] public float CinematicZoomSpeed = 6.0f;            // units/sec while key held
-	[Export] public float CinematicRotateSensitivity = 0.22f;   // MMB drag sensitivity
-	[Export] public float CinematicPanSpeedStep = 2.0f;         // step size per “tick” while LMB/RMB held
+	[Export] public float CinematicRotateSensitivity = 0.22f;   // MMB drag sensitivity (yaw & pitch)
+	[Export] public float CinematicPanSpeedStep = 2.0f;         // step per tick while LMB/RMB held
 	[Export] public float CinematicPanSpeedMin = 0.01f;
 	[Export] public float CinematicPanSpeedMax = 10f;
 	[Export] public float CinematicPitchMinDeg = -80f;
 	[Export] public float CinematicPitchMaxDeg = -5f;
 
+	// Cinematic-only zoom bounds
+	[Export] public float CinematicMinZoom = 0.0f;
+	[Export] public float CinematicMaxZoom = 40.0f;
+
 	[ExportCategory("UI")]
-	[Export]
-	public NodePath RootContainerPath = "../CommandUI";
+	[Export] public NodePath RootContainerPath = "../CommandUI";
 	[Export] public float UIFadeDuration = 0.25f;
 
 	[Export] public Camera3D Camera { get; private set; }
@@ -67,7 +71,6 @@ public partial class GameCamera : Node3D
 		if (_rootUI == null)
 			GD.PushWarning("GameCamera: RootContainer not found; UI won’t fade in cinematic.");
 
-
 		_globalResources = GlobalResources.Instance;
 		_zoomPivot = GetNode<Node3D>("CameraZoomPivot");
 		_mapSize = _globalResources.MapSize;
@@ -79,6 +82,9 @@ public partial class GameCamera : Node3D
 
 		// keep pitch sane initially (for cinematic clamps)
 		_pitchTargetDeg = Mathf.Clamp(_pitchTargetDeg, CinematicPitchMinDeg, CinematicPitchMaxDeg);
+
+		// ensure zoom starts inside current mode bounds
+		_zoomTarget = Mathf.Clamp(_zoomTarget, CurrentMinZoom(), CurrentMaxZoom());
 	}
 
 	public override void _Input(InputEvent @event)
@@ -93,7 +99,7 @@ public partial class GameCamera : Node3D
 
 		if (_cinematic)
 		{
-			// MMB drag to rotate yaw/pitch
+			// MMB drag to rotate yaw/pitch (single sensitivity)
 			if (@event is InputEventMouseMotion motion && Input.IsMouseButtonPressed(MouseButton.Middle))
 			{
 				_yawTargetDeg -= motion.Relative.X * CinematicRotateSensitivity;
@@ -154,62 +160,55 @@ public partial class GameCamera : Node3D
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 			_cinePanStepAccum = 0f;
 
-			FadeUI(show: false);   // << hide UI with fade
+			// clamp current zoom to cinematic range
+			_zoomTarget = Mathf.Clamp(_zoomTarget, CinematicMinZoom, CinematicMaxZoom);
+
+			FadeUI(show: false);
 		}
 		else
 		{
-			_zoomTarget = _savedGameplayZoom;
+			// restore gameplay zoom, clamped to gameplay range
+			_zoomTarget = Mathf.Clamp(_savedGameplayZoom, MinZoom, MaxZoom);
+
 			_pitchLerpTargetDeg = _savedGameplayPitchDeg;
 			_lerpToGameplayPitch = true;
 			Input.MouseMode = Input.MouseModeEnum.Visible;
 
-			FadeUI(show: true);    // << show UI with fade
+			FadeUI(show: true);
 		}
 	}
 
-	// Helper: convert a per-frame smoothing value into a dt-aware alpha.
-	// Keeps the same "feel" as if it ran at 60 FPS.
+	// dt-aware alpha for stable smoothing feel across FPS
 	private static float SmoothAlpha(float perFrame, float dt)
 	{
 		perFrame = Mathf.Clamp(perFrame, 0f, 0.999f);
 		return 1f - Mathf.Pow(1f - perFrame, dt * 60f);
 	}
 
-
 	private void FadeUI(bool show)
 	{
 		if (_rootUI == null) return;
 
-		// Kill any in-flight tween to avoid fighting
 		_uiTween?.Kill();
 		_uiTween = CreateTween()
 			.SetTrans(Tween.TransitionType.Cubic)
 			.SetEase(Tween.EaseType.Out);
 
-		// Ensure visible before fading in
 		if (show)
 		{
-			// Enable clicks while visible
 			_rootUI.Visible = true;
 			_rootUI.MouseFilter = Control.MouseFilterEnum.Stop;
 
-			// tween modulate alpha to 1
 			Color to = _rootUI.Modulate; to.A = 1f;
 			_uiTween.TweenProperty(_rootUI, "modulate", to, UIFadeDuration);
 		}
 		else
 		{
-			// Pass clicks through while hidden
 			_rootUI.MouseFilter = Control.MouseFilterEnum.Ignore;
 
-			// tween modulate alpha to 0, then hide
 			Color to = _rootUI.Modulate; to.A = 0f;
 			_uiTween.TweenProperty(_rootUI, "modulate", to, UIFadeDuration);
-			_uiTween.Finished += () =>
-			{
-				// Fully hide after fade so it doesn’t block layouts or tab focus
-				_rootUI.Visible = false;
-			};
+			_uiTween.Finished += () => { _rootUI.Visible = false; };
 		}
 	}
 
@@ -250,7 +249,7 @@ public partial class GameCamera : Node3D
 		Vector2 inputDirection = Input.GetVector("left", "right", "up", "down");
 		Vector3 movementDirection = Transform.Basis * new Vector3(inputDirection.X, 0, inputDirection.Y);
 
-		// Shift boost ONLY in gameplay mode
+		// Shift boost ONLY in gameplay mode (kept as-is)
 		float panSpeedBoost = (!_cinematic && Input.IsActionPressed("pan_speed_boost")) ? PanSpeedBoost : 1.0f;
 
 		_moveTarget += movementDirection * CurrentPanSpeed() * panSpeedBoost * (float)delta;
@@ -267,16 +266,16 @@ public partial class GameCamera : Node3D
 			bool outHeld = Input.IsActionPressed("cinematic_camera_zoom_out");
 			int dir = (outHeld ? 1 : 0) - (inHeld ? 1 : 0);
 			if (dir != 0)
-				_zoomTarget = Mathf.Clamp(_zoomTarget + dir * CinematicZoomSpeed * (float)delta, MinZoom, MaxZoom);
+				_zoomTarget = Mathf.Clamp(_zoomTarget + dir * CinematicZoomSpeed * (float)delta, CurrentMinZoom(), CurrentMaxZoom());
 		}
 		else
 		{
-			// Original wheel-released zoom
+			// Wheel-released zoom
 			int zoomDirection = (Input.IsActionJustReleased("camera_zoom_out") ? 1 : 0)
 							  - (Input.IsActionJustReleased("camera_zoom_in") ? 1 : 0);
 
 			if (!_globalResources.IsPlacingStructure && zoomDirection != 0)
-				_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, MinZoom, MaxZoom);
+				_zoomTarget = Mathf.Clamp(_zoomTarget + zoomDirection * ZoomSpeed, CurrentMinZoom(), CurrentMaxZoom());
 		}
 
 		ClampMoveTarget();
@@ -284,14 +283,15 @@ public partial class GameCamera : Node3D
 
 	private void UpdateCameraPosition(float dt)
 	{
-		float a = SmoothAlpha(_cinematic ? CinematicSmoothness : Smoothness, dt);
+		// PAN + YAW smoothing uses gameplay Smoothness in gameplay, CinematicSmoothness in cinematic
+		float aPos = SmoothAlpha(_cinematic ? CinematicSmoothness : Smoothness, dt);
 
 		// Smooth movement
-		Position = Position.Lerp(_moveTarget, a);
+		Position = Position.Lerp(_moveTarget, aPos);
 
 		// Smooth yaw
 		var rot = RotationDegrees;
-		rot.Y = Mathf.Lerp(rot.Y, _yawTargetDeg, a);
+		rot.Y = Mathf.Lerp(rot.Y, _yawTargetDeg, aPos);
 		RotationDegrees = rot;
 
 		// Smooth pitch
@@ -300,12 +300,12 @@ public partial class GameCamera : Node3D
 			var p = _zoomPivot.RotationDegrees;
 			if (_cinematic)
 			{
-				float ac = SmoothAlpha(CinematicSmoothness, dt);
-				p.X = Mathf.Lerp(p.X, _pitchTargetDeg, ac);
+				float aPitch = SmoothAlpha(CinematicPitchSmoothness, dt); // independent pitch feel
+				p.X = Mathf.Lerp(p.X, _pitchTargetDeg, aPitch);
 			}
 			else if (_lerpToGameplayPitch)
 			{
-				p.X = Mathf.Lerp(p.X, _pitchLerpTargetDeg, a);
+				p.X = Mathf.Lerp(p.X, _pitchLerpTargetDeg, aPos);
 				if (Mathf.Abs(p.X - _pitchLerpTargetDeg) < 0.05f)
 				{
 					p.X = _pitchLerpTargetDeg;
@@ -315,13 +315,18 @@ public partial class GameCamera : Node3D
 			_zoomPivot.RotationDegrees = p;
 		}
 
-		// Smooth zoom
+		// Smooth zoom (cinematic keeps its own feel)
 		var camPos = Camera.Position;
-		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, a);
+		float aZoom = _cinematic ? SmoothAlpha(CinematicSmoothness, dt) : aPos;
+		camPos.Z = Mathf.Lerp(camPos.Z, _zoomTarget, aZoom);
 		Camera.Position = camPos;
 	}
 
 	private float CurrentPanSpeed() => _cinematic ? CinematicPanSpeed : PanSpeed;
+
+	// Current zoom bounds based on mode
+	private float CurrentMinZoom() => _cinematic ? CinematicMinZoom : MinZoom;
+	private float CurrentMaxZoom() => _cinematic ? CinematicMaxZoom : MaxZoom;
 
 	private void ClampMoveTarget()
 	{
@@ -329,7 +334,7 @@ public partial class GameCamera : Node3D
 		_moveTarget.Z = Mathf.Clamp(_moveTarget.Z, -_mapSize.Y / 2, _mapSize.Y / 2);
 	}
 
-	// --- Cinematic pan-speed step with LMB/RMB hold ---
+	// --- Cinematic pan-speed step with LMB/RMB hold (mutates CinematicPanSpeed by design) ---
 	private void ApplyCinematicPanSpeedStepWhileHeld(double delta)
 	{
 		bool speedUp = Input.IsMouseButtonPressed(MouseButton.Right);

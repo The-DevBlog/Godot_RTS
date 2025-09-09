@@ -117,12 +117,10 @@ script = ExtResource("3_pwg1e")
 script = ExtResource("4_ienap")
 _navRegion = NodePath("../../NavigationRegion3D")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh")]
 environment = SubResource("Environment_ckhy6")
 script = ExtResource("5_e3lie")
 _groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
-_rainParticles = NodePath("../GameCamera/RainParticles")
-_snowParticles = NodePath("../GameCamera/SnowParticles")
 _snowMaterialPartial = ExtResource("6_jr2p6")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
@@ -173,20 +171,7 @@ shadow_enabled = true
 shadow_blur = 3.0
 directional_shadow_max_distance = 70.0
 
-[node name="GameCamera" parent="." instance=ExtResource("8_4ehh5")]
-RotateSpeed = 200.0
-CinematicSmoothness = 0.12
-CinematicPanSpeed = 0.25
-CinematicZoomSpeed = 6.0
-CinematicPanSpeedMax = 10.0
-
-[node name="RainParticles" parent="GameCamera" index="1"]
-visible = false
-
 [node name="CommandUI" parent="." instance=ExtResource("9_xp8sf")]
-
-[node name="Control" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/MiniMapContainer/NinePatchRect/MarginContainer" index="1" node_paths=PackedStringArray("GameCamera")]
-GameCamera = NodePath("../../../../../../../../GameCamera")
 
 [node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/StructureCountContainer/ConstructionCountContainer/BtnContainer" index="0"]
 button_group = SubResource("ButtonGroup_a6f85")
@@ -664,5 +649,6 @@ shoulder_width_r = 0.7
 gutter_profile = Vector2(0.5, -0.2)
 next_pt_init = NodePath("../RP_003")
 
-[editable path="GameCamera"]
+[node name="GameCamera" parent="." instance=ExtResource("8_4ehh5")]
+
 [editable path="CommandUI"]
