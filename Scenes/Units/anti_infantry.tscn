@@ -208,7 +208,7 @@ alpha_curve = SubResource("CurveTexture_fm6nx")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="AntiInfantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="AntiInfantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_7fw24")
 VehicleType = 4
@@ -220,7 +220,6 @@ Acceleration = 8
 Death = NodePath("Death")
 MiniMapRadius = 5.0
 PrimaryWeaponSystem = NodePath("Systems/WeaponSystem")
-LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 

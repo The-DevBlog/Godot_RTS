@@ -386,7 +386,7 @@ alpha_curve = SubResource("CurveTexture_u0ol3")
 
 [sub_resource type="SphereMesh" id="SphereMesh_pqgj0"]
 
-[node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("SecondaryWeaponSystem", "Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("SecondaryWeaponSystem", "Death", "PrimaryWeaponSystem", "_healthSystem") groups=["damageable", "units"]]
 script = ExtResource("1_dun38")
 SecondaryWeaponSystem = NodePath("Systems/WeaponSystemSecondary")
 VehicleType = 5
@@ -398,8 +398,14 @@ Acceleration = 4
 Death = NodePath("Death")
 MiniMapRadius = 7.0
 PrimaryWeaponSystem = NodePath("Systems/WeaponSystemPrimary")
-LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
+_highId = 6
+_lowId = 5
+PrimaryTurretPath = NodePath("Model/Rig/Turret")
+PrimaryMuzzleContainerPath = NodePath("Model/Rig/Turret/Muzzle")
+SecondaryTurretPath = NodePath("Model/Rig/Turret/TurretMachineGun")
+SecondaryMuzzleContainerPath = NodePath("Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
+AnimationPlayerPath = NodePath("Model/AnimationPlayer")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("2_0g5s4")]
@@ -446,14 +452,6 @@ volume_db = 8.5
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_0231x")
-_lodNear = 40.0
-_highId = 6
-_lowId = 5
-PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
-PrimaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/Muzzle")
-SecondaryTurretPath = NodePath("../../Model/Rig/Turret/TurretMachineGun")
-SecondaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
-AnimationPlayerPath = NodePath("../../Model/AnimationPlayer")
 
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")

@@ -209,7 +209,7 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_p8gj8"]
 
-[node name="Infantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
+[node name="Infantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "_healthSystem") groups=["damageable", "units"]]
 script = ExtResource("1_2fp7d")
 InfantryType = 1
 Speed = 4
@@ -220,7 +220,6 @@ Acceleration = 4
 Death = NodePath("Death")
 MiniMapRadius = 3.0
 PrimaryWeaponSystem = NodePath("Systems/WeaponSystemPrimary")
-LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
@@ -261,13 +260,6 @@ volume_db = 8.5
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("9_sfiqi")
-_lodNear = 40.0
-_highId = 1
-PrimaryTurretPath = NodePath("")
-PrimaryMuzzleContainerPath = NodePath("")
-SecondaryTurretPath = NodePath("")
-SecondaryMuzzleContainerPath = NodePath("")
-AnimationPlayerPath = NodePath("")
 
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("10_gl3ar")
