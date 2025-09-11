@@ -117,10 +117,12 @@ script = ExtResource("3_pwg1e")
 script = ExtResource("4_ienap")
 _navRegion = NodePath("../../NavigationRegion3D")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
 script = ExtResource("5_e3lie")
 _groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
+_rainParticles = NodePath("../GameCamera/RainParticles")
+_snowParticles = NodePath("../GameCamera/SnowParticles")
 _snowMaterialPartial = ExtResource("6_jr2p6")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
@@ -652,3 +654,4 @@ next_pt_init = NodePath("../RP_003")
 [node name="GameCamera" parent="." instance=ExtResource("8_4ehh5")]
 
 [editable path="CommandUI"]
+[editable path="GameCamera"]

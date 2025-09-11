@@ -60,19 +60,7 @@ size = Vector2(0.25, 0.25)
 
 [node name="GameCamera" type="Node3D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_npc2i")
-PanSpeed = 35.0
 PanSpeedBoost = 3.0
-RotateSpeed = 150.0
-Smoothness = 0.175
-CinematicSmoothness = 0.089
-CinematicPitchSmoothness = 0.08
-CinematicPanSpeed = 35.0
-CinematicZoomSpeed = 50.0
-CinematicRotateSensitivity = 0.2
-CinematicPanSpeedStep = 1.0
-CinematicPanSpeedMin = 0.005
-CinematicPanSpeedMax = 200.0
-CinematicMaxZoom = 100.0
 Camera = NodePath("CameraZoomPivot/Camera3D")
 metadata/_edit_group_ = true
 
@@ -91,6 +79,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_kr66b")
 
 [node name="RainParticles" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.86221, 13.306)
+visible = false
 amount = 2500
 lifetime = 0.5
 randomness = 0.5
