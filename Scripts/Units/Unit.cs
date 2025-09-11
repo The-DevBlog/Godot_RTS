@@ -95,6 +95,11 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_navigationAgent.TargetPosition = worldPos;
 	}
 
+	private protected virtual void PlayAnimation()
+	{
+		GD.Print("Running from Unit.cs");
+	}
+
 	private void MoveUnit(double delta)
 	{
 		if (NavigationServer3D.MapGetIterationId(_navigationAgent.GetNavigationMap()) == 0) return;
@@ -138,6 +143,8 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		}
 		else
 		{
+			PlayAnimation();
+
 			// Move forward
 			Vector3 vel = desiredDir * Speed;
 			if (_navigationAgent.AvoidanceEnabled) _navigationAgent.Velocity = vel;

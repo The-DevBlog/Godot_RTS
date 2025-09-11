@@ -107,6 +107,8 @@ namespace MyEnums
         TankGen2LP,
         TankGen2HP,
         BftLP,
-        BftHP
+        BftHP,
+        InfantryLP,
+        InfantryHP
     }
 }

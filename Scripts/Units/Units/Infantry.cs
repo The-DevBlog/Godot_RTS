@@ -11,4 +11,9 @@ public partial class Infantry : Unit
 
 		if (InfantryType == InfantryType.None) Utils.PrintErr("InfantryType is not set for infantry");
 	}
+
+	private protected override void PlayAnimation()
+	{
+		GD.Print("Running from Infantry.cs");
+	}
 }
