@@ -53,9 +53,9 @@ public partial class CombatSystem : Node
 
 		// Subscribe to LOD sockets (primary vs secondary)
 		if (_slot == WeaponSlot.Primary)
-			_unit.SocketsChangedPrimary += OnSocketsChangedList;
+			_unit.LODManager.SocketsChangedPrimary += OnSocketsChangedList;
 		else
-			_unit.SocketsChangedSecondary += OnSocketsChangedList;
+			_unit.LODManager.SocketsChangedSecondary += OnSocketsChangedList;
 
 		// Wait until first sockets signal before doing anything
 		_socketsDirty = true;
@@ -63,10 +63,11 @@ public partial class CombatSystem : Node
 
 	public override void _ExitTree()
 	{
+		if (_unit?.LODManager == null) return;
 		if (_slot == WeaponSlot.Primary)
-			_unit.SocketsChangedPrimary -= OnSocketsChangedList;
+			_unit.LODManager.SocketsChangedPrimary -= OnSocketsChangedList;
 		else
-			_unit.SocketsChangedSecondary -= OnSocketsChangedList;
+			_unit.LODManager.SocketsChangedSecondary -= OnSocketsChangedList;
 	}
 
 	public override void _PhysicsProcess(double delta)

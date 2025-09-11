@@ -15,7 +15,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dxut7hkb8p4cl" path="res://Assets/VFX/MuzzleCone.obj" id="11_pw7cq"]
 [ext_resource type="Texture2D" uid="uid://xncrdbwk0mde" path="res://Assets/Textures/MuzzleFlash/MuzzleFlashBeam.png" id="12_xrrag"]
 [ext_resource type="Shader" uid="uid://0llt3gcj2lyb" path="res://Shaders/impact_smoke.tres" id="14_pw7cq"]
-[ext_resource type="Script" uid="uid://jlslpr84ir1t" path="res://Scripts/Units/LODManager.cs" id="14_sd0dm"]
+[ext_resource type="Script" uid="uid://wanphedcs3sa" path="res://Scripts/Units/LODManager.cs" id="14_sd0dm"]
 [ext_resource type="PackedScene" uid="uid://ell248v16ses" path="res://Scenes/VFX/explosion.tscn" id="15_xrrag"]
 [ext_resource type="Script" uid="uid://h6bdsqjhlaxl" path="res://Scripts/Units/WeaponSystem.cs" id="17_fl6pk"]
 
@@ -205,7 +205,7 @@ alpha_curve = SubResource("CurveTexture_hmto5")
 
 [sub_resource type="SphereMesh" id="SphereMesh_uqx8m"]
 
-[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "_healthSystem") groups=["damageable", "units"]]
+[node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_eb2nj")
 VehicleType = 2
@@ -217,11 +217,8 @@ Acceleration = 8
 Death = NodePath("Death")
 MiniMapRadius = 5.0
 PrimaryWeaponSystem = NodePath("Systems/WeaponSystem")
+LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
-_highId = 4
-_lowId = 3
-PrimaryTurretPath = NodePath("Model/Rig/Turret")
-PrimaryMuzzleContainerPath = NodePath("Model/Rig/Turret/Muzzle")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("2_smbrw")]
@@ -324,6 +321,10 @@ draw_pass_1 = SubResource("SphereMesh_uqx8m")
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_sd0dm")
+_highId = 4
+_lowId = 3
+PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
+PrimaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/Muzzle")
 
 [node name="CombatSystem" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("5_k7ata")
