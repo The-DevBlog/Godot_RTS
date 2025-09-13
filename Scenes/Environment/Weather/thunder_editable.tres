@@ -16,7 +16,7 @@ shader_parameter/MarkColor = Color(0.5, 1, 3, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n22vt"]
 render_priority = 0
 shader = ExtResource("3_udjvf")
-shader_parameter/WaveColor = Color(0.5, 1, 4, 1)
+shader_parameter/WaveColor = Color(1, 1, 1, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_v00ab"]
 _surfaces = [{

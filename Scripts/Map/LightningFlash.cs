@@ -29,7 +29,7 @@ public partial class LightningFlash : CanvasLayer
 	{
 		Vector2 mapSize = GlobalResources.Instance.MapSize;
 		Vector3 emissionBox = new Vector3(mapSize.X / 2, 1, mapSize.Y / 2);
-		_lightningParticles.ProcessMaterial.Set("emission_box_extents", emissionBox);
+		// _lightningParticles.ProcessMaterial.Set("emission_box_extents", emissionBox);
 
 		// Find the overlay and make it full-screen
 		_overlay = GetNodeOrNull<ColorRect>("ColorRect");
@@ -37,6 +37,16 @@ public partial class LightningFlash : CanvasLayer
 
 		_lightningParticles = GetNodeOrNull<GpuParticles3D>("Thunder/GPUParticles3D");
 		Utils.NullCheck(_lightningParticles);
+
+		if (_lightningParticles.ProcessMaterial is not ParticleProcessMaterial mat)
+		{
+			mat = new ParticleProcessMaterial();
+			_lightningParticles.ProcessMaterial = mat;
+		}
+
+		GD.Print("emission box extents: " + emissionBox);
+		mat.EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box;
+		mat.EmissionBoxExtents = emissionBox;
 
 		Layer = 200; // draw on top of other UI
 		_overlay.SetAnchorsPreset(Control.LayoutPreset.FullRect);
