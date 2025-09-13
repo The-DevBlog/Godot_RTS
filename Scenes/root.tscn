@@ -121,7 +121,7 @@ _snowParticles = NodePath("../GameCamera/SnowParticles")
 _snowMaterialPartial = ExtResource("3_a6f85")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0719109, -0.25, -0.0582352)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 script = ExtResource("3_dun2r")
 GroundMesh = NodePath("Ground/MeshInstance3D")
@@ -150,9 +150,6 @@ directional_shadow_max_distance = 70.0
 
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
 RotateSpeed = 200.0
-
-[node name="RainParticles" parent="GameCamera" index="1"]
-visible = false
 
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
