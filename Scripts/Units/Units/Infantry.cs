@@ -4,6 +4,7 @@ using MyEnums;
 public partial class Infantry : Unit
 {
 	[Export] public InfantryType InfantryType { get; set; }
+	private bool _movingFlag = false;
 
 	public override void _Ready()
 	{
@@ -12,8 +13,15 @@ public partial class Infantry : Unit
 		if (InfantryType == InfantryType.None) Utils.PrintErr("InfantryType is not set for infantry");
 	}
 
-	private protected override void PlayAnimation()
+	private protected override void MoveAnimation()
 	{
-		GD.Print("Running from Infantry.cs");
+		GD.Print("Playing Run Animation from Infantry.cs");
+		AnimationPlayer.Play("Move");
+	}
+
+	private protected override void IdleAnimation()
+	{
+		GD.Print("Playing Idle Animation from Infantry.cs");
+		AnimationPlayer.Play("Idle");
 	}
 }

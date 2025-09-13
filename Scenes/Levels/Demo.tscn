@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bj0n10511apkg" path="res://Scripts/Map/NavigationRegion.cs" id="7_w21b8"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="8_4ehh5"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="9_xp8sf"]
-[ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="10_urg4o"]
+[ext_resource type="PackedScene" uid="uid://dli7arg3vprq4" path="res://Scenes/Units/infantry.tscn" id="11_se0gi"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="12_4m7a2"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="12_se0gi"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="13_1v20a"]
@@ -87,8 +87,8 @@ size = Vector3(1000, 0.5, 1000)
 script = ExtResource("1_d03iv")
 MapSize = Vector2(1000, 1000)
 Season = 2
-TimeOfDay = 2
-Weather = 1
+TimeOfDay = 1
+Weather = 3
 
 [node name="Players" type="Node" parent="."]
 
@@ -186,25 +186,12 @@ button_group = SubResource("ButtonGroup_fu36u")
 
 [node name="Units" type="Node3D" parent="."]
 
-[node name="TankGen2" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.761776, 0, 0.647841, 0, 1, 0, -0.647841, 0, 0.761776, 66.6309, 0, 7.5683)
-Team = 1
-HP = 350
-
-[node name="TankGen3" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.113724, 0, -0.993512, 0, 1, 0, 0.993512, 0, 0.113724, 64.0023, 0, 3.32919)
-Team = 1
-HP = 350
-
-[node name="TankGen5" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.258566, 0, -0.965994, 0, 1, 0, 0.965994, 0, 0.258566, 63.6264, 9.53674e-07, 0.0932479)
-Team = 1
-HP = 350
-
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
 transform = Transform3D(-0.89061, 0, 0.454768, 0, 1, 0, -0.454768, 0, -0.89061, 83.7761, 2.86102e-06, -59.5177)
 Team = 3
 HP = 1000
+
+[node name="Infantry" parent="Units" instance=ExtResource("11_se0gi")]
 
 [node name="Shaders" type="Node3D" parent="."]
 

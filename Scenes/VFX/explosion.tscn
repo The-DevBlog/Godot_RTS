@@ -1,7 +1,7 @@
 [gd_scene load_steps=29 format=3 uid="uid://ell248v16ses"]
 
 [ext_resource type="Material" uid="uid://bqjgvkyflgg8k" path="res://Assets/Materials/material_explosive_cloud.tres" id="1_b6uhe"]
-[ext_resource type="Shader" uid="uid://cib30c0gl6tu7" path="res://Shaders/streaks_shader.tres" id="2_dwx3y"]
+[ext_resource type="Shader" uid="uid://bng3gnfawi3ok" path="res://Shaders/streaks_shader.tres" id="2_dwx3y"]
 [ext_resource type="Texture2D" uid="uid://4o8f52hvj7fc" path="res://Assets/Textures/Explosion/T_vfx_hit122.jpg" id="3_dh65u"]
 
 [sub_resource type="Curve" id="Curve_dwx3y"]
@@ -110,21 +110,6 @@ scale_curve = SubResource("CurveTexture_f1586")
 
 [sub_resource type="QuadMesh" id="QuadMesh_cdosp"]
 
-[sub_resource type="Animation" id="Animation_xqaa7"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("OmniLight3D:light_energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="Animation" id="Animation_vpose"]
 resource_name = "Death"
 tracks/0/type = "value"
@@ -174,6 +159,21 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_xqaa7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OmniLight3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jem3a"]

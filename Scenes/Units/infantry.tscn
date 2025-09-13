@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bo8auev662hot" path="res://Assets/Audio/TankFireExtraBass.wav" id="5_7kmu1"]
 [ext_resource type="AudioStream" uid="uid://co77t3mud6al4" path="res://Assets/Audio/ImpactWithMetal.wav" id="7_3d2wm"]
 [ext_resource type="AudioStream" uid="uid://c16bgi1py2kfw" path="res://Assets/Audio/ExplosionWithMetal.wav" id="8_t7228"]
+[ext_resource type="Script" uid="uid://wanphedcs3sa" path="res://Scripts/Units/LODManager.cs" id="9_sfiqi"]
 [ext_resource type="Script" uid="uid://dlbb13mgp6kq1" path="res://Scripts/Units/CombatSystem.cs" id="10_gl3ar"]
 [ext_resource type="Script" uid="uid://bhmxuey5m0ru8" path="res://Scripts/Units/HealthSystem.cs" id="11_jnobf"]
 [ext_resource type="Script" uid="uid://h6bdsqjhlaxl" path="res://Scripts/Units/WeaponSystem.cs" id="12_7qmmn"]
@@ -38,222 +39,6 @@ stream_0/stream = ExtResource("7_3d2wm")
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_sd0dm"]
 streams_count = 1
 stream_0/stream = ExtResource("8_t7228")
-
-[sub_resource type="CSharpScript" id="CSharpScript_sshfv"]
-script/source = "using System;
-using System.Collections.Generic;
-using System.Diagnostics; // [Conditional(\"DEBUG\")]
-using Godot;
-using MyEnums;
-
-public partial class LODManager : Node
-{
-	[ExportCategory(\"LOD\")]
-	[Export] private float _lodNear = 23f;
-	[Export] private float _lodHysteresis = 3f;
-	[Export] private float _updateHz = 8f;
-	[Export] private LODScenes _highId = LODScenes.AntiInfantryHP;
-	[Export] private LODScenes _lowId = LODScenes.AntiInfantryLP;
-
-	[ExportCategory(\"Sockets (RELATIVE TO THIS NODE)\")]
-	[Export] public NodePath PrimaryTurretPath;
-	[Export] public NodePath PrimaryMuzzleContainerPath;
-	[Export] public NodePath SecondaryTurretPath;
-	[Export] public NodePath SecondaryMuzzleContainerPath;
-	[Export] public NodePath AnimationPlayerPath;
-
-	[ExportCategory(\"Metric\")]
-	[Export] public bool UseTrue3DDistance = true;
-
-	[ExportCategory(\"Debug\")]
-	[Export] public bool DebugLOD = false;
-	[Export] public bool DebugSockets = false;
-
-	private Unit _unit;
-	private Camera3D _cam;
-	private Node3D _model;
-	private double _accum;
-	private bool _initialized;
-
-	private enum LodTier { High, Low }
-	private LodTier _lodState = LodTier.Low;
-
-	// Exposed sockets
-	public Node3D PrimaryTurretYaw { get; private set; }
-	public List<Node3D> PrimaryMuzzles { get; private set; } = new();
-	public Node3D SecondaryTurretYaw { get; private set; }
-	public List<Node3D> SecondaryMuzzles { get; private set; } = new();
-	public AnimationPlayer AnimationPlayer { get; private set; }
-
-	// Events (muzzles are arrays)
-	public event Action<Node3D, IReadOnlyList<Node3D>, AnimationPlayer> SocketsChangedPrimary;
-	public event Action<Node3D, IReadOnlyList<Node3D>, AnimationPlayer> SocketsChangedSecondary;
-
-	public event Action<Node3D> ModelChanged;
-
-	private bool _swapScheduled;
-
-	private static bool Alive(Node n) => n != null && GodotObject.IsInstanceValid(n) && n.IsInsideTree();
-	[Conditional(\"DEBUG\")] private void DBG(string msg) { if (DebugLOD || DebugSockets) GD.Print($\"[LODManager] {msg}\"); }
-
-	public override void _Ready()
-	{
-		Utils.NullExportCheck(PrimaryTurretPath);
-		Utils.NullExportCheck(PrimaryMuzzleContainerPath);
-		Utils.NullExportCheck(AnimationPlayerPath);
-
-		_cam = GetViewport().GetCamera3D();
-		_unit = GetNodeOrNull<Unit>(\"../../\");
-		_model = _unit?.GetNodeOrNull<Node3D>(\"Model\");
-		if (_unit == null) { GD.PushError(\"[LODManager] Unit not found via '../../'.\"); return; }
-
-		EvaluateAndMaybeSwap(initial: true);
-	}
-
-	public override void _PhysicsProcess(double delta)
-	{
-		_accum += delta;
-		if (_accum < 1.0 / MathF.Max(1f, _updateHz)) return;
-		_accum = 0;
-		EvaluateAndMaybeSwap();
-	}
-
-	private void EvaluateAndMaybeSwap(bool initial = false)
-	{
-		_cam ??= GetViewport().GetCamera3D();
-		if (_cam == null || _unit == null) return;
-
-		float distSq;
-		if (UseTrue3DDistance)
-			distSq = (_cam.GlobalPosition - _unit.GlobalPosition).LengthSquared();
-		else
-		{
-			Vector3 d = _cam.GlobalPosition - _unit.GlobalPosition; d.Y = 0f;
-			distSq = d.LengthSquared();
-		}
-
-		float inDist = MathF.Max(0f, _lodNear - _lodHysteresis);
-		float outDist = _lodNear + _lodHysteresis;
-		float nearSq = _lodNear * _lodNear;
-		float inSq = inDist * inDist;
-		float outSq = outDist * outDist;
-
-		var desired = _lodState;
-		if (!_initialized) desired = (distSq <= nearSq) ? LodTier.High : LodTier.Low;
-		else if (_lodState == LodTier.High && distSq > outSq) desired = LodTier.Low;
-		else if (_lodState == LodTier.Low && distSq < inSq) desired = LodTier.High;
-
-		if (DebugLOD) GD.Print($\"[LODManager] dist={(float)Math.Sqrt(distSq):0.00} near={_lodNear} in={inDist} out={outDist} cur={_lodState} want={desired}\");
-
-		if (!_initialized) { _initialized = true; SwapModelDeferred(desired); return; }
-		if (desired != _lodState) SwapModelDeferred(desired);
-	}
-
-	private void SwapModelDeferred(LodTier tier)
-	{
-		if (_swapScheduled) return;
-		_swapScheduled = true;
-		CallDeferred(nameof(DoSwapModel), (int)tier);
-	}
-
-	private void DoSwapModel(int tierInt)
-	{
-		_swapScheduled = false;
-
-		// snapshot turret yaws safely
-		float yawPrimary = Alive(PrimaryTurretYaw) ? PrimaryTurretYaw.Rotation.Y : 0f;
-		float yawSecondary = Alive(SecondaryTurretYaw) ? SecondaryTurretYaw.Rotation.Y : 0f;
-
-		var tier = (LodTier)tierInt;
-		var sceneId = (tier == LodTier.High) ? _highId : _lowId;
-		var ps = AssetServer.Instance.Models.LODs[sceneId];
-		if (ps == null) { GD.PushError($\"[LODManager] PackedScene for {sceneId} is null.\"); return; }
-
-		var old = _model;
-		var oldXf = old?.Transform ?? Transform3D.Identity;
-
-		if (old != null && old.Name == \"Model\") old.Name = \"Model__OLD\";
-
-		var next = ps.Instantiate<Node3D>();
-		next.Name = \"Model\";
-		next.Transform = oldXf;
-
-		_unit.AddChild(next);
-		_model = next;
-		_lodState = tier;
-
-		BindSockets();
-		ModelChanged?.Invoke(_model);
-
-		if (Alive(PrimaryTurretYaw)) { var r = PrimaryTurretYaw.Rotation; r.Y = yawPrimary; PrimaryTurretYaw.Rotation = r; }
-		if (Alive(SecondaryTurretYaw)) { var r = SecondaryTurretYaw.Rotation; r.Y = yawSecondary; SecondaryTurretYaw.Rotation = r; }
-
-		old?.QueueFree();
-		if (DebugLOD) GD.Print($\"[LODManager] swapped to {tier} (scene {sceneId}).\");
-	}
-
-	private void BindSockets()
-	{
-		PrimaryTurretYaw = GetNodeOrNull<Node3D>(PrimaryTurretPath);
-		PrimaryMuzzles = CollectMuzzlesFrom(GetNodeOrNull<Node3D>(PrimaryMuzzleContainerPath));
-
-		SecondaryTurretYaw = (SecondaryTurretPath != null && !SecondaryTurretPath.IsEmpty)
-			? GetNodeOrNull<Node3D>(SecondaryTurretPath) : null;
-
-		SecondaryMuzzles = (SecondaryMuzzleContainerPath != null && !SecondaryMuzzleContainerPath.IsEmpty)
-			? CollectMuzzlesFrom(GetNodeOrNull<Node3D>(SecondaryMuzzleContainerPath))
-			: new List<Node3D>();
-
-		AnimationPlayer = GetNodeOrNull<AnimationPlayer>(AnimationPlayerPath);
-
-		if (DebugSockets)
-		{
-			GD.Print($\"[LODManager] PrimaryYaw={PrimaryTurretYaw?.GetPath()}  PrimaryMuzzles={PrimaryMuzzles.Count}\");
-			GD.Print($\"[LODManager] SecondaryYaw={SecondaryTurretYaw?.GetPath()}  SecondaryMuzzles={SecondaryMuzzles.Count}\");
-		}
-
-		// Defer emits so every listener sees the final, stable lists
-		CallDeferred(nameof(EmitPrimary));
-		CallDeferred(nameof(EmitSecondary));
-	}
-
-	private void EmitPrimary()
-	{
-		// pass a clone so listeners can’t be affected by future swaps
-		SocketsChangedPrimary?.Invoke(PrimaryTurretYaw, new List<Node3D>(PrimaryMuzzles), AnimationPlayer);
-	}
-
-	private void EmitSecondary()
-	{
-		if (SecondaryTurretPath == null && SecondaryMuzzleContainerPath == null) return;
-		SocketsChangedSecondary?.Invoke(SecondaryTurretYaw, new List<Node3D>(SecondaryMuzzles), null);
-	}
-
-	private static List<Node3D> CollectMuzzlesFrom(Node3D container)
-	{
-		var list = new List<Node3D>();
-		if (container == null) return list;
-
-		bool addedChild = false;
-		foreach (var child in container.GetChildren())
-		{
-			if (child is Node3D n3 && n3.Name.ToString().StartsWith(\"Muzzle\"))
-			{
-				list.Add(n3);
-				addedChild = true;
-			}
-		}
-		if (!addedChild && container.Name.ToString().StartsWith(\"Muzzle\"))
-			list.Add(container);
-
-		list.RemoveAll(n => n == null || !GodotObject.IsInstanceValid(n) || !n.IsInsideTree());
-		return list;
-	}
-
-	public void ForceSwapToHigh() => SwapModelDeferred(LodTier.High);
-	public void ForceSwapToLow() => SwapModelDeferred(LodTier.Low);
-}
-"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g5s4"]
 render_priority = 1
@@ -424,7 +209,7 @@ alpha_curve = SubResource("CurveTexture_pw7cq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_p8gj8"]
 
-[node name="Infantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "_healthSystem") groups=["damageable", "units"]]
+[node name="Infantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 script = ExtResource("1_2fp7d")
 InfantryType = 1
 Speed = 4
@@ -435,8 +220,30 @@ Acceleration = 4
 Death = NodePath("Death")
 MiniMapRadius = 3.0
 PrimaryWeaponSystem = NodePath("Systems/WeaponSystemPrimary")
+LODManager = NodePath("Systems/LODManager")
 _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
+
+[node name="Model" parent="." instance=ExtResource("18_8tceu")]
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, -0.0521452, 0)
+
+[node name="Skeleton3D" parent="Model/Human_002" index="0"]
+bones/0/position = Vector3(0, 1.53513, -0.0551999)
+bones/1/rotation = Quaternion(0.0451527, 0, 0, 0.99898)
+bones/8/rotation = Quaternion(0.583938, 0.487507, 0.473157, -0.444384)
+bones/9/rotation = Quaternion(-0.133366, 0.542937, -0.594622, 0.577804)
+bones/10/rotation = Quaternion(0.631669, -0.104914, 0.0298505, 0.767526)
+bones/13/rotation = Quaternion(0.700622, -0.337264, -0.387806, -0.494963)
+bones/14/rotation = Quaternion(-0.409146, -0.881994, 0.0645227, 0.224773)
+bones/15/rotation = Quaternion(0.518153, 0.156843, 0.0620637, 0.83849)
+bones/22/rotation = Quaternion(0.996715, 0.0601775, 0.00283227, -0.0541376)
+bones/23/rotation = Quaternion(0.4731, 0.0389492, 0.0372028, 0.879361)
+bones/24/rotation = Quaternion(-0.601416, -0.0122269, 0.0139517, 0.798721)
+bones/25/rotation = Quaternion(0.704771, 0.704772, 0.0574256, -0.0574198)
+bones/27/rotation = Quaternion(0.796963, -0.047836, 0.0366204, 0.601016)
+bones/28/rotation = Quaternion(0.551577, -0.0450589, -0.0353041, 0.832157)
+bones/29/rotation = Quaternion(-0.792726, 0.0155126, -0.0101883, 0.609295)
+bones/30/rotation = Quaternion(0.704771, -0.704771, -0.0574198, -0.0574255)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 1.02692e-08, 0.893195, -0.00991298)
@@ -474,7 +281,9 @@ volume_db = 8.5
 [node name="Systems" type="Node" parent="."]
 
 [node name="LODManager" type="Node" parent="Systems"]
-script = SubResource("CSharpScript_sshfv")
+script = ExtResource("9_sfiqi")
+_highId = 7
+_lowId = 7
 
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("10_gl3ar")
@@ -559,4 +368,4 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_87a0m")
 draw_pass_1 = SubResource("SphereMesh_p8gj8")
 
-[node name="Infantry" parent="." instance=ExtResource("18_8tceu")]
+[editable path="Model"]
