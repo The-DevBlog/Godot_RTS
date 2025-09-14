@@ -9,7 +9,6 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 	[Export] private GpuParticles3D _stormyRainParticles;
 	[Export] private GpuParticles3D _snowParticles;
 	[Export] private ShaderMaterial _snowMaterialPartial;
-	[Export] private PackedScene _lightningFlashScene;
 	private GlobalResources _globalResources;
 	private Weather _weather;
 	private TimeOfDay _timeOfDay;

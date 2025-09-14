@@ -81,6 +81,8 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 
 		CurrentHP = HP;
 
+		HeadLights();
+
 		// SetTeamColor(_model, PlayerManager.Instance.HumanPlayer.Color);
 	}
 
@@ -229,5 +231,15 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 			// Recurse
 			SetTeamColor(child, color);
 		}
+	}
+
+	private void HeadLights()
+	{
+		Light3D headlights = GetNodeOrNull<Light3D>("HeadLight");
+
+		if (headlights != null && GlobalResources.Instance.TimeOfDay == TimeOfDay.Night)
+			headlights.Visible = true;
+		else
+			headlights.Visible = false;
 	}
 }

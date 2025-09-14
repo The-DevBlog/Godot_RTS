@@ -78,11 +78,12 @@ size = Vector3(200, 0.5, 200)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
-[node name="World2" type="Node3D"]
+[node name="World" type="Node3D" node_paths=PackedStringArray("Map")]
 script = ExtResource("1_a6f85")
+Map = NodePath("NavigationRegion3D/Ground")
 Season = 2
 TimeOfDay = 3
-Weather = 3
+Weather = 4
 
 [node name="Players" type="Node" parent="."]
 
@@ -111,11 +112,12 @@ script = ExtResource("13_lwnbm")
 script = ExtResource("2_lwnbm")
 _navRegion = NodePath("../../NavigationRegion3D")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_stormyRainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
 script = ExtResource("8_8fnbn")
 _groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
 _rainParticles = NodePath("../GameCamera/RainParticles")
+_stormyRainParticles = NodePath("../GameCamera/StormyRainParticles")
 _snowParticles = NodePath("../GameCamera/SnowParticles")
 _snowMaterialPartial = ExtResource("3_a6f85")
 
