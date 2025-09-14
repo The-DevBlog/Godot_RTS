@@ -556,6 +556,12 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_87a0m")
 draw_pass_1 = SubResource("SphereMesh_p8gj8")
 
+[node name="Light" type="OmniLight3D" parent="MuzzleFlashPrimary"]
+transform = Transform3D(8.69565, 0, 0, 0, 8.69565, 0, 0, 0, 8.69565, 13.5976, 0.602121, 5.16438)
+light_color = Color(0.907241, 0.360013, 0.0625474, 1)
+light_energy = 20.0
+light_specular = 3.859
+
 [node name="MuzzleFlashSecondary" type="Node3D" parent="."]
 transform = Transform3D(-19.2274, -19.2274, 1.68091e-06, -19.2274, 19.2274, 1.68091e-06, -1.05418e-06, -1.7053e-12, -12.0584, 0.0138766, 4.37099, -0.227879)
 
