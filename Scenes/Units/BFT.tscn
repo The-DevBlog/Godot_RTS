@@ -453,6 +453,7 @@ PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
 PrimaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/Muzzle")
 SecondaryTurretPath = NodePath("../../Model/Rig/Turret/TurretMachineGun")
 SecondaryMuzzleContainerPath = NodePath("../../Model/Rig/Turret/TurretMachineGun/MuzzleMachineGun")
+AnimationPlayerPath = NodePath("../../Model/AnimationPlayer")
 
 [node name="CombatSystemPrimary" type="Node" parent="Systems" node_paths=PackedStringArray("_unit", "_weaponSystem", "_muzzleFlashParticles", "_attackSound")]
 script = ExtResource("15_x2ywe")
