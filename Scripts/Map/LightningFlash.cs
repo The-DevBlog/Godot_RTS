@@ -21,6 +21,7 @@ public partial class LightningFlash : CanvasLayer
 	[Export] public float LightBoost = 2.0f;
 
 	private GpuParticles3D _lightningParticles;
+	private AudioStreamPlayer3D _thunderSound;
 	private ColorRect _overlay;
 	private readonly RandomNumberGenerator _rng = new();
 	private bool _autoRunning;
@@ -29,11 +30,13 @@ public partial class LightningFlash : CanvasLayer
 	{
 		Vector2 mapSize = GlobalResources.Instance.MapSize;
 		Vector3 emissionBox = new Vector3(mapSize.X / 2, 1, mapSize.Y / 2);
-		// _lightningParticles.ProcessMaterial.Set("emission_box_extents", emissionBox);
 
 		// Find the overlay and make it full-screen
 		_overlay = GetNodeOrNull<ColorRect>("ColorRect");
 		Utils.NullCheck(_overlay);
+
+		_thunderSound = GetNodeOrNull<AudioStreamPlayer3D>("Thunder/AudioStreamPlayer3D");
+		Utils.NullCheck(_thunderSound);
 
 		_lightningParticles = GetNodeOrNull<GpuParticles3D>("Thunder/GPUParticles3D");
 		Utils.NullCheck(_lightningParticles);
@@ -44,7 +47,6 @@ public partial class LightningFlash : CanvasLayer
 			_lightningParticles.ProcessMaterial = mat;
 		}
 
-		GD.Print("emission box extents: " + emissionBox);
 		mat.EmissionShape = ParticleProcessMaterial.EmissionShapeEnum.Box;
 		mat.EmissionBoxExtents = emissionBox;
 
@@ -86,11 +88,19 @@ public partial class LightningFlash : CanvasLayer
 			if (!_autoRunning || !IsInsideTree()) break;
 
 			int pops = Mathf.RoundToInt(_rng.RandfRange(BurstCountRange.X, BurstCountRange.Y));
+
+			// (Optional) realistic delay before thunder
+			var delay = _rng.RandfRange(0.2f, 1.0f);
+			var delayTimer = GetTree().CreateTimer(delay, processAlways: FlashDuringPause);
+			await ToSignal(delayTimer, SceneTreeTimer.SignalName.Timeout);
+
+			PlayThunderOnce(); // ← play only once per event
+
 			for (int i = 0; i < pops; i++)
 			{
 				float rise = _rng.RandfRange(RiseTimeRange.X, RiseTimeRange.Y);
 				float fall = _rng.RandfRange(FallTimeRange.X, FallTimeRange.Y);
-				await FlashOnceAsync(rise, fall);
+				await FlashOnceAsync(rise, fall); // ← no Play() here
 
 				if (i < pops - 1)
 				{
@@ -132,10 +142,10 @@ public partial class LightningFlash : CanvasLayer
 		if (lightTween != null) await ToSignal(lightTween, Tween.SignalName.Finished);
 	}
 
-	// Optional: press Enter/Space to test a flash
-	public override void _UnhandledInput(InputEvent e)
+	private void PlayThunderOnce()
 	{
-		if (e.IsActionPressed("ui_accept"))
-			_ = FlashOnceAsync(0.06f, 0.12f);
+		if (_thunderSound == null) return;
+		if (!_thunderSound.Playing)
+			_thunderSound.Play();
 	}
 }
