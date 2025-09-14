@@ -22,9 +22,7 @@ color_ramp = SubResource("GradientTexture1D_07fnm")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84106, 0)
-emitting = false
 amount = 1
 lifetime = 0.25
-one_shot = true
 process_material = SubResource("ParticleProcessMaterial_lvqho")
 draw_pass_1 = ExtResource("1_1bid2")
