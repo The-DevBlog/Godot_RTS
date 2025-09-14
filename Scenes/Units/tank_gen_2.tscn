@@ -229,7 +229,6 @@ shape = SubResource("CylinderShape3D_ebj34")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
 transform = Transform3D(0.904, 0, 0, 0, 0.904, 0, 0, 0, 0.904, 0, 0.47361, 0)
-visible = false
 billboard = 1
 no_depth_test = true
 render_priority = 1
@@ -246,7 +245,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82261, 0)
 [node name="Attack" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 stream = SubResource("AudioStreamRandomizer_mfhdj")
-volume_db = 5.0
+volume_db = 4.0
 
 [node name="Impact" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -317,11 +316,19 @@ fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_4s7kj")
 draw_pass_1 = SubResource("SphereMesh_uqx8m")
 
+[node name="Light" type="OmniLight3D" parent="MuzzleFlash"]
+transform = Transform3D(8.69565, 0, 0, 0, 8.69565, 0, 0, 0, 8.69565, 13.5976, 0.602121, 5.16438)
+visible = false
+light_color = Color(0.907241, 0.360013, 0.0625474, 1)
+light_energy = 20.0
+light_specular = 3.859
+omni_range = 3.5
+
 [node name="Systems" type="Node" parent="."]
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_sd0dm")
-_lodNear = 40.0
+_lodNear = 50.0
 _highId = 4
 _lowId = 3
 PrimaryTurretPath = NodePath("../../Model/Rig/Turret")

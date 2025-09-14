@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://0r7tjg4va43r"]
+
+[ext_resource type="Script" uid="uid://bagc23dcx6wut" path="res://Scripts/Map/LightningFlash.cs" id="1_v125j"]
+[ext_resource type="ArrayMesh" uid="uid://cvicgmvvoln8a" path="res://Assets/Models/Environment/Weather/ThunderMesh_Editable.tres" id="2_6tsmu"]
+[ext_resource type="AudioStream" uid="uid://c8ebtvb8qxll4" path="res://Assets/Audio/Thunder/Thunder1.wav" id="3_aa2j2"]
+[ext_resource type="AudioStream" uid="uid://c1gngjth7fytl" path="res://Assets/Audio/Thunder/Thunder2.wav" id="4_f6xuj"]
+
+[sub_resource type="Gradient" id="Gradient_whskv"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_07fnm"]
+gradient = SubResource("Gradient_whskv")
+
+[sub_resource type="Curve" id="Curve_07fnm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.3125, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lvqho"]
+curve = SubResource("Curve_07fnm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lvqho"]
+lifetime_randomness = 0.1
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 1.5
+scale_max = 2.75
+color_ramp = SubResource("GradientTexture1D_07fnm")
+emission_curve = SubResource("CurveTexture_lvqho")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_k8t0l"]
+streams_count = 2
+stream_0/stream = ExtResource("3_aa2j2")
+stream_1/stream = ExtResource("4_f6xuj")
+
+[node name="LightningFlash" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_v125j")
+PeakAlpha = 0.15
+EventIntervalRange = Vector2(3, 7)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84106, 0)
+emitting = false
+amount = 1
+lifetime = 0.4
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_lvqho")
+draw_pass_1 = ExtResource("2_6tsmu")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_k8t0l")
+volume_db = 40.0
+unit_size = 20.0

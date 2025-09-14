@@ -10,6 +10,7 @@ public class MyModels
     public Dictionary<VehicleType, PackedScene> Vehicles { get; set; }
     public Dictionary<WeaponType, PackedScene> Projectiles { get; set; }
     public Dictionary<LODScenes, PackedScene> LODs { get; set; }
+    public Dictionary<Weather, PackedScene> WeatherEffects { get; set; }
 
     public MyModels()
     {
@@ -66,6 +67,11 @@ public class MyModels
             { LODScenes.TankGen2LP, GD.Load<PackedScene>("res://Scenes/Units/LOD/TankGen2/tank_gen_2_lp.tscn") },
             { LODScenes.BftLP, GD.Load<PackedScene>("res://Scenes/Units/LOD/BFT/bft_lp.tscn") },
             { LODScenes.BftHP, GD.Load<PackedScene>("res://Scenes/Units/LOD/BFT/bft_hp.tscn") }
+        };
+
+        WeatherEffects = new Dictionary<Weather, PackedScene>
+        {
+            { Weather.Stormy, GD.Load<PackedScene>("res://Scenes/Environment/Weather/Lightning.tscn") },
         };
     }
 }

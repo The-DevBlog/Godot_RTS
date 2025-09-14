@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using MyEnums;
 
@@ -5,8 +6,10 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 {
 	[Export] private MeshInstance3D _groundMesh;
 	[Export] private GpuParticles3D _rainParticles;
+	[Export] private GpuParticles3D _stormyRainParticles;
 	[Export] private GpuParticles3D _snowParticles;
 	[Export] private ShaderMaterial _snowMaterialPartial;
+	[Export] private PackedScene _lightningFlashScene;
 	private GlobalResources _globalResources;
 	private Weather _weather;
 	private TimeOfDay _timeOfDay;
@@ -31,6 +34,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		Utils.NullCheck(_weather);
 		Utils.NullCheck(_timeOfDay);
 		Utils.NullExportCheck(_rainParticles);
+		Utils.NullExportCheck(_stormyRainParticles);
 		Utils.NullExportCheck(_snowParticles);
 		Utils.NullExportCheck(_groundMesh);
 
@@ -65,6 +69,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		}
 		else if (_timeOfDay == TimeOfDay.Night)
 		{
+			ApplyShadows(isNight: true);
 			sunRotation.X = Mathf.DegToRad(33);
 			_sunLight.LightEnergy = 1.0f;
 			_sunLight.LightColor = _colorNight;
@@ -86,6 +91,28 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 			_rainParticles.Emitting = true;
 			_rainParticles.Visible = true;
 			Environment.VolumetricFogEnabled = true;
+			Environment.VolumetricFogDensity = 0.0075f;
+		}
+		if (_weather == Weather.Stormy)
+		{
+			var lightningPs = AssetServer.Instance.Models.WeatherEffects[Weather.Stormy];
+			var lightning = lightningPs.Instantiate<LightningFlash>();
+			if (lightning == null)
+			{
+				Utils.PrintErr("Stormy lightning scene root isn't LightningFlash.");
+				return;
+			}
+
+			// Add to the current scene root *after* the current frame to ensure order.
+			// (Avoids edge cases if you're still inside _Ready of another node.)
+			GetTree().CurrentScene.CallDeferred(Node.MethodName.AddChild, lightning);
+
+			// Optionally force autostart in case the scene’s exported flag is false
+			lightning.AutoStart = true;
+
+			_stormyRainParticles.Emitting = true;
+			_stormyRainParticles.Visible = true;
+			Environment.VolumetricFogEnabled = true;
 			Environment.VolumetricFogDensity = 0.01f;
 		}
 		else if (_weather == Weather.Snowy)
@@ -100,4 +127,35 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 			Environment.VolumetricFogEnabled = false;
 		}
 	}
+
+	// Apply shadows based on night/day
+	private void ApplyShadows(bool isNight)
+	{
+		var root = GetTree().CurrentScene;
+		if (root == null) return;
+
+		// 1) Toggle shadows on ALL lights (Directional/Omni/Spot)
+		foreach (var n in Enumerate<Light3D>(root))
+			n.ShadowEnabled = !isNight;
+
+		// 2) OPTIONAL: also stop all meshes from casting shadows (extra perf win)
+		// Comment this out if you still want, e.g., vehicle headlights to cast shadows at night.
+		foreach (var g in Enumerate<GeometryInstance3D>(root))
+			g.CastShadow = isNight
+				? GeometryInstance3D.ShadowCastingSetting.Off
+				: GeometryInstance3D.ShadowCastingSetting.On;
+	}
+
+	private static IEnumerable<T> Enumerate<T>(Node root) where T : class
+	{
+		var stack = new Stack<Node>();
+		stack.Push(root);
+		while (stack.Count > 0)
+		{
+			var n = stack.Pop();
+			if (n is T t) yield return t;
+			foreach (Node c in n.GetChildren()) stack.Push(c);
+		}
+	}
+
 }

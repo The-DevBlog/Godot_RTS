@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Godot;
 using MyEnums;
 
@@ -23,6 +24,7 @@ public partial class CombatSystem : Node
 	private Node3D _turret;
 	private readonly List<Node3D> _muzzles = new();
 	private readonly List<Node3D> _pendingMuzzles = new();
+	private OmniLight3D _muzzleFlashLight;
 
 	private RandomNumberGenerator _rng;
 	private bool _socketsDirty = true;
@@ -43,6 +45,7 @@ public partial class CombatSystem : Node
 		Utils.NullExportCheck(_muzzleFlashParticles);
 		Utils.NullExportCheck(_attackSound);
 
+		_muzzleFlashLight = _muzzleFlashParticles.GetNodeOrNull<OmniLight3D>("Light");
 		_hp = _unit.CurrentHP;
 		_dps = _weaponSystem.Dmg;
 		_range = _weaponSystem.Range;
@@ -145,11 +148,27 @@ public partial class CombatSystem : Node
 		else
 			SpawnProjectileFrom(muzzleNode, projectile as Projectile);
 
+		// audio
 		_attackSound.GlobalTransform = muzzleNode.GlobalTransform;
 		_attackSound.Play();
 
+		// muzzle flash
 		_muzzleFlashParticles.GlobalTransform = muzzleNode.GlobalTransform;
-		foreach (GpuParticles3D p in _muzzleFlashParticles.GetChildren()) p.Restart();
+		foreach (var p in _muzzleFlashParticles.GetChildren())
+		{
+			if (p is GpuParticles3D gp)
+				gp.Restart();
+		}
+
+		// light
+		// if (_muzzleFlashLight != null)
+		// {
+		// AttachFlashToMuzzle(muzzleNode);
+
+		PulseMuzzleLight();
+		// _muzzleFlashLight.Visible = true;
+		// _muzzleFlashLight.LightEnergy = 4f; // reset to full brightness
+		// }
 
 		// 1-based anim names: Recoil1, Recoil2, ...
 		if (_animationPlayer != null)
@@ -160,19 +179,46 @@ public partial class CombatSystem : Node
 		}
 	}
 
+	private void AttachFlashToMuzzle(Node3D muzzle)
+	{
+		if (_muzzleFlashParticles == null) return;
+
+		// Put the flash under the muzzle so its local origin = muzzle tip
+		if (_muzzleFlashParticles.GetParent() != muzzle)
+			_muzzleFlashParticles.Reparent(muzzle);
+
+		// Zero local transform so it sits exactly at the muzzle pivot
+		_muzzleFlashParticles.Transform = Transform3D.Identity;
+
+		// If your light is a child of the flash root, zero it too
+		_muzzleFlashLight?.Set("transform", Transform3D.Identity); // or _muzzleFlashLight.Transform = Transform3D.Identity;
+	}
+
+	private async void PulseMuzzleLight(float duration = 0.075f)
+	{
+		if (_muzzleFlashLight == null)
+			return;
+
+		_muzzleFlashLight.GlobalPosition = _muzzleFlashParticles.GlobalPosition;
+		_muzzleFlashLight.Visible = true;
+
+		var t = GetTree().CreateTimer(duration);
+		await ToSignal(t, SceneTreeTimer.SignalName.Timeout);
+
+		if (IsInstanceValid(_muzzleFlashLight))
+			_muzzleFlashLight.Visible = false;
+	}
+
 	private void SpawnTracerFrom(Node3D muzzleNode, Tracer tracer)
 	{
 		GetTree().CurrentScene.AddChild(tracer);
-		// Transform3D muzzle = muzzleNode.GlobalTransform;
 
 		Transform3D muzzle = muzzleNode.GlobalTransform;
-		// var rotation = muzzle.Basis.Orthonormalized(); // remove scale & shead, keeps rotation
-		// rotation = rotation.Scaled(_weaponSystem.ProjectileScale); // apply scale
-		// muzzle.Basis = rotation;
-
 		Vector3 targetPos = _currentTarget.GlobalPosition;
 		var aimCenter = _currentTarget.GetNodeOrNull<Node3D>("CollisionShape3D");
-		if (aimCenter != null) targetPos = aimCenter.GlobalPosition; else targetPos += Vector3.Up * 1.0f;
+		if (aimCenter != null)
+			targetPos = aimCenter.GlobalPosition;
+		else targetPos += Vector3.Up * 1.0f;
 
 		Vector3 idealDir = (targetPos - muzzle.Origin).Normalized();
 		Vector3 dir = AddBulletSpread(idealDir, _weaponSystem.BulletSpread, _rng);
@@ -191,16 +237,23 @@ public partial class CombatSystem : Node
 		{
 			q.Exclude = exclude;
 			var hit = space.IntersectRay(q);
-			if (hit.Count == 0) break;
+			if (hit.Count == 0)
+				break;
 
 			var collider = hit["collider"].AsGodotObject() as Node;
 			var pos = (Vector3)hit["position"];
 			var nrm = ((Vector3)hit["normal"]).Normalized();
 
-			if (collider is Unit u && u.Team == _unit.Team) { exclude.Add((Rid)hit["rid"]); continue; }
+			if (collider is Unit u && u.Team == _unit.Team)
+			{
+				exclude.Add((Rid)hit["rid"]);
+				continue;
+			}
 
 			endPos = pos;
-			if (collider is IDamageable dmg) dmg.ApplyDamage(_dps, pos, nrm);
+			if (collider is IDamageable dmg)
+				dmg.ApplyDamage(_dps, pos, nrm);
+
 			tracer.PlayImpactParticles(pos, nrm);
 			break;
 		}

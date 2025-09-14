@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bghb1rhlctfob"]
+[gd_scene load_steps=6 format=3 uid="uid://dli7arg3vprq4"]
 
 [ext_resource type="Script" uid="uid://cms6k1uocuuv2" path="res://Scripts/Units/Units/Infantry.cs" id="1_2fp7d"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_mhdsq"]
@@ -22,7 +22,6 @@ script = ExtResource("1_2fp7d")
 InfantryType = 1
 Speed = 4
 HP = 20
-DPS = 5
 Cost = 100
 BuildTime = 3
 Acceleration = 4
