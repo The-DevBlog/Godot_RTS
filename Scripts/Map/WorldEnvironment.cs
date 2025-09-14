@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using MyEnums;
 
@@ -68,6 +69,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 		}
 		else if (_timeOfDay == TimeOfDay.Night)
 		{
+			ApplyShadows(isNight: true);
 			sunRotation.X = Mathf.DegToRad(33);
 			_sunLight.LightEnergy = 1.0f;
 			_sunLight.LightColor = _colorNight;
@@ -89,7 +91,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 			_rainParticles.Emitting = true;
 			_rainParticles.Visible = true;
 			Environment.VolumetricFogEnabled = true;
-			Environment.VolumetricFogDensity = 0.01f;
+			Environment.VolumetricFogDensity = 0.0075f;
 		}
 		if (_weather == Weather.Stormy)
 		{
@@ -111,7 +113,7 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 			_stormyRainParticles.Emitting = true;
 			_stormyRainParticles.Visible = true;
 			Environment.VolumetricFogEnabled = true;
-			Environment.VolumetricFogDensity = 0.015f;
+			Environment.VolumetricFogDensity = 0.01f;
 		}
 		else if (_weather == Weather.Snowy)
 		{
@@ -125,4 +127,35 @@ public partial class WorldEnvironment : Godot.WorldEnvironment
 			Environment.VolumetricFogEnabled = false;
 		}
 	}
+
+	// Apply shadows based on night/day
+	private void ApplyShadows(bool isNight)
+	{
+		var root = GetTree().CurrentScene;
+		if (root == null) return;
+
+		// 1) Toggle shadows on ALL lights (Directional/Omni/Spot)
+		foreach (var n in Enumerate<Light3D>(root))
+			n.ShadowEnabled = !isNight;
+
+		// 2) OPTIONAL: also stop all meshes from casting shadows (extra perf win)
+		// Comment this out if you still want, e.g., vehicle headlights to cast shadows at night.
+		foreach (var g in Enumerate<GeometryInstance3D>(root))
+			g.CastShadow = isNight
+				? GeometryInstance3D.ShadowCastingSetting.Off
+				: GeometryInstance3D.ShadowCastingSetting.On;
+	}
+
+	private static IEnumerable<T> Enumerate<T>(Node root) where T : class
+	{
+		var stack = new Stack<Node>();
+		stack.Push(root);
+		while (stack.Count > 0)
+		{
+			var n = stack.Pop();
+			if (n is T t) yield return t;
+			foreach (Node c in n.GetChildren()) stack.Push(c);
+		}
+	}
+
 }

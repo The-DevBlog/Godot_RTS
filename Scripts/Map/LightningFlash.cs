@@ -29,7 +29,8 @@ public partial class LightningFlash : CanvasLayer
 	public override async void _Ready()
 	{
 		Vector2 mapSize = GlobalResources.Instance.MapSize;
-		Vector3 emissionBox = new Vector3(mapSize.X / 2, 1, mapSize.Y / 2);
+		// Vector3 emissionBox = new Vector3(mapSize.X / 2, 1, mapSize.Y / 2);
+		Vector3 emissionBox = new Vector3(mapSize.X / 6, 1, mapSize.Y / 6);
 
 		// Find the overlay and make it full-screen
 		_overlay = GetNodeOrNull<ColorRect>("ColorRect");

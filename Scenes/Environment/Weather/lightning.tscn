@@ -50,6 +50,7 @@ grow_vertical = 2
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84106, 0)
+emitting = false
 amount = 1
 lifetime = 0.4
 one_shot = true
@@ -58,4 +59,5 @@ draw_pass_1 = ExtResource("2_6tsmu")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_k8t0l")
+volume_db = 40.0
 unit_size = 20.0

@@ -166,22 +166,22 @@ button_group = SubResource("ButtonGroup_fu36u")
 [node name="Units" type="Node3D" parent="."]
 
 [node name="TankGen2" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(-0.102931, 0, -0.994688, 0, 1, 0, 0.994688, 0, -0.102931, -5.69094, 0, 0.0232639)
+transform = Transform3D(-0.102931, 0, -0.994688, 0, 1, 0, 0.994688, 0, -0.102931, -21.115, 0, 0.731284)
 Team = 1
 HP = 350
 
 [node name="TankGen3" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.113724, 0, -0.993512, 0, 1, 0, 0.993512, 0, 0.113724, 9.45012, 0, 3.3611)
+transform = Transform3D(0.113724, 0, -0.993512, 0, 1, 0, 0.993512, 0, 0.113724, -15.2391, 0, 3.3611)
 Team = 1
 HP = 350
 
 [node name="TankGen5" parent="Units" instance=ExtResource("10_urg4o")]
-transform = Transform3D(0.258566, 0, -0.965994, 0, 1, 0, 0.965994, 0, 0.258566, 4.09313, 9.53674e-07, -0.460513)
+transform = Transform3D(0.258566, 0, -0.965994, 0, 1, 0, 0.965994, 0, 0.258566, -16.5144, -9.53675e-07, -2.13969)
 Team = 1
 HP = 350
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
-transform = Transform3D(-0.89061, 0, 0.454768, 0, 1, 0, -0.454768, 0, -0.89061, 29.0264, 2.86102e-06, -24.5197)
+transform = Transform3D(-0.494609, 0, 0.869115, 0, 1, 0, -0.869115, 0, -0.494609, 12.0093, 2.86102e-06, -0.651239)
 Team = 3
 HP = 1000
 

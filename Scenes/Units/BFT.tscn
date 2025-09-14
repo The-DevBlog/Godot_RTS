@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://dcf8ehewte4xk"]
+[gd_scene load_steps=87 format=3 uid="uid://dcf8ehewte4xk"]
 
 [ext_resource type="Script" uid="uid://cpf77yoe21xoo" path="res://Scripts/Units/Units/BFT.cs" id="1_dun38"]
 [ext_resource type="PackedScene" uid="uid://h8psfw3nf7ts" path="res://Scenes/Units/LOD/BFT/bft_hp.tscn" id="2_0g5s4"]
@@ -386,6 +386,13 @@ alpha_curve = SubResource("CurveTexture_u0ol3")
 
 [sub_resource type="SphereMesh" id="SphereMesh_pqgj0"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dun38"]
+emission_enabled = true
+emission = Color(1, 1, 0.545098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l8yb7"]
+material = SubResource("StandardMaterial3D_dun38")
+
 [node name="BFT" type="CharacterBody3D" node_paths=PackedStringArray("SecondaryWeaponSystem", "Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 script = ExtResource("1_dun38")
 SecondaryWeaponSystem = NodePath("Systems/WeaponSystemSecondary")
@@ -426,7 +433,7 @@ transform = Transform3D(1.59, 0, 0, 0, 1.59, 0, 0, 0, 1.59, 0, 3.65035, 0)
 [node name="AttackPrimary" type="AudioStreamPlayer3D" parent="Audio"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 stream = SubResource("AudioStreamRandomizer_mfhdj")
-volume_db = 6.0
+volume_db = 4.0
 
 [node name="AttackSecondary" type="AudioStreamPlayer3D" parent="Audio"]
 stream = SubResource("AudioStreamRandomizer_l8yb7")
@@ -446,7 +453,7 @@ volume_db = 8.5
 
 [node name="LODManager" type="Node" parent="Systems"]
 script = ExtResource("14_0231x")
-_lodNear = 40.0
+_lodNear = 50.0
 _highId = 6
 _lowId = 5
 PrimaryTurretPath = NodePath("../../Model/Rig/Turret")
@@ -558,6 +565,7 @@ draw_pass_1 = SubResource("SphereMesh_p8gj8")
 
 [node name="Light" type="OmniLight3D" parent="MuzzleFlashPrimary"]
 transform = Transform3D(8.69565, 0, 0, 0, 8.69565, 0, 0, 0, 8.69565, 13.5976, 0.602121, 5.16438)
+visible = false
 light_color = Color(0.907241, 0.360013, 0.0625474, 1)
 light_energy = 20.0
 light_specular = 3.859
@@ -628,5 +636,16 @@ explosiveness = 0.85
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_eth2w")
 draw_pass_1 = SubResource("SphereMesh_pqgj0")
+
+[node name="HeadLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.977512, 0.210881, 0, -0.210881, 0.977512, 0, 1.22966, -1.78665)
+light_color = Color(0.952228, 0.939912, 0.5689, 1)
+light_energy = 32.0
+spot_range = 8.5
+spot_angle = 37.0
+
+[node name="HeadLightMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.05325, 0, 0, 0, 0.0712546, 0, 0, 0, 0.139554, -0.00340864, 0.85093, -2.76043)
+mesh = SubResource("BoxMesh_l8yb7")
 
 [editable path="Model"]
