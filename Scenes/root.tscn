@@ -80,7 +80,6 @@ size = Vector3(200, 0.5, 200)
 
 [node name="World2" type="Node3D"]
 script = ExtResource("1_a6f85")
-MapSize = Vector2(1000, 1000)
 Season = 2
 TimeOfDay = 3
 Weather = 3
@@ -120,12 +119,10 @@ _rainParticles = NodePath("../GameCamera/RainParticles")
 _snowParticles = NodePath("../GameCamera/SnowParticles")
 _snowMaterialPartial = ExtResource("3_a6f85")
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0719109, -0.25, -0.0582352)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 script = ExtResource("3_dun2r")
-GroundMesh = NodePath("Ground/MeshInstance3D")
-GroundCollider = NodePath("Ground/CollisionShape3D")
 metadata/_edit_group_ = true
 
 [node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["mapbase"]]

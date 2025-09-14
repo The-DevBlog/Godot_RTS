@@ -2,18 +2,21 @@ using Godot;
 
 public partial class NavigationRegion : NavigationRegion3D
 {
-	[Export] public MeshInstance3D GroundMesh { get; set; }
-	[Export] public CollisionShape3D GroundCollider { get; set; }
-
+	private MeshInstance3D _groundMesh;
+	private CollisionShape3D _groundCollider;
 	private Signals _signals;
+	private GlobalResources _globalResources;
 
 	public override void _Ready()
 	{
+		_globalResources = GlobalResources.Instance;
 		_signals = Signals.Instance;
 		_signals.UpdateNavigationMap += OnUpdateNavigationMap;
+		_groundMesh = _globalResources.Map.GetNodeOrNull<MeshInstance3D>("MeshInstance3D");
+		_groundCollider = _globalResources.Map.GetNodeOrNull<CollisionShape3D>("CollisionShape3D");
 
-		Utils.NullExportCheck(GroundMesh);
-		Utils.NullExportCheck(GroundCollider);
+		Utils.NullCheck(_groundMesh);
+		Utils.NullCheck(_groundCollider);
 
 		ResizeGroundToMapSize();
 		BakeNavigationMesh();
@@ -21,17 +24,17 @@ public partial class NavigationRegion : NavigationRegion3D
 
 	private void ResizeGroundToMapSize()
 	{
-		GD.Print("Resizing ground to map size " + GlobalResources.Instance.MapSize);
 		Vector2 mapSize = GlobalResources.Instance.MapSize;
+		GD.Print("Resizing ground to map size " + mapSize);
 
 		// Resize PlaneMesh (only works if GroundMesh.Mesh is a PlaneMesh)
-		if (GroundMesh.Mesh is BoxMesh plane)
+		if (_groundMesh.Mesh is BoxMesh plane)
 			plane.Size = new Vector3(mapSize.X, 0.5f, mapSize.Y);
 		else
 			Utils.PrintErr("GroundMesh.Mesh is not a PlaneMesh. Cannot set size directly.");
 
 		// Resize GroundCollider (only works if it's a BoxShape3D)
-		if (GroundCollider.Shape is BoxShape3D box)
+		if (_groundCollider.Shape is BoxShape3D box)
 			box.Size = new Vector3(mapSize.X, 0.5f, mapSize.Y);
 		else
 			Utils.PrintErr("GroundCollider.Shape is not a BoxShape3D.");

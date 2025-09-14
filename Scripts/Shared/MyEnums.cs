@@ -54,6 +54,7 @@ namespace MyEnums
     {
         None,
         Rainy,
+        Stormy,
         Snowy,
         Sunny
     }
