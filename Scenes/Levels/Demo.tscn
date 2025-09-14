@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bagu21m6v8he7"]
+[gd_scene load_steps=37 format=3 uid="uid://bagu21m6v8he7"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_d03iv"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="2_swxg5"]
@@ -23,12 +23,10 @@
 [ext_resource type="PackedScene" uid="uid://dcwm8th0iewfd" path="res://Assets/Models/Environment/Rocks/Rock_Type2_03.glb" id="21_vr4hb"]
 [ext_resource type="PackedScene" uid="uid://5fai86db6on4" path="res://Assets/Models/Environment/Structures/House3.glb" id="22_plipr"]
 [ext_resource type="Script" uid="uid://ym3mtmdnod3x" path="res://addons/road-generator/nodes/road_manager.gd" id="23_gsh3y"]
-[ext_resource type="PackedScene" uid="uid://dpvhus7begc00" path="res://Scenes/Environment/Weather/thunder.tscn" id="23_x6ddr"]
 [ext_resource type="Material" uid="uid://dpashsuk5lr4x" path="res://addons/road-generator/resources/road_texture.material" id="24_xyty3"]
 [ext_resource type="Script" uid="uid://p3l25l15u5d3" path="res://addons/road-generator/nodes/road_container.gd" id="25_se0gi"]
 [ext_resource type="Script" uid="uid://cymn3hnptcyh4" path="res://addons/road-generator/nodes/road_point.gd" id="26_x6ddr"]
 [ext_resource type="PackedScene" uid="uid://d23s6bfnq6fex" path="res://addons/road-generator/custom_containers/4way_1x1.tscn" id="27_xyty3"]
-[ext_resource type="Script" uid="uid://bagc23dcx6wut" path="res://Scripts/Map/LightningFlash.cs" id="28_se0gi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dun2r"]
 sky_top_color = Color(0.465613, 0.616647, 0.797932, 1)
@@ -90,7 +88,7 @@ script = ExtResource("1_d03iv")
 Map = NodePath("NavigationRegion3D/Ground")
 Season = 2
 TimeOfDay = 2
-Weather = 1
+Weather = 2
 
 [node name="Players" type="Node" parent="."]
 
@@ -119,11 +117,12 @@ script = ExtResource("3_pwg1e")
 script = ExtResource("4_ienap")
 _navRegion = NodePath("../../NavigationRegion3D")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_stormyRainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
 script = ExtResource("5_e3lie")
 _groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
 _rainParticles = NodePath("../GameCamera/RainParticles")
+_stormyRainParticles = NodePath("../GameCamera/StormyRainParticles")
 _snowParticles = NodePath("../GameCamera/SnowParticles")
 _snowMaterialPartial = ExtResource("6_jr2p6")
 
@@ -367,22 +366,6 @@ transform = Transform3D(0.778748, 0.364602, -0.957204, 0, 1.20243, 0.458011, 1.0
 
 [node name="Rock_Type2_04" parent="Environment/TreesAndRocks" instance=ExtResource("21_vr4hb")]
 transform = Transform3D(1.28671, 0, 0, 0, 1.28671, 0, 0, 0, 1.28671, -11.6834, 0.0929352, -3.98502)
-
-[node name="LightningFlash" type="CanvasLayer" parent="Environment" node_paths=PackedStringArray("LightningLight")]
-layer = 100
-script = ExtResource("28_se0gi")
-PeakAlpha = 0.15
-EventIntervalRange = Vector2(3, 7)
-LightningLight = NodePath("../../DirectionalLight3D")
-
-[node name="ColorRect" type="ColorRect" parent="Environment/LightningFlash"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Thunder" parent="Environment/LightningFlash" instance=ExtResource("23_x6ddr")]
 
 [node name="RoadManager" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 83.9433, 0, -27.0015)
@@ -655,5 +638,4 @@ next_pt_init = NodePath("../RP_003")
 [node name="GameCamera" parent="." instance=ExtResource("8_4ehh5")]
 
 [editable path="CommandUI"]
-[editable path="Environment/LightningFlash/Thunder"]
 [editable path="GameCamera"]

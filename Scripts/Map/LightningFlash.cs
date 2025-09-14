@@ -35,10 +35,10 @@ public partial class LightningFlash : CanvasLayer
 		_overlay = GetNodeOrNull<ColorRect>("ColorRect");
 		Utils.NullCheck(_overlay);
 
-		_thunderSound = GetNodeOrNull<AudioStreamPlayer3D>("Thunder/AudioStreamPlayer3D");
+		_thunderSound = GetNodeOrNull<AudioStreamPlayer3D>("AudioStreamPlayer3D");
 		Utils.NullCheck(_thunderSound);
 
-		_lightningParticles = GetNodeOrNull<GpuParticles3D>("Thunder/GPUParticles3D");
+		_lightningParticles = GetNodeOrNull<GpuParticles3D>("GPUParticles3D");
 		Utils.NullCheck(_lightningParticles);
 
 		if (_lightningParticles.ProcessMaterial is not ParticleProcessMaterial mat)
