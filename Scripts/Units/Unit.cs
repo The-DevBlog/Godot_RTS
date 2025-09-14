@@ -237,9 +237,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	{
 		Light3D headlights = GetNodeOrNull<Light3D>("HeadLight");
 
-		if (headlights != null && GlobalResources.Instance.TimeOfDay == TimeOfDay.Night)
-			headlights.Visible = true;
-		else
-			headlights.Visible = false;
+		if (headlights != null)
+			headlights.Visible = GlobalResources.Instance.TimeOfDay == TimeOfDay.Night;
 	}
 }
