@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=33 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="10_qoxdu"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="11_lwnbm"]
+[ext_resource type="PackedScene" uid="uid://dli7arg3vprq4" path="res://Scenes/Units/infantry.tscn" id="12_capts"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_20eh2"]
@@ -82,7 +83,7 @@ size = Vector3(200, 0.5, 200)
 script = ExtResource("1_a6f85")
 Map = NodePath("NavigationRegion3D/Ground")
 Season = 2
-TimeOfDay = 3
+TimeOfDay = 1
 Weather = 4
 
 [node name="Players" type="Node" parent="."]
@@ -173,6 +174,9 @@ Team = 2
 
 [node name="BFT" parent="Units" instance=ExtResource("10_qoxdu")]
 Team = 1
+
+[node name="Infantry" parent="Units" instance=ExtResource("12_capts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.787, 0, -9.424)
 
 [node name="Shaders" type="Node3D" parent="."]
 
