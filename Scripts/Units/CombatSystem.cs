@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Godot;
 using MyEnums;
 
@@ -90,7 +89,6 @@ public partial class CombatSystem : Node
 	}
 
 	// -- sockets from LODManager --
-
 	private void OnSocketsChangedList(Node3D yaw, IReadOnlyList<Node3D> muzzles, AnimationPlayer ap)
 	{
 		// Only the primary uses recoil animations; secondary is mute (prevents AP stomp)
@@ -123,7 +121,6 @@ public partial class CombatSystem : Node
 	}
 
 	// -- combat --
-
 	private void TryAttack(double delta)
 	{
 		if (!_isZeroed) return;
@@ -160,15 +157,7 @@ public partial class CombatSystem : Node
 				gp.Restart();
 		}
 
-		// light
-		// if (_muzzleFlashLight != null)
-		// {
-		// AttachFlashToMuzzle(muzzleNode);
-
 		PulseMuzzleLight();
-		// _muzzleFlashLight.Visible = true;
-		// _muzzleFlashLight.LightEnergy = 4f; // reset to full brightness
-		// }
 
 		// 1-based anim names: Recoil1, Recoil2, ...
 		if (_animationPlayer != null)
@@ -379,7 +368,6 @@ public partial class CombatSystem : Node
 
 		_isZeroed = RotateTurretTowardsLocalYaw(desiredLocalYaw, _turnSpeedDeg, dt);
 	}
-
 
 	private static Vector3 AddBulletSpread(Vector3 forward, float maxDeg, RandomNumberGenerator rng)
 	{
