@@ -10,6 +10,7 @@ public partial class WeaponSystem : Node
 	[Export] public float BulletSpread { get; set; }
 	[Export] public WeaponType WeaponType { get; set; }
 	[Export] public Vector3 ProjectileScale { get; set; }
+	// public 
 
 	public override void _Ready()
 	{

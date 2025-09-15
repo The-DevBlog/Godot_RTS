@@ -80,9 +80,19 @@ public partial class CombatSystem : Node
 		_acquireTimer -= (float)delta;
 		if (_acquireTimer <= 0f)
 		{
-			_currentTarget = GetNearestEnemyInRange();
+			_currentTarget = GetBestTargetByPriority();  // <— always re-evaluate
 			_acquireTimer = 1f / Mathf.Max(0.01f, _acquireHz);
 		}
+
+		// _acquireTimer -= (float)delta;
+		// if (_acquireTimer <= 0f)
+		// {
+		// 	// Don't switch targets if the current one is still valid
+		// 	if (_currentTarget == null || !IsTargetValid(_currentTarget))
+		// 		_currentTarget = GetBestTargetByPriority();
+
+		// 	_acquireTimer = 1f / Mathf.Max(0.01f, _acquireHz);
+		// }
 
 		FaceTarget((float)delta);
 		TryAttack(delta);
@@ -132,6 +142,7 @@ public partial class CombatSystem : Node
 		_fireRateTimer = Mathf.Max(0f, _fireRateTimer - (float)delta);
 		if (_fireRateTimer > 0f) return;
 		_fireRateTimer = _weaponSystem.FireRate;
+
 
 		if (!EnsureMuzzlesFresh()) return;
 
@@ -277,8 +288,7 @@ public partial class CombatSystem : Node
 	}
 
 	// -- targeting / aiming --
-
-	private Unit GetNearestEnemyInRange()
+	private Unit GetBestTargetByPriority()
 	{
 		if (_unit == null) return null;
 
@@ -286,21 +296,73 @@ public partial class CombatSystem : Node
 		int myTeam = _unit.Team;
 		float rangeSq = _range * _range;
 
-		float bestDistSq = float.MaxValue;
 		Unit best = null;
+		int bestPriority = int.MaxValue;   // lower is better (1 beats 2)
+		float bestDistSq = float.MaxValue;
 
 		foreach (Node n in GetTree().GetNodesInGroup(MyEnums.Group.units.ToString()))
 		{
-			if (n == _unit || n == null) continue;
-			if (n is not Unit other) continue;
+			if (n == _unit || n is not Unit other) continue;
 			if (other.CurrentHP <= 0) continue;
 			if (other.Team == myTeam) continue;
 
 			Vector3 d = other.GlobalPosition - myPos; d.Y = 0;
 			float dsq = d.LengthSquared();
-			if (dsq <= rangeSq && dsq < bestDistSq) { bestDistSq = dsq; best = other; }
+			if (dsq > rangeSq) continue;
+
+			// NOTE: change `other.UnitClass` if your property has a different name
+			int priority = TargetPriorities.GetPriority(_weaponSystem.WeaponType, other.UnitClass);
+
+			bool better =
+				priority < bestPriority                                  // primary: lower priority wins
+				|| (priority == bestPriority && other == _currentTarget) // keep current target on tie
+				|| (priority == bestPriority && dsq < bestDistSq);       // then prefer closer
+
+			if (better)
+			{
+				best = other;
+				bestPriority = priority;
+				bestDistSq = dsq;
+			}
 		}
+
 		return best;
+	}
+
+	// private Unit GetNearestEnemyInRange()
+	// {
+	// 	if (_unit == null)
+	// 		return null;
+
+	// 	Vector3 myPos = _unit.GlobalPosition;
+	// 	int myTeam = _unit.Team;
+	// 	float rangeSq = _range * _range;
+
+	// 	float bestDistSq = float.MaxValue;
+	// 	Unit best = null;
+
+	// 	foreach (Node n in GetTree().GetNodesInGroup(MyEnums.Group.units.ToString()))
+	// 	{
+	// 		if (n == _unit || n == null) continue;
+	// 		if (n is not Unit other) continue;
+	// 		if (other.CurrentHP <= 0) continue;
+	// 		if (other.Team == myTeam) continue;
+
+	// 		Vector3 d = other.GlobalPosition - myPos; d.Y = 0;
+	// 		float dsq = d.LengthSquared();
+	// 		if (dsq <= rangeSq && dsq < bestDistSq) { bestDistSq = dsq; best = other; }
+	// 	}
+	// 	return best;
+	// }
+
+	private bool IsTargetValid(Unit t)
+	{
+		if (!IsInstanceValid(t)) return false;
+		if (t.CurrentHP <= 0) return false;
+		if (t.Team == _unit.Team) return false;
+
+		Vector3 d = t.GlobalPosition - _unit.GlobalPosition; d.Y = 0;
+		return d.LengthSquared() <= (_range * _range);
 	}
 
 	private static float WrapAngle(float a) => Mathf.PosMod(a + Mathf.Pi, Mathf.Tau) - Mathf.Pi;

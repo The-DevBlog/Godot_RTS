@@ -22,6 +22,7 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[Export] public LODManager LODManager;
 	[Export] private HealthSystem _healthSystem;
 
+	public UnitClass UnitClass { get; set; }
 	public AnimationPlayer AnimationPlayer;
 	private Node3D _model;
 	private float _facingWindowDeg = 10f; // start moving when |diff| <= this

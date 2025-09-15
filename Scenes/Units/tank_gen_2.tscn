@@ -1,6 +1,6 @@
 [gd_scene load_steps=53 format=3 uid="uid://bsqwqnw4t18r4"]
 
-[ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_eb2nj"]
+[ext_resource type="Script" uid="uid://b3c8a168xldqf" path="res://Scripts/Units/Units/TankGen2.cs" id="1_fl6pk"]
 [ext_resource type="PackedScene" uid="uid://dhpvj7prqmufa" path="res://Scenes/Units/LOD/TankGen2/tank_gen_2_hp.tscn" id="2_smbrw"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="3_r3h8b"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_yir8a"]
@@ -207,7 +207,7 @@ alpha_curve = SubResource("CurveTexture_hmto5")
 
 [node name="TankGen2" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-script = ExtResource("1_eb2nj")
+script = ExtResource("1_fl6pk")
 VehicleType = 2
 Speed = 8
 HP = 225

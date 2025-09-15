@@ -21,6 +21,14 @@ namespace MyEnums
         Satellite,
     }
 
+    public enum UnitClass
+    {
+        None,
+        Infantry,
+        LightVehicle,
+        HeavyVehicle
+    }
+
     public enum InfantryType
     {
         None,

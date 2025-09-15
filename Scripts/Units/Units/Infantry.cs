@@ -10,6 +10,8 @@ public partial class Infantry : Unit
 	{
 		base._Ready();
 
+		this.UnitClass = MyEnums.UnitClass.Infantry;
+
 		if (InfantryType == InfantryType.None) Utils.PrintErr("InfantryType is not set for infantry");
 	}
 

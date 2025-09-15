@@ -1,6 +1,6 @@
 [gd_scene load_steps=66 format=4 uid="uid://bbsme72x5icrn"]
 
-[ext_resource type="Script" uid="uid://c8vkfj1835uns" path="res://Scripts/Units/Units/Vehicle.cs" id="1_7fw24"]
+[ext_resource type="Script" uid="uid://c6q5tbve58xdr" path="res://Scripts/Units/Units/AntiInfantry.cs" id="1_y4stx"]
 [ext_resource type="PackedScene" uid="uid://b7qa57dgc8y2b" path="res://Scenes/Units/LOD/AntiInfantry/anti_infantry_hp.tscn" id="2_7fw24"]
 [ext_resource type="Texture2D" uid="uid://coca1wutprsho" path="res://Assets/Textures/SelectBorder.png" id="2_j535g"]
 [ext_resource type="PackedScene" uid="uid://chptg2e33u5s4" path="res://Scenes/Shared/healthbar.tscn" id="4_pjyd2"]
@@ -422,7 +422,7 @@ alpha_curve = SubResource("CurveTexture_fm6nx")
 
 [node name="AntiInfantry" type="CharacterBody3D" node_paths=PackedStringArray("Death", "PrimaryWeaponSystem", "LODManager", "_healthSystem") groups=["damageable", "units"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-script = ExtResource("1_7fw24")
+script = ExtResource("1_y4stx")
 VehicleType = 4
 Speed = 10
 HP = 200
@@ -437,6 +437,7 @@ _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("2_7fw24")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 
 [node name="Tire_001" parent="Model/Rig/Body_HP" index="42"]
 mesh = SubResource("ArrayMesh_1qvqe")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bagu21m6v8he7"]
+[gd_scene load_steps=39 format=3 uid="uid://bagu21m6v8he7"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_d03iv"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="2_swxg5"]
@@ -10,8 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="8_4ehh5"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="9_xp8sf"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="10_urg4o"]
+[ext_resource type="PackedScene" uid="uid://dli7arg3vprq4" path="res://Scenes/Units/infantry.tscn" id="11_se0gi"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="12_4m7a2"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="12_se0gi"]
+[ext_resource type="PackedScene" uid="uid://bbsme72x5icrn" path="res://Scenes/Units/anti_infantry.tscn" id="12_x6ddr"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="13_1v20a"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_ltfxp"]
 [ext_resource type="PackedScene" uid="uid://cj8d2a8h8r1ig" path="res://Assets/Models/Environment/Structures/House2.glb" id="15_76sjy"]
@@ -178,11 +180,31 @@ HP = 350
 [node name="TankGen5" parent="Units" instance=ExtResource("10_urg4o")]
 transform = Transform3D(0.258566, 0, -0.965994, 0, 1, 0, 0.965994, 0, 0.258566, -16.5144, -9.53675e-07, -2.13969)
 Team = 1
-HP = 350
+Speed = 7
+HP = 1000
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
 transform = Transform3D(-0.494609, 0, 0.869115, 0, 1, 0, -0.869115, 0, -0.494609, 12.0093, 2.86102e-06, -0.651239)
 Team = 3
+HP = 1000
+
+[node name="Infantry" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9989, 0, 0.334077)
+Team = 1
+
+[node name="Infantry3" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6538, 0, 3.26466)
+Team = 1
+
+[node name="Infantry2" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3882, 0, -5.39079)
+Team = 1
+HP = 1000
+
+[node name="AntiInfantry" parent="Units" instance=ExtResource("12_x6ddr")]
+transform = Transform3D(-0.137548, 0, -0.990495, 0, 1, 0, 0.990495, 0, -0.137548, -17.6436, 0, -5.7933)
+Team = 1
+Speed = 9
 HP = 1000
 
 [node name="Shaders" type="Node3D" parent="."]

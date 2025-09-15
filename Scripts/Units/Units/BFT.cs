@@ -8,6 +8,8 @@ public partial class BFT : Vehicle
     {
         base._Ready();
 
+        this.UnitClass = MyEnums.UnitClass.HeavyVehicle;
+
         Utils.NullExportCheck(SecondaryWeaponSystem);
     }
 }
