@@ -181,7 +181,7 @@ HP = 350
 transform = Transform3D(0.258566, 0, -0.965994, 0, 1, 0, 0.965994, 0, 0.258566, -16.5144, -9.53675e-07, -2.13969)
 Team = 1
 Speed = 7
-HP = 1000
+HP = 350
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
 transform = Transform3D(-0.494609, 0, 0.869115, 0, 1, 0, -0.869115, 0, -0.494609, 12.0093, 2.86102e-06, -0.651239)
@@ -199,13 +199,11 @@ Team = 1
 [node name="Infantry2" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3882, 0, -5.39079)
 Team = 1
-HP = 1000
 
 [node name="AntiInfantry" parent="Units" instance=ExtResource("12_x6ddr")]
 transform = Transform3D(-0.137548, 0, -0.990495, 0, 1, 0, 0.990495, 0, -0.137548, -17.6436, 0, -5.7933)
 Team = 1
 Speed = 9
-HP = 1000
 
 [node name="Shaders" type="Node3D" parent="."]
 

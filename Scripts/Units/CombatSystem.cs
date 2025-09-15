@@ -12,7 +12,7 @@ public partial class CombatSystem : Node
 	[Export] private WeaponSlot _slot = WeaponSlot.Primary;
 
 	[ExportCategory("Behaviour")]
-	[Export] private float _acquireHz = 5f;
+	[Export] private float _acquireHz = 2f;
 	[Export] private float _turnSpeedDeg = 220f;
 
 	[ExportCategory("VFX/SFX (per-weapon)")]
@@ -83,16 +83,6 @@ public partial class CombatSystem : Node
 			_currentTarget = GetBestTargetByPriority();  // <— always re-evaluate
 			_acquireTimer = 1f / Mathf.Max(0.01f, _acquireHz);
 		}
-
-		// _acquireTimer -= (float)delta;
-		// if (_acquireTimer <= 0f)
-		// {
-		// 	// Don't switch targets if the current one is still valid
-		// 	if (_currentTarget == null || !IsTargetValid(_currentTarget))
-		// 		_currentTarget = GetBestTargetByPriority();
-
-		// 	_acquireTimer = 1f / Mathf.Max(0.01f, _acquireHz);
-		// }
 
 		FaceTarget((float)delta);
 		TryAttack(delta);
