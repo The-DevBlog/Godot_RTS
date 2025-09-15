@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bagu21m6v8he7"]
+[gd_scene load_steps=39 format=3 uid="uid://bagu21m6v8he7"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_d03iv"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="2_swxg5"]
@@ -10,8 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="8_4ehh5"]
 [ext_resource type="PackedScene" uid="uid://cbo8dfsqdorde" path="res://Scenes/UI/command_ui.tscn" id="9_xp8sf"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="10_urg4o"]
+[ext_resource type="PackedScene" uid="uid://dli7arg3vprq4" path="res://Scenes/Units/infantry.tscn" id="11_se0gi"]
 [ext_resource type="PackedScene" uid="uid://d1sjwylhlnqhl" path="res://Scenes/Shaders/pixel_shader.tscn" id="12_4m7a2"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="12_se0gi"]
+[ext_resource type="PackedScene" uid="uid://bbsme72x5icrn" path="res://Scenes/Units/anti_infantry.tscn" id="12_x6ddr"]
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="13_1v20a"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_ltfxp"]
 [ext_resource type="PackedScene" uid="uid://cj8d2a8h8r1ig" path="res://Assets/Models/Environment/Structures/House2.glb" id="15_76sjy"]
@@ -178,12 +180,30 @@ HP = 350
 [node name="TankGen5" parent="Units" instance=ExtResource("10_urg4o")]
 transform = Transform3D(0.258566, 0, -0.965994, 0, 1, 0, 0.965994, 0, 0.258566, -16.5144, -9.53675e-07, -2.13969)
 Team = 1
+Speed = 7
 HP = 350
 
 [node name="BFT" parent="Units" instance=ExtResource("12_se0gi")]
 transform = Transform3D(-0.494609, 0, 0.869115, 0, 1, 0, -0.869115, 0, -0.494609, 12.0093, 2.86102e-06, -0.651239)
 Team = 3
 HP = 1000
+
+[node name="Infantry" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9989, 0, 0.334077)
+Team = 1
+
+[node name="Infantry3" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6538, 0, 3.26466)
+Team = 1
+
+[node name="Infantry2" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3882, 0, -5.39079)
+Team = 1
+
+[node name="AntiInfantry" parent="Units" instance=ExtResource("12_x6ddr")]
+transform = Transform3D(-0.137548, 0, -0.990495, 0, 1, 0, 0.990495, 0, -0.137548, -17.6436, 0, -5.7933)
+Team = 1
+Speed = 9
 
 [node name="Shaders" type="Node3D" parent="."]
 
@@ -212,7 +232,7 @@ transform = Transform3D(1.30104, 0, -0.0185313, 0, 1.30117, 0, 0.0185313, 0, 1.3
 transform = Transform3D(-0.00579016, 0, 1.30116, 0, 1.30117, 0, -1.30116, 0, -0.00579016, -13.3208, 1.27174, 8.98217)
 
 [node name="House22" parent="Environment/Structures" instance=ExtResource("15_76sjy")]
-transform = Transform3D(0.0462738, 0, 0.928849, 0, 0.93, 0, -0.928849, 0, 0.0462738, 46.0554, 0.846532, 9.38981)
+transform = Transform3D(-0.0126598, 0, 0.929915, 0, 0.93, 0, -0.929915, 0, -0.0126598, 49.3762, 0.846532, 8.31755)
 
 [node name="House27" parent="Environment/Structures" instance=ExtResource("15_76sjy")]
 transform = Transform3D(-0.0232416, 0, -0.929711, 0, 0.93, 0, 0.929711, 0, -0.0232416, -24.6979, 0.846532, -8.82635)
@@ -221,7 +241,7 @@ transform = Transform3D(-0.0232416, 0, -0.929711, 0, 0.93, 0, 0.929711, 0, -0.02
 transform = Transform3D(-0.000812071, 0, -0.93, 0, 0.93, 0, 0.93, 0, -0.000812071, 17.2158, 0.846532, -10.0487)
 
 [node name="House25" parent="Environment/Structures" instance=ExtResource("15_76sjy")]
-transform = Transform3D(-0.0268759, 0, -0.929612, 0, 0.93, 0, 0.929612, 0, -0.0268759, 40.1286, 0.846532, -9.60977)
+transform = Transform3D(0.0110533, 0, -0.929935, 0, 0.93, 0, 0.929935, 0, 0.0110533, 40.1286, 0.846532, -9.60977)
 
 [node name="House24" parent="Environment/Structures" instance=ExtResource("15_76sjy")]
 transform = Transform3D(0.0123523, 0, 0.929918, 0, 0.93, 0, -0.929918, 0, 0.0123523, 1.72365, 0.846531, 10.1808)
@@ -239,7 +259,7 @@ transform = Transform3D(0.999659, 0, -0.0261246, 0, 1, 0, 0.0261246, 0, 0.999659
 transform = Transform3D(-0.999957, 0, 0.00925009, 0, 1, 0, -0.00925009, 0, -0.999957, 39.4585, 1.14689, -31.962)
 
 [node name="House35" parent="Environment/Structures" instance=ExtResource("22_plipr")]
-transform = Transform3D(-0.0550024, 0, -0.998486, 0, 1, 0, 0.998486, 0, -0.0550024, 54.2283, 1.14689, -9.63929)
+transform = Transform3D(0.00668461, 0, -0.999977, 0, 1, 0, 0.999977, 0, 0.00668461, 54.2283, 1.14689, -9.63929)
 
 [node name="House33" parent="Environment/Structures" instance=ExtResource("22_plipr")]
 transform = Transform3D(-0.999751, 0, 0.0223382, 0, 1, 0, -0.0223382, 0, -0.999751, 36.8716, 1.14689, 14.5788)

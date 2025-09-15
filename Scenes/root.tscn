@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dylxy21qgcxxv"]
+[gd_scene load_steps=33 format=3 uid="uid://dylxy21qgcxxv"]
 
 [ext_resource type="Script" uid="uid://b52yf27rlafp2" path="res://Scripts/Shared/GlobalResources.cs" id="1_a6f85"]
 [ext_resource type="PackedScene" uid="uid://dfwlldgg06bq6" path="res://Scenes/Cameras/game_camera.tscn" id="1_c3mwy"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ykvfrda04tnt" path="res://Scenes/Shared/fps_counter.tscn" id="8_r3lo5"]
 [ext_resource type="PackedScene" uid="uid://dcf8ehewte4xk" path="res://Scenes/Units/BFT.tscn" id="10_qoxdu"]
 [ext_resource type="PackedScene" uid="uid://bsqwqnw4t18r4" path="res://Scenes/Units/tank_gen_2.tscn" id="11_lwnbm"]
+[ext_resource type="PackedScene" uid="uid://dli7arg3vprq4" path="res://Scenes/Units/infantry.tscn" id="12_capts"]
 [ext_resource type="PackedScene" uid="uid://d3fl0iqleq7ij" path="res://Scenes/player.tscn" id="12_lwnbm"]
 [ext_resource type="Script" uid="uid://dalob85c6ixuc" path="res://Scripts/Shared/MouseManager.cs" id="13_lwnbm"]
 [ext_resource type="PackedScene" uid="uid://b43wh2syekxnw" path="res://Assets/Models/Environment/Structures/House.glb" id="14_20eh2"]
@@ -78,12 +79,12 @@ size = Vector3(200, 0.5, 200)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_fu36u"]
 
-[node name="World2" type="Node3D"]
+[node name="World" type="Node3D" node_paths=PackedStringArray("Map")]
 script = ExtResource("1_a6f85")
-MapSize = Vector2(1000, 1000)
+Map = NodePath("NavigationRegion3D/Ground")
 Season = 2
-TimeOfDay = 3
-Weather = 3
+TimeOfDay = 1
+Weather = 4
 
 [node name="Players" type="Node" parent="."]
 
@@ -112,20 +113,19 @@ script = ExtResource("13_lwnbm")
 script = ExtResource("2_lwnbm")
 _navRegion = NodePath("../../NavigationRegion3D")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_snowParticles")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." node_paths=PackedStringArray("_groundMesh", "_rainParticles", "_stormyRainParticles", "_snowParticles")]
 environment = SubResource("Environment_ckhy6")
 script = ExtResource("8_8fnbn")
 _groundMesh = NodePath("../NavigationRegion3D/Ground/MeshInstance3D")
 _rainParticles = NodePath("../GameCamera/RainParticles")
+_stormyRainParticles = NodePath("../GameCamera/StormyRainParticles")
 _snowParticles = NodePath("../GameCamera/SnowParticles")
 _snowMaterialPartial = ExtResource("3_a6f85")
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." node_paths=PackedStringArray("GroundMesh", "GroundCollider")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0719109, -0.25, -0.0582352)
 navigation_mesh = SubResource("NavigationMesh_q101i")
 script = ExtResource("3_dun2r")
-GroundMesh = NodePath("Ground/MeshInstance3D")
-GroundCollider = NodePath("Ground/CollisionShape3D")
 metadata/_edit_group_ = true
 
 [node name="Ground" type="StaticBody3D" parent="NavigationRegion3D" groups=["mapbase"]]
@@ -151,9 +151,6 @@ directional_shadow_max_distance = 70.0
 [node name="GameCamera" parent="." instance=ExtResource("1_c3mwy")]
 RotateSpeed = 200.0
 
-[node name="RainParticles" parent="GameCamera" index="1"]
-visible = false
-
 [node name="CommandUI" parent="." instance=ExtResource("5_4g5cr")]
 
 [node name="Btn" parent="CommandUI/HBoxContainer/RootContainer/VBoxContainer/BuildContainer/VBoxContainer/NinePatchRect/VBoxContainer/StructureCountContainer/ConstructionCountContainer/BtnContainer" index="0"]
@@ -177,6 +174,9 @@ Team = 2
 
 [node name="BFT" parent="Units" instance=ExtResource("10_qoxdu")]
 Team = 1
+
+[node name="Infantry" parent="Units" instance=ExtResource("12_capts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.787, 0, -9.424)
 
 [node name="Shaders" type="Node3D" parent="."]
 

@@ -18,7 +18,6 @@ public partial class LODManager : Node
 	[Export] public NodePath PrimaryMuzzleContainerPath;
 	[Export] public NodePath SecondaryTurretPath;
 	[Export] public NodePath SecondaryMuzzleContainerPath;
-	[Export] public NodePath AnimationPlayerPath;
 
 	[ExportCategory("Metric")]
 	[Export] public bool UseTrue3DDistance = true;
@@ -41,7 +40,6 @@ public partial class LODManager : Node
 	public List<Node3D> PrimaryMuzzles { get; private set; } = new();
 	public Node3D SecondaryTurretYaw { get; private set; }
 	public List<Node3D> SecondaryMuzzles { get; private set; } = new();
-	public AnimationPlayer AnimationPlayer { get; private set; }
 
 	// Events (muzzles are arrays)
 	public event Action<Node3D, IReadOnlyList<Node3D>, AnimationPlayer> SocketsChangedPrimary;
@@ -58,7 +56,7 @@ public partial class LODManager : Node
 	{
 		Utils.NullExportCheck(PrimaryTurretPath);
 		Utils.NullExportCheck(PrimaryMuzzleContainerPath);
-		Utils.NullExportCheck(AnimationPlayerPath);
+		// Utils.NullExportCheck(AnimationPlayerPath);
 
 		_cam = GetViewport().GetCamera3D();
 		_unit = GetNodeOrNull<Unit>("../../");
@@ -162,7 +160,7 @@ public partial class LODManager : Node
 			? CollectMuzzlesFrom(GetNodeOrNull<Node3D>(SecondaryMuzzleContainerPath))
 			: new List<Node3D>();
 
-		AnimationPlayer = GetNodeOrNull<AnimationPlayer>(AnimationPlayerPath);
+		_unit.AnimationPlayer = _unit.GetNodeOrNull<AnimationPlayer>("Model/AnimationPlayer");
 
 		if (DebugSockets)
 		{
@@ -178,7 +176,7 @@ public partial class LODManager : Node
 	private void EmitPrimary()
 	{
 		// pass a clone so listeners can’t be affected by future swaps
-		SocketsChangedPrimary?.Invoke(PrimaryTurretYaw, new List<Node3D>(PrimaryMuzzles), AnimationPlayer);
+		SocketsChangedPrimary?.Invoke(PrimaryTurretYaw, new List<Node3D>(PrimaryMuzzles), _unit.AnimationPlayer);
 	}
 
 	private void EmitSecondary()

@@ -21,12 +21,14 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 	[ExportCategory("Unit Systems")]
 	[Export] public LODManager LODManager;
 	[Export] private HealthSystem _healthSystem;
+
+	public UnitClass UnitClass { get; set; }
+	public AnimationPlayer AnimationPlayer;
 	private Node3D _model;
 	private float _facingWindowDeg = 10f; // start moving when |diff| <= this
 	private float _stopWindowDeg = 18f;   // stop moving when |diff| > this (hysteresis)
 	private bool _meshFacesPlusZ = false; // set false if your mesh faces -Z, eg: travel backwards or forwards
-
-	private bool _moving = false; // hysteresis state
+	private protected bool _moving = false; // hysteresis state
 	public int CurrentHP { get; set; }
 	private float _movementDelta;
 	private Vector3 _targetPosition;
@@ -59,10 +61,10 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 
 		_selectBorder = GetNode<Sprite3D>("SelectBorder");
 		_selectBorder.Visible = false;
-
-		// _model = GetNode<Node3D>("Model");
 		_targetPosition = Vector3.Zero;
 		_cam = GetViewport().GetCamera3D();
+
+		AnimationPlayer = GetNode<AnimationPlayer>("Model/AnimationPlayer");
 
 		if (HP == 0) Utils.PrintErr("No HP Assigned to unit");
 		if (Speed == 0) Utils.PrintErr("No Speed Assigned to unit");
@@ -72,12 +74,15 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		if (Team == 0) Utils.PrintErr("No Team Assigned to unit");
 		if (MiniMapRadius == 0) Utils.PrintErr("No MiniMapRadius Assigned to unit");
 
+		Utils.NullCheck(AnimationPlayer);
 		Utils.NullExportCheck(PrimaryWeaponSystem);
 		Utils.NullExportCheck(_healthSystem);
 		Utils.NullExportCheck(LODManager);
 		Utils.NullExportCheck(Death);
 
 		CurrentHP = HP;
+
+		HeadLights();
 
 		// SetTeamColor(_model, PlayerManager.Instance.HumanPlayer.Color);
 	}
@@ -95,60 +100,79 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_navigationAgent.TargetPosition = worldPos;
 	}
 
+	private protected virtual void MoveAnimation() { }
+
+	private protected virtual void IdleAnimation() { }
+
 	private void MoveUnit(double delta)
 	{
 		if (NavigationServer3D.MapGetIterationId(_navigationAgent.GetNavigationMap()) == 0) return;
-		if (_navigationAgent.IsNavigationFinished()) return;
 
-		// 1) Next waypoint & flat dir
+		// If the path is done, ensure we flip _moving OFF exactly once
+		if (_navigationAgent.IsNavigationFinished())
+		{
+			if (_moving) { _moving = false; IdleAnimation(); } // Stop/idle here
+			if (_navigationAgent.AvoidanceEnabled) _navigationAgent.Velocity = Vector3.Zero;
+			else OnVelocityComputed(Vector3.Zero);
+			return;
+		}
+
 		Vector3 next = _navigationAgent.GetNextPathPosition();
-		Vector3 to = next - GlobalPosition;
-		to.Y = 0f;
-		if (to.LengthSquared() < 0.0001f) return;
+		Vector3 to = next - GlobalPosition; to.Y = 0f;
+		if (to.LengthSquared() < 0.0001f)
+		{
+			if (_moving) { _moving = false; IdleAnimation(); }
+			return;
+		}
 
 		Vector3 desiredDir = to.Normalized();
-
-		// 2) Current & target yaw
-		float currentYaw = Rotation.Y; // node's yaw
+		float currentYaw = Rotation.Y;
 		float targetYaw = Mathf.Atan2(desiredDir.X, desiredDir.Z);
-		if (!_meshFacesPlusZ) targetYaw += Mathf.Pi; // if your model faces -Z
+		if (!_meshFacesPlusZ) targetYaw += Mathf.Pi;
 
 		float maxStep = Mathf.DegToRad(_rotationSpeed) * (float)delta;
 		float windowIn = Mathf.DegToRad(_facingWindowDeg);
-		float windowOut = Mathf.DegToRad(Mathf.Max(_stopWindowDeg, _facingWindowDeg + 0.1f)); // ensure > windowIn
-
-		// Shortest signed delta in (-PI, PI]
+		float windowOut = Mathf.DegToRad(Mathf.Max(_stopWindowDeg, _facingWindowDeg + 0.1f));
 		float diff = Mathf.AngleDifference(currentYaw, targetYaw);
 
-		// 3) Hysteresis state update
-		if (_moving && Mathf.Abs(diff) > windowOut) _moving = false;
-		else if (!_moving && Mathf.Abs(diff) <= windowIn) _moving = true;
+		// ---- Edge detection (play once on transition) ----
+		bool prev = _moving;
+		bool now = _moving;
 
-		// 4) Act on state
+		if (now && Mathf.Abs(diff) > windowOut) now = false;
+		else if (!now && Mathf.Abs(diff) <= windowIn) now = true;
+
+		if (now != prev)
+		{
+			_moving = now;
+			if (now) MoveAnimation();   // fired once on start
+			else IdleAnimation();   // fired once on stop (optional)
+		}
+		else
+		{
+			_moving = now;
+		}
+		// --------------------------------------------------
+
 		if (!_moving)
 		{
-			// Rotate-in-place using short-arc step
 			float step = Mathf.Clamp(diff, -maxStep, maxStep);
-			float newYaw = currentYaw + step;
-			Rotation = new Vector3(0f, newYaw, 0f);
-
+			Rotation = new Vector3(0f, currentYaw + step, 0f);
 			if (_navigationAgent.AvoidanceEnabled) _navigationAgent.Velocity = Vector3.Zero;
 			else OnVelocityComputed(Vector3.Zero);
 			return;
 		}
 		else
 		{
-			// Move forward
 			Vector3 vel = desiredDir * Speed;
 			if (_navigationAgent.AvoidanceEnabled) _navigationAgent.Velocity = vel;
 			else OnVelocityComputed(vel);
 
-			// Keep steering toward target while moving (short-arc)
 			float step = Mathf.Clamp(diff, -maxStep, maxStep);
-			float newYaw = currentYaw + step;
-			Rotation = new Vector3(0f, newYaw, 0f);
+			Rotation = new Vector3(0f, currentYaw + step, 0f);
 		}
 	}
+
 
 	private void OnVelocityComputed(Vector3 safeVelocity)
 	{
@@ -208,5 +232,13 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 			// Recurse
 			SetTeamColor(child, color);
 		}
+	}
+
+	private void HeadLights()
+	{
+		Light3D headlights = GetNodeOrNull<Light3D>("HeadLight");
+
+		if (headlights != null)
+			headlights.Visible = GlobalResources.Instance.TimeOfDay == TimeOfDay.Night;
 	}
 }

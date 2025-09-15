@@ -21,6 +21,14 @@ namespace MyEnums
         Satellite,
     }
 
+    public enum UnitClass
+    {
+        None,
+        Infantry,
+        LightVehicle,
+        HeavyVehicle
+    }
+
     public enum InfantryType
     {
         None,
@@ -108,6 +116,8 @@ namespace MyEnums
         TankGen2LP,
         TankGen2HP,
         BftLP,
-        BftHP
+        BftHP,
+        InfantryLP,
+        InfantryHP
     }
 }

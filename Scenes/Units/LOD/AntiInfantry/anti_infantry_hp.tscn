@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://drsppe75qhqje" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry_HP.glb" id="1_woebo"]
 
 [node name="Model" instance=ExtResource("1_woebo")]
-transform = Transform3D(-0.67, 0, -5.85733e-08, 0, 0.67, 0, 5.85733e-08, 0, -0.67, 0, 0, 0)
+transform = Transform3D(0.67, 0, 0, 0, 0.67, 0, 0, 0, 0.67, 0, 0, 0)
 
 [node name="Bolt_001" parent="Rig/Body_HP" index="0"]
 cast_shadow = 0
@@ -131,32 +131,26 @@ cast_shadow = 0
 [node name="Bolt_042" parent="Rig/Body_HP" index="41"]
 cast_shadow = 0
 
-[node name="Rail" parent="Rig/Body_HP" index="42"]
+[node name="Tire_001" parent="Rig/Body_HP" index="42"]
 cast_shadow = 0
 
-[node name="Rail_001" parent="Rig/Body_HP" index="43"]
+[node name="Tire_009" parent="Rig/Body_HP" index="43"]
 cast_shadow = 0
 
-[node name="Tire_001" parent="Rig/Body_HP" index="44"]
+[node name="Tire_010" parent="Rig/Body_HP" index="44"]
 cast_shadow = 0
 
-[node name="Tire_009" parent="Rig/Body_HP" index="45"]
+[node name="Tire_011" parent="Rig/Body_HP" index="45"]
 cast_shadow = 0
 
-[node name="Tire_010" parent="Rig/Body_HP" index="46"]
+[node name="Tire_012" parent="Rig/Body_HP" index="46"]
 cast_shadow = 0
 
-[node name="Tire_011" parent="Rig/Body_HP" index="47"]
+[node name="Tire_013" parent="Rig/Body_HP" index="47"]
 cast_shadow = 0
 
-[node name="Tire_012" parent="Rig/Body_HP" index="48"]
+[node name="Tire_014" parent="Rig/Body_HP" index="48"]
 cast_shadow = 0
 
-[node name="Tire_013" parent="Rig/Body_HP" index="49"]
-cast_shadow = 0
-
-[node name="Tire_014" parent="Rig/Body_HP" index="50"]
-cast_shadow = 0
-
-[node name="Tire_015" parent="Rig/Body_HP" index="51"]
+[node name="Tire_015" parent="Rig/Body_HP" index="49"]
 cast_shadow = 0

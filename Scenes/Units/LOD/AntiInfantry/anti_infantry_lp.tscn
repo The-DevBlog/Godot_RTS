@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://1dhvkg5val66" path="res://Assets/Models/Units/AntiInfantry/AntiInfantry_LP.glb" id="1_r70fo"]
 
 [node name="Model" instance=ExtResource("1_r70fo")]
-transform = Transform3D(-0.67, 0, -1.01167e-07, 0, 0.67, 0, 1.01167e-07, 0, -0.67, 0, 0, 0)
+transform = Transform3D(0.67, 0, 0, 0, 0.67, 0, 0, 0, 0.67, 0, 0, 0)
 
 [node name="Tire" parent="Rig/Body_LP" index="0"]
 cast_shadow = 0

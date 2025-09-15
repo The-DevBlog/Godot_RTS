@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://wrtccqu5n2tm"]
+
+[ext_resource type="PackedScene" uid="uid://qdh7ujreomkm" path="res://Assets/Models/Units/Infantry/Infantry.glb" id="1_xthu5"]
+
+[node name="Infantry" instance=ExtResource("1_xthu5")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="Human_002" parent="." index="0"]
+transform = Transform3D(6.31855, 0, 0, 0, 6.31855, 0, 0, 0, 6.31855, 0, -3.12529, 0)
+
+[node name="Skeleton3D" parent="Human_002" index="0"]
+bones/0/position = Vector3(0, 1.53513, -0.0551999)
+bones/1/rotation = Quaternion(-0.0500587, 0, 0, 0.998746)
+bones/8/rotation = Quaternion(0.655725, 0.403432, 0.43471, -0.467219)
+bones/9/rotation = Quaternion(-0.271952, 0.704428, -0.435642, 0.489938)
+bones/10/rotation = Quaternion(0.0382078, 0.0365286, -0.0498284, 0.997358)
+bones/13/rotation = Quaternion(0.640319, -0.421643, -0.427893, -0.478661)
+bones/14/rotation = Quaternion(-0.182302, -0.709772, 0.484754, 0.477497)
+bones/15/rotation = Quaternion(-0.0129374, 0.0761531, 0.209684, 0.974713)
+bones/22/rotation = Quaternion(0.984332, 0.0593341, -0.0104308, 0.165716)
+bones/23/rotation = Quaternion(0.0746492, 0.00770515, 0.0417143, 0.996307)
+bones/24/rotation = Quaternion(-0.792726, -0.0155076, 0.0101818, 0.609295)
+bones/25/rotation = Quaternion(0.704771, 0.704772, 0.0574256, -0.0574198)
+bones/27/rotation = Quaternion(0.984193, -0.0593254, 0.0104806, 0.16654)
+bones/28/rotation = Quaternion(0.0769247, -0.00788438, -0.0417092, 0.996133)
+bones/29/rotation = Quaternion(-0.78889, 0.0154444, -0.010287, 0.614254)
+bones/30/rotation = Quaternion(0.704771, -0.704771, -0.0574198, -0.0574255)
