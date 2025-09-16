@@ -3,7 +3,7 @@
 [ext_resource type="Shader" uid="uid://bxtn4xxqms0qy" path="res://Shaders/thunder_shader.res" id="1_nv6d1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6mrl7"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_nv6d1")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_f8hi1"]
