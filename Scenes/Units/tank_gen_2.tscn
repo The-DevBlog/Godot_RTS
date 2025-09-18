@@ -108,6 +108,7 @@ color = Color(2, 1.5, 1, 1)
 alpha_curve = SubResource("CurveTexture_sd0dm")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4avmg"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -117,6 +118,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("10_kavk7")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmto5"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -153,6 +155,7 @@ alpha_curve = SubResource("CurveTexture_4s7kj")
 [sub_resource type="QuadMesh" id="QuadMesh_fvnnt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07m4p"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -196,7 +199,7 @@ alpha_curve = SubResource("CurveTexture_5vagt")
 size = Vector2(0.15, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrrag"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("14_pw7cq")
 shader_parameter/DistanceFade = 0.3
 
@@ -259,9 +262,6 @@ _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("2_smbrw")]
-
-[node name="TurretObject" parent="Model/Rig/Turret/Turret_HP" index="9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Body_HP" parent="Model" index="1"]
 mesh = SubResource("ArrayMesh_xtnyx")

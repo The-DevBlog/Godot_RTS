@@ -253,6 +253,7 @@ streams_count = 1
 stream_0/stream = ExtResource("7_2aiw2")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smbrw"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -284,6 +285,7 @@ color = Color(2, 1.5, 1, 1)
 alpha_curve = SubResource("CurveTexture_y4stx")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4avmg"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -331,6 +333,7 @@ alpha_curve = SubResource("CurveTexture_g1ow1")
 [sub_resource type="QuadMesh" id="QuadMesh_fvnnt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_07m4p"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -374,7 +377,7 @@ alpha_curve = SubResource("CurveTexture_2aiw2")
 size = Vector2(0.15, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrrag"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("13_kwoso")
 shader_parameter/DistanceFade = 0.3
 
@@ -501,7 +504,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_5vagt")
 draw_pass_1 = ExtResource("9_fm6nx")
 
@@ -514,7 +516,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_5vagt")
 draw_pass_1 = ExtResource("11_ewpmt")
 
@@ -526,7 +527,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_gu5w3")
 draw_pass_1 = SubResource("QuadMesh_fvnnt")
 
@@ -540,7 +540,6 @@ lifetime = 0.2
 one_shot = true
 explosiveness = 0.7
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_uh2bm")
 draw_pass_1 = SubResource("QuadMesh_cocvn")
 
@@ -553,7 +552,6 @@ emitting = false
 amount = 12
 one_shot = true
 explosiveness = 0.85
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_4s7kj")
 draw_pass_1 = SubResource("SphereMesh_uqx8m")
 

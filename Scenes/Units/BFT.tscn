@@ -81,6 +81,7 @@ color = Color(2, 1.5, 1, 1)
 alpha_curve = SubResource("CurveTexture_fl6pk")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w5rfh"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -90,6 +91,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("10_5f8ud")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5mem"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -128,6 +130,7 @@ alpha_curve = SubResource("CurveTexture_0t0mp")
 [sub_resource type="QuadMesh" id="QuadMesh_5f8ud"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62a0k"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -250,6 +253,7 @@ color = Color(2, 1.5, 1, 1)
 alpha_curve = SubResource("CurveTexture_5f8ud")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0231x"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -259,6 +263,7 @@ vertex_color_is_srgb = true
 albedo_texture = ExtResource("10_5f8ud")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2ywe"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -297,6 +302,7 @@ alpha_curve = SubResource("CurveTexture_2qrto")
 [sub_resource type="QuadMesh" id="QuadMesh_4eisr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yi07i"]
+render_priority = 1
 transparency = 1
 blend_mode = 1
 cull_mode = 2
@@ -340,7 +346,7 @@ alpha_curve = SubResource("CurveTexture_nknxh")
 size = Vector2(0.15, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bc61a"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("13_oxulr")
 shader_parameter/DistanceFade = 0.3
 
@@ -559,7 +565,6 @@ emitting = false
 amount = 12
 one_shot = true
 explosiveness = 0.85
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_87a0m")
 draw_pass_1 = SubResource("SphereMesh_p8gj8")
 
@@ -581,7 +586,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_oxulr")
 draw_pass_1 = ExtResource("9_qbaht")
 
@@ -594,7 +598,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_oxulr")
 draw_pass_1 = ExtResource("11_62a0k")
 
@@ -606,7 +609,6 @@ amount = 1
 lifetime = 0.1
 one_shot = true
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_p8gj8")
 draw_pass_1 = SubResource("QuadMesh_4eisr")
 
@@ -620,7 +622,6 @@ lifetime = 0.2
 one_shot = true
 explosiveness = 0.7
 randomness = 1.0
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_e6afd")
 draw_pass_1 = SubResource("QuadMesh_45ym0")
 
@@ -633,7 +634,6 @@ emitting = false
 amount = 12
 one_shot = true
 explosiveness = 0.85
-fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_eth2w")
 draw_pass_1 = SubResource("SphereMesh_pqgj0")
 
