@@ -225,32 +225,17 @@ _healthSystem = NodePath("Systems/HealthSystem")
 metadata/_edit_group_ = true
 
 [node name="Model" parent="." instance=ExtResource("18_8tceu")]
-transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, -0.0521452, 0)
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, -0.0521452, 0)
 
-[node name="Skeleton3D" parent="Model/Human_002" index="0"]
-bones/0/position = Vector3(0, 1.53513, -0.0551999)
-bones/1/rotation = Quaternion(0.0451527, 0, 0, 0.99898)
-bones/8/rotation = Quaternion(0.583938, 0.487507, 0.473157, -0.444384)
-bones/9/rotation = Quaternion(-0.133366, 0.542937, -0.594622, 0.577804)
-bones/10/rotation = Quaternion(0.631669, -0.104914, 0.0298505, 0.767526)
-bones/13/rotation = Quaternion(0.700622, -0.337264, -0.387806, -0.494963)
-bones/14/rotation = Quaternion(-0.409146, -0.881994, 0.0645227, 0.224773)
-bones/15/rotation = Quaternion(0.518153, 0.156843, 0.0620637, 0.83849)
-bones/22/rotation = Quaternion(0.996715, 0.0601775, 0.00283227, -0.0541376)
-bones/23/rotation = Quaternion(0.4731, 0.0389492, 0.0372028, 0.879361)
-bones/24/rotation = Quaternion(-0.601416, -0.0122269, 0.0139517, 0.798721)
-bones/25/rotation = Quaternion(0.704771, 0.704772, 0.0574256, -0.0574198)
-bones/27/rotation = Quaternion(0.796963, -0.047836, 0.0366204, 0.601016)
-bones/28/rotation = Quaternion(0.551577, -0.0450589, -0.0353041, 0.832157)
-bones/29/rotation = Quaternion(-0.792726, 0.0155126, -0.0101883, 0.609295)
-bones/30/rotation = Quaternion(0.704771, -0.704771, -0.0574198, -0.0574255)
+[node name="AnimationPlayer" parent="Model" index="2"]
+playback_auto_capture = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 1.02692e-08, 0.893195, -0.00991298)
 shape = SubResource("CylinderShape3D_ebj34")
 
 [node name="SelectBorder" type="Sprite3D" parent="."]
-transform = Transform3D(1.074, 0, 0, 0, 1.074, 0, 0, 0, 1.074, 0, 1.40772, 0)
+transform = Transform3D(0.719, 0, 0, 0, 0.924, 0, 0, 0, 0.609, 0, 1.14778, 0)
 billboard = 1
 no_depth_test = true
 render_priority = 1
@@ -260,7 +245,7 @@ texture = ExtResource("2_mhdsq")
 avoidance_enabled = true
 
 [node name="Healthbar" parent="." instance=ExtResource("4_r0f05")]
-transform = Transform3D(1.01, 0, 0, 0, 1.155, 0, 0, 0, 1.155, 0, 3.15472, 0)
+transform = Transform3D(0.441, 0, 0, 0, 0.505, 0, 0, 0, 0.505, 0, 2.66132, 0)
 
 [node name="Audio" type="Node3D" parent="."]
 

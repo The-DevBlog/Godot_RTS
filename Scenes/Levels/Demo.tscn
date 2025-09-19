@@ -189,15 +189,15 @@ Team = 3
 HP = 1000
 
 [node name="Infantry" parent="Units" instance=ExtResource("11_se0gi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9989, 0, 0.334077)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.0707, 0, 2.3661)
 Team = 1
 
 [node name="Infantry3" parent="Units" instance=ExtResource("11_se0gi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6538, 0, 3.26466)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.7256, 0, 5.29668)
 Team = 1
 
 [node name="Infantry2" parent="Units" instance=ExtResource("11_se0gi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3882, 0, -5.39079)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.46, 0, -3.35877)
 Team = 1
 
 [node name="AntiInfantry" parent="Units" instance=ExtResource("12_x6ddr")]
