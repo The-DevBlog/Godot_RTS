@@ -179,5 +179,5 @@ bones/219/position = Vector3(-1.1819e-08, 1.93261e-08, -1.66511e-09)
 bones/220/position = Vector3(1.03388, 1.43728, -2.17868)
 bones/220/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
 
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="1"]
 speed_scale = 0.65
