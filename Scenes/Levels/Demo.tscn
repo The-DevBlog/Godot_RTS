@@ -89,8 +89,8 @@ size = Vector3(1000, 0.5, 1000)
 script = ExtResource("1_d03iv")
 Map = NodePath("NavigationRegion3D/Ground")
 Season = 2
-TimeOfDay = 2
-Weather = 2
+TimeOfDay = 3
+Weather = 4
 
 [node name="Players" type="Node" parent="."]
 
