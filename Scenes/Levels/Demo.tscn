@@ -89,8 +89,8 @@ size = Vector3(1000, 0.5, 1000)
 script = ExtResource("1_d03iv")
 Map = NodePath("NavigationRegion3D/Ground")
 Season = 2
-TimeOfDay = 2
-Weather = 2
+TimeOfDay = 3
+Weather = 4
 
 [node name="Players" type="Node" parent="."]
 
@@ -198,6 +198,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.1139, 9.53674e-07, 7.0237
 
 [node name="Infantry2" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.1139, 9.53674e-07, 12.1662)
+
+[node name="Infantry5" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51.9359, 9.53674e-07, 10.0376)
+
+[node name="Infantry6" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55.8033, 9.53674e-07, 9.24742)
+
+[node name="Infantry7" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5169, 9.53674e-07, 9.79613)
+
+[node name="Infantry8" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.5169, 9.53674e-07, 5.79613)
+
+[node name="Infantry9" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.2835, 9.53674e-07, 4.48564)
+
+[node name="Infantry10" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.3921, 9.53674e-07, 1.62246)
+
+[node name="Infantry11" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.3921, 9.53674e-07, 11.6225)
+
+[node name="Infantry12" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -58.4771, 9.53674e-07, 7.9877)
 
 [node name="Infantry3" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.9866, 9.53674e-07, 12.1662)
