@@ -25,13 +25,13 @@ vec2 getDepth(vec2 screen_uv, sampler2D depth_texture, mat4 inv_projection_matri
 void fragment() {
 	vec2 depth_data = getDepth(SCREEN_UV, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
 	float depth = depth_data.x;
-	
+
 	// Calculate depth-based scaling factor
 	// Closer objects (smaller depth) get thicker outlines
 	float distance_factor = depth_scale / max(depth, 0.1);
 	// Clamp between min and max thickness
 	distance_factor = clamp(distance_factor, min_thickness, max_thickness);
-	
+
 	// Base pixel offset with base thickness multiplier
 	vec2 e = vec2(1.0/VIEWPORT_SIZE.xy) * base_thickness * distance_factor;
 

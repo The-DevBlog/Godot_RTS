@@ -89,8 +89,8 @@ size = Vector3(1000, 0.5, 1000)
 script = ExtResource("1_d03iv")
 Map = NodePath("NavigationRegion3D/Ground")
 Season = 2
-TimeOfDay = 3
-Weather = 4
+TimeOfDay = 2
+Weather = 2
 
 [node name="Players" type="Node" parent="."]
 
@@ -195,6 +195,15 @@ Speed = 9
 
 [node name="Infantry" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.1139, 9.53674e-07, 7.02372)
+
+[node name="Infantry2" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.1139, 9.53674e-07, 12.1662)
+
+[node name="Infantry3" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.9866, 9.53674e-07, 12.1662)
+
+[node name="Infantry4" parent="Units" instance=ExtResource("11_se0gi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.9866, 9.53674e-07, 6.92972)
 
 [node name="Shaders" type="Node3D" parent="."]
 
