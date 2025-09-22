@@ -34,6 +34,7 @@
 - RootContainer.cs holds a lot of logic for multiple things. Maybe divy it out?
 
 # Bugs
+- If you drag select, but you release the mouse btn while its hovering over an unselected unit, the drag select will not work, but will single select the unit you are hovering over
 - The upgrade icon on the ugprade button is a tad too large
 - I cant get the 'energy' label txt to turn red when consumed energy > energy
 - Scaling issues at 2560x1440 and up
