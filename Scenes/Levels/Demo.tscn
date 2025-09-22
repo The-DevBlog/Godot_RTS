@@ -195,63 +195,83 @@ Speed = 9
 
 [node name="Infantry" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -53.1597, 9.53674e-07, 11.161)
+Team = 2
 
 [node name="Infantry2" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -51.9733, 9.53674e-07, 6.15725)
+Team = 2
 
 [node name="Infantry5" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -50.6915, 9.53674e-07, 8.64876)
+Team = 2
 
 [node name="Infantry6" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -47.1108, 9.53674e-07, 10.3099)
+Team = 2
 
 [node name="Infantry7" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -55.0471, 9.53674e-07, 7.86417)
+Team = 2
 
 [node name="Infantry14" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -54.5464, -3.41061e-13, 3.8235)
+Team = 2
 
 [node name="Infantry8" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -57.916, 9.53674e-07, 11.2948)
+Team = 2
 
 [node name="Infantry15" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -58.7308, 9.53674e-07, 7.67146)
+Team = 2
 
 [node name="Infantry16" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -58.0344, 9.53674e-07, 4.73122)
+Team = 2
 
 [node name="Infantry9" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -46.7691, 9.53674e-07, 15.2847)
+Team = 2
 
 [node name="Infantry10" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -52.1891, 9.53674e-07, 16.9421)
+Team = 2
 
 [node name="Infantry17" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -53.5169, 9.53674e-07, 14.5322)
+Team = 2
 
 [node name="Infantry18" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -55.5147, 9.53674e-07, 12.4097)
+Team = 2
 
 [node name="Infantry19" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -49.6502, 9.53674e-07, 14.9879)
+Team = 2
 
 [node name="Infantry20" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -56.8424, 9.53674e-07, 9.59551)
+Team = 2
 
 [node name="Infantry11" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -44.0438, 9.53674e-07, 8.59616)
+Team = 2
 
 [node name="Infantry12" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -44.7997, 9.53674e-07, 12.1525)
+Team = 2
 
 [node name="Infantry3" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -48.205, 9.53674e-07, 7.05074)
+Team = 2
 
 [node name="Infantry13" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -49.6888, 9.53674e-07, 4.4926)
+Team = 2
 
 [node name="Infantry4" parent="Units" instance=ExtResource("11_se0gi")]
 transform = Transform3D(-0.973022, 0, 0.230712, 0, 1, 0, -0.230712, 0, -0.973022, -49.4131, 9.53674e-07, 12.1459)
+Team = 2
 
 [node name="Shaders" type="Node3D" parent="."]
 

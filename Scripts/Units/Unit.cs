@@ -100,6 +100,8 @@ public partial class Unit : CharacterBody3D, ICostProvider, IDamageable
 		_navigationAgent.TargetPosition = worldPos;
 	}
 
+	public virtual void ShootAnimation() { }
+
 	private protected virtual void MoveAnimation() { }
 
 	private protected virtual void IdleAnimation() { }

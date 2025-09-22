@@ -146,6 +146,8 @@ public partial class CombatSystem : Node
 		else
 			SpawnProjectileFrom(muzzleNode, projectile as Projectile);
 
+		_unit.ShootAnimation();
+
 		// audio
 		_attackSound.GlobalTransform = muzzleNode.GlobalTransform;
 		_attackSound.Play();
@@ -318,32 +320,6 @@ public partial class CombatSystem : Node
 
 		return best;
 	}
-
-	// private Unit GetNearestEnemyInRange()
-	// {
-	// 	if (_unit == null)
-	// 		return null;
-
-	// 	Vector3 myPos = _unit.GlobalPosition;
-	// 	int myTeam = _unit.Team;
-	// 	float rangeSq = _range * _range;
-
-	// 	float bestDistSq = float.MaxValue;
-	// 	Unit best = null;
-
-	// 	foreach (Node n in GetTree().GetNodesInGroup(MyEnums.Group.units.ToString()))
-	// 	{
-	// 		if (n == _unit || n == null) continue;
-	// 		if (n is not Unit other) continue;
-	// 		if (other.CurrentHP <= 0) continue;
-	// 		if (other.Team == myTeam) continue;
-
-	// 		Vector3 d = other.GlobalPosition - myPos; d.Y = 0;
-	// 		float dsq = d.LengthSquared();
-	// 		if (dsq <= rangeSq && dsq < bestDistSq) { bestDistSq = dsq; best = other; }
-	// 	}
-	// 	return best;
-	// }
 
 	private bool IsTargetValid(Unit t)
 	{

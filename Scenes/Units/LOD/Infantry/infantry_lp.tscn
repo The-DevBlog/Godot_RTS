@@ -167,5 +167,8 @@ transform = Transform3D(0.932106, 0.142934, -0.149587, -0.15699, 0.938246, -0.08
 [node name="Rifle" parent="rig/Skeleton3D" index="3"]
 transform = Transform3D(0.988927, -0.0110087, -0.0377513, -0.0142442, 1.01599, -0.00341016, -0.0326471, -5.80959e-05, 0.999667, 0.0349154, -0.0718503, -0.0181035)
 
+[node name="Muzzle" type="Node3D" parent="rig/Skeleton3D/Rifle/Rifle" index="0"]
+transform = Transform3D(1, 2.1555e-10, 0, 5.82077e-09, 1, 0, 0, 1.20053e-10, 1, 0.597569, 2.10897, 0.736186)
+
 [node name="AnimationPlayer" parent="." index="1"]
 speed_scale = 0.65
